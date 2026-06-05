@@ -1,23 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useInView, stagger, staggerDelay } from '../../components/shared/useInView';
+
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SEOHead from '../../components/shared/SEOHead';
 import PublicNav from '../../components/layout/PublicNav';
 import PublicFooter from '../../components/layout/PublicFooter';
 import { ArrowRight, CheckCircle, HelpCircle, ChevronDown } from 'lucide-react';
-
-function useInView(threshold = 0.1) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } }, { threshold });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return [ref, visible];
-}
 
 function FaqItem({ question, answer }) {
   const [open, setOpen] = useState(false);

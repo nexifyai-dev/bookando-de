@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useInView, stagger, staggerDelay } from '../../components/shared/useInView';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SEOHead from '../../components/shared/SEOHead';
@@ -12,24 +13,6 @@ import {
   MousePointerClick, Link2, CreditCard, Lock, Share2
 } from 'lucide-react';
 
-function useInView(threshold = 0.1) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } }, { threshold });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return [ref, visible];
-}
-
-const stagger = (visible, idx) =>
-  visible
-    ? 'translate-y-0 opacity-100 transition-all duration-700 ease-out'
-    : 'translate-y-8 opacity-0 transition-all duration-700 ease-out';
-const staggerDelay = (idx) => ({ transitionDelay: `${idx * 100}ms` });
 
 const featureCategories = [
   {

@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useInView, stagger, staggerDelay } from '../../components/shared/useInView';
+
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SEOHead from '../../components/shared/SEOHead';
@@ -13,19 +15,6 @@ import {
 /* ───────────────────────────────────────────────
    HOOKS
    ─────────────────────────────────────────────── */
-function useInView(threshold = 0.1) {
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } }, { threshold });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return [ref, visible];
-}
-
 function AnimatedCounter({ end, suffix = '', duration = 2000 }) {
   const [count, setCount] = useState(0);
   const [ref, visible] = useInView(0.3);
@@ -43,12 +32,6 @@ function AnimatedCounter({ end, suffix = '', duration = 2000 }) {
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
-const stagger = (visible, idx, delay = 120) =>
-  visible
-    ? 'translate-y-0 opacity-100 transition-all duration-700 ease-out'
-    : 'translate-y-6 opacity-0 transition-all duration-700 ease-out';
-
-const staggerDelay = (idx, delay = 120) => ({ transitionDelay: `${idx * delay}ms` });
 
 export default function HomePage() {
   const { t } = useTranslation();
