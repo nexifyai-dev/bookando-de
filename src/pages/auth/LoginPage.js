@@ -163,9 +163,9 @@ export default function LoginPage() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => { setStep('credentials'); setTotp(''); setError(''); }} className="cursor-pointer"
+                    onClick={() => { setStep('credentials'); setTotp(''); setError(''); }}
                     data-testid="login-totp-back"
-                    className="w-full text-xs text-[var(--color-text-tertiary)] hover:text-[var(--color-primary)] flex items-center justify-center gap-1"
+                    className="w-full text-xs text-[var(--color-text-tertiary)] hover:text-[var(--color-primary)] flex items-center justify-center gap-1 cursor-pointer"
                   >
                     <ArrowLeft size={12} /> {t('common.back')}
                   </button>
