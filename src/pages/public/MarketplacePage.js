@@ -350,7 +350,7 @@ export default function MarketplacePage() {
                 gap: '24px',
               }}>
                 {filteredVendors.map((vendor) => {
-                  const description = i18n.language === 'de' ? vendor.descriptionDe : vendor.descriptionEn;
+                  const description = vendor.descriptionDe || vendor.description_en || vendor.descriptionEn || vendor.description || '';
                   const avatarColor = getAvatarColor(vendor.name);
                   const initials = getInitials(vendor.name);
 
@@ -442,9 +442,11 @@ export default function MarketplacePage() {
                           <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--color-text-primary)' }}>
                             {vendor.rating.toFixed(1)}
                           </span>
-                          <span style={{ fontSize: '0.7rem', color: 'var(--color-text-tertiary)' }}>
-                            ({vendor.reviewCount})
-                          </span>
+                          {vendor.reviewCount != null && (
+                            <span style={{ fontSize: '0.7rem', color: 'var(--color-text-tertiary)' }}>
+                              ({vendor.reviewCount})
+                            </span>
+                          )}
                         </div>
 
                         {/* Description */}
@@ -462,7 +464,7 @@ export default function MarketplacePage() {
 
                         {/* Services Tags */}
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '18px' }}>
-                          {vendor.services.map((service, idx) => (
+                          {(vendor.services || vendor.service_names || []).map((service, idx) => (
                             <span
                               key={idx}
                               style={{
