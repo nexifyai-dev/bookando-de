@@ -5,7 +5,7 @@ import de from './locales/de/translation.json';
 import en from './locales/en/translation.json';
 
 /**
- * i18n-Konfiguration für Nanobooking 2.1
+ * i18n-Konfiguration für Bookando 2.1
  *
  * Sprach-Strategie (per Pflichtenheft):
  *   1. Wenn der User eine Sprache via LanguageSwitcher gewählt hat → localStorage

@@ -47,7 +47,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">{t('contact.email', 'E-Mail')}</h3>
-                  <p className="text-sm text-[var(--color-text-secondary)] mt-1">info@affilinet-aachen.de</p>
+                  <p className="text-sm text-[var(--color-text-secondary)] mt-1">info@bookando.de</p>
                 </div>
               </div>
             </div>

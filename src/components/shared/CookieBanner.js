@@ -247,7 +247,7 @@ export default function CookieBanner() {
 
         <div className="px-5 pb-4 border-t border-[var(--color-divider-subtle)] pt-3 flex items-center justify-between">
           <a href="/privacy" className="text-xs text-primary hover:underline">{t.privacy_link}</a>
-          <p className="text-[10px] text-[var(--color-text-tertiary)]">Design Template</p>
+          <p className="text-[10px] text-[var(--color-text-tertiary)]">Bookando</p>
         </div>
       </div>
     </div>

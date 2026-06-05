@@ -1,6 +1,6 @@
 {
   "brand": {
-    "name": "Nanobooking",
+    "name": "Bookando",
     "tagline": "Buchungs- & Sales-Plattform"
   },
   "common": {
@@ -241,7 +241,7 @@
     "domain_verified": "Verifiziert",
     "domain_pending": "Ausstehend",
     "domain_dns_title": "DNS-Konfiguration",
-    "domain_dns_hint": "Setze einen CNAME-Eintrag deiner Domain auf nanobooking.de. Die Verifizierung erfolgt anschließend durch unseren Support.",
+    "domain_dns_hint": "Setze einen CNAME-Eintrag deiner Domain auf bookando.de. Die Verifizierung erfolgt anschließend durch unseren Support.",
     "confirm_remove_domain": "Diese Domain wirklich entfernen?",
 
     "current_plan": "Aktueller Tarif",
@@ -287,7 +287,7 @@
   },
   "home": {
     "hero_badge": "Affiliate & Booking Plattform",
-    "hero_title": "Affilinet Portal",
+    "hero_title": "Bookando",
     "hero_title_accent": "Aachen",
     "hero_subtitle": "Deine zentrale Buchungs- & Affiliate-Plattform für Aachen. Vernetze dich mit lokalen Anbietern, buche Services und verdiene mit deinem Netzwerk.",
     "hero_cta_primary": "Kostenlos starten",
@@ -323,7 +323,7 @@
     "cta_desc": "Starte jetzt dein eigenes Buchungsportal in Aachen. Keine versteckten Kosten, keine langfristigen Verträge.",
     "cta_primary": "Kostenloses Konto erstellen",
     "cta_secondary": "Zum Affiliate-Programm",
-    "footer_tagline": "Die führende Buchungs- & Affiliate-Plattform für Aachen. Basierend auf Nanobooking Technologie."
+    "footer_tagline": "Die führende Buchungs- & Affiliate-Plattform für Aachen. Basierend auf Bookando Technologie."
   },
   "placeholders": {
     "coming_soon": "In Kürze verfügbar",

@@ -65,7 +65,7 @@ export default function RegisterPage() {
               <span className="font-bold text-xs tracking-wider">AP</span>
             </div>
             <span className="font-heading font-bold text-[var(--color-primary)] text-base tracking-tight">
-              Affilinet Aachen
+              Bookando
             </span>
           </Link>
           <LanguageSwitcher tone="light" />
@@ -234,9 +234,9 @@ export default function RegisterPage() {
           <div className="w-20 h-20 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center mb-8 shadow-xl border border-white/10">
             <Briefcase size={40} className="text-white" />
           </div>
-          <h2 className="text-3xl font-bold text-white mb-4 font-heading">Affilinet Portal Aachen</h2>
+          <h2 className="text-3xl font-bold text-white mb-4 font-heading">Bookando</h2>
           <p className="text-white/70 text-base max-w-md leading-relaxed">
-            Treten Sie bei und werden Sie Teil des Affilinet Portal Aachen. Wählen Sie Ihre Rolle — als Kunde oder Anbieter — und starten Sie noch heute.
+            Treten Sie bei und werden Sie Teil des Bookando. Wählen Sie Ihre Rolle — als Kunde oder Anbieter — und starten Sie noch heute.
           </p>
           <div className="mt-10 flex items-center gap-4">
             <div className="flex items-center gap-2 text-white/60 text-sm">

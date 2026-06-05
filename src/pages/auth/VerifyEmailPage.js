@@ -15,7 +15,7 @@ export default function VerifyEmailPage() {
           <div className="w-10 h-10 bg-[var(--color-primary)] flex items-center justify-center rounded-[var(--radius-md)]">
             <Briefcase size={20} className="text-white" />
           </div>
-          <span className="text-lg font-bold font-[var(--font-heading)] tracking-tight text-[var(--color-primary)]">Affilinet Aachen</span>
+          <span className="text-lg font-bold font-[var(--font-heading)] tracking-tight text-[var(--color-primary)]">Bookando</span>
         </Link>
 
         <div className="bg-[var(--color-surface)] border border-[var(--color-divider)] rounded-[var(--radius-lg)] p-8 shadow-[var(--shadow-e2)]">

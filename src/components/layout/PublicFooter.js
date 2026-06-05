@@ -20,7 +20,7 @@ import { Mail, MapPin, Phone, ArrowRight, Shield, Briefcase } from 'lucide-react
  *   dataTestId     – Test-ID Prefix
  */
 export default function PublicFooter({
-  brandName = 'Affilinet Portal Aachen',
+  brandName = 'Bookando',
   brandIcon: BrandIcon = Briefcase,
   description = 'footer.copyright',
   columns = [
@@ -51,7 +51,7 @@ export default function PublicFooter({
   contactInfo = {
     address: 'Adalbertsteinweg 1, 52070 Aachen',
     phone: '+49 241 123 456 789',
-    email: 'hallo@affilinet-portal-aachen.de',
+    email: 'hallo@bookando.de',
   },
   socialLinks,
   cta = { labelKey: 'hero.cta_primary', href: '/auth/register' },

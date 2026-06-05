@@ -91,7 +91,7 @@ export default function HomePage() {
   return (
     <div className="overflow-hidden">
       <PublicNav
-        logoText="Affilinet Portal Aachen"
+        logoText="Bookando"
         primaryCta={{ labelKey: 'home.hero_cta_primary', href: '/auth/register' }}
         secondaryCta={{ labelKey: 'nav.login', href: '/auth/login' }}
         navItems={[
@@ -748,7 +748,7 @@ export default function HomePage() {
       </section>
 
       <PublicFooter
-        brandName="Affilinet Portal Aachen"
+        brandName="Bookando"
         description={t('home.footer_tagline')}
         cta={{ labelKey: 'home.hero_cta_primary', href: '/auth/register' }}
       />

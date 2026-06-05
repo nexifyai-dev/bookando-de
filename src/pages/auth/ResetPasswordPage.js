@@ -16,7 +16,7 @@ export default function ResetPasswordPage() {
             <div className="w-10 h-10 bg-[var(--color-primary)] flex items-center justify-center rounded-[var(--radius-md)]">
               <Briefcase size={20} className="text-white" />
             </div>
-            <span className="text-lg font-bold font-[var(--font-heading)] tracking-tight text-[var(--color-primary)]">Affilinet Aachen</span>
+            <span className="text-lg font-bold font-[var(--font-heading)] tracking-tight text-[var(--color-primary)]">Bookando</span>
           </Link>
 
           <div className="bg-[var(--color-surface)] border border-[var(--color-divider)] rounded-[var(--radius-lg)] p-8 shadow-[var(--shadow-e2)]">
@@ -64,7 +64,7 @@ export default function ResetPasswordPage() {
         <div className="absolute inset-0" style={{ background: 'radial-gradient(1200px circle at 20% 10%, rgba(13,148,136,0.9), transparent 55%), radial-gradient(900px circle at 80% 30%, rgba(26,69,112,0.10), transparent 60%)' }} />
         <div className="relative z-10 flex flex-col items-center justify-center h-full p-12 text-center">
           <Briefcase size={48} className="text-white/20 mb-6" />
-          <h2 className="text-2xl font-bold text-white mb-3 font-[var(--font-heading)]">{t('brand.name', 'Nanobooking')}</h2>
+          <h2 className="text-2xl font-bold text-white mb-3 font-[var(--font-heading)]">{t('brand.name', 'Bookando')}</h2>
           <p className="text-white/50 text-sm max-w-xs">{t('brand.tagline', 'Buchungs- & Sales-Plattform')}</p>
         </div>
       </div>

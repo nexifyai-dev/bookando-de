@@ -1,8 +1,8 @@
 {
-  "name": "affilinet-portal-aachen",
+  "name": "bookando-de",
   "version": "1.0.0",
   "private": true,
-  "description": "Affilinet Portal Aachen — Buchungs- & Affiliate-Plattform basierend auf Nanobooking",
+  "description": "Bookando — Buchungs- & Affiliate-Plattform",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

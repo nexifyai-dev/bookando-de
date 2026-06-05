@@ -9,8 +9,8 @@ const LEGAL_CONTENT = {
     title: 'Impressum',
     content: `
       <h2>Angaben gemäß § 5 TMG</h2>
-      <p><strong>Affilinet Portal Aachen</strong><br/>
-      c/o Nanobooking GmbH<br/>
+      <p><strong>Bookando</strong><br/>
+      c/o Bookando GmbH<br/>
       Theaterstraße 24<br/>
       52062 Aachen</p>
 
@@ -19,7 +19,7 @@ const LEGAL_CONTENT = {
 
       <h2>Kontakt</h2>
       <p>Telefon: +49 241 990 322 92<br/>
-      E-Mail: info@affilinet-aachen.de</p>
+      E-Mail: info@bookando.de</p>
 
       <h2>Registereintrag</h2>
       <p>Amtsgericht Aachen, HRB 23610</p>
@@ -45,7 +45,7 @@ const LEGAL_CONTENT = {
     title: 'Allgemeine Geschäftsbedingungen',
     content: `
       <h2>§1 Geltungsbereich</h2>
-      <p>Diese Allgemeinen Geschäftsbedingungen gelten für alle Verträge zwischen der Affilinet Portal Aachen / Nanobooking GmbH und den Nutzern dieser Plattform.</p>
+      <p>Diese Allgemeinen Geschäftsbedingungen gelten für alle Verträge zwischen der Bookando / Bookando GmbH und den Nutzern dieser Plattform.</p>
 
       <h2>§2 Leistungsbeschreibung</h2>
       <p>Die Plattform vermittelt Buchungen zwischen Kunden und Dienstleistern. Die Verträge kommen direkt zwischen Kunde und Dienstleister zustande.</p>

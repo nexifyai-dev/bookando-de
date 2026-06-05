@@ -1,5 +1,5 @@
 /**
- * Axios-Client für Nanobooking-Portal.
+ * Axios-Client für Bookando-Portal.
  * - Bearer-Token-Auth (Tokens in localStorage)
  * - Automatischer 401-Refresh mit Refresh-Token-Rotation
  * - Bei Refresh-Fehler: Tokens entfernt + Redirect zu /auth/login

@@ -16,7 +16,7 @@ export default function ForgotPasswordPage() {
               <Briefcase size={20} className="text-white" />
             </div>
             <span className="text-lg font-bold font-[var(--font-heading)] tracking-tight text-[var(--color-primary)]">
-              Affilinet Aachen
+              Bookando
             </span>
           </Link>
 
@@ -65,7 +65,7 @@ export default function ForgotPasswordPage() {
         <div className="relative z-10 flex flex-col items-center justify-center h-full p-12 text-center">
           <Briefcase size={48} className="text-white/20 mb-6" />
           <h2 className="text-2xl font-bold text-white mb-3 font-[var(--font-heading)]">
-            {t('brand.name', 'Nanobooking')}
+            {t('brand.name', 'Bookando')}
           </h2>
           <p className="text-white/50 text-sm max-w-xs">
             {t('brand.tagline', 'Buchungs- & Sales-Plattform')}

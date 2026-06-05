@@ -25,7 +25,7 @@ export default function PublicNav({
     { href: '/contact', labelKey: 'nav.contact' },
   ],
   logoUrl,
-  logoText = 'Affilinet Aachen',
+  logoText = 'Bookando',
   logoHref = '/',
   primaryCta = { labelKey: 'nav.register', href: '/auth/register' },
   secondaryCta = { labelKey: 'nav.login', href: '/auth/login' },
