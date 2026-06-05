@@ -151,19 +151,28 @@ export default function HomePage() {
             {/* Rechte Spalte – Aachener Dom Visual */}
             <div className={`hidden lg:flex lg:col-span-5 items-center justify-center ${stagger(heroVis, 1)}`} style={staggerDelay(1)}>
               <div className="relative w-full max-w-[400px]">
-                {/* Cathedral Image Container */}
-                <div className="relative rounded-[16px] overflow-hidden"
+                {/* Hero Image – farblich ans Bookando-Design angepasst */}
+                <div className="relative rounded-[16px] overflow-hidden group"
                   style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
-                  <img
-                    src="/images/bookando-hero.jpg"
-                    alt="Bookando – Moderne Buchungs- und Vertriebsplattform für Dienstleister"
-                    className="w-full h-auto block"
-                    style={{ aspectRatio: '4/5', objectFit: 'cover' }}
-                    loading="eager" referrerpolicy="no-referrer"
-                  />
-                  {/* Overlay mit Stadtnamed */}
-                  <div className="absolute bottom-0 left-0 right-0 p-5"
-                    style={{ background: 'linear-gradient(transparent, rgba(10,32,54,0.9))' }}>
+                  {/* Bild mit Farb-Filter */}
+                  <div className="relative">
+                    <img
+                      src="/images/bookando-hero.jpg"
+                      alt="Aachen – UNESCO Welterbe, Aachener Dom"
+                      className="w-full h-auto block transition-all duration-700"
+                      style={{ aspectRatio: '4/5', objectFit: 'cover', filter: 'brightness(0.85) saturate(0.7) sepia(0.15)' }}
+                      loading="eager" referrerpolicy="no-referrer"
+                    />
+                    {/* Farb-Overlay – Bookando Blau/Gold */}
+                    <div className="absolute inset-0 pointer-events-none mix-blend-soft-light"
+                      style={{ background: 'linear-gradient(180deg, rgba(10,32,54,0.6) 0%, rgba(26,69,112,0.3) 50%, rgba(196,155,62,0.15) 100%)' }} />
+                    {/* Subtiler Vignette-Effekt */}
+                    <div className="absolute inset-0 pointer-events-none"
+                      style={{ background: 'radial-gradient(ellipse at center, transparent 50%, rgba(10,32,54,0.4) 100%)' }} />
+                  </div>
+                  {/* Gradient Overlay unten */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5 pointer-events-none"
+                    style={{ background: 'linear-gradient(transparent, rgba(10,32,54,0.95))' }}>
                     <p className="text-white text-sm font-semibold" style={{ fontFamily: 'var(--font-heading)' }}>Aachen</p>
                     <p className="text-white/50 text-[11px]">UNESCO Welterbe – Aachener Dom</p>
                   </div>
