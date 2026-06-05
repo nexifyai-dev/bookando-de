@@ -197,5 +197,10 @@
     "action_analytics": "Analytics & Reports",
     "action_wallet": "Wallet & Payouts",
     "action_affiliates": "Affiliate Partners"
+  },
+  "auth": {
+    "verify_desc": "Your email address is being verified...",
+    "verify_please_wait": "Please be patient while we confirm your email address.",
+    "verify_redirect": "will be automatically redirected"
   }
 }

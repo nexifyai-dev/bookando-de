@@ -18,7 +18,7 @@ function KpiCard({ icon: Icon, value, label, trend }) {
           <p className="text-[22px] font-extrabold leading-none" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>{value}</p>
         </div>
       </div>
-      <p className="text-[11px]" style={{ color: '#4ADE80' }}>{trend}</p>
+      <p className="text-[11px]" style={{ color: 'var(--color-success)' }}>{trend}</p>
     </div>
   );
 }
@@ -26,8 +26,8 @@ function KpiCard({ icon: Icon, value, label, trend }) {
 function BookingRow({ date, customer, service, status, amount }) {
   const statusColors = {
     confirmed: { bg: 'rgba(196,155,62,0.12)', text: 'var(--color-accent)' },
-    pending: { bg: 'rgba(74,144,201,0.12)', text: '#4A90C9' },
-    completed: { bg: 'rgba(74,222,128,0.12)', text: '#4ADE80' },
+    pending: { bg: 'rgba(74,144,201,0.12)', text: 'var(--color-primary-light)' },
+    completed: { bg: 'rgba(74,222,128,0.12)', text: 'var(--color-success)' },
     cancelled: { bg: 'rgba(239,68,68,0.12)', text: '#EF4444' },
   };
   const sc = statusColors[status] || statusColors.pending;
