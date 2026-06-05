@@ -108,7 +108,7 @@ export default function PricingPage() {
           </div>
 
           {/* Free Trial Hinweis */}
-          <div className="text-center mt-10 p-6 rounded-[10px] max-w-[480px] mx-auto"
+          <div className="text-center mt-10 p-6 rounded-[12px] max-w-[480px] mx-auto"
             style={{ background: 'rgba(196,155,62,0.06)', border: '1px solid rgba(196,155,62,0.15)' }}>
             <p className="text-[14px] font-semibold" style={{ color: 'var(--color-accent)' }}>{t('pricing.free_title')}</p>
             <p className="text-[13px] text-[var(--color-text-secondary)] mt-1">{t('pricing.free_desc')}</p>
@@ -122,7 +122,7 @@ export default function PricingPage() {
                 { title: t('pricing.fee_own_title'), pct: t('pricing.fee_own_pct'), desc: t('pricing.fee_own_desc') },
                 { title: t('pricing.fee_platform_title'), pct: t('pricing.fee_platform_pct'), desc: t('pricing.fee_platform_desc') },
               ].map((fee, fi) => (
-                <div key={fi} className="p-5 border rounded-[10px] text-center" style={{ borderColor: 'var(--color-divider)' }}>
+                <div key={fi} className="p-5 border rounded-[12px] text-center" style={{ borderColor: 'var(--color-divider)' }}>
                   <p className="text-[24px] font-extrabold" style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-heading)' }}>{fee.pct}</p>
                   <p className="text-[12px] font-semibold mt-1" style={{ color: 'var(--color-primary)' }}>{fee.title}</p>
                   <p className="text-[12px] text-[var(--color-text-tertiary)] mt-1">{fee.desc}</p>

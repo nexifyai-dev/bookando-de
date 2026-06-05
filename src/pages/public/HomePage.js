@@ -187,7 +187,7 @@ export default function HomePage() {
               style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
               {t('home.section_feature_title')}
             </h2>
-            <p className="text-[15px] text-[var(--color-text-secondary)] mt-4 leading-relaxed">
+            <p className="text-base text-[var(--color-text-secondary)] mt-4 leading-relaxed">
               {t('home.section_feature_sub')}
             </p>
           </div>
@@ -196,7 +196,7 @@ export default function HomePage() {
               <div key={idx}
                 className={`p-8 border rounded-[12px] transition-all duration-300 hover:translate-y-[-2px] ${stagger(featuresVis, idx)}`}
                 style={{ borderColor: 'var(--color-divider)', background: 'var(--color-surface)', ...staggerDelay(idx) }}>
-                <div className="w-12 h-12 rounded-[10px] flex items-center justify-center mb-5"
+                <div className="w-12 h-12 rounded-[12px] flex items-center justify-center mb-5"
                   style={{ background: 'var(--color-accent-muted)' }}>
                   <FeatureIcon name={section.icon} />
                 </div>

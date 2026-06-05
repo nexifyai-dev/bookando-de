@@ -89,7 +89,7 @@ function FeatureCategory({ category, idx }) {
     <section ref={ref} className={`py-[60px] md:py-[80px]`} style={idx % 2 === 1 ? { background: 'var(--color-primary-muted)' } : {}} data-testid={`features-category-${idx}`}>
       <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center max-w-[500px] mx-auto mb-12">
-          <h2 className="text-[26px] sm:text-[32px] font-extrabold tracking-[-0.02em] leading-[1.1] mb-3"
+          <h2 className="text-[32px] sm:text-[40px] lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[1.1] mb-3"
             style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
             {category.title}
           </h2>
@@ -100,7 +100,7 @@ function FeatureCategory({ category, idx }) {
             const FeatIcon = feature.icon;
             return (
               <div key={ftIdx}
-                className={`p-6 border rounded-[10px] transition-all duration-300 hover:translate-y-[-2px] ${stagger(vis, ftIdx)}`}
+                className={`p-6 border rounded-[12px] transition-all duration-300 hover:translate-y-[-2px] ${stagger(vis, ftIdx)}`}
                 style={{ borderColor: 'var(--color-divider)', background: 'var(--color-surface)', ...staggerDelay(ftIdx) }}>
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-[8px] flex items-center justify-center shrink-0"
