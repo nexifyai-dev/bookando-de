@@ -5,7 +5,7 @@ export function ToolbarRow({ search, filters = [], viewSwitcher, secondaryAction
   return (
     <Card className={className} data-testid="page-toolbar">
       <CardContent className="py-2.5 px-4">
-        <div className="flex items-center gap-3 flex-wrap">
+        <div className="flex items-center gap-4 flex-wrap">
           {search && <div className="min-w-0 flex-1">{search}</div>}
           {filters.length > 0 && <div className="flex flex-wrap items-center gap-2">{filters}</div>}
           {viewSwitcher && <div className="flex flex-wrap items-center gap-2">{viewSwitcher}</div>}

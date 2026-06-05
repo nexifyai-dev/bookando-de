@@ -84,7 +84,7 @@ export default function PricingPage() {
                 )}
                 <h3 className="text-[20px] font-bold mb-1" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>{plan.name}</h3>
                 <p className="text-[13px] text-[var(--color-text-secondary)] mb-6">{plan.desc}</p>
-                <div className="flex items-end gap-1 mb-8">
+                <div className="flex items-end gap-2 mb-8">
                   <span className="text-[40px] font-extrabold leading-none" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>{plan.price}€</span>
                   <span className="text-[14px] text-[var(--color-text-tertiary)] mb-1">{t('pricing.month')}</span>
                 </div>

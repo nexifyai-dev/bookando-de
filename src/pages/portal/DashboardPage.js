@@ -8,7 +8,7 @@ function KpiCard({ icon: Icon, value, label, trend }) {
   return (
     <div className="rounded-xl p-5 transition-shadow hover:shadow-[var(--shadow-e2)]"
       style={{ background: 'var(--color-surface)', border: '1px solid var(--color-divider)' }}>
-      <div className="flex items-center gap-3 mb-3">
+      <div className="flex items-center gap-4 mb-3">
         <div className="w-10 h-10 rounded-lg flex items-center justify-center"
           style={{ background: 'var(--color-accent-muted)' }}>
           <Icon size={18} style={{ color: 'var(--color-accent)' }} />
@@ -88,7 +88,7 @@ export default function DashboardPage() {
             style={{ background: 'var(--color-surface)', border: '1px solid var(--color-divider)' }}>
             <div className="flex items-center justify-between px-5 pt-5 pb-3">
               <h2 className="text-[14px] font-bold" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>{t('dashboard.recent_bookings')}</h2>
-              <Link to="/dashboard" className="text-[11px] font-medium flex items-center gap-1"
+              <Link to="/dashboard" className="text-[11px] font-medium flex items-center gap-2"
                 style={{ color: 'var(--color-accent)' }}>
                 {t('dashboard.view_all')} <ArrowRight size={12} />
               </Link>
@@ -110,7 +110,7 @@ export default function DashboardPage() {
                 { icon: Link2, label: t('dashboard.action_affiliates'), to: '/affiliates' },
               ].map((action, i) => (
                 <Link key={i} to={action.to}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-colors cursor-pointer hover:bg-[var(--color-surface-elevated)]"
+                  className="flex items-center gap-4 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-colors cursor-pointer hover:bg-[var(--color-surface-elevated)]"
                   style={{ color: 'var(--color-text-secondary)' }}>
                   <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'var(--color-accent-muted)' }}>
                     <action.icon size={15} style={{ color: 'var(--color-accent)' }} />

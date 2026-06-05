@@ -95,7 +95,7 @@ function FeatureCategory({ category, idx }) {
           </h2>
           <p className="text-[14px] text-[var(--color-text-secondary)]">{category.subtitle}</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {category.features.map((feature, ftIdx) => {
             const FeatIcon = feature.icon;
             return (

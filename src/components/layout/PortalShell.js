@@ -96,7 +96,7 @@ export function PortalShell({
       {/* ═══ TOPBAR ═══ */}
       <header className="w2g-topbar-frame" data-testid={`${dataTestId}-topbar`}>
         <div className="flex items-center justify-between h-full px-4 lg:px-5 gap-4" style={{ minHeight: 'inherit' }}>
-          <div className="flex items-center gap-3 min-w-0">
+          <div className="flex items-center gap-4 min-w-0">
             <Link to={logoHref} className="flex items-center gap-2.5 shrink-0" data-testid={`${dataTestId}-logo`}>
               <div className="w-9 h-9 bg-[var(--color-primary)] flex items-center justify-center shrink-0" style={{ borderRadius: 'var(--radius-md)' }}>
                 <LayoutDashboard size={18} className="text-white" />
@@ -173,7 +173,7 @@ export function PortalShell({
               <Link key={item.path} to={item.path}
                 data-testid={`${dataTestId}-sidebar-${item.testId || (item.label || item.labelKey || 'link').toLowerCase().replace(/[^a-z0-9]+/gi, '-')}`}
                 title={collapsed ? (item.label || (item.labelKey ? t(item.labelKey) : '')) : undefined}
-                className={`flex items-center gap-3 text-[13px] font-medium transition-all ${
+                className={`flex items-center gap-4 text-[13px] font-medium transition-all ${
                   active
                     ? 'bg-[var(--color-primary)] text-white'
                     : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-sunken)] hover:text-[var(--color-primary)]'
@@ -203,7 +203,7 @@ export function PortalShell({
           <button type="button" className="cursor-pointer" onClick={() => setCollapsed((c) => !c)}
             data-testid={`${dataTestId}-sidebar-toggle`}
             title={collapsed ? 'Sidebar ausklappen' : 'Sidebar einklappen'}
-            className="flex items-center gap-3 w-full text-[12px] font-medium text-[var(--color-text-tertiary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-surface-sunken)] transition-all"
+            className="flex items-center gap-4 w-full text-[12px] font-medium text-[var(--color-text-tertiary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-surface-sunken)] transition-all"
             style={{
               borderRadius: 'var(--radius-md)',
               padding: collapsed ? '10px 0' : '10px 12px',
@@ -223,7 +223,7 @@ export function PortalShell({
           <div className="absolute left-0 right-0 bg-white border-b border-[var(--color-divider)] max-h-[75vh] overflow-y-auto animate-slide-up"
             style={{ top: 'var(--topbar-height-mobile, 56px)', boxShadow: 'var(--shadow-e3)' }}>
             {user && (
-              <div className="px-4 py-3 border-b border-[var(--color-divider-subtle)] flex items-center gap-3">
+              <div className="px-4 py-3 border-b border-[var(--color-divider-subtle)] flex items-center gap-4">
                 <div className="h-9 w-9 flex items-center justify-center bg-[var(--color-primary)] text-sm font-bold text-white shrink-0" style={{ borderRadius: 'var(--radius-sm)' }}>{initials}</div>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-semibold text-[var(--color-text-primary)]">{user?.full_name || user?.email}</p>
@@ -235,7 +235,7 @@ export function PortalShell({
             {!hideLanguageSwitch && (
               <div className="px-4 py-2.5 border-b border-[var(--color-divider-subtle)] flex items-center justify-between">
                 <span className="flex items-center gap-2 text-sm font-medium text-[var(--color-text-secondary)]"><Globe size={14} /> Sprache</span>
-                <div className="flex gap-1">
+                <div className="flex gap-2">
                   {LANG_OPTIONS.map((lang) => (
                     <button key={lang.code} type="button" className="cursor-pointer" onClick={() => i18n.changeLanguage(lang.code)}
                       data-testid={`${dataTestId}-mobile-lang-${lang.code}`}
@@ -254,7 +254,7 @@ export function PortalShell({
                 return (
                   <Link key={item.path} to={item.path} onClick={() => setMobileOpen(false)}
                     data-testid={`${dataTestId}-mobile-nav-${item.testId || (item.label || item.labelKey || 'link').toLowerCase().replace(/[^a-z0-9]+/gi, '-')}`}
-                    className={`flex items-center gap-3 px-4 py-3 text-sm font-medium transition-colors ${
+                    className={`flex items-center gap-4 px-4 py-3 text-sm font-medium transition-colors ${
                       active ? 'bg-[var(--color-primary)] text-white' : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-sunken)]'
                     }`} style={{ borderRadius: 'var(--radius-sm)' }}>
                     <Icon size={16} className="shrink-0" />

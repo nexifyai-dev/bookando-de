@@ -13,7 +13,7 @@ export default function LanguageSwitcher({ className = '' }) {
   return (
     <button
       onClick={switchLang}
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] font-bold rounded-[var(--radius-xs)] border border-[var(--color-divider)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-sunken)] transition-colors cursor-pointer ${className}`}
+      className={`inline-flex items-center gap-2.5 px-2.5 py-1.5 text-[11px] font-bold rounded-[var(--radius-xs)] border border-[var(--color-divider)] text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-sunken)] transition-colors cursor-pointer ${className}`}
       data-testid="language-switcher"
       aria-label={`Sprache wechseln zu ${i18n.language === 'de' ? 'Englisch' : 'Deutsch'}`}
     >

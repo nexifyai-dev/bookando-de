@@ -122,7 +122,7 @@ export default function LegalPage({ type = 'imprint' }) {
       <PublicNav />
       <main className="pt-[100px] pb-20 min-h-screen bg-[var(--color-shell-bg)]">
         <div className="max-w-[720px] mx-auto px-6 lg:px-8">
-          <Link to="/" className="inline-flex items-center gap-1.5 text-[13px] text-[var(--color-text-tertiary)] hover:text-[var(--color-primary)] mb-8 transition-colors">
+          <Link to="/" className="inline-flex items-center gap-2.5 text-[13px] text-[var(--color-text-tertiary)] hover:text-[var(--color-primary)] mb-8 transition-colors">
             <ArrowLeft size={14} /> Zurück zur Startseite
           </Link>
           <h1 className="text-[28px] sm:text-[36px] font-extrabold mb-8" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>{data.title}</h1>

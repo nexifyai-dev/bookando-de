@@ -182,7 +182,7 @@ export default function CookieBanner() {
         {!isManageMode && (
           <div className="px-5 pb-3">
             <button onClick={() => setShowDetails(!showDetails)} data-testid="cookie-details-toggle"
-              className="text-xs text-primary font-medium flex items-center gap-1 hover:underline">
+              className="text-xs text-primary font-medium flex items-center gap-2 hover:underline">
               {showDetails ? t.hide_details : t.details}
               {showDetails ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
             </button>
@@ -193,7 +193,7 @@ export default function CookieBanner() {
           <div className="px-5 pb-4 space-y-3" data-testid="cookie-details-panel">
             {Object.entries(COOKIE_CATEGORIES).map(([key, cat]) => (
               <div key={key} className="border border-[var(--color-divider-subtle)] rounded p-3">
-                <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-[var(--color-text-primary)]">
                       {key === 'necessary' ? t.necessary_title : t.functional_title}
@@ -211,7 +211,7 @@ export default function CookieBanner() {
                     </button>
                   )}
                 </div>
-                <div className="mt-2 flex flex-wrap gap-1">
+                <div className="mt-2 flex flex-wrap gap-2">
                   {cat.cookies.map(c => (
                     <span key={c} className="text-[10px] bg-[var(--color-surface-elevated)] text-[var(--color-text-secondary)] px-1.5 py-0.5 rounded">{c}</span>
                   ))}

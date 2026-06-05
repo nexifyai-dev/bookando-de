@@ -92,7 +92,7 @@ export default function PublicFooter({
             </p>
             {/* Social Icons */}
             {socialLinks && (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-4">
                 {socialLinks.map((social, idx) => (
                   <a key={idx} href={social.href} target="_blank" rel="noopener noreferrer"
                     className="w-9 h-9 rounded-[4px] flex items-center justify-center text-white/40 hover:text-white transition-colors"
@@ -117,7 +117,7 @@ export default function PublicFooter({
                     return (
                       <li key={lIdx}>
                         <button onClick={handleCookieSettings}
-                          className="text-[13px] text-white/50 hover:text-white transition-colors flex items-center gap-1.5"
+                          className="text-[13px] text-white/50 hover:text-white transition-colors flex items-center gap-2.5"
                           data-testid={`${dataTestId}-cookie-settings`}>
                           {link.icon && <link.icon size={11} className="opacity-60" />}
                           {link.label || (link.labelKey ? t(link.labelKey) : '')}
@@ -191,7 +191,7 @@ export default function PublicFooter({
 
       {/* Copyright-Bereich */}
       <div className="border-t border-white/6">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-12 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-white/30">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-12 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-white/30">
           <span>{copyrightText || t('footer.copyright')}</span>
           <div className="flex items-center gap-4">
             {legalLinks && legalLinks.map((link, idx) => (

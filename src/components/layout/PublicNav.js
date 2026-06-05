@@ -66,7 +66,7 @@ export default function PublicNav({
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12 h-16 md:h-[72px] lg:h-20 flex items-center justify-between">
 
         {/* Logo */}
-        <Link to={logoHref} className="flex items-center gap-3 shrink-0" data-testid={`${dataTestId}-logo`}>
+        <Link to={logoHref} className="flex items-center gap-4 shrink-0" data-testid={`${dataTestId}-logo`}>
           {logoUrl ? (
             <img src={logoUrl} alt={logoText}
               className="h-9 sm:h-10 w-auto object-contain"
@@ -79,7 +79,7 @@ export default function PublicNav({
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden lg:flex items-center gap-1 flex-1 justify-center" data-testid={`${dataTestId}-desktop-nav`}>
+        <div className="hidden lg:flex items-center gap-2 flex-1 justify-center" data-testid={`${dataTestId}-desktop-nav`}>
           {resolvedLinks.map((link) => {
             const isActive = location.pathname === link.href;
             return (
@@ -98,7 +98,7 @@ export default function PublicNav({
         </div>
 
         {/* Right Actions */}
-        <div className="hidden md:flex items-center gap-3 shrink-0">
+        <div className="hidden md:flex items-center gap-4 shrink-0">
           {/* Language Switch */}
           {!hideLanguageSwitch && (
             <div className="flex items-center gap-0.5 p-0.5 rounded-[3px]" style={{ border: scrolled || !isHome ? '1px solid rgba(17,54,85,0.1)' : '1px solid rgba(255,255,255,0.15)' }} data-testid={`${dataTestId}-language-switch`}>

@@ -106,7 +106,7 @@ export default function RegisterPage() {
                   </div>
                 </div>
                 {/* Name Fields */}
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">{t('auth.first_name')}</label>
                     <input
@@ -158,7 +158,7 @@ export default function RegisterPage() {
                   />
                 </div>
                 {/* Password Fields */}
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">{t('auth.password')}</label>
                     <input

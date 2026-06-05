@@ -47,7 +47,7 @@ export default function ForgotPasswordPage() {
             </div>
 
             <div className="mt-6 text-center">
-              <Link to="/auth/login" className="text-[13px] text-[var(--color-primary)] font-medium hover:underline inline-flex items-center gap-1">
+              <Link to="/auth/login" className="text-[13px] text-[var(--color-primary)] font-medium hover:underline inline-flex items-center gap-2">
                 <ArrowLeft size={14} /> {t('common.back', 'Zurück')}
               </Link>
             </div>

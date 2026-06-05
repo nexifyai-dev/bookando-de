@@ -77,7 +77,7 @@ export default function HomePage() {
           style={{ background: 'radial-gradient(circle, rgba(196,155,62,0.6), transparent)', filter: 'blur(80px)' }} />
 
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12 py-20 md:py-32">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center">
 
             {/* Linke Spalte – Text */}
             <div className={`lg:col-span-7 ${stagger(heroVis, 0)}`} style={staggerDelay(0)}>
@@ -145,7 +145,7 @@ export default function HomePage() {
                       { label: 'Affiliate-Marketing', sub: 'Trackinglinks, Provisionen & Wallet-Auszahlungen', color: 'var(--color-primary-light)' },
                       { label: 'Marketplace & CRM', sub: 'Dienstleister-Verzeichnis & Kundenmanagement', color: 'var(--color-primary-lighter)' },
                     ].map((item, i) => (
-                      <div key={i} className="flex items-start gap-3">
+                      <div key={i} className="flex items-start gap-4">
                         <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold"
                           style={{ background: item.color }}>{i + 1}</div>
                         <div className="min-w-0">
