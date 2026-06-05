@@ -22,7 +22,8 @@ import { Mail, MapPin, Phone, ArrowRight, Shield, Briefcase } from 'lucide-react
 export default function PublicFooter({
   brandName = 'Bookando',
   brandIcon: BrandIcon = Briefcase,
-  description = 'footer.copyright',
+  description,
+  copyrightText,
   columns = [
     {
       titleKey: 'footer.col_product',
@@ -56,7 +57,6 @@ export default function PublicFooter({
   socialLinks,
   cta = { labelKey: 'hero.cta_primary', href: '/auth/register' },
   legalLinks,
-  copyright,
   dataTestId = 'public-footer',
 }) {
   const { t } = useTranslation();
@@ -192,7 +192,7 @@ export default function PublicFooter({
       {/* Copyright-Bereich */}
       <div className="border-t border-white/6">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-12 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-white/30">
-          <span>{copyright || `© ${new Date().getFullYear()} ${brandName}. Alle Rechte vorbehalten.`}</span>
+          <span>{copyrightText || t('footer.copyright')}</span>
           <div className="flex items-center gap-4">
             {legalLinks && legalLinks.map((link, idx) => (
               <Link key={idx} to={link.href} className="hover:text-white/60 transition-colors">
