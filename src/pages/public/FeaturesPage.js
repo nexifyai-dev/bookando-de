@@ -105,7 +105,7 @@ function FeatureCategory({ category, idx }) {
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-[8px] flex items-center justify-center shrink-0"
                     style={{ background: 'rgba(196,155,62,0.12)' }}>
-                    <FeatIcon size={18} style={{ color: '#C49B3E' }} />
+                    <FeatIcon size={18} style={{ color: 'var(--color-accent)' }} />
                   </div>
                   <div>
                     <h3 className="text-[15px] font-bold tracking-tight mb-1.5"
@@ -141,7 +141,7 @@ export default function FeaturesPage() {
         style={{ background: 'linear-gradient(160deg, #0A2036 0%, #1A4570 35%, #2A6A9E 100%)' }}
         data-testid="features-hero">
         <div className={`relative z-10 max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12 text-center ${stagger(heroVis, 0)}`}>
-          <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-4" style={{ color: '#C49B3E' }}>Plattform-Features</p>
+          <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-4" style={{ color: 'var(--color-accent)' }}>Plattform-Features</p>
           <h1 className="text-[36px] sm:text-[48px] lg:text-[56px] font-extrabold text-white leading-[1.05] tracking-[-0.03em] mb-5"
             style={{ fontFamily: 'var(--font-heading)' }}>
             Alles, was du brauchst
@@ -151,7 +151,7 @@ export default function FeaturesPage() {
           </p>
           <Link to="/auth/register"
             className="inline-flex items-center gap-2.5 h-[52px] px-8 text-[14px] font-bold tracking-wide text-[#0A2036] rounded-full transition-all duration-300 hover:scale-[1.02]"
-            style={{ background: '#C49B3E', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}>
+            style={{ background: 'var(--color-accent)', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}>
             Kostenlos testen <ArrowRight size={15} />
           </Link>
         </div>
@@ -176,7 +176,7 @@ export default function FeaturesPage() {
             </p>
             <Link to="/auth/register"
               className="inline-flex items-center gap-2.5 h-[52px] px-8 text-[14px] font-bold tracking-wide text-[#0A2036] rounded-full transition-all duration-300 hover:scale-[1.02]"
-              style={{ background: '#C49B3E', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}>
+              style={{ background: 'var(--color-accent)', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}>
               Kostenlos starten <ArrowRight size={15} />
             </Link>
           </div>

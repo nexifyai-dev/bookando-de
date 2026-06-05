@@ -83,7 +83,7 @@ export default function HomePage() {
             <div className={`lg:col-span-7 ${stagger(heroVis, 0)}`} style={staggerDelay(0)}>
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-6"
                 style={{ borderColor: 'rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)' }}>
-                <span className="w-2 h-2 rounded-full" style={{ background: '#C49B3E' }} />
+                <span className="w-2 h-2 rounded-full" style={{ background: 'var(--color-accent)' }} />
                 <span className="text-[11px] font-semibold tracking-wider uppercase text-white/60">
                   {t("hero.badge_made_in")}
                 </span>
@@ -92,7 +92,7 @@ export default function HomePage() {
               <h1 className="text-[40px] sm:text-[56px] lg:text-[64px] font-extrabold text-white leading-[1] tracking-[-0.035em] mb-6"
                 style={{ fontFamily: 'var(--font-heading)' }}>
                 <span className="block">{t('hero.title_line1')}</span>
-                <span style={{ color: '#C49B3E' }}>{t('hero.title_line2')}</span>
+                <span style={{ color: 'var(--color-accent)' }}>{t('hero.title_line2')}</span>
               </h1>
 
               <p className="text-[16px] sm:text-[18px] text-white/50 leading-relaxed max-w-[520px] mb-10">
@@ -102,7 +102,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/auth/register"
                   className="inline-flex items-center justify-center gap-2.5 h-[56px] px-10 text-[15px] font-bold tracking-wide text-[#0A2036] rounded-full group transition-all duration-300 hover:scale-[1.02]"
-                  style={{ background: '#C49B3E', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}
+                  style={{ background: 'var(--color-accent)', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}
                   data-testid="hero-primary-cta">
                   {t("hero.cta_primary")} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
@@ -141,9 +141,9 @@ export default function HomePage() {
                   </div>
                   <div className="px-5 pb-5 space-y-3">
                     {[
-                      { label: 'Terminbuchung', sub: 'Echtzeit-Kalender, Mitarbeiter & Ressourcen', color: '#C49B3E' },
-                      { label: 'Affiliate-Marketing', sub: 'Trackinglinks, Provisionen & Wallet-Auszahlungen', color: '#4A90C9' },
-                      { label: 'Marketplace & CRM', sub: 'Dienstleister-Verzeichnis & Kundenmanagement', color: '#6BA5D6' },
+                      { label: 'Terminbuchung', sub: 'Echtzeit-Kalender, Mitarbeiter & Ressourcen', color: 'var(--color-accent)' },
+                      { label: 'Affiliate-Marketing', sub: 'Trackinglinks, Provisionen & Wallet-Auszahlungen', color: 'var(--color-primary-light)' },
+                      { label: 'Marketplace & CRM', sub: 'Dienstleister-Verzeichnis & Kundenmanagement', color: 'var(--color-primary-lighter)' },
                     ].map((item, i) => (
                       <div key={i} className="flex items-start gap-3">
                         <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold"
@@ -167,9 +167,9 @@ export default function HomePage() {
                   </div>
                   <div className="px-5 pb-4 flex items-center gap-2">
                     <div className="flex -space-x-1.5">
-                      {['#C49B3E', '#4A90C9', '#6BA5D6', '#E8C96A'].map((c, i) => (
+                      {['var(--color-accent)', 'var(--color-primary-light)', 'var(--color-primary-lighter)', 'var(--color-accent-light)'].map((c, i) => (
                         <div key={i} className="w-5 h-5 rounded-full border-2 flex items-center justify-center"
-                          style={{ background: c, borderColor: '#0A2036' }}>
+                          style={{ background: c, borderColor: 'var(--color-primary-dark)' }}>
                           <span className="text-[5px] font-bold text-white">{['SK','TM','AL','BJ'][i]}</span>
                         </div>
                       ))}
@@ -190,7 +190,7 @@ export default function HomePage() {
                       <div key={d} className="flex-1 text-center py-2 rounded-[6px]"
                         style={{ background: i === 2 ? "rgba(196,155,62,0.2)" : "rgba(255,255,255,0.04)", border: i === 2 ? "1px solid rgba(196,155,62,0.3)" : "1px solid rgba(255,255,255,0.04)" }}>
                         <p className="text-[9px] uppercase tracking-wider text-white/40 mb-1">{d}</p>
-                        <p className="text-[14px] font-bold" style={{ color: i === 2 ? '#C49B3E' : 'white' }}>{14 + i}</p>
+                        <p className="text-[14px] font-bold" style={{ color: i === 2 ? 'var(--color-accent)' : 'white' }}>{14 + i}</p>
                       </div>
                     ))}
                   </div>
@@ -201,7 +201,7 @@ export default function HomePage() {
                         style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
                         <p className="text-[10px] text-white/40 mb-0.5">{kpi.label}</p>
                         <p className="text-[16px] font-extrabold text-white">{kpi.value}</p>
-                        <p className="text-[10px]" style={{ color: '#4ADE80' }}>{kpi.trend}</p>
+                        <p className="text-[10px]" style={{ color: 'var(--color-success)' }}>{kpi.trend}</p>
                       </div>
                     ))}
                   </div>
@@ -218,9 +218,9 @@ export default function HomePage() {
                   {/* Team-Status */}
                   <div className="flex items-center justify-between mt-4 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
                     <div className="flex -space-x-2">
-                      <div className="w-7 h-7 rounded-full border-2 flex items-center justify-center" style={{ background: '#C49B3E', borderColor: 'rgba(10,32,54,0.8)' }}><span className="text-[8px] font-bold text-white">SK</span></div>
-                      <div className="w-7 h-7 rounded-full border-2 flex items-center justify-center" style={{ background: '#4A90C9', borderColor: 'rgba(10,32,54,0.8)' }}><span className="text-[8px] font-bold text-white">TM</span></div>
-                      <div className="w-7 h-7 rounded-full border-2 flex items-center justify-center" style={{ background: '#6BA5D6', borderColor: 'rgba(10,32,54,0.8)' }}><span className="text-[8px] font-bold text-white">AL</span></div>
+                      <div className="w-7 h-7 rounded-full border-2 flex items-center justify-center" style={{ background: 'var(--color-accent)', borderColor: 'rgba(10,32,54,0.8)' }}><span className="text-[8px] font-bold text-white">SK</span></div>
+                      <div className="w-7 h-7 rounded-full border-2 flex items-center justify-center" style={{ background: 'var(--color-primary-light)', borderColor: 'rgba(10,32,54,0.8)' }}><span className="text-[8px] font-bold text-white">TM</span></div>
+                      <div className="w-7 h-7 rounded-full border-2 flex items-center justify-center" style={{ background: 'var(--color-primary-lighter)', borderColor: 'rgba(10,32,54,0.8)' }}><span className="text-[8px] font-bold text-white">AL</span></div>
                       <div className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-[8px] font-bold" style={{ background: 'rgba(255,255,255,0.06)', borderColor: 'rgba(10,32,54,0.8)', color: 'rgba(255,255,255,0.4)' }}>+3</div>
                     </div>
                     <p className="text-[10px] text-white/40">Team online</p>
@@ -239,7 +239,7 @@ export default function HomePage() {
       <section ref={featuresRef} className="py-[80px] md:py-[100px] lg:py-[120px]" data-testid="features-section">
         <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center max-w-[600px] mx-auto mb-16">
-            <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: '#C49B3E' }}>{t('home.section_platform')}</p>
+            <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'var(--color-accent)' }}>{t('home.section_platform')}</p>
             <h2 className="text-[32px] sm:text-[40px] lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[1.05]"
               style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
               Alles, was du brauchst
@@ -259,7 +259,7 @@ export default function HomePage() {
                   data-testid={`feature-card-${idx}`}>
                   <div className="w-12 h-12 rounded-[10px] flex items-center justify-center mb-5"
                     style={{ background: 'rgba(196,155,62,0.12)' }}>
-                    <Icon size={22} style={{ color: '#C49B3E' }} />
+                    <Icon size={22} style={{ color: 'var(--color-accent)' }} />
                   </div>
                   <h3 className="text-[18px] font-bold tracking-tight mb-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
                     {feature.title}
@@ -287,7 +287,7 @@ export default function HomePage() {
             ].map((stat, idx) => (
               <div key={idx} className={`text-center ${stagger(statsVis, idx)}`} style={staggerDelay(idx)}>
                 <p className="text-[36px] sm:text-[44px] lg:text-[52px] font-extrabold tracking-[-0.03em]"
-                  style={{ fontFamily: 'var(--font-heading)', color: '#C49B3E' }}>
+                  style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-accent)' }}>
                   <AnimatedCounter end={stat.value} suffix={stat.suffix} />
                 </p>
                 <p className="text-[13px] font-medium text-white/50 mt-1">{stat.label}</p>
@@ -303,7 +303,7 @@ export default function HomePage() {
       <section className="py-[80px] md:py-[100px]" data-testid="howitworks-section">
         <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center max-w-[600px] mx-auto mb-16">
-            <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: '#C49B3E' }}>{t('home.section_how_tag')}</p>
+            <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'var(--color-accent)' }}>{t('home.section_how_tag')}</p>
             <h2 className="text-[32px] sm:text-[40px] lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[1.05]"
               style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
               In 3 Schritten starten
@@ -321,7 +321,7 @@ export default function HomePage() {
                 <div key={idx} className="text-center p-8">
                   <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6"
                     style={{ background: 'rgba(196,155,62,0.1)', border: '1px solid rgba(196,155,62,0.2)' }}>
-                    <span className="text-[18px] font-bold" style={{ color: '#C49B3E', fontFamily: 'var(--font-heading)' }}>{item.step}</span>
+                    <span className="text-[18px] font-bold" style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-heading)' }}>{item.step}</span>
                   </div>
                   <div className="w-12 h-12 rounded-[10px] flex items-center justify-center mx-auto mb-5"
                     style={{ background: 'rgba(26,69,112,0.06)' }}>
@@ -363,7 +363,7 @@ export default function HomePage() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link to="/auth/register"
                     className="inline-flex items-center justify-center gap-2.5 h-[56px] px-10 text-[15px] font-bold tracking-wide text-[#0A2036] rounded-full group transition-all duration-300 hover:scale-[1.02]"
-                    style={{ background: '#C49B3E', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}
+                    style={{ background: 'var(--color-accent)', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}
                     data-testid="cta-primary">
                     {t("hero.cta_primary")} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
