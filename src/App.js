@@ -24,6 +24,7 @@ const MarketplacePage = lazy(() => import('./pages/public/MarketplacePage'));
 const ContactPage = lazy(() => import('./pages/public/ContactPage'));
 const LegalPage = lazy(() => import('./pages/legal/LegalPage'));
 const DashboardPage = lazy(() => import('./pages/portal/DashboardPage'));
+const FeaturesPage = lazy(() => import('./pages/public/FeaturesPage'));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -101,7 +102,7 @@ export default function App() {
 
 
             {/* REDIRECTS */}
-            <Route path="/features" element={<Navigate to="/" replace />} />
+            <Route path="/features" element={<FeaturesPage />} />
             <Route path="/about" element={<Navigate to="/" replace />} />
             <Route path="/pricing" element={<Navigate to="/" replace />} />
             <Route path="/privacy" element={<Navigate to="/legal/privacy" replace />} />
