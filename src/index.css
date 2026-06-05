@@ -414,3 +414,13 @@
     box-shadow: 0 8px 24px rgba(26,69,112,0.10), 0 2px 4px rgba(26,69,112,0.04);
   }
 }
+
+/* Accessibility: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

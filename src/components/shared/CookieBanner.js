@@ -156,7 +156,7 @@ export default function CookieBanner() {
 
   return (
     <div className="fixed inset-0 z-[99999] flex items-end sm:items-center justify-center" data-testid="cookie-banner">
-      <div className="absolute inset-0 bg-black/40" onClick={handleClose} />
+      <div className="absolute inset-0 bg-black/40 cursor-pointer" onClick={handleClose} />
       <div className="relative bg-white w-full sm:max-w-lg sm:rounded-[var(--radius-md)] border border-[var(--color-divider)] max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="px-5 pt-5 pb-3 flex items-start justify-between">
