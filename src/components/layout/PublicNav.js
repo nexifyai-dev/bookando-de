@@ -20,12 +20,12 @@ import { ChevronRight, Menu, X } from 'lucide-react';
 export default function PublicNav({
   navItems = [
     { href: '/', labelKey: 'nav.home' },
+    { href: '/marketplace', labelKey: 'nav.marketplace' },
     { href: '/features', labelKey: 'nav.features' },
-    { href: '/about', labelKey: 'nav.about' },
     { href: '/contact', labelKey: 'nav.contact' },
   ],
   logoUrl,
-  logoText = 'Project Name',
+  logoText = 'Affilinet Aachen',
   logoHref = '/',
   primaryCta = { labelKey: 'nav.register', href: '/auth/register' },
   secondaryCta = { labelKey: 'nav.login', href: '/auth/login' },

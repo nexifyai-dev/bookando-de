@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Mail, MapPin, Phone, ArrowRight, Shield } from 'lucide-react';
+import { Mail, MapPin, Phone, ArrowRight, Shield, Briefcase } from 'lucide-react';
 
 /**
  * PublicFooter — Generalisierter Footer für öffentliche Seiten
@@ -20,8 +20,8 @@ import { Mail, MapPin, Phone, ArrowRight, Shield } from 'lucide-react';
  *   dataTestId     – Test-ID Prefix
  */
 export default function PublicFooter({
-  brandName = 'Project Name',
-  brandIcon: BrandIcon,
+  brandName = 'Affilinet Portal Aachen',
+  brandIcon: BrandIcon = Briefcase,
   description = 'footer.copyright',
   columns = [
     {
@@ -49,9 +49,9 @@ export default function PublicFooter({
     },
   ],
   contactInfo = {
-    address: 'Musterstr. 1, 12345 Musterstadt',
-    phone: '+49 123 456 789',
-    email: 'hallo@example.de',
+    address: 'Adalbertsteinweg 1, 52070 Aachen',
+    phone: '+49 241 123 456 789',
+    email: 'hallo@affilinet-portal-aachen.de',
   },
   socialLinks,
   cta = { labelKey: 'hero.cta_primary', href: '/auth/register' },

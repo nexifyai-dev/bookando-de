@@ -4,44 +4,11 @@ import { useTranslation } from 'react-i18next';
 import PublicNav from '../../components/layout/PublicNav';
 import PublicFooter from '../../components/layout/PublicFooter';
 import {
-  ArrowRight, CheckCircle, Star, Users, TrendingUp, Shield,
-  Zap, Globe, Clock, ChevronLeft, ChevronRight, Play
+  ArrowRight, Store, CalendarCheck, BarChart3, Wallet,
+  Palette, Globe, CheckCircle, Play, Star, TrendingUp,
+  Shield, Zap, Users, Gift, Bell, RefreshCw, Layers,
+  ChevronRight, MapPin, MousePointer2, DollarSign
 } from 'lucide-react';
-
-/* ════════════════════════════════════════════════════════════════
-   KONFIGURATION — Hier anpassen für dein Projekt!
-   ════════════════════════════════════════════════════════════════ */
-const CONFIG = {
-  projectName: 'Dein Projekt',
-  heroTitle: 'Willkommen bei',
-  heroTitleAccent: 'deinem Projekt',
-  heroSubtitle: 'Baue großartige Dinge. Modern, schnell und skalierbar.',
-  heroCtaPrimary: 'Loslegen',
-  heroCtaSecondary: 'Mehr erfahren',
-
-  featuresTitle: 'Features',
-  featuresSubtitle: 'Alles, was du brauchst, um durchzustarten.',
-  features: [
-    { icon: Zap, title: 'Schnell', desc: 'Optimiert für höchste Performance und schnelle Ladezeiten.' },
-    { icon: Shield, title: 'Sicher', desc: 'Modernste Sicherheitsstandards für deine Daten.' },
-    { icon: Globe, title: 'Global', desc: 'Mehrsprachig und international einsetzbar.' },
-    { icon: Users, title: 'Skalierbar', desc: 'Wächst mit deinen Anforderungen mit.' },
-    { icon: TrendingUp, title: 'Modern', desc: 'Aktuelle Technologien für zukunftssichere Lösungen.' },
-    { icon: Star, title: 'Premium', desc: 'Höchste Qualität in Design und User Experience.' },
-  ],
-
-  stats: [
-    { value: 99, suffix: '%', label: 'Zufriedenheit' },
-    { value: 5000, suffix: '+', label: 'Nutzer' },
-    { value: 50, suffix: '+', label: 'Features' },
-    { value: 24, suffix: '/7', label: 'Support' },
-  ],
-
-  ctaTitle: 'Bereit für den',
-  ctaTitleAccent: 'nächsten Schritt?',
-  ctaDesc: 'Starte jetzt und überzeuge dich selbst von den Möglichkeiten.',
-  ctaContactLabel: 'Beratungstermin',
-};
 
 /* ════════════════════════════════════════════════════════════════
    HOOKS
@@ -59,7 +26,7 @@ function useInView(threshold = 0.15) {
   return [ref, visible];
 }
 
-function AnimatedCounter({ end, suffix = '', duration = 2000 }) {
+function AnimatedCounter({ end, suffix = '', duration = 2000, decimals = 0 }) {
   const [count, setCount] = useState(0);
   const [ref, visible] = useInView(0.3);
   useEffect(() => {
@@ -69,11 +36,15 @@ function AnimatedCounter({ end, suffix = '', duration = 2000 }) {
     const timer = setInterval(() => {
       start += step;
       if (start >= end) { setCount(end); clearInterval(timer); }
-      else setCount(Math.floor(start));
+      else setCount(start);
     }, 16);
     return () => clearInterval(timer);
   }, [visible, end, duration]);
-  return <span ref={ref}>{count}{suffix}</span>;
+  return (
+    <span ref={ref}>
+      {decimals > 0 ? count.toFixed(decimals) : Math.floor(count)}{suffix}
+    </span>
+  );
 }
 
 const stagger = (visible, idx) =>
@@ -84,6 +55,18 @@ const stagger = (visible, idx) =>
 const staggerDelay = (idx) => ({ transitionDelay: `${idx * 120}ms` });
 
 /* ════════════════════════════════════════════════════════════════
+   FEATURE DATA
+   ════════════════════════════════════════════════════════════════ */
+const FEATURES = [
+  { icon: Store, key: '1' },
+  { icon: CalendarCheck, key: '2' },
+  { icon: BarChart3, key: '3' },
+  { icon: Wallet, key: '4' },
+  { icon: Palette, key: '5' },
+  { icon: Globe, key: '6' },
+];
+
+/* ════════════════════════════════════════════════════════════════
    HOMEPAGE
    ════════════════════════════════════════════════════════════════ */
 export default function HomePage() {
@@ -92,79 +75,253 @@ export default function HomePage() {
   const [heroRef, heroVis] = useInView(0.1);
   const [featuresRef, featuresVis] = useInView(0.1);
   const [statsRef, statsVis] = useInView(0.2);
+  const [howRef, howVis] = useInView(0.1);
   const [ctaRef, ctaVis] = useInView(0.1);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const heroImg = 'https://picsum.photos/id/1015/1600/900';
+  const heroImgSm = 'https://picsum.photos/id/1015/800/600';
+
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => setImageLoaded(true);
+    img.src = heroImg;
+  }, []);
 
   return (
-    <div>
-      <PublicNav />
+    <div className="overflow-hidden">
+      <PublicNav
+        logoText="Affilinet Portal Aachen"
+        primaryCta={{ labelKey: 'home.hero_cta_primary', href: '/auth/register' }}
+        secondaryCta={{ labelKey: 'nav.login', href: '/auth/login' }}
+        navItems={[
+          { href: '/', labelKey: 'nav.home' },
+          { href: '/features', labelKey: 'nav.features' },
+          { href: '/about', labelKey: 'nav.about' },
+          { href: '/contact', labelKey: 'nav.contact' },
+        ]}
+      />
 
       {/* ═══════════════════════════════════════════════════════════
           HERO
           ═══════════════════════════════════════════════════════════ */}
-      <section ref={heroRef} className="relative min-h-[90vh] flex items-center overflow-hidden"
-        style={{ background: 'linear-gradient(160deg, var(--color-primary-dark) 0%, var(--color-primary) 40%, var(--color-primary-light) 100%)' }}
-        data-testid="hero-section">
+      <section
+        ref={heroRef}
+        className="relative min-h-screen flex items-center overflow-hidden"
+        style={{ background: 'linear-gradient(160deg, #0A2036 0%, #1A4570 40%, #1A4570 70%, #0A2036 100%)' }}
+        data-testid="hero-section"
+      >
+        {/* Hintergrundbild – Aachener Stadtansicht */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div
+            className={`absolute inset-0 transition-all duration-1000 ease-out ${
+              imageLoaded ? 'opacity-20 scale-100' : 'opacity-0 scale-105'
+            }`}
+            style={{
+              backgroundImage: `url(${heroImg})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          />
+          {/* Overlay-Gradient für bessere Lesbarkeit */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(160deg, rgba(10,32,54,0.85) 0%, rgba(26,69,112,0.70) 40%, rgba(10,32,54,0.80) 100%)',
+            }}
+          />
+        </div>
 
-        {/* Hintergrundmuster */}
+        {/* Gradient-Orbs */}
+        <div className="absolute top-1/3 -right-32 w-[500px] h-[500px] rounded-full opacity-[0.06]"
+          style={{ background: 'radial-gradient(circle, var(--color-accent), transparent)', filter: 'blur(80px)' }} />
+        <div className="absolute bottom-1/4 -left-32 w-[400px] h-[400px] rounded-full opacity-[0.04]"
+          style={{ background: 'radial-gradient(circle, #B3CDE1, transparent)', filter: 'blur(80px)' }} />
+
+        {/* Raster-Punkt-Muster */}
         <div className="absolute inset-0 opacity-[0.03]"
-          style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, white 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+          style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, white 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
-        {/* Dekorative Akzente */}
-        <div className="absolute top-1/4 -right-32 w-96 h-96 rounded-full opacity-[0.04]"
-          style={{ background: 'radial-gradient(circle, var(--color-accent), transparent)', filter: 'blur(60px)' }} />
-        <div className="absolute bottom-1/4 -left-32 w-80 h-80 rounded-full opacity-[0.03]"
-          style={{ background: 'radial-gradient(circle, white, transparent)', filter: 'blur(60px)' }} />
-
-        <div className="relative z-10 max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12 py-20 md:py-32">
+        <div className="relative z-10 max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12 py-28 md:py-40 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Text */}
+            {/* Linke Spalte – Text */}
             <div className={`lg:col-span-7 ${stagger(heroVis, 0)}`} style={staggerDelay(0)}>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-6"
-                style={{ borderColor: 'rgba(196,155,62,0.2)', background: 'rgba(196,155,62,0.08)' }}>
-                <span className="w-2 h-2 rounded-full" style={{ background: 'var(--color-accent)' }} />
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-6 backdrop-blur-sm"
+                style={{ borderColor: 'rgba(13,148,136,0.25)', background: 'rgba(13,148,136,0.08)' }}>
+                <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: 'var(--color-accent)' }} />
                 <span className="text-[11px] font-semibold tracking-wider uppercase" style={{ color: 'var(--color-accent)' }}>
-                  {t('home.hero_subtitle', CONFIG.heroSubtitle)}
+                  {t('home.hero_badge')}
                 </span>
               </div>
 
-              <h1 className="text-[40px] sm:text-[56px] lg:text-[68px] font-extrabold text-white leading-[0.95] tracking-[-0.035em] mb-6"
+              {/* Headline */}
+              <h1 className="text-[42px] sm:text-[60px] lg:text-[72px] font-extrabold text-white leading-[0.92] tracking-[-0.04em] mb-6"
                 style={{ fontFamily: 'var(--font-heading)' }}>
-                {t('home.hero_title', CONFIG.heroTitle)}<br />
+                {t('home.hero_title')}<br />
                 <span style={{ color: 'var(--color-accent)' }}>
-                  {t('home.hero_title_accent', CONFIG.heroTitleAccent)}
+                  {t('home.hero_title_accent')}
                 </span>
               </h1>
 
-              <p className="text-[16px] sm:text-[18px] text-white/50 leading-[1.7] max-w-[520px] mb-10">
-                {t('home.hero_subtitle', CONFIG.heroSubtitle)}
+              {/* Tagline */}
+              <p className="text-[17px] sm:text-[19px] text-white/50 leading-[1.7] max-w-[540px] mb-10 font-light">
+                {t('home.hero_subtitle')}
               </p>
 
+              {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/auth/register" data-testid="hero-primary-cta"
-                  className="inline-flex items-center justify-center gap-2.5 h-[56px] px-10 text-[15px] font-bold tracking-wide text-[var(--color-primary-dark)] rounded-full group transition-all duration-300 hover:scale-[1.02]"
-                  style={{ background: 'var(--color-accent)', boxShadow: '0 4px 24px rgba(212,175,55,0.3)' }}>
-                  {t('home.hero_cta_primary', CONFIG.heroCtaPrimary)} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  className="inline-flex items-center justify-center gap-2.5 h-[58px] px-10 text-[15px] font-bold tracking-wide text-[var(--color-primary-dark)] rounded-full group transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]"
+                  style={{
+                    background: 'var(--color-accent)',
+                    boxShadow: '0 4px 28px rgba(13,148,136,0.35), 0 2px 8px rgba(13,148,136,0.15)',
+                  }}
+                >
+                  {t('home.hero_cta_primary')}
+                  <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
-                <Link to="/about" data-testid="hero-secondary-cta"
-                  className="inline-flex items-center justify-center gap-2 h-[56px] px-8 text-[15px] font-semibold text-white/80 border-2 border-white/15 rounded-full transition-all duration-300 hover:border-white/30 hover:text-white">
-                  <Play size={14} /> {t('home.hero_cta_secondary', CONFIG.heroCtaSecondary)}
+                <Link to="/demo" data-testid="hero-secondary-cta"
+                  className="inline-flex items-center justify-center gap-2.5 h-[58px] px-8 text-[15px] font-semibold text-white/80 border-2 border-white/15 rounded-full transition-all duration-300 hover:border-white/30 hover:text-white hover:bg-white/5 backdrop-blur-sm">
+                  <Play size={14} /> {t('home.hero_cta_secondary')}
                 </Link>
               </div>
-            </div>
 
-            {/* Illustration / Platzhalter */}
-            <div className={`hidden lg:flex lg:col-span-5 items-center justify-center ${stagger(heroVis, 1)}`} style={staggerDelay(1)}>
-              <div className="w-[320px] h-[320px] rounded-[24px] flex items-center justify-center"
-                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                <div className="text-center p-8">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-[16px] flex items-center justify-center"
-                    style={{ background: 'rgba(196,155,62,0.15)' }}>
-                    <Star size={32} style={{ color: 'var(--color-accent)' }} />
+              {/* Trust Indicators */}
+              <div className="flex flex-wrap items-center gap-6 mt-12 pt-8 border-t border-white/10">
+                <div className="flex items-center gap-2">
+                  <div className="flex -space-x-1.5">
+                    {[1,2,3,4].map((i) => (
+                      <div key={i} className="w-7 h-7 rounded-full border-2 border-[var(--color-primary-dark)] overflow-hidden"
+                        style={{ background: 'rgba(255,255,255,0.08)' }}>
+                        <img
+                          src={`https://picsum.photos/id/10${i}/28/28`}
+                          alt=""
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
+                    ))}
                   </div>
-                  <p className="text-white/30 text-sm">Deine Illustration</p>
+                  <span className="text-[12px] text-white/40 font-medium">
+                    <span className="text-white/70 font-bold">500+</span> aktive Nutzer
+                  </span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Star size={14} className="fill-[var(--color-accent)]" style={{ color: 'var(--color-accent)' }} />
+                  <Star size={14} className="fill-[var(--color-accent)]" style={{ color: 'var(--color-accent)' }} />
+                  <Star size={14} className="fill-[var(--color-accent)]" style={{ color: 'var(--color-accent)' }} />
+                  <Star size={14} className="fill-[var(--color-accent)]" style={{ color: 'var(--color-accent)' }} />
+                  <Star size={14} className="fill-[var(--color-accent)]" style={{ color: 'var(--color-accent)' }} />
+                  <span className="text-[12px] text-white/40 ml-1 font-medium">4.9 <span className="text-white/30">(150+)</span></span>
                 </div>
               </div>
             </div>
+
+            {/* Rechte Spalte – Visual */}
+            <div className={`hidden lg:flex lg:col-span-5 items-center justify-center ${stagger(heroVis, 1)}`} style={staggerDelay(1)}>
+              <div className="relative w-full max-w-[400px]">
+                {/* Haupt-Karte */}
+                <div className="relative rounded-[20px] overflow-hidden shadow-2xl"
+                  style={{
+                    background: 'rgba(255,255,255,0.05)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    backdropFilter: 'blur(20px)',
+                  }}
+                >
+                  <img
+                    src="https://picsum.photos/id/1039/400/300"
+                    alt="Aachen Architektur"
+                    className="w-full h-[200px] object-cover opacity-60"
+                    loading="lazy"
+                  />
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <MapPin size={14} style={{ color: 'var(--color-accent)' }} />
+                      <span className="text-[12px] text-white/50 font-medium">Aachen, Deutschland</span>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[13px] text-white/60">Aktive Vendoren</span>
+                        <span className="text-[15px] font-bold text-white">128</span>
+                      </div>
+                      <div className="w-full h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }}>
+                        <div className="h-full w-3/4 rounded-full" style={{ background: 'var(--color-accent)' }} />
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[13px] text-white/60">Heutige Buchungen</span>
+                        <span className="text-[15px] font-bold text-white">47</span>
+                      </div>
+                      <div className="w-full h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }}>
+                        <div className="h-full w-1/2 rounded-full" style={{ background: 'linear-gradient(90deg, var(--color-accent), #14B8A6)' }} />
+                      </div>
+                    </div>
+                  </div>
+                  {/* Glanz-Linie */}
+                  <div className="absolute top-0 left-0 right-0 h-px"
+                    style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)' }} />
+                </div>
+
+                {/* Kleine Floating-Karte */}
+                <div className="absolute -bottom-4 -right-4 rounded-[12px] px-4 py-3 backdrop-blur-xl"
+                  style={{
+                    background: 'rgba(13,148,136,0.15)',
+                    border: '1px solid rgba(13,148,136,0.2)',
+                  }}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-[8px] flex items-center justify-center"
+                      style={{ background: 'rgba(13,148,136,0.2)' }}>
+                      <TrendingUp size={16} style={{ color: 'var(--color-accent)' }} />
+                    </div>
+                    <div>
+                      <p className="text-[11px] text-white/40">Wachstum</p>
+                      <p className="text-[14px] font-bold text-white">+32% <span className="text-[11px] font-medium text-white/40">vs. Vormonat</span></p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Kleine Floating-Karte 2 */}
+                <div className="absolute -top-4 -left-4 rounded-[12px] px-4 py-3 backdrop-blur-xl"
+                  style={{
+                    background: 'rgba(255,255,255,0.06)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                  }}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Shield size={16} style={{ color: 'var(--color-accent)' }} />
+                    <span className="text-[12px] font-medium text-white/60">SSL-verschlüsselt</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll-Indikator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+          <span className="text-[10px] text-white/20 font-medium tracking-widest uppercase">Scroll</span>
+          <div className="w-5 h-8 rounded-full border border-white/15 flex items-start justify-center pt-1.5">
+            <div className="w-1 h-2 rounded-full animate-bounce" style={{ background: 'var(--color-accent)' }} />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════
+          PARTNER / TRUST BAR
+          ═══════════════════════════════════════════════════════════ */}
+      <section className="py-8 md:py-10" style={{ background: 'var(--color-surface-sunken)' }} data-testid="trust-bar">
+        <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-center mb-5" style={{ color: 'var(--color-text-tertiary)' }}>
+            Vertrauen von Unternehmen aus der Region
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 opacity-40">
+            {['Aachen Digital', 'RWTH Campus', 'City Aachen', 'Indeland', 'Euregio', 'TRIANGEL'].map((name, i) => (
+              <span key={i} className="text-[15px] font-bold tracking-tight" style={{ color: 'var(--color-primary)', fontFamily: 'var(--font-heading)' }}>
+                {name}
+              </span>
+            ))}
           </div>
         </div>
       </section>
@@ -174,35 +331,73 @@ export default function HomePage() {
           ═══════════════════════════════════════════════════════════ */}
       <section ref={featuresRef} className="py-[80px] md:py-[100px] lg:py-[120px]" data-testid="features-section">
         <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="text-center max-w-[600px] mx-auto mb-16">
+          {/* Header */}
+          <div className="text-center max-w-[680px] mx-auto mb-[60px]">
             <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'var(--color-accent)' }}>
-              {t('home.features_title', CONFIG.featuresTitle)}
+              {t('home.features_title')}
             </p>
-            <h2 className="text-[32px] sm:text-[40px] lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[1.05]"
+            <h2 className="text-[32px] sm:text-[40px] lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[1.05] mb-5"
               style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
-              {t('home.features_title', CONFIG.featuresTitle)}
+              {t('home.features_title')}
             </h2>
-            <p className="text-[15px] text-[var(--color-text-secondary)] mt-4 leading-relaxed">
-              {t('home.features_subtitle', CONFIG.featuresSubtitle)}
+            <p className="text-[15px] text-[var(--color-text-secondary)] leading-relaxed max-w-[560px] mx-auto">
+              {t('home.features_subtitle')}
             </p>
           </div>
 
+          {/* Feature Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {CONFIG.features.map((feature, idx) => {
+            {FEATURES.map((feature, idx) => {
               const Icon = feature.icon;
               return (
-                <div key={idx}
-                  className={`p-8 border rounded-[12px] transition-all duration-300 hover:translate-y-[-2px] ${stagger(featuresVis, idx)}`}
-                  style={{ borderColor: 'var(--color-divider)', background: 'var(--color-surface)', ...staggerDelay(idx) }}
-                  data-testid={`feature-card-${idx}`}>
-                  <div className="w-12 h-12 rounded-[10px] flex items-center justify-center mb-5"
+                <div
+                  key={idx}
+                  className={`group relative p-8 rounded-[16px] transition-all duration-500 ${stagger(featuresVis, idx)}`}
+                  style={{
+                    background: 'var(--color-surface)',
+                    border: '1px solid var(--color-divider)',
+                    boxShadow: 'var(--shadow-e1)',
+                    ...staggerDelay(idx),
+                  }}
+                  data-testid={`feature-card-${idx}`}
+                >
+                  {/* Hover-Effekt */}
+                  <div className="absolute inset-0 rounded-[16px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(13,148,136,0.03) 0%, transparent 60%)',
+                    }}
+                  />
+
+                  {/* Icon */}
+                  <div className="w-14 h-14 rounded-[14px] flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110 group-hover:rotate-[-4deg]"
                     style={{ background: 'var(--color-accent-muted)' }}>
-                    <Icon size={22} style={{ color: 'var(--color-accent)' }} />
+                    <Icon size={26} style={{ color: 'var(--color-accent)' }} />
                   </div>
-                  <h3 className="text-[18px] font-bold tracking-tight mb-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
-                    {feature.title}
+
+                  {/* Nummer */}
+                  <span className="absolute top-6 right-6 text-[40px] font-extrabold select-none"
+                    style={{ color: 'var(--color-divider)', fontFamily: 'var(--font-heading)' }}>
+                    {String(idx + 1).padStart(2, '0')}
+                  </span>
+
+                  {/* Titel */}
+                  <h3 className="text-[19px] font-bold tracking-tight mb-3 relative z-10"
+                    style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
+                    {t(`home.feature_${feature.key}_title`)}
                   </h3>
-                  <p className="text-[14px] text-[var(--color-text-secondary)] leading-relaxed">{feature.desc}</p>
+
+                  {/* Beschreibung */}
+                  <p className="text-[14px] text-[var(--color-text-secondary)] leading-relaxed relative z-10">
+                    {t(`home.feature_${feature.key}_desc`)}
+                  </p>
+
+                  {/* Learn More Link */}
+                  <div className="mt-5 relative z-10">
+                    <span className="inline-flex items-center gap-1.5 text-[13px] font-semibold transition-all duration-300 group-hover:gap-2.5"
+                      style={{ color: 'var(--color-accent)' }}>
+                      Mehr erfahren <ChevronRight size={13} />
+                    </span>
+                  </div>
                 </div>
               );
             })}
@@ -211,64 +406,339 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          STATS
+          HOW IT WORKS
           ═══════════════════════════════════════════════════════════ */}
-      <section ref={statsRef} className="py-[64px] md:py-[80px] lg:py-[96px]"
-        style={{ background: 'var(--color-primary)' }} data-testid="stats-section">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-            {CONFIG.stats.map((stat, idx) => (
-              <div key={idx} className={`text-center ${stagger(statsVis, idx)}`} style={staggerDelay(idx)}>
-                <p className="text-[36px] sm:text-[44px] lg:text-[52px] font-extrabold tracking-[-0.03em]"
-                  style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-accent)' }}>
-                  <AnimatedCounter end={stat.value} suffix={stat.suffix} />
-                </p>
-                <p className="text-[13px] font-medium text-white/50 mt-1">{stat.label}</p>
+      <section ref={howRef} className="py-[80px] md:py-[100px] lg:py-[120px] relative overflow-hidden"
+        style={{ background: 'var(--color-surface-sunken)' }} data-testid="how-it-works-section">
+
+        {/* Hintergrund-Akzente */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.03] pointer-events-none"
+          style={{ background: 'radial-gradient(circle, var(--color-accent), transparent)', filter: 'blur(80px)' }} />
+
+        <div className="relative z-10 max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
+          {/* Header */}
+          <div className="text-center max-w-[600px] mx-auto mb-[60px]">
+            <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'var(--color-accent)' }}>
+              {t('home.how_title')}
+            </p>
+            <h2 className="text-[32px] sm:text-[40px] lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[1.05]"
+              style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
+              {t('home.how_title')}
+            </h2>
+            <p className="text-[15px] text-[var(--color-text-secondary)] mt-4 leading-relaxed">
+              {t('home.how_subtitle')}
+            </p>
+          </div>
+
+          {/* 3 Steps */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 relative">
+            {/* Verbindungslinie (Desktop) */}
+            <div className="hidden md:block absolute top-[60px] left-[calc(16.66%+30px)] right-[calc(16.66%+30px)] h-[2px]"
+              style={{ background: `linear-gradient(90deg, var(--color-accent), var(--color-accent), var(--color-divider))` }}>
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2"
+                style={{ borderColor: 'var(--color-divider)', background: 'var(--color-surface-sunken)' }} />
+            </div>
+
+            {/* Step 1: Register */}
+            <div className={`relative text-center ${stagger(howVis, 0)}`} style={staggerDelay(0)}>
+              <div className="w-[100px] h-[100px] mx-auto mb-8 rounded-[24px] flex items-center justify-center relative"
+                style={{
+                  background: 'linear-gradient(135deg, var(--color-accent-muted), rgba(13,148,136,0.02))',
+                  border: '1px solid rgba(13,148,136,0.12)',
+                }}
+              >
+                <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center text-[13px] font-bold text-white"
+                  style={{ background: 'var(--color-accent)' }}>
+                  1
+                </div>
+                <MousePointer2 size={36} style={{ color: 'var(--color-accent)' }} />
               </div>
-            ))}
+              <h3 className="text-[20px] font-bold tracking-tight mb-3"
+                style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
+                {t('home.how_step1_title')}
+              </h3>
+              <p className="text-[14px] text-[var(--color-text-secondary)] leading-relaxed max-w-[320px] mx-auto">
+                {t('home.how_step1_desc')}
+              </p>
+            </div>
+
+            {/* Step 2: Connect */}
+            <div className={`relative text-center ${stagger(howVis, 1)}`} style={staggerDelay(1)}>
+              <div className="w-[100px] h-[100px] mx-auto mb-8 rounded-[24px] flex items-center justify-center relative"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(13,148,136,0.08), rgba(13,148,136,0.02))',
+                  border: '1px solid rgba(13,148,136,0.12)',
+                }}
+              >
+                <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center text-[13px] font-bold text-white"
+                  style={{ background: 'var(--color-accent)' }}>
+                  2
+                </div>
+                <Layers size={36} style={{ color: 'var(--color-accent)' }} />
+              </div>
+              <h3 className="text-[20px] font-bold tracking-tight mb-3"
+                style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
+                {t('home.how_step2_title')}
+              </h3>
+              <p className="text-[14px] text-[var(--color-text-secondary)] leading-relaxed max-w-[320px] mx-auto">
+                {t('home.how_step2_desc')}
+              </p>
+            </div>
+
+            {/* Step 3: Earn */}
+            <div className={`relative text-center ${stagger(howVis, 2)}`} style={staggerDelay(2)}>
+              <div className="w-[100px] h-[100px] mx-auto mb-8 rounded-[24px] flex items-center justify-center relative"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(13,148,136,0.08), rgba(13,148,136,0.02))',
+                  border: '1px solid rgba(13,148,136,0.12)',
+                }}
+              >
+                <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center text-[13px] font-bold text-white"
+                  style={{ background: 'var(--color-accent)' }}>
+                  3
+                </div>
+                <DollarSign size={36} style={{ color: 'var(--color-accent)' }} />
+              </div>
+              <h3 className="text-[20px] font-bold tracking-tight mb-3"
+                style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
+                {t('home.how_step3_title')}
+              </h3>
+              <p className="text-[14px] text-[var(--color-text-secondary)] leading-relaxed max-w-[320px] mx-auto">
+                {t('home.how_step3_desc')}
+              </p>
+            </div>
+          </div>
+
+          {/* CTA unter Steps */}
+          <div className={`text-center mt-16 ${stagger(howVis, 3)}`} style={staggerDelay(3)}>
+            <Link to="/auth/register" data-testid="how-cta"
+              className="inline-flex items-center gap-2.5 h-[52px] px-8 text-[14px] font-bold text-white rounded-[10px] transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]"
+              style={{ background: 'var(--color-primary)', boxShadow: 'var(--shadow-e3)' }}>
+              {t('home.hero_cta_primary')} <ArrowRight size={15} />
+            </Link>
           </div>
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════════════════════
-          CTA
+          STATS
           ═══════════════════════════════════════════════════════════ */}
-      <section ref={ctaRef} className="py-[64px] md:py-[80px] lg:py-[96px]" data-testid="cta-section">
+      <section ref={statsRef}
+        className="relative py-[80px] md:py-[100px] lg:py-[120px] overflow-hidden"
+        style={{
+          background: 'linear-gradient(160deg, #0A2036 0%, #1A4570 40%, #1A4570 60%, #0A2036 100%)',
+        }}
+        data-testid="stats-section"
+      >
+        {/* Hintergrund-Elemente */}
+        <div className="absolute inset-0 opacity-[0.04]"
+          style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, white 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full opacity-[0.05]"
+          style={{ background: 'radial-gradient(circle, var(--color-accent), transparent)', filter: 'blur(60px)' }} />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full opacity-[0.03]"
+          style={{ background: 'radial-gradient(circle, #B3CDE1, transparent)', filter: 'blur(60px)' }} />
+
+        <div className="relative z-10 max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
+          {/* Überschrift */}
+          <div className="text-center mb-16">
+            <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'var(--color-accent)' }}>
+              Plattform in Zahlen
+            </p>
+            <h2 className="text-[32px] sm:text-[40px] lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[1.05] text-white"
+              style={{ fontFamily: 'var(--font-heading)' }}>
+              Wachstum, das{' '}
+              <span style={{ color: 'var(--color-accent)' }}>überzeugt</span>
+            </h2>
+          </div>
+
+          {/* Statistik-Zahlen */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
+            {/* 500+ Vendoren */}
+            <div className={`text-center ${stagger(statsVis, 0)}`} style={staggerDelay(0)}>
+              <div className="w-14 h-14 mx-auto mb-4 rounded-[14px] flex items-center justify-center"
+                style={{ background: 'rgba(13,148,136,0.12)' }}>
+                <Store size={24} style={{ color: 'var(--color-accent)' }} />
+              </div>
+              <p className="text-[40px] sm:text-[48px] lg:text-[56px] font-extrabold tracking-[-0.03em] leading-none mb-1"
+                style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-accent)' }}>
+                <AnimatedCounter end={500} suffix="+" />
+              </p>
+              <p className="text-[14px] font-medium text-white/50">{t('home.stats_vendors')}</p>
+            </div>
+
+            {/* 50.000+ Bookings */}
+            <div className={`text-center ${stagger(statsVis, 1)}`} style={staggerDelay(1)}>
+              <div className="w-14 h-14 mx-auto mb-4 rounded-[14px] flex items-center justify-center"
+                style={{ background: 'rgba(13,148,136,0.12)' }}>
+                <CalendarCheck size={24} style={{ color: 'var(--color-accent)' }} />
+              </div>
+              <p className="text-[40px] sm:text-[48px] lg:text-[56px] font-extrabold tracking-[-0.03em] leading-none mb-1"
+                style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-accent)' }}>
+                <AnimatedCounter end={50000} suffix="+" />
+              </p>
+              <p className="text-[14px] font-medium text-white/50">{t('home.stats_bookings')}</p>
+            </div>
+
+            {/* 98% Satisfaction */}
+            <div className={`text-center ${stagger(statsVis, 2)}`} style={staggerDelay(2)}>
+              <div className="w-14 h-14 mx-auto mb-4 rounded-[14px] flex items-center justify-center"
+                style={{ background: 'rgba(13,148,136,0.12)' }}>
+                <Star size={24} style={{ color: 'var(--color-accent)' }} />
+              </div>
+              <p className="text-[40px] sm:text-[48px] lg:text-[56px] font-extrabold tracking-[-0.03em] leading-none mb-1"
+                style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-accent)' }}>
+                <AnimatedCounter end={98} suffix="%" />
+              </p>
+              <p className="text-[14px] font-medium text-white/50">{t('home.stats_satisfaction')}</p>
+            </div>
+
+            {/* 24/7 Support */}
+            <div className={`text-center ${stagger(statsVis, 3)}`} style={staggerDelay(3)}>
+              <div className="w-14 h-14 mx-auto mb-4 rounded-[14px] flex items-center justify-center"
+                style={{ background: 'rgba(13,148,136,0.12)' }}>
+                <Bell size={24} style={{ color: 'var(--color-accent)' }} />
+              </div>
+              <p className="text-[40px] sm:text-[48px] lg:text-[56px] font-extrabold tracking-[-0.03em] leading-none mb-1"
+                style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-accent)' }}>
+                24<span className="text-[28px] sm:text-[32px]">/</span>7
+              </p>
+              <p className="text-[14px] font-medium text-white/50">{t('home.stats_support')}</p>
+            </div>
+          </div>
+
+          {/* Zusätzliche KPI-Zeile */}
+          <div className={`mt-16 pt-10 border-t border-white/10 flex flex-wrap items-center justify-center gap-x-12 gap-y-4 ${stagger(statsVis, 4)}`} style={staggerDelay(4)}>
+            {[
+              { icon: TrendingUp, label: 'Monatliches Wachstum', value: '+18%' },
+              { icon: Users, label: 'Aktive Affiliates', value: '1.200+' },
+              { icon: RefreshCw, label: 'Conversion-Rate', value: '4,7%' },
+              { icon: Gift, label: 'Ausgezahlte Provisionen', value: '€89K' },
+            ].map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div key={idx} className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-[10px] flex items-center justify-center"
+                    style={{ background: 'rgba(13,148,136,0.1)' }}>
+                    <Icon size={18} style={{ color: 'var(--color-accent)' }} />
+                  </div>
+                  <div>
+                    <p className="text-[11px] text-white/40 font-medium">{item.label}</p>
+                    <p className="text-[16px] font-bold text-white">{item.value}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════
+          CTA – FINAL CONVERSION BANNER
+          ═══════════════════════════════════════════════════════════ */}
+      <section ref={ctaRef} className="py-[80px] md:py-[100px] lg:py-[120px]" data-testid="cta-section">
         <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="relative overflow-hidden rounded-[12px]"
-            style={{ background: 'linear-gradient(160deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-primary-light) 100%)' }}>
+          <div className="relative overflow-hidden rounded-[24px]"
+            style={{
+              background: 'linear-gradient(160deg, #0A2036 0%, #1A4570 40%, #1A4570 70%, #0A2036 100%)',
+              boxShadow: '0 20px 60px rgba(10,32,54,0.3), 0 8px 24px rgba(10,32,54,0.15)',
+            }}
+          >
+            {/* Hintergrundmuster */}
             <div className="absolute inset-0 opacity-[0.03]"
               style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, white 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-              <div className={`lg:col-span-7 p-8 sm:p-12 lg:p-16 xl:p-20 ${stagger(ctaVis, 0)}`}>
-                <h2 className="text-[28px] sm:text-[36px] lg:text-[44px] font-extrabold text-white leading-[1.1] tracking-[-0.025em] mb-5"
+            {/* Akzente */}
+            <div className="absolute top-1/2 -right-24 w-64 h-64 rounded-full opacity-[0.05]"
+              style={{ background: 'radial-gradient(circle, var(--color-accent), transparent)', filter: 'blur(60px)' }} />
+            <div className="absolute bottom-0 left-1/4 w-48 h-48 rounded-full opacity-[0.03]"
+              style={{ background: 'radial-gradient(circle, #B3CDE1, transparent)', filter: 'blur(60px)' }} />
+
+            {/* Bild-Element */}
+            <div className="absolute right-0 top-0 bottom-0 w-1/3 hidden lg:block overflow-hidden opacity-20">
+              <img
+                src="https://picsum.photos/id/1016/600/800"
+                alt=""
+                className="w-full h-full object-cover"
+                style={{ objectPosition: 'center left' }}
+                loading="lazy"
+              />
+              <div className="absolute inset-0" style={{
+                background: 'linear-gradient(90deg, #1A4570 0%, transparent 30%, transparent 70%, #0A2036 100%)',
+              }} />
+            </div>
+
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              {/* Text */}
+              <div className={`lg:col-span-8 p-8 sm:p-12 lg:p-16 xl:p-20 ${stagger(ctaVis, 0)}`}>
+                {/* Badge */}
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-5"
+                  style={{ borderColor: 'rgba(13,148,136,0.2)', background: 'rgba(13,148,136,0.08)' }}>
+                  <span className="w-2 h-2 rounded-full" style={{ background: 'var(--color-accent)' }} />
+                  <span className="text-[10px] font-semibold tracking-widest uppercase" style={{ color: 'var(--color-accent)' }}>
+                    Jetzt starten
+                  </span>
+                </div>
+
+                <h2 className="text-[30px] sm:text-[38px] lg:text-[48px] font-extrabold text-white leading-[1.08] tracking-[-0.03em] mb-5"
                   style={{ fontFamily: 'var(--font-heading)' }}>
-                  {t('home.cta_title', CONFIG.ctaTitle)}<br />
-                  <span style={{ color: 'var(--color-accent)' }}>{t('home.cta_title_accent', CONFIG.ctaTitleAccent)}</span>
+                  {t('home.cta_title')}<br />
+                  <span style={{ color: 'var(--color-accent)' }}>{t('home.cta_title_accent')}</span>
                 </h2>
-                <p className="text-[15px] text-white/40 leading-[1.7] max-w-[440px] mb-10">
-                  {t('home.cta_desc', CONFIG.ctaDesc)}
+
+                <p className="text-[15px] text-white/40 leading-[1.7] max-w-[520px] mb-8">
+                  {t('home.cta_desc')}
                 </p>
+
+                {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link to="/auth/register" data-testid="cta-primary"
-                    className="inline-flex items-center justify-center gap-2.5 h-[56px] px-10 text-[15px] font-bold tracking-wide text-[var(--color-primary-dark)] rounded-full group transition-all duration-300 hover:scale-[1.02]"
-                    style={{ background: 'var(--color-accent)', boxShadow: '0 4px 24px rgba(212,175,55,0.3)' }}>
-                    {t('home.hero_cta_primary', CONFIG.heroCtaPrimary)} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    className="inline-flex items-center justify-center gap-2.5 h-[58px] px-10 text-[15px] font-bold tracking-wide text-[var(--color-primary-dark)] rounded-full group transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]"
+                    style={{
+                      background: 'var(--color-accent)',
+                      boxShadow: '0 4px 28px rgba(13,148,136,0.35), 0 2px 8px rgba(13,148,136,0.15)',
+                    }}
+                  >
+                    {t('home.cta_primary')}
+                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
-                  <Link to="/contact" data-testid="cta-contact"
-                    className="inline-flex items-center justify-center gap-2 h-[56px] px-8 text-[15px] font-semibold text-white/80 border-2 border-white/15 rounded-full transition-all duration-300 hover:border-white/30 hover:text-white">
-                    {t('home.cta_consultation', CONFIG.ctaContactLabel)}
+                  <Link to="/affiliate" data-testid="cta-secondary"
+                    className="inline-flex items-center justify-center gap-2 h-[58px] px-8 text-[15px] font-semibold text-white/80 border-2 border-white/15 rounded-full transition-all duration-300 hover:border-white/30 hover:text-white hover:bg-white/5 backdrop-blur-sm">
+                    {t('home.cta_secondary')}
                   </Link>
+                </div>
+
+                {/* Garantie */}
+                <div className="flex items-center gap-3 mt-8 pt-6 border-t border-white/10">
+                  <Shield size={16} className="text-white/30" />
+                  <span className="text-[12px] text-white/30">Keine versteckten Kosten · Jederzeit kündbar · DSGVO-konform</span>
                 </div>
               </div>
 
-              <div className={`hidden lg:flex lg:col-span-5 items-center justify-center lg:justify-end p-8 sm:p-10 lg:p-12 ${stagger(ctaVis, 1)}`} style={staggerDelay(1)}>
-                <div className="w-[200px] sm:w-[240px] lg:w-[300px] h-auto aspect-square rounded-[16px] flex items-center justify-center"
-                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <div className="text-center">
-                    <CheckCircle size={48} style={{ color: 'var(--color-accent)' }} className="mx-auto mb-3" />
-                    <p className="text-white/30 text-sm">Deine Grafik</p>
+              {/* Rechte Spalte – Visual */}
+              <div className={`hidden lg:flex lg:col-span-4 items-center justify-center p-8 lg:p-12 ${stagger(ctaVis, 1)}`} style={staggerDelay(1)}>
+                <div className="relative">
+                  <div className="w-[200px] h-[200px] rounded-[20px] flex items-center justify-center backdrop-blur-sm"
+                    style={{
+                      background: 'rgba(255,255,255,0.04)',
+                      border: '1px solid rgba(255,255,255,0.06)',
+                    }}
+                  >
+                    <div className="text-center">
+                      <div className="w-16 h-16 mx-auto mb-3 rounded-[14px] flex items-center justify-center"
+                        style={{ background: 'rgba(13,148,136,0.15)' }}>
+                        <CheckCircle size={32} style={{ color: 'var(--color-accent)' }} />
+                      </div>
+                      <p className="text-white/30 text-[12px] font-medium">In 3 Minuten starten</p>
+                    </div>
+                  </div>
+                  {/* Badge */}
+                  <div className="absolute -bottom-2 -right-2 px-4 py-2 rounded-[10px] backdrop-blur-xl"
+                    style={{
+                      background: 'rgba(13,148,136,0.12)',
+                      border: '1px solid rgba(13,148,136,0.15)',
+                    }}
+                  >
+                    <p className="text-[11px] font-bold text-white">100% kostenlos</p>
                   </div>
                 </div>
               </div>
@@ -277,7 +747,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <PublicFooter />
+      <PublicFooter
+        brandName="Affilinet Portal Aachen"
+        description={t('home.footer_tagline')}
+        cta={{ labelKey: 'home.hero_cta_primary', href: '/auth/register' }}
+      />
     </div>
   );
 }
