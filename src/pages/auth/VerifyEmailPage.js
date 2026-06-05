@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
+import SEOHead from '../../components/shared/SEOHead';
 import { MailCheck, Briefcase } from 'lucide-react';
 
 export default function VerifyEmailPage() {
@@ -9,6 +10,8 @@ export default function VerifyEmailPage() {
   const status = searchParams.get('status');
 
   return (
+    <>
+    <SEOHead title="Bookando – E-Mail verifizieren" description="Bestätige deine E-Mail-Adresse für dein Bookando-Konto." />
     <div className="min-h-screen flex items-center justify-center bg-[var(--color-shell-bg)] px-6">
       <div className="w-full max-w-md text-center">
         <Link to="/" className="inline-flex items-center gap-2.5 mb-10">
@@ -41,5 +44,6 @@ export default function VerifyEmailPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

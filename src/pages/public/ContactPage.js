@@ -1,5 +1,6 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
+import SEOHead from '../../components/shared/SEOHead';
 import PublicNav from '../../components/layout/PublicNav';
 import PublicFooter from '../../components/layout/PublicFooter';
 import { Mail, MapPin, Phone, Send } from 'lucide-react';
@@ -9,6 +10,7 @@ export default function ContactPage() {
 
   return (
     <div>
+      <SEOHead title="Bookando – Kontakt & Beratung" description="Kontaktiere Bookando aus Aachen. Wir beraten dich zu Terminbuchung, Affiliate-Marketing und deiner Dienstleister-Plattform." />
       <PublicNav />
       <main className="pt-24 pb-16 min-h-screen bg-[var(--color-shell-bg)]">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-12">

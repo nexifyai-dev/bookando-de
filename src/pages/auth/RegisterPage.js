@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
+import SEOHead from '../../components/shared/SEOHead';
 import { useAuth, formatApiError } from '../../contexts/AuthContext';
 import { Loader2, AlertCircle, User, Building2, Check, Briefcase } from 'lucide-react';
 import LanguageSwitcher from '../../components/shared/LanguageSwitcher';
@@ -51,6 +52,7 @@ export default function RegisterPage() {
   const updateField = k => e => setForm(p => ({ ...p, [k]: e.target.value }));
   return (
     <div className="min-h-screen flex" data-testid="register-page">
+            <SEOHead title="Bookando – Konto erstellen" description="Erstelle dein Bookando-Konto als Dienstleister oder Kunde. Terminbuchung, Affiliate-Marketing und Marketplace." />
       {/* Left Panel — Form */}
       <div className="flex-1 flex flex-col relative bg-white">
         {/* Top bar with language switcher */}

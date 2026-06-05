@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
+import SEOHead from '../../components/shared/SEOHead';
 import { ArrowLeft, Mail, Briefcase } from 'lucide-react';
 
 export default function ForgotPasswordPage() {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
+import SEOHead from '../../components/shared/SEOHead';
 import { useAuth, formatApiError } from '../../contexts/AuthContext';
 import { Loader2, AlertCircle, ShieldCheck, ArrowLeft, Briefcase, Building2 } from 'lucide-react';
 import LanguageSwitcher from '../../components/shared/LanguageSwitcher';
@@ -55,6 +56,7 @@ export default function LoginPage() {
   };
   return (
     <div className="min-h-screen flex" data-testid="login-page">
+            <SEOHead title="Bookando – Anmelden" description="Melde dich bei Bookando an und verwalte deine Buchungen, Affiliates und dein Dienstleister-Profil." />
       {/* Left Panel — Form */}
       <div className="flex-1 flex flex-col relative bg-white">
         {/* Top bar with language switcher */}

@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
+import SEOHead from '../../components/shared/SEOHead';
 import PublicNav from '../../components/layout/PublicNav';
 import PublicFooter from '../../components/layout/PublicFooter';
 import { Search, MapPin, Star, ArrowRight, Sparkles, Scissors, Palette, Droplet, Zap, Store } from 'lucide-react';
@@ -227,6 +228,7 @@ export default function MarketplacePage() {
 
   return (
     <div>
+      <SEOHead title="Bookando – Marketplace für Dienstleister" description="Finde den passenden Dienstleister in Aachen und Umgebung. Tattoo, Kosmetik, Friseur & mehr – mit Affiliate-Buchung." />
       <PublicNav />
       <main style={{ paddingTop: '96px', paddingBottom: '64px' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', paddingLeft: '24px', paddingRight: '24px' }}>
