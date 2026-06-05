@@ -34,7 +34,12 @@
     "trust_multi": "Multi-Vendor",
     "badge_made_in": "Made in Aachen",
     "title_line1": "Termine buchen &",
-    "title_line2": "Affiliate skalieren"
+    "title_line2": "Affiliate skalieren",
+    "concept_leistungen": "Plattformleistungen",
+    "concept_wallet": "Wallet-Guthaben",
+    "concept_team": "Team online",
+    "concept_wallet_val": "12.340€",
+    "concept_vendors": "+127 Vendors"
   },
   "footer": {
     "col_product": "Produkt",
@@ -105,7 +110,8 @@
     "cta_btn": "Kostenlos starten",
     "cta_btn2": "Beratung vereinbaren",
     "section_platform": "Plattform-Features",
-    "section_how_tag": "So einfach geht's"
+    "section_how_tag": "So einfach geht's",
+    "section_cta_title": "Bereit für den nächsten Schritt?"
   },
   "brand": {
     "name": "Bookando",

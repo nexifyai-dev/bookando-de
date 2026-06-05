@@ -89,13 +89,13 @@ export default function HomePage() {
                 </span>
               </div>
 
-              <h1 className="text-[40px] sm:text-[56px] lg:text-[64px] font-extrabold text-white leading-[1] tracking-[-0.035em] mb-6"
+              <h1 className="text-5xl sm:text-[56px] lg:text-[64px] font-extrabold text-white leading-[1] tracking-[-0.035em] mb-6"
                 style={{ fontFamily: 'var(--font-heading)' }}>
                 <span className="block">{t('hero.title_line1')}</span>
                 <span style={{ color: 'var(--color-accent)' }}>{t('hero.title_line2')}</span>
               </h1>
 
-              <p className="text-[16px] sm:text-[18px] text-white/50 leading-relaxed max-w-[520px] mb-10">
+              <p className="text-base sm:text-lg text-white/50 leading-relaxed max-w-[520px] mb-10">
                 {t('hero.subtitle')}
               </p>
 
@@ -117,29 +117,29 @@ export default function HomePage() {
               <div className="flex flex-wrap items-center gap-6 mt-10 pt-8 border-t border-white/10">
                 <div className="flex items-center gap-2">
                   <Shield size={14} className="text-white/30" />
-                  <span className="text-[12px] text-white/40">{t("hero.trust_dsgvo")}</span>
+                  <span className="text-xs text-white/40">{t("hero.trust_dsgvo")}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Globe size={14} className="text-white/30" />
-                  <span className="text-[12px] text-white/40">{t("hero.trust_lang")}</span>
+                  <span className="text-xs text-white/40">{t("hero.trust_lang")}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Users size={14} className="text-white/30" />
-                  <span className="text-[12px] text-white/40">{t("hero.trust_multi")}</span>
+                  <span className="text-xs text-white/40">{t("hero.trust_multi")}</span>
                 </div>
               </div>
             </div>
 
             {/* Rechte Spalte – Plattform-Konzept (shadcn-inspiriert, clean) */}
             <div className={`hidden lg:flex lg:col-span-5 items-center justify-center ${stagger(heroVis, 1)}`} style={staggerDelay(1)}>
-              <div className="relative w-full max-w-[360px] space-y-3">
+              <div className="relative w-full max-w-[360px] flex flex-col gap-3">
                 {/* Leistungsübersicht – wie shadcn Card-Komposition */}
                 <div className="rounded-xl overflow-hidden"
                   style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
                   <div className="px-5 pt-5 pb-3">
-                    <p className="text-[10px] font-semibold text-white/30 uppercase tracking-[0.15em]">Plattformleistungen</p>
+                    <p className="text-[10px] font-semibold text-white/30 uppercase tracking-[0.15em]">{t('hero.concept_leistungen')}</p>
                   </div>
-                  <div className="px-5 pb-5 space-y-3">
+                  <div className="px-5 pb-5 flex flex-col gap-3">
                     {[
                       { label: 'Terminbuchung', sub: 'Echtzeit-Kalender, Mitarbeiter & Ressourcen', color: 'var(--color-accent)' },
                       { label: 'Affiliate-Marketing', sub: 'Trackinglinks, Provisionen & Wallet-Auszahlungen', color: 'var(--color-primary-light)' },
@@ -150,7 +150,7 @@ export default function HomePage() {
                           style={{ background: item.color }}>{i + 1}</div>
                         <div className="min-w-0">
                           <p className="text-sm font-medium text-white leading-snug">{item.label}</p>
-                          <p className="text-[12px] text-white/25 leading-snug mt-0.5">{item.sub}</p>
+                          <p className="text-xs text-white/25 leading-snug mt-0.5">{item.sub}</p>
                         </div>
                       </div>
                     ))}
@@ -161,8 +161,8 @@ export default function HomePage() {
                 <div className="rounded-xl overflow-hidden"
                   style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
                   <div className="px-5 py-4">
-                    <p className="text-[12px] text-white/35 leading-relaxed">
-                      Die erste Plattform, die Terminbuchung mit Affiliate-Marketing vereint – entwickelt für Dienstleister, die mit Partnern skalieren.
+                    <p className="text-xs text-white/35 leading-relaxed">
+                      {t('home.section_feature_sub')}
                     </p>
                   </div>
                   <div className="px-5 pb-4 flex items-center gap-2">
@@ -174,7 +174,7 @@ export default function HomePage() {
                         </div>
                       ))}
                     </div>
-                    <p className="text-[11px] text-white/25">+127 Vendors</p>
+                    <p className="text-[11px] text-white/25">{t('hero.concept_vendors')}</p>
                   </div>
                 </div>
               </div>
@@ -190,7 +190,7 @@ export default function HomePage() {
                       <div key={d} className="flex-1 text-center py-2 rounded-[6px]"
                         style={{ background: i === 2 ? "rgba(196,155,62,0.2)" : "rgba(255,255,255,0.04)", border: i === 2 ? "1px solid rgba(196,155,62,0.3)" : "1px solid rgba(255,255,255,0.04)" }}>
                         <p className="text-[9px] uppercase tracking-wider text-white/40 mb-1">{d}</p>
-                        <p className="text-[14px] font-bold" style={{ color: i === 2 ? 'var(--color-accent)' : 'white' }}>{14 + i}</p>
+                        <p className="text-sm font-bold" style={{ color: i === 2 ? 'var(--color-accent)' : 'white' }}>{14 + i}</p>
                       </div>
                     ))}
                   </div>
@@ -200,7 +200,7 @@ export default function HomePage() {
                       <div key={i} className="p-3 rounded-[8px]"
                         style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
                         <p className="text-[10px] text-white/40 mb-0.5">{kpi.label}</p>
-                        <p className="text-[16px] font-extrabold text-white">{kpi.value}</p>
+                        <p className="text-base font-extrabold text-white">{kpi.value}</p>
                         <p className="text-[10px]" style={{ color: 'var(--color-success)' }}>{kpi.trend}</p>
                       </div>
                     ))}
@@ -208,7 +208,7 @@ export default function HomePage() {
                   {/* Wallet-Balken */}
                   <div className="p-3 rounded-[8px]" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
                     <div className="flex items-center justify-between mb-2">
-                      <p className="text-[10px] text-white/40">Wallet-Guthaben</p>
+                      <p className="text-[10px] text-white/40">{t('hero.concept_wallet')}</p>
                       <p className="text-[11px] font-bold text-white">12.340\u20ac</p>
                     </div>
                     <div className="h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }}>
@@ -223,7 +223,7 @@ export default function HomePage() {
                       <div className="w-7 h-7 rounded-full border-2 flex items-center justify-center" style={{ background: 'var(--color-primary-lighter)', borderColor: 'rgba(10,32,54,0.8)' }}><span className="text-[8px] font-bold text-white">AL</span></div>
                       <div className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-[8px] font-bold" style={{ background: 'rgba(255,255,255,0.06)', borderColor: 'rgba(10,32,54,0.8)', color: 'rgba(255,255,255,0.4)' }}>+3</div>
                     </div>
-                    <p className="text-[10px] text-white/40">Team online</p>
+                    <p className="text-[10px] text-white/40">{t('hero.concept_team')}</p>
                   </div>
                 </div>
 
@@ -239,10 +239,10 @@ export default function HomePage() {
       <section ref={featuresRef} className="py-[80px] md:py-[100px] lg:py-[120px]" data-testid="features-section">
         <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center max-w-[600px] mx-auto mb-16">
-            <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'var(--color-accent)' }}>{t('home.section_platform')}</p>
-            <h2 className="text-[32px] sm:text-[40px] lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[1.05]"
+            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'var(--color-accent)' }}>{t('home.section_platform')}</p>
+            <h2 className="text-3xl sm:text-5xl lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[1.05]"
               style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
-              Alles, was du brauchst
+              {t('home.section_feature_title')}
             </h2>
             <p className="text-[15px] text-[var(--color-text-secondary)] mt-4 leading-relaxed">
               Von der Terminbuchung bis zum Affiliate-Marketing – Bookando bildet dein gesamtes Geschäft ab.
@@ -261,10 +261,10 @@ export default function HomePage() {
                     style={{ background: 'rgba(196,155,62,0.12)' }}>
                     <Icon size={22} style={{ color: 'var(--color-accent)' }} />
                   </div>
-                  <h3 className="text-[18px] font-bold tracking-tight mb-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
+                  <h3 className="text-lg font-bold tracking-tight mb-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
                     {feature.title}
                   </h3>
-                  <p className="text-[14px] text-[var(--color-text-secondary)] leading-relaxed">{feature.desc}</p>
+                  <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">{feature.desc}</p>
                 </div>
               );
             })}
@@ -286,11 +286,11 @@ export default function HomePage() {
               { value: 24, suffix: '/7', label: t('home.stats_support') },
             ].map((stat, idx) => (
               <div key={idx} className={`text-center ${stagger(statsVis, idx)}`} style={staggerDelay(idx)}>
-                <p className="text-[36px] sm:text-[44px] lg:text-[52px] font-extrabold tracking-[-0.03em]"
+                <p className="text-4xl sm:text-[44px] lg:text-[52px] font-extrabold tracking-[-0.03em]"
                   style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-accent)' }}>
                   <AnimatedCounter end={stat.value} suffix={stat.suffix} />
                 </p>
-                <p className="text-[13px] font-medium text-white/50 mt-1">{stat.label}</p>
+                <p className="text-xs font-medium text-white/50 mt-1">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -303,10 +303,10 @@ export default function HomePage() {
       <section className="py-[80px] md:py-[100px]" data-testid="howitworks-section">
         <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center max-w-[600px] mx-auto mb-16">
-            <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'var(--color-accent)' }}>{t('home.section_how_tag')}</p>
-            <h2 className="text-[32px] sm:text-[40px] lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[1.05]"
+            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'var(--color-accent)' }}>{t('home.section_how_tag')}</p>
+            <h2 className="text-3xl sm:text-5xl lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[1.05]"
               style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
-              In 3 Schritten starten
+              {t('home.section_how_title')}
             </h2>
           </div>
 
@@ -321,16 +321,16 @@ export default function HomePage() {
                 <div key={idx} className="text-center p-8">
                   <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6"
                     style={{ background: 'rgba(196,155,62,0.1)', border: '1px solid rgba(196,155,62,0.2)' }}>
-                    <span className="text-[18px] font-bold" style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-heading)' }}>{item.step}</span>
+                    <span className="text-lg font-bold" style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-heading)' }}>{item.step}</span>
                   </div>
                   <div className="w-12 h-12 rounded-[10px] flex items-center justify-center mx-auto mb-5"
                     style={{ background: 'rgba(26,69,112,0.06)' }}>
                     <Icon size={22} style={{ color: 'var(--color-primary)' }} />
                   </div>
-                  <h3 className="text-[18px] font-bold tracking-tight mb-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
+                  <h3 className="text-lg font-bold tracking-tight mb-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
                     {item.title}
                   </h3>
-                  <p className="text-[14px] text-[var(--color-text-secondary)] leading-relaxed max-w-[260px] mx-auto">{item.desc}</p>
+                  <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed max-w-[260px] mx-auto">{item.desc}</p>
                 </div>
               );
             })}
@@ -353,9 +353,9 @@ export default function HomePage() {
 
             <div className="relative z-10 p-8 sm:p-12 lg:p-16 xl:p-20 text-center">
               <div className={`max-w-[600px] mx-auto ${stagger(ctaVis, 0)}`}>
-                <h2 className="text-[28px] sm:text-[36px] lg:text-[44px] font-extrabold text-white leading-[1.1] tracking-[-0.025em] mb-5"
+                <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-white leading-[1.1] tracking-[-0.025em] mb-5"
                   style={{ fontFamily: 'var(--font-heading)' }}>
-                  Bereit für den nächsten Schritt?
+                  {t('home.section_cta_title')}
                 </h2>
                 <p className="text-[15px] text-white/40 leading-relaxed mb-10 max-w-[440px] mx-auto">
                   {t("home.cta_text")}

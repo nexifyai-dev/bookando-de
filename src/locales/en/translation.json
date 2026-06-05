@@ -34,7 +34,12 @@
     "trust_multi": "Multi-Vendor",
     "badge_made_in": "Made in Aachen",
     "title_line1": "Book appointments &",
-    "title_line2": "Grow with affiliates"
+    "title_line2": "Grow with affiliates",
+    "concept_leistungen": "Platform Features",
+    "concept_wallet": "Wallet Balance",
+    "concept_team": "Team online",
+    "concept_wallet_val": "€12,340",
+    "concept_vendors": "+127 Vendors"
   },
   "footer": {
     "col_product": "Product",
@@ -89,7 +94,7 @@
   "home": {
     "section_feature_title": "Everything you need",
     "section_feature_sub": "Affiliate-Marketing, Terminbuchung, Wallet, Marketplace und WhiteLabel – Bookando bildet dein gesamtes Geschäft ab.",
-    "section_how_title": "Start in 3 steps",
+    "section_how_title": "Get started in 3 steps",
     "how_step1": "Register",
     "how_step1_desc": "Create your account as a service provider or affiliate in under 2 minutes. No credit card required.",
     "how_step2": "Connect",
@@ -105,7 +110,8 @@
     "cta_btn": "Get Started Free",
     "cta_btn2": "Book a Consultation",
     "section_platform": "Platform Features",
-    "section_how_tag": "How it works"
+    "section_how_tag": "How it works",
+    "section_cta_title": "Ready for the next step?"
   },
   "brand": {
     "name": "Bookando",
