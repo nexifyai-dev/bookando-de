@@ -62,7 +62,7 @@ export default function PublicNav({
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${navBg}`} data-testid={dataTestId}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-shadow duration-200 ${navBg} ${scrolled ? 'shadow-[var(--shadow-e1)]' : ''}`} data-testid={dataTestId}>
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12 h-16 md:h-[72px] lg:h-20 flex items-center justify-between">
 
         {/* Logo */}
