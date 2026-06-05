@@ -130,7 +130,55 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Rechte Spalte – Aachener Dom Visual */}
+            {/* Rechte Spalte – Plattform-Konzept (shadcn-inspiriert, clean) */}
+            <div className={`hidden lg:flex lg:col-span-5 items-center justify-center ${stagger(heroVis, 1)}`} style={staggerDelay(1)}>
+              <div className="relative w-full max-w-[360px] space-y-3">
+                {/* Leistungsübersicht – wie shadcn Card-Komposition */}
+                <div className="rounded-xl overflow-hidden"
+                  style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div className="px-5 pt-5 pb-3">
+                    <p className="text-[10px] font-semibold text-white/30 uppercase tracking-[0.15em]">Plattformleistungen</p>
+                  </div>
+                  <div className="px-5 pb-5 space-y-3">
+                    {[
+                      { label: 'Terminbuchung', sub: 'Echtzeit-Kalender, Mitarbeiter & Ressourcen', color: '#C49B3E' },
+                      { label: 'Affiliate-Marketing', sub: 'Trackinglinks, Provisionen & Wallet-Auszahlungen', color: '#4A90C9' },
+                      { label: 'Marketplace & CRM', sub: 'Dienstleister-Verzeichnis & Kundenmanagement', color: '#6BA5D6' },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold"
+                          style={{ background: item.color }}>{i + 1}</div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-medium text-white leading-snug">{item.label}</p>
+                          <p className="text-[12px] text-white/25 leading-snug mt-0.5">{item.sub}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Value Proposition */}
+                <div className="rounded-xl overflow-hidden"
+                  style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                  <div className="px-5 py-4">
+                    <p className="text-[12px] text-white/35 leading-relaxed">
+                      Die erste Plattform, die Terminbuchung mit Affiliate-Marketing vereint – entwickelt für Dienstleister, die mit Partnern skalieren.
+                    </p>
+                  </div>
+                  <div className="px-5 pb-4 flex items-center gap-2">
+                    <div className="flex -space-x-1.5">
+                      {['#C49B3E', '#4A90C9', '#6BA5D6', '#E8C96A'].map((c, i) => (
+                        <div key={i} className="w-5 h-5 rounded-full border-2 flex items-center justify-center"
+                          style={{ background: c, borderColor: '#0A2036' }}>
+                          <span className="text-[5px] font-bold text-white">{['SK','TM','AL','BJ'][i]}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-[11px] text-white/25">+127 Vendors</p>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div className={`hidden lg:flex lg:col-span-5 items-center justify-center ${stagger(heroVis, 1)}`} style={staggerDelay(1)}>
               <div className="relative w-full max-w-[400px]">
                 {/* Dashboard-Konzept-Visualisierung (CSS-only) */}
