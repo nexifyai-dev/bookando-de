@@ -22,6 +22,7 @@ const ResetPasswordPage = lazy(() => import('./pages/auth/ResetPasswordPage'));
 const VerifyEmailPage = lazy(() => import('./pages/auth/VerifyEmailPage'));
 const MarketplacePage = lazy(() => import('./pages/public/MarketplacePage'));
 const ContactPage = lazy(() => import('./pages/public/ContactPage'));
+const PricingPage = lazy(() => import('./pages/public/PricingPage'));
 const LegalPage = lazy(() => import('./pages/legal/LegalPage'));
 const DashboardPage = lazy(() => import('./pages/portal/DashboardPage'));
 const FeaturesPage = lazy(() => import('./pages/public/FeaturesPage'));
@@ -104,7 +105,7 @@ export default function App() {
             {/* REDIRECTS */}
             <Route path="/features" element={<FeaturesPage />} />
             <Route path="/about" element={<Navigate to="/" replace />} />
-            <Route path="/pricing" element={<Navigate to="/" replace />} />
+            <Route path="/pricing" element={<PricingPage />} />
             <Route path="/privacy" element={<Navigate to="/legal/privacy" replace />} />
             <Route path="/legal" element={<Navigate to="/legal/imprint" replace />} />
             <Route path="/terms" element={<Navigate to="/legal/terms" replace />} />
