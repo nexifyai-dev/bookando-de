@@ -53,7 +53,7 @@ export default function HomePage() {
   return (
     <div>
       <SEOHead
-        title="Bookando – Deine Buchungs- & Vertriebsplattform"
+        title="Bookando – Termine buchen & Affiliate skalieren"
         description="Bookando.de vereint Terminbuchung, Affiliate-Marketing, Wallet und WhiteLabel in einer Plattform. Die modulare SaaS-Lösung für Dienstleister aus Aachen."
       />
       <PublicNav />
@@ -141,9 +141,9 @@ export default function HomePage() {
                   </div>
                   <div className="px-5 pb-5 flex flex-col gap-3">
                     {[
-                      { label: 'Terminbuchung', sub: 'Echtzeit-Kalender, Mitarbeiter & Ressourcen', color: 'var(--color-accent)' },
-                      { label: 'Affiliate-Marketing', sub: 'Trackinglinks, Provisionen & Wallet-Auszahlungen', color: 'var(--color-primary-light)' },
-                      { label: 'Marketplace & CRM', sub: 'Dienstleister-Verzeichnis & Kundenmanagement', color: 'var(--color-primary-lighter)' },
+                      { label: t('hero.cl_booking'), sub: t('hero.cl_booking_desc'), color: 'var(--color-accent)' },
+                      { label: t('hero.cl_affiliate'), sub: t('hero.cl_affiliate_desc'), color: 'var(--color-primary-light)' },
+                      { label: t('hero.cl_marketplace'), sub: t('hero.cl_marketplace_desc'), color: 'var(--color-primary-lighter)' },
                     ].map((item, i) => (
                       <div key={i} className="flex items-start gap-4">
                         <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold"
@@ -178,57 +178,7 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className={`hidden lg:flex lg:col-span-5 items-center justify-center ${stagger(heroVis, 1)}`} style={staggerDelay(1)}>
-              <div className="relative w-full max-w-[400px]">
-                {/* Dashboard-Konzept-Visualisierung (CSS-only) */}
-                <div className="relative rounded-[16px] p-6"
-                  style={{ background: 'linear-gradient(160deg, rgba(26,69,112,0.4), rgba(10,32,54,0.6))', border: '1px solid rgba(255,255,255,0.06)' }}>
-                  {/* Kalender-Strip */}
-                  <div className="flex gap-2 mb-5">
-                    {["Mo", "Di", "Mi", "Do", "Fr"].map((d, i) => (
-                      <div key={d} className="flex-1 text-center py-2 rounded-[6px]"
-                        style={{ background: i === 2 ? "rgba(196,155,62,0.2)" : "rgba(255,255,255,0.04)", border: i === 2 ? "1px solid rgba(196,155,62,0.3)" : "1px solid rgba(255,255,255,0.04)" }}>
-                        <p className="text-[9px] uppercase tracking-wider text-white/40 mb-1">{d}</p>
-                        <p className="text-sm font-bold" style={{ color: i === 2 ? 'var(--color-accent)' : 'white' }}>{14 + i}</p>
-                      </div>
-                    ))}
-                  </div>
-                  {/* KPI-Karten */}
-                  <div className="grid grid-cols-2 gap-2 mb-5">
-                    {[{ label: 'Affiliates', value: '128', trend: '+12%' }, { label: 'Provisionen', value: '4.820\u20ac', trend: '+8%' }].map((kpi, i) => (
-                      <div key={i} className="p-3 rounded-[8px]"
-                        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                        <p className="text-[10px] text-white/40 mb-0.5">{kpi.label}</p>
-                        <p className="text-base font-extrabold text-white">{kpi.value}</p>
-                        <p className="text-[10px]" style={{ color: 'var(--color-success)' }}>{kpi.trend}</p>
-                      </div>
-                    ))}
-                  </div>
-                  {/* Wallet-Balken */}
-                  <div className="p-3 rounded-[8px]" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                    <div className="flex items-center justify-between mb-2">
-                      <p className="text-[10px] text-white/40">{t('hero.concept_wallet')}</p>
-                      <p className="text-[11px] font-bold text-white">12.340\u20ac</p>
-                    </div>
-                    <div className="h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.06)' }}>
-                      <div className="h-full w-[68%] rounded-full" style={{ background: 'linear-gradient(90deg, #C49B3E, #E8C96A)' }} />
-                    </div>
-                  </div>
-                  {/* Team-Status */}
-                  <div className="flex items-center justify-between mt-4 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-                    <div className="flex -space-x-2">
-                      <div className="w-7 h-7 rounded-full border-2 flex items-center justify-center" style={{ background: 'var(--color-accent)', borderColor: 'rgba(10,32,54,0.8)' }}><span className="text-[8px] font-bold text-white">SK</span></div>
-                      <div className="w-7 h-7 rounded-full border-2 flex items-center justify-center" style={{ background: 'var(--color-primary-light)', borderColor: 'rgba(10,32,54,0.8)' }}><span className="text-[8px] font-bold text-white">TM</span></div>
-                      <div className="w-7 h-7 rounded-full border-2 flex items-center justify-center" style={{ background: 'var(--color-primary-lighter)', borderColor: 'rgba(10,32,54,0.8)' }}><span className="text-[8px] font-bold text-white">AL</span></div>
-                      <div className="w-7 h-7 rounded-full border-2 flex items-center justify-center text-[8px] font-bold" style={{ background: 'rgba(255,255,255,0.06)', borderColor: 'rgba(10,32,54,0.8)', color: 'rgba(255,255,255,0.4)' }}>+3</div>
-                    </div>
-                    <p className="text-[10px] text-white/40">{t('hero.concept_team')}</p>
-                  </div>
-                </div>
 
-              </div>
-            </div>
           </div>
         </div>
       </section>

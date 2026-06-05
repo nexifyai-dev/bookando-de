@@ -39,7 +39,13 @@
     "concept_wallet": "Wallet-Guthaben",
     "concept_team": "Team online",
     "concept_wallet_val": "12.340€",
-    "concept_vendors": "+127 Vendors"
+    "concept_vendors": "+127 Vendors",
+    "cl_booking": "Terminbuchung",
+    "cl_booking_desc": "Echtzeit-Kalender, Mitarbeiter & Ressourcen",
+    "cl_affiliate": "Affiliate-Marketing",
+    "cl_affiliate_desc": "Trackinglinks, Provisionen & Wallet-Auszahlungen",
+    "cl_marketplace": "Marketplace & CRM",
+    "cl_marketplace_desc": "Dienstleister-Verzeichnis & Kundenmanagement"
   },
   "footer": {
     "col_product": "Produkt",

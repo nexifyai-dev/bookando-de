@@ -39,7 +39,13 @@
     "concept_wallet": "Wallet Balance",
     "concept_team": "Team online",
     "concept_wallet_val": "€12,340",
-    "concept_vendors": "+127 Vendors"
+    "concept_vendors": "+127 Vendors",
+    "cl_booking": "Booking",
+    "cl_booking_desc": "Real-time calendar, staff & resource management",
+    "cl_affiliate": "Affiliate Marketing",
+    "cl_affiliate_desc": "Tracking links, commissions & wallet payouts",
+    "cl_marketplace": "Marketplace & CRM",
+    "cl_marketplace_desc": "Service directory & customer management"
   },
   "footer": {
     "col_product": "Product",
