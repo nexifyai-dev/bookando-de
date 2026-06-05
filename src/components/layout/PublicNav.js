@@ -24,7 +24,7 @@ export default function PublicNav({
     { href: '/features', label: 'Features', labelKey: 'nav.features' },
     { href: '/contact', label: 'Kontakt', labelKey: 'nav.contact' },
   ],
-  logoUrl = '/logo192.png',
+  logoUrl = '/images/brand-logo-horizontal.png',
   logoText = 'Bookando',
   logoHref = '/',
   primaryCta = { label: 'Registrieren', labelKey: 'nav.register', href: '/auth/register' },
@@ -69,7 +69,7 @@ export default function PublicNav({
         <Link to={logoHref} className="flex items-center gap-4 shrink-0" data-testid={`${dataTestId}-logo`}>
           {logoUrl ? (
             <img src={logoUrl} alt={logoText}
-              className="h-9 sm:h-10 w-auto object-contain"
+              className="h-8 sm:h-9 w-auto object-contain"
               style={{ filter: scrolled || !isHome ? 'none' : 'brightness(0) invert(1)' }} />
           ) : (
             <span className={`text-lg md:text-xl font-bold font-[var(--font-heading)] tracking-tight ${textColor}`}>

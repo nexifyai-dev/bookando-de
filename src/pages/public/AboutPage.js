@@ -19,7 +19,7 @@ export default function AboutPage() {
   return (
     <div>
       <SEOHead title="Bookando – Über uns" description="Bookando mit Sitz in Aachen – die Affiliate-Booking Plattform für Dienstleister aus der Beauty- und Ästhetikbranche." />
-      <PublicNav logoUrl="/logo192.png" />
+      <PublicNav />
 
       <main className="pt-24 pb-16 min-h-screen" style={{ background: 'var(--color-shell-bg)' }}>
         <div className="max-w-[1280px] mx-auto px-6 lg:px-12">

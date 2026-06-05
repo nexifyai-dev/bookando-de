@@ -1,25 +1,22 @@
 {
   "short_name": "Bookando",
   "name": "Bookando – Buchungs- & Sales-Plattform",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/svg+xml",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/svg+xml",
-      "sizes": "512x512"
-    }
-  ],
+  "description": "Dienstleister finden, Termine buchen, Affiliate-Marketing – in Aachen und Umgebung.",
+  "lang": "de",
   "start_url": ".",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "theme_color": "#FFA604",
-  "background_color": "#0A192F"
+  "background_color": "#0A192F",
+  "categories": ["business", "lifestyle", "local"],
+  "icons": [
+    { "src": "favicon.ico",           "sizes": "64x64",    "type": "image/x-icon" },
+    { "src": "favicon-64x64.png",     "sizes": "64x64",    "type": "image/png" },
+    { "src": "logo192.png",           "sizes": "192x192",  "type": "image/png" },
+    { "src": "logo512.png",           "sizes": "512x512",  "type": "image/png" },
+    { "src": "apple-touch-icon.png",  "sizes": "180x180",  "type": "image/png", "purpose": "any maskable" }
+  ],
+  "screenshots": [],
+  "related_applications": [],
+  "prefer_related_applications": false
 }

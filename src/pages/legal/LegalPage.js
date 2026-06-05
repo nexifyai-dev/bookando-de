@@ -344,7 +344,7 @@ export default function LegalPage({ type = 'imprint' }) {
         title={`${data.title} – Bookando`}
         description={`Die ${data.title.toLowerCase()} für die Nutzung der Bookando-Plattform mit Sitz in Aachen.`}
       />
-      <PublicNav logoUrl="/logo192.png" />
+      <PublicNav />
       <main className="pt-[100px] pb-20 min-h-screen bg-[var(--color-shell-bg)]">
         <div className="max-w-[780px] mx-auto px-6 lg:px-8">
           <Link
