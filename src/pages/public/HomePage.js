@@ -59,12 +59,12 @@ export default function HomePage() {
   const [ctaRef, ctaVis] = useInView(0.1);
 
   const features = [
-    { icon: Store, title: '{t("hero.trust_multi")} Marketplace', desc: 'Öffentliches Dienstleister-Verzeichnis mit Suchfunktion, Kategorien und Bewertungen. Kunden finden genau den passenden Anbieter.' },
-    { icon: CalendarCheck, title: 'Smart Booking', desc: 'Professionelle Terminbuchung mit Echtzeit-Kalender, Mitarbeiter- und Ressourcenverwaltung, Wiederholungsterminen und Online-Meetings.' },
-    { icon: TrendingUp, title: 'Affiliate-Tracking', desc: 'Vollständiges Affiliate-System mit Trackinglinks, Provisionszuordnung und automatischer Auszahlung – fair und transparent.' },
-    { icon: Wallet, title: 'Wallet & Ledger', desc: 'Sicheres Wallet-System mit unveränderbaren Ledger-Einträgen, automatischen Gutschriften und Auszahlungslogik.' },
-    { icon: Palette, title: 'WhiteLabel & Branding', desc: 'Eigene Domain, eigenes Branding, eigene Farben und Logos. Agenturen betreiben ihre eigene Plattform auf Bookando.' },
-    { icon: Globe, title: 'Franchise & Multi-Location', desc: 'Hierarchische Strukturen für Franchise-Systeme. Zentrale Verwaltung mit dezentralen Standorten und konsolidierten Reports.' },
+    { icon: Store, title: t('features.f1_title'), desc: t('features.f1_desc') },
+    { icon: CalendarCheck, title: t('features.f2_title'), desc: t('features.f2_desc') },
+    { icon: TrendingUp, title: t('features.f3_title'), desc: t('features.f3_desc') },
+    { icon: Wallet, title: t('features.f4_title'), desc: t('features.f4_desc') },
+    { icon: Palette, title: t('features.f5_title'), desc: t('features.f5_desc') },
+    { icon: Globe, title: t('features.f6_title'), desc: t('features.f6_desc') },
   ];
 
   return (
@@ -126,7 +126,7 @@ export default function HomePage() {
                 <Link to="/contact"
                   className="inline-flex items-center justify-center gap-2 h-[56px] px-8 text-[15px] font-semibold text-white/70 border-2 border-white/15 rounded-full transition-all duration-300 hover:border-white/30 hover:text-white"
                   data-testid="hero-secondary-cta">
-                  Beratungstermin
+                  {t('hero.cta_secondary')}
                 </Link>
               </div>
 
@@ -189,7 +189,7 @@ export default function HomePage() {
       <section ref={featuresRef} className="py-[80px] md:py-[100px] lg:py-[120px]" data-testid="features-section">
         <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center max-w-[600px] mx-auto mb-16">
-            <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: '#C49B3E' }}>Plattform-Features</p>
+            <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: '#C49B3E' }}>{t('home.section_platform')}</p>
             <h2 className="text-[32px] sm:text-[40px] lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[1.05]"
               style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
               Alles, was du brauchst
@@ -230,10 +230,10 @@ export default function HomePage() {
         <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             {[
-              { value: 500, suffix: '+', label: 'Aktive Vendors' },
-              { value: 50, suffix: '.000+', label: 'Buchungen' },
-              { value: 98, suffix: '%', label: 'Zufriedenheit' },
-              { value: 24, suffix: '/7', label: 'Support' },
+              { value: 500, suffix: '+', label: t('home.stats_vendors') },
+              { value: 50, suffix: '.000+', label: t('home.stats_bookings') },
+              { value: 98, suffix: '%', label: t('home.stats_satisfaction') },
+              { value: 24, suffix: '/7', label: t('home.stats_support') },
             ].map((stat, idx) => (
               <div key={idx} className={`text-center ${stagger(statsVis, idx)}`} style={staggerDelay(idx)}>
                 <p className="text-[36px] sm:text-[44px] lg:text-[52px] font-extrabold tracking-[-0.03em]"
@@ -253,7 +253,7 @@ export default function HomePage() {
       <section className="py-[80px] md:py-[100px]" data-testid="howitworks-section">
         <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center max-w-[600px] mx-auto mb-16">
-            <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: '#C49B3E' }}>So einfach geht's</p>
+            <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: '#C49B3E' }}>{t('home.section_how_tag')}</p>
             <h2 className="text-[32px] sm:text-[40px] lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[1.05]"
               style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
               In 3 Schritten starten
@@ -262,9 +262,9 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
-              { step: '01', icon: Users, title: 'Registrieren', desc: 'Erstelle dein Konto als Dienstleister oder Affiliate in weniger als 2 Minuten. Keine Kreditkarte nötig.' },
-              { step: '02', icon: Layers, title: 'Anbinden', desc: 'Richte deine Dienstleistungen, Kalender, Mitarbeiter und Zahlungsanbieter ein. Alles an einem Ort.' },
-              { step: '03', icon: TrendingUp, title: 'Wachsen', desc: 'Schalte Affiliate-Marketing frei, gewinne Kunden über den Marketplace und skaliere dein Geschäft.' },
+              { step: '01', icon: Users, title: t('home.how_step1'), desc: t('home.how_step1_desc') },
+              { step: '02', icon: Layers, title: t('home.how_step2'), desc: t('home.how_step2_desc') },
+              { step: '03', icon: TrendingUp, title: t('home.how_step3'), desc: t('home.how_step3_desc') },
             ].map((item, idx) => {
               const Icon = item.icon;
               return (
@@ -320,7 +320,7 @@ export default function HomePage() {
                   <Link to="/contact"
                     className="inline-flex items-center justify-center gap-2 h-[56px] px-8 text-[15px] font-semibold text-white/60 border-2 border-white/15 rounded-full transition-all duration-300 hover:border-white/30 hover:text-white"
                     data-testid="cta-secondary">
-                    Beratung vereinbaren
+                    {t('home.cta_btn2')}
                   </Link>
                 </div>
               </div>
