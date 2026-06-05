@@ -1,20 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useInView, stagger, staggerDelay } from '../../components/shared/useInView';
-
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SEOHead from '../../components/shared/SEOHead';
 import PublicNav from '../../components/layout/PublicNav';
 import PublicFooter from '../../components/layout/PublicFooter';
 import {
-  ArrowRight, Store, CalendarCheck, BarChart3, Wallet,
-  Palette, Globe, CheckCircle, Star, TrendingUp,
-  Shield, Users, Layers, MapPin
+  ArrowRight, Shield, Globe, Users, Store, CalendarCheck,
+  TrendingUp, Wallet, Palette, Layers
 } from 'lucide-react';
 
-/* ───────────────────────────────────────────────
-   HOOKS
-   ─────────────────────────────────────────────── */
 function AnimatedCounter({ end, suffix = '', duration = 2000 }) {
   const [count, setCount] = useState(0);
   const [ref, visible] = useInView(0.3);
@@ -32,10 +27,71 @@ function AnimatedCounter({ end, suffix = '', duration = 2000 }) {
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
+function FeatureCard({ icon: Icon, title, desc, vis, idx }) {
+  return (
+    <div className={`p-8 border rounded-xl transition-all duration-300 hover:-translate-y-0.5 ${stagger(vis, idx)}`}
+      style={{ borderColor: 'var(--color-divider)', background: 'var(--color-surface)', ...staggerDelay(idx) }}>
+      <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-5"
+        style={{ background: 'var(--color-accent-muted)' }}>
+        <Icon size={22} style={{ color: 'var(--color-accent)' }} />
+      </div>
+      <h3 className="text-lg font-bold tracking-tight mb-2"
+        style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
+        {title}
+      </h3>
+      <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>{desc}</p>
+    </div>
+  );
+}
+
+function HeroVisual({ t }) {
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="rounded-xl overflow-hidden"
+        style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="px-5 pt-5 pb-3">
+          <p className="text-xs font-semibold text-white/30 uppercase tracking-widest">{t('hero.viz_title')}</p>
+        </div>
+        <div className="px-5 pb-5 flex flex-col gap-3">
+          {[
+            { label: t('hero.viz_booking'), sub: t('hero.viz_booking_sub') },
+            { label: t('hero.viz_affiliate'), sub: t('hero.viz_affiliate_sub') },
+            { label: t('hero.viz_marketplace'), sub: t('hero.viz_marketplace_sub') },
+          ].map((item, i) => (
+            <div key={i} className="flex items-start gap-3">
+              <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold text-white"
+                style={{ background: 'var(--color-accent)' }}>{i + 1}</div>
+              <div className="min-w-0">
+                <p className="text-sm font-medium text-white leading-snug">{item.label}</p>
+                <p className="text-xs text-white/25 leading-snug mt-0.5">{item.sub}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="rounded-xl overflow-hidden px-5 py-4"
+        style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <p className="text-xs text-white/35 leading-relaxed mb-3">
+          {t('hero.viz_tagline')}
+        </p>
+        <div className="flex items-center gap-2">
+          <div className="flex gap-0">
+            <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center text-[5px] font-bold text-white"
+              style={{ background: 'var(--color-accent)', borderColor: 'var(--color-primary-dark)' }}>SK</div>
+            <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center text-[5px] font-bold text-white"
+              style={{ background: 'var(--color-primary-light)', borderColor: 'var(--color-primary-dark)' }}>TM</div>
+            <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center text-[5px] font-bold text-white"
+              style={{ background: 'var(--color-primary-lighter)', borderColor: 'var(--color-primary-dark)' }}>AL</div>
+          </div>
+          <p className="text-xs text-white/25">{t('hero.viz_vendors')}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function HomePage() {
   const { t } = useTranslation();
-
   const [heroRef, heroVis] = useInView(0.1);
   const [featuresRef, featuresVis] = useInView(0.1);
   const [statsRef, statsVis] = useInView(0.2);
@@ -53,234 +109,133 @@ export default function HomePage() {
   return (
     <div>
       <SEOHead
-        title="Bookando – Termine buchen & Affiliate skalieren"
-        description="Bookando.de vereint Terminbuchung, Affiliate-Marketing, Wallet und WhiteLabel in einer Plattform. Die modulare SaaS-Lösung für Dienstleister aus Aachen."
+        title={t('seo.home_title')}
+        description={t('seo.home_desc')}
       />
       <PublicNav />
 
-      {/* ═══════════════════════════════════════════
-          HERO
-          ═══════════════════════════════════════════ */}
+      {/* HERO */}
       <section ref={heroRef} className="relative min-h-[90vh] flex items-center overflow-hidden"
-        style={{ background: 'linear-gradient(160deg, #0A2036 0%, #1A4570 35%, #2A6A9E 100%)' }}
-        data-testid="hero-section">
-
-        {/* Dezenter Noise-Overlay (KEINE "+" Zeichen!) */}
+        style={{ background: 'linear-gradient(160deg, var(--color-primary-dark), var(--color-primary) 35%, var(--color-primary-light))' }}>
         <div className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
-            backgroundSize: '128px 128px',
-          }} />
-
-        {/* Akzent-Kreis (dezent) */}
+          style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'1\'/%3E%3C/svg%3E")',
+            backgroundSize: '128px 128px' }} />
         <div className="absolute top-1/4 -right-48 w-[500px] h-[500px] rounded-full opacity-[0.06]"
           style={{ background: 'radial-gradient(circle, rgba(196,155,62,0.6), transparent)', filter: 'blur(80px)' }} />
 
         <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12 py-20 md:py-32">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center">
-
-            {/* Linke Spalte – Text */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Text */}
             <div className={`lg:col-span-7 ${stagger(heroVis, 0)}`} style={staggerDelay(0)}>
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-6"
                 style={{ borderColor: 'rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)' }}>
                 <span className="w-2 h-2 rounded-full" style={{ background: 'var(--color-accent)' }} />
-                <span className="text-[11px] font-semibold tracking-wider uppercase text-white/60">
-                  {t("hero.badge_made_in")}
-                </span>
+                <span className="text-xs font-semibold tracking-wider uppercase text-white/60">{t('hero.badge_made_in')}</span>
               </div>
-
-              <h1 className="text-5xl sm:text-[56px] lg:text-[64px] font-extrabold text-white leading-[1] tracking-[-0.035em] mb-6"
+              <h1 className="text-5xl lg:text-6xl font-extrabold text-white leading-[1] tracking-tight mb-6"
                 style={{ fontFamily: 'var(--font-heading)' }}>
                 <span className="block">{t('hero.title_line1')}</span>
                 <span style={{ color: 'var(--color-accent)' }}>{t('hero.title_line2')}</span>
               </h1>
-
-              <p className="text-base sm:text-lg text-white/50 leading-relaxed max-w-[520px] mb-10">
-                {t('hero.subtitle')}
-              </p>
-
+              <p className="text-base lg:text-lg text-white/50 leading-relaxed max-w-[520px] mb-10">{t('hero.subtitle')}</p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/auth/register"
-                  className="inline-flex items-center justify-center gap-2.5 h-[56px] px-10 text-[15px] font-bold tracking-wide text-[#0A2036] rounded-full group transition-all duration-300 hover:scale-[1.02]"
-                  style={{ background: 'var(--color-accent)', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}
-                  data-testid="hero-primary-cta">
-                  {t("hero.cta_primary")} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  className="inline-flex items-center justify-center gap-2 h-14 px-10 text-base font-bold rounded-full transition-all duration-300 hover:scale-[1.02] group"
+                  style={{ background: 'var(--color-accent)', color: 'var(--color-primary-dark)', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}>
+                  {t('hero.cta_primary')} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link to="/contact"
-                  className="inline-flex items-center justify-center gap-2 h-[56px] px-8 text-[15px] font-semibold text-white/70 border-2 border-white/15 rounded-full transition-all duration-300 hover:border-white/30 hover:text-white"
-                  data-testid="hero-secondary-cta">
+                  className="inline-flex items-center justify-center gap-2 h-14 px-8 text-base font-semibold rounded-full border-2 transition-all duration-300 hover:border-white/30 hover:text-white"
+                  style={{ color: 'rgba(255,255,255,0.7)', borderColor: 'rgba(255,255,255,0.15)' }}>
                   {t('hero.cta_secondary')}
                 </Link>
               </div>
-
-              {/* Trust-Badges */}
               <div className="flex flex-wrap items-center gap-6 mt-10 pt-8 border-t border-white/10">
-                <div className="flex items-center gap-2">
-                  <Shield size={14} className="text-white/30" />
-                  <span className="text-xs text-white/40">{t("hero.trust_dsgvo")}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Globe size={14} className="text-white/30" />
-                  <span className="text-xs text-white/40">{t("hero.trust_lang")}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Users size={14} className="text-white/30" />
-                  <span className="text-xs text-white/40">{t("hero.trust_multi")}</span>
-                </div>
+                <div className="flex items-center gap-2"><Shield size={14} className="text-white/30" /><span className="text-xs text-white/40">{t('hero.trust_dsgvo')}</span></div>
+                <div className="flex items-center gap-2"><Globe size={14} className="text-white/30" /><span className="text-xs text-white/40">{t('hero.trust_lang')}</span></div>
+                <div className="flex items-center gap-2"><Users size={14} className="text-white/30" /><span className="text-xs text-white/40">{t('hero.trust_multi')}</span></div>
               </div>
             </div>
-
-            {/* Rechte Spalte – Plattform-Konzept (shadcn-inspiriert, clean) */}
+            {/* Visual */}
             <div className={`hidden lg:flex lg:col-span-5 items-center justify-center ${stagger(heroVis, 1)}`} style={staggerDelay(1)}>
-              <div className="relative w-full max-w-[360px] flex flex-col gap-3">
-                {/* Leistungsübersicht – wie shadcn Card-Komposition */}
-                <div className="rounded-xl overflow-hidden"
-                  style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <div className="px-5 pt-5 pb-3">
-                    <p className="text-[10px] font-semibold text-white/30 uppercase tracking-[0.15em]">{t('hero.concept_leistungen')}</p>
-                  </div>
-                  <div className="px-5 pb-5 flex flex-col gap-3">
-                    {[
-                      { label: t('hero.cl_booking'), sub: t('hero.cl_booking_desc'), color: 'var(--color-accent)' },
-                      { label: t('hero.cl_affiliate'), sub: t('hero.cl_affiliate_desc'), color: 'var(--color-primary-light)' },
-                      { label: t('hero.cl_marketplace'), sub: t('hero.cl_marketplace_desc'), color: 'var(--color-primary-lighter)' },
-                    ].map((item, i) => (
-                      <div key={i} className="flex items-start gap-4">
-                        <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold"
-                          style={{ background: item.color }}>{i + 1}</div>
-                        <div className="min-w-0">
-                          <p className="text-sm font-medium text-white leading-snug">{item.label}</p>
-                          <p className="text-xs text-white/25 leading-snug mt-0.5">{item.sub}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Value Proposition */}
-                <div className="rounded-xl overflow-hidden"
-                  style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <div className="px-5 py-4">
-                    <p className="text-xs text-white/35 leading-relaxed">
-                      {t('home.section_feature_sub')}
-                    </p>
-                  </div>
-                  <div className="px-5 pb-4 flex items-center gap-2">
-                    <div className="flex -space-x-1.5">
-                      {['var(--color-accent)', 'var(--color-primary-light)', 'var(--color-primary-lighter)', 'var(--color-accent-light)'].map((c, i) => (
-                        <div key={i} className="w-5 h-5 rounded-full border-2 flex items-center justify-center"
-                          style={{ background: c, borderColor: 'var(--color-primary-dark)' }}>
-                          <span className="text-[5px] font-bold text-white">{['SK','TM','AL','BJ'][i]}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <p className="text-[11px] text-white/25">{t('hero.concept_vendors')}</p>
-                  </div>
-                </div>
-              </div>
-
+              <div className="w-full max-w-[360px]"><HeroVisual t={t} /></div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          FEATURES
-          ═══════════════════════════════════════════ */}
-      <section ref={featuresRef} className="py-[80px] md:py-[100px] lg:py-[120px]" data-testid="features-section">
+      {/* FEATURES */}
+      <section ref={featuresRef} className="py-20 lg:py-28">
         <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center max-w-[600px] mx-auto mb-16">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'var(--color-accent)' }}>{t('home.section_platform')}</p>
-            <h2 className="text-3xl sm:text-5xl lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[1.05]"
+            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--color-accent)' }}>{t('home.section_platform')}</p>
+            <h2 className="text-3xl lg:text-5xl font-extrabold tracking-tight leading-tight"
               style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
               {t('home.section_feature_title')}
             </h2>
-            <p className="text-[15px] text-[var(--color-text-secondary)] mt-4 leading-relaxed">
-              Von der Terminbuchung bis zum Affiliate-Marketing – Bookando bildet dein gesamtes Geschäft ab.
+            <p className="text-base mt-4 leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>
+              {t('home.section_feature_sub')}
             </p>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, idx) => {
-              const Icon = feature.icon;
-              return (
-                <div key={idx}
-                  className={`p-8 border rounded-[12px] transition-all duration-300 hover:translate-y-[-2px] ${stagger(featuresVis, idx)}`}
-                  style={{ borderColor: 'var(--color-divider)', background: 'var(--color-surface)', ...staggerDelay(idx) }}
-                  data-testid={`feature-card-${idx}`}>
-                  <div className="w-12 h-12 rounded-[10px] flex items-center justify-center mb-5"
-                    style={{ background: 'rgba(196,155,62,0.12)' }}>
-                    <Icon size={22} style={{ color: 'var(--color-accent)' }} />
-                  </div>
-                  <h3 className="text-lg font-bold tracking-tight mb-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">{feature.desc}</p>
-                </div>
-              );
-            })}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((f, i) => <FeatureCard key={i} icon={f.icon} title={f.title} desc={f.desc} vis={featuresVis} idx={i} />)}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          STATS
-          ═══════════════════════════════════════════ */}
-      <section ref={statsRef} className="py-[64px] md:py-[80px] lg:py-[96px]"
-        style={{ background: 'var(--color-primary)' }} data-testid="stats-section">
+      {/* STATS */}
+      <section ref={statsRef} className="py-16 lg:py-24" style={{ background: 'var(--color-primary)' }}>
         <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {[
               { value: 500, suffix: '+', label: t('home.stats_vendors') },
               { value: 50, suffix: '.000+', label: t('home.stats_bookings') },
               { value: 98, suffix: '%', label: t('home.stats_satisfaction') },
               { value: 24, suffix: '/7', label: t('home.stats_support') },
-            ].map((stat, idx) => (
-              <div key={idx} className={`text-center ${stagger(statsVis, idx)}`} style={staggerDelay(idx)}>
-                <p className="text-4xl sm:text-[44px] lg:text-[52px] font-extrabold tracking-[-0.03em]"
-                  style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-accent)' }}>
-                  <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+            ].map((s, i) => (
+              <div key={i} className={`text-center ${stagger(statsVis, i)}`} style={staggerDelay(i)}>
+                <p className="text-4xl lg:text-6xl font-extrabold tracking-tight" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-accent)' }}>
+                  <AnimatedCounter end={s.value} suffix={s.suffix} />
                 </p>
-                <p className="text-xs font-medium text-white/50 mt-1">{stat.label}</p>
+                <p className="text-xs font-medium text-white/50 mt-1">{s.label}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          HOW IT WORKS
-          ═══════════════════════════════════════════ */}
-      <section className="py-[80px] md:py-[100px]" data-testid="howitworks-section">
+      {/* HOW IT WORKS */}
+      <section className="py-20 lg:py-28">
         <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
           <div className="text-center max-w-[600px] mx-auto mb-16">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'var(--color-accent)' }}>{t('home.section_how_tag')}</p>
-            <h2 className="text-3xl sm:text-5xl lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[1.05]"
+            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--color-accent)' }}>{t('home.section_how_tag')}</p>
+            <h2 className="text-3xl lg:text-5xl font-extrabold tracking-tight leading-tight"
               style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
               {t('home.section_how_title')}
             </h2>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
               { step: '01', icon: Users, title: t('home.how_step1'), desc: t('home.how_step1_desc') },
               { step: '02', icon: Layers, title: t('home.how_step2'), desc: t('home.how_step2_desc') },
               { step: '03', icon: TrendingUp, title: t('home.how_step3'), desc: t('home.how_step3_desc') },
-            ].map((item, idx) => {
+            ].map((item, i) => {
               const Icon = item.icon;
               return (
-                <div key={idx} className="text-center p-8">
+                <div key={i} className="text-center p-8">
                   <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-6"
-                    style={{ background: 'rgba(196,155,62,0.1)', border: '1px solid rgba(196,155,62,0.2)' }}>
+                    style={{ background: 'var(--color-accent-subtle)', border: '1px solid rgba(196,155,62,0.2)' }}>
                     <span className="text-lg font-bold" style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-heading)' }}>{item.step}</span>
                   </div>
-                  <div className="w-12 h-12 rounded-[10px] flex items-center justify-center mx-auto mb-5"
-                    style={{ background: 'rgba(26,69,112,0.06)' }}>
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-5"
+                    style={{ background: 'var(--color-primary-muted)' }}>
                     <Icon size={22} style={{ color: 'var(--color-primary)' }} />
                   </div>
-                  <h3 className="text-lg font-bold tracking-tight mb-2" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
+                  <h3 className="text-lg font-bold tracking-tight mb-2"
+                    style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
                     {item.title}
                   </h3>
-                  <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed max-w-[260px] mx-auto">{item.desc}</p>
+                  <p className="text-sm leading-relaxed max-w-[260px] mx-auto" style={{ color: 'var(--color-text-secondary)' }}>{item.desc}</p>
                 </div>
               );
             })}
@@ -288,41 +243,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          CTA
-          ═══════════════════════════════════════════ */}
-      <section ref={ctaRef} className="py-[64px] md:py-[80px] lg:py-[96px]" data-testid="cta-section">
+      {/* CTA */}
+      <section ref={ctaRef} className="py-16 lg:py-24">
         <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="relative overflow-hidden rounded-[12px]"
-            style={{ background: 'linear-gradient(160deg, #0A2036 0%, #1A4570 50%, #2A6A9E 100%)' }}>
-            <div className="absolute inset-0 opacity-[0.03]"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")`,
-                backgroundSize: '128px 128px',
-              }} />
-
-            <div className="relative z-10 p-8 sm:p-12 lg:p-16 xl:p-20 text-center">
-              <div className={`max-w-[600px] mx-auto ${stagger(ctaVis, 0)}`}>
-                <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-white leading-[1.1] tracking-[-0.025em] mb-5"
-                  style={{ fontFamily: 'var(--font-heading)' }}>
-                  {t('home.section_cta_title')}
-                </h2>
-                <p className="text-[15px] text-white/40 leading-relaxed mb-10 max-w-[440px] mx-auto">
-                  {t("home.cta_text")}
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link to="/auth/register"
-                    className="inline-flex items-center justify-center gap-2.5 h-[56px] px-10 text-[15px] font-bold tracking-wide text-[#0A2036] rounded-full group transition-all duration-300 hover:scale-[1.02]"
-                    style={{ background: 'var(--color-accent)', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}
-                    data-testid="cta-primary">
-                    {t("hero.cta_primary")} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                  <Link to="/contact"
-                    className="inline-flex items-center justify-center gap-2 h-[56px] px-8 text-[15px] font-semibold text-white/60 border-2 border-white/15 rounded-full transition-all duration-300 hover:border-white/30 hover:text-white"
-                    data-testid="cta-secondary">
-                    {t('home.cta_btn2')}
-                  </Link>
-                </div>
+          <div className="relative overflow-hidden rounded-xl text-center p-10 sm:p-12 lg:p-16 xl:p-20"
+            style={{ background: 'linear-gradient(160deg, var(--color-primary-dark), var(--color-primary) 50%, var(--color-primary-light))' }}>
+            <div className={`max-w-[600px] mx-auto ${stagger(ctaVis, 0)}`}>
+              <h2 className="text-3xl lg:text-5xl font-extrabold text-white leading-tight tracking-tight mb-5"
+                style={{ fontFamily: 'var(--font-heading)' }}>
+                {t('home.section_cta_title')}
+              </h2>
+              <p className="text-base text-white/40 leading-relaxed mb-10 max-w-[440px] mx-auto">{t('home.cta_text')}</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link to="/auth/register"
+                  className="inline-flex items-center justify-center gap-2 h-14 px-10 text-base font-bold rounded-full transition-all duration-300 hover:scale-[1.02] group"
+                  style={{ background: 'var(--color-accent)', color: 'var(--color-primary-dark)', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}>
+                  {t('hero.cta_primary')} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link to="/contact"
+                  className="inline-flex items-center justify-center gap-2 h-14 px-8 text-base font-semibold rounded-full border-2 transition-all duration-300 hover:border-white/30 hover:text-white"
+                  style={{ color: 'rgba(255,255,255,0.6)', borderColor: 'rgba(255,255,255,0.15)' }}>
+                  {t('home.cta_btn2')}
+                </Link>
               </div>
             </div>
           </div>

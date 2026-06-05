@@ -45,7 +45,16 @@
     "cl_affiliate": "Affiliate Marketing",
     "cl_affiliate_desc": "Tracking links, commissions & wallet payouts",
     "cl_marketplace": "Marketplace & CRM",
-    "cl_marketplace_desc": "Service directory & customer management"
+    "cl_marketplace_desc": "Service directory & customer management",
+    "viz_title": "Platform",
+    "viz_booking": "Booking",
+    "viz_booking_sub": "Calendar, staff & resource management",
+    "viz_affiliate": "Affiliate Marketing",
+    "viz_affiliate_sub": "Tracking, commissions & wallet",
+    "viz_marketplace": "Marketplace & CRM",
+    "viz_marketplace_sub": "Directory & customer management",
+    "viz_tagline": "The first platform combining booking with affiliate marketing.",
+    "viz_vendors": "+127 Vendors"
   },
   "footer": {
     "col_product": "Product",
@@ -214,5 +223,9 @@
     "verify_desc": "Your email address is being verified...",
     "verify_please_wait": "Please be patient while we confirm your email address.",
     "verify_redirect": "will be automatically redirected"
+  },
+  "seo": {
+    "home_title": "Bookando – Book & Scale with Affiliates",
+    "home_desc": "Bookando combines booking, affiliate marketing, wallet and marketplace in one platform for service providers."
   }
 }
