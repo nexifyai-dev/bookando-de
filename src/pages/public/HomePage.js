@@ -168,9 +168,7 @@ export default function HomePage() {
                     <p className="text-white/50 text-[11px]">UNESCO Welterbe – Aachener Dom</p>
                   </div>
                 </div>
-                {/* Dekorativer Rahmen */}
-                <div className="absolute -top-3 -right-3 w-full h-full rounded-[16px] -z-10"
-                  style={{ border: '1px solid rgba(196,155,62,0.2)', transform: 'translate(8px, 8px)' }} />
+
               </div>
             </div>
           </div>
