@@ -127,7 +127,8 @@
     "cta_btn2": "Book a Consultation",
     "section_platform": "Platform Features",
     "section_how_tag": "How it works",
-    "section_cta_title": "Ready for the next step?"
+    "section_cta_title": "Ready for the next step?",
+    "cta_title_accent": "Try 30 days for free"
   },
   "brand": {
     "name": "Bookando",
@@ -154,7 +155,26 @@
     "phone": "Phone",
     "email": "Email",
     "name": "Name",
-    "message": "Message"
+    "message": "Message",
+    "response_time": "We'll respond within 24h",
+    "service_note_text": "Already have an account? Use your dashboard for direct support requests.",
+    "sent_desc": "We'll get back to you within 24h.",
+    "privacy_note": "By submitting you agree to our privacy policy.",
+    "submit": "Send message",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "subject": "Subject",
+    "sub_general": "General inquiry",
+    "sub_sales": "Sales & partnership",
+    "sub_support": "Technical support",
+    "sub_affiliate": "Affiliate partnership",
+    "ph_msg": "Your message...",
+    "ph_fname": "Max",
+    "ph_lname": "Mustermann",
+    "q_pricing": "Pricing",
+    "q_register": "Sign up",
+    "q_legal": "Legal",
+    "q_support": "Support"
   },
   "pricing": {
     "page_title": "Pricing – Bookando",
@@ -270,5 +290,33 @@
     "massage": "Massage",
     "book": "Book Now",
     "profile": "View Profile"
+  },
+  "about": {
+    "title": "Booking meets Affiliate Marketing",
+    "tag": "About Bookando",
+    "mission": "Bookando is built to give service providers a true digital home – with smart booking, transparent affiliate marketing and everything needed for sustainable growth.",
+    "aachen_title": "Made in Aachen",
+    "aachen_desc": "Bookando is based in Aachen – a city known for its economic strength and innovation. From here, we develop a platform that makes service providers across Germany digitally scalable.",
+    "cta_title": "Ready to grow together?",
+    "cta_desc": "Create your Bookando account and discover how booking and affiliate marketing work together.",
+    "cta_btn": "Register for free",
+    "values_title": "What drives us",
+    "val_collab": "Growing together",
+    "val_collab_desc": "We believe in fair partnerships between providers, affiliates and customers – transparent, traceable and profitable for all.",
+    "val_trust": "Trust as foundation",
+    "val_trust_desc": "Secure bookings, protected data and clear commission structures build trust – the foundation of every successful collaboration.",
+    "val_local": "Rooted locally",
+    "val_local_desc": "Founded in Aachen, we think locally and act digitally. Our proximity to service providers makes us strong.",
+    "val_quality": "Quality over quantity",
+    "val_quality_desc": "Rather a platform that works perfectly than thousands of features nobody needs."
+  },
+  "forgot": {
+    "title": "Forgot password",
+    "sub": "We'll send you a link to reset your password."
+  },
+  "reset": {
+    "title": "Reset password",
+    "sub": "Choose a new secure password.",
+    "confirm_ph": "Confirm password"
   }
 }

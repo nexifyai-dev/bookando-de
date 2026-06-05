@@ -127,7 +127,8 @@
     "cta_btn2": "Beratung vereinbaren",
     "section_platform": "Plattform-Features",
     "section_how_tag": "So einfach geht's",
-    "section_cta_title": "Bereit für den nächsten Schritt?"
+    "section_cta_title": "Bereit für den nächsten Schritt?",
+    "cta_title_accent": "30 Tage kostenlos testen"
   },
   "brand": {
     "name": "Bookando",
@@ -154,7 +155,26 @@
     "phone": "Telefon",
     "email": "E-Mail",
     "name": "Name",
-    "message": "Nachricht"
+    "message": "Nachricht",
+    "response_time": "Wir antworten innerhalb von 24h",
+    "service_note_text": "Du hast bereits ein Konto? Nutze unser Dashboard für direkte Support-Anfragen.",
+    "sent_desc": "Wir melden uns innerhalb von 24h bei dir.",
+    "privacy_note": "Mit dem Absenden stimmst du unserer Datenschutzerklärung zu.",
+    "submit": "Nachricht senden",
+    "first_name": "Vorname",
+    "last_name": "Nachname",
+    "subject": "Betreff",
+    "sub_general": "Allgemeine Frage",
+    "sub_sales": "Vertrieb & Partneranfrage",
+    "sub_support": "Technischer Support",
+    "sub_affiliate": "Affiliate-Partnerschaft",
+    "ph_msg": "Deine Nachricht an uns...",
+    "ph_fname": "Max",
+    "ph_lname": "Mustermann",
+    "q_pricing": "Preise & Pakete",
+    "q_register": "Registrierung",
+    "q_legal": "Impressum",
+    "q_support": "Support"
   },
   "pricing": {
     "page_title": "Preise – Bookando",
@@ -270,5 +290,33 @@
     "massage": "Massage",
     "book": "Jetzt buchen",
     "profile": "Profil anzeigen"
+  },
+  "about": {
+    "title": "Terminbuchung trifft Affiliate-Marketing",
+    "tag": "Über Bookando",
+    "mission": "Bookando wurde entwickelt, um Dienstleistern ein digitales Zuhause zu geben – mit smarter Terminbuchung, transparentem Affiliate-Marketing und allem, was für nachhaltiges Wachstum nötig ist.",
+    "aachen_title": "Made in Aachen",
+    "aachen_desc": "Bookando hat seinen Sitz in Aachen – mitten in der Region, die für ihre Wirtschaftskraft und Innovationsfreude bekannt ist. Von hier aus entwickeln wir eine Plattform, die Dienstleister in ganz Deutschland digital skalierbar macht.",
+    "cta_title": "Bereit, gemeinsam zu wachsen?",
+    "cta_desc": "Erstelle dein Bookando-Konto und entdecke, wie Terminbuchung und Affiliate-Marketing zusammengehören.",
+    "cta_btn": "Kostenlos registrieren",
+    "values_title": "Was uns antreibt",
+    "val_collab": "Gemeinsam wachsen",
+    "val_collab_desc": "Wir glauben an faire Partnerschaften zwischen Dienstleistern, Affiliates und Kunden – transparent, nachvollziehbar und gewinnbringend für alle.",
+    "val_trust": "Vertrauen als Basis",
+    "val_trust_desc": "Sichere Buchungen, geschützte Daten und klare Provisionsstrukturen schaffen Vertrauen – die Grundlage jeder erfolgreichen Zusammenarbeit.",
+    "val_local": "Lokal verwurzelt",
+    "val_local_desc": "Gegründet in Aachen, denken wir lokal und handeln digital. Unsere Nähe zu Dienstleistern macht uns stark.",
+    "val_quality": "Qualität vor Quantität",
+    "val_quality_desc": "Lieber eine Plattform die perfekt funktioniert als tausend Funktionen die niemand braucht."
+  },
+  "forgot": {
+    "title": "Passwort vergessen",
+    "sub": "Wir senden dir einen Link, um dein Passwort zurückzusetzen."
+  },
+  "reset": {
+    "title": "Passwort zurücksetzen",
+    "sub": "Wähle ein neues sicheres Passwort.",
+    "confirm_ph": "Passwort bestätigen"
   }
 }
