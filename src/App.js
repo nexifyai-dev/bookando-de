@@ -91,6 +91,7 @@ export default function App() {
             <Route path="/legal/imprint" element={<LegalPage type="imprint" />} />
             <Route path="/legal/privacy" element={<LegalPage type="privacy" />} />
             <Route path="/legal/terms" element={<LegalPage type="terms" />} />
+            <Route path="/legal/cookies" element={<LegalPage type="cookies" />} />
 
             {/* AUTH */}
             <Route path="/auth/login" element={<LoginPage />} />
@@ -110,6 +111,7 @@ export default function App() {
             <Route path="/privacy" element={<Navigate to="/legal/privacy" replace />} />
             <Route path="/legal" element={<Navigate to="/legal/imprint" replace />} />
             <Route path="/terms" element={<Navigate to="/legal/terms" replace />} />
+            <Route path="/cookies" element={<Navigate to="/legal/cookies" replace />} />
             {/* NOTFOUND */}
             <Route path="/404" element={<NotFoundPage />} />
             <Route path="*" element={<NotFoundPage />} />

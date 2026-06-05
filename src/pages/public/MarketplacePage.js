@@ -1,138 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next'
 import SEOHead from '../../components/shared/SEOHead';
 import PublicNav from '../../components/layout/PublicNav';
 import PublicFooter from '../../components/layout/PublicFooter';
-import { Search, MapPin, Star, ArrowRight, Sparkles, Scissors, Palette, Droplet, Zap, Store } from 'lucide-react';
-
-/**
- * @typedef {Object} Vendor
- * @property {number} id
- * @property {string} name
- * @property {string} category
- * @property {number} rating
- * @property {number} reviewCount
- * @property {string} location
- * @property {string} description
- * @property {string} descriptionEn
- * @property {string} descriptionDe
- * @property {string[]} services
- */
-
-/** @type {Vendor[]} */
-const DEMO_VENDORS = [
-  {
-    id: 1,
-    name: 'Inksanity Tattoo',
-    category: 'tattoo',
-    rating: 4.5,
-    reviewCount: 128,
-    location: 'Aachen-Mitte',
-    descriptionDe: 'Professionelle Tattoo-Kunst seit 2015. Spezialisiert auf Realismus, Old School und Custom-Designs.',
-    descriptionEn: 'Professional tattoo art since 2015. Specialized in realism, old school and custom designs.',
-    services: ['Custom Tattoo', 'Cover-up', 'Piercing'],
-  },
-  {
-    id: 2,
-    name: 'Glow & Go Kosmetik',
-    category: 'kosmetik',
-    rating: 4.8,
-    reviewCount: 95,
-    location: 'Aachen-Burtscheid',
-    descriptionDe: 'Gesichtsbehandlungen, Permanent Make-up und Microblading. Deine Schönheit ist unsere Leidenschaft.',
-    descriptionEn: 'Facial treatments, permanent makeup and microblading. Your beauty is our passion.',
-    services: ['Gesichtsbehandlung', 'Microblading', 'Permanent Make-up'],
-  },
-  {
-    id: 3,
-    name: 'Haarkunst by Lena',
-    category: 'friseur',
-    rating: 4.2,
-    reviewCount: 211,
-    location: 'Aachen-Haaren',
-    descriptionDe: 'Kreative Haarschnitte, moderne Stylings und professionelle Colorationen für jeden Typ.',
-    descriptionEn: 'Creative haircuts, modern styling and professional coloring for every type.',
-    services: ['Haarschnitt', 'Coloration', 'Hochsteckfrisur'],
-  },
-  {
-    id: 4,
-    name: "The Gentlemen's Cut",
-    category: 'barber',
-    rating: 4.6,
-    reviewCount: 167,
-    location: 'Aachen-Altstadt',
-    descriptionDe: 'Klassische Herrenpflege und traditionelle Nassrasur mit modernem Twist.',
-    descriptionEn: 'Classic men\'s grooming and traditional wet shave with a modern twist.',
-    services: ['Haarschnitt Herren', 'Nassrasur', 'Bartpflege'],
-  },
-  {
-    id: 5,
-    name: 'Nail Art Studio Aachen',
-    category: 'nagel',
-    rating: 4.3,
-    reviewCount: 73,
-    location: 'Aachen-Rothe Erde',
-    descriptionDe: 'Kreatives Nageldesign und professionelle Nagelpflege. Von Gel bis Acryl.',
-    descriptionEn: 'Creative nail design and professional nail care. From gel to acrylic.',
-    services: ['Gel-Nägel', 'Nagelverlängerung', 'Nageldesign'],
-  },
-  {
-    id: 6,
-    name: 'Laser Perfect Aachen',
-    category: 'laser',
-    rating: 4.7,
-    reviewCount: 189,
-    location: 'Aachen-Universität',
-    descriptionDe: 'Professionelle Laser-Haarentfernung mit modernster Technologie. Schmerzfrei und effektiv.',
-    descriptionEn: 'Professional laser hair removal with latest technology. Pain-free and effective.',
-    services: ['Laser-Haarentfernung', 'Hautverjüngung', 'Tattoo-Entfernung'],
-  },
-  {
-    id: 7,
-    name: 'Artifact Tattoo',
-    category: 'tattoo',
-    rating: 4.9,
-    reviewCount: 56,
-    location: 'Aachen-Ponttor',
-    descriptionDe: 'Realistische Tattoos, Cover-ups und Aquarell-Kunst. Jedes Kunstwerk ist ein Unikat.',
-    descriptionEn: 'Realistic tattoos, cover-ups and watercolor art. Every artwork is unique.',
-    services: ['Realistic Tattoo', 'Cover-up', 'Watercolor'],
-  },
-  {
-    id: 8,
-    name: 'Pure Beauty Studio',
-    category: 'kosmetik',
-    rating: 4.4,
-    reviewCount: 142,
-    location: 'Aachen-Brand',
-    descriptionDe: 'Anti-Aging-Behandlungen, Gesichtspeelings und professionelles Make-up für besondere Anlässe.',
-    descriptionEn: 'Anti-aging treatments, facial peels and professional makeup for special occasions.',
-    services: ['Anti-Aging', 'Gesichtspeeling', 'Make-up'],
-  },
-  {
-    id: 9,
-    name: 'Barber Queen',
-    category: 'barber',
-    rating: 4.1,
-    reviewCount: 98,
-    location: 'Aachen-Frankenberger',
-    descriptionDe: 'Moderne Frisuren, Bartpflege und traditionelle Rasur in entspannter Atmosphäre.',
-    descriptionEn: 'Modern hairstyles, beard care and traditional shave in a relaxed atmosphere.',
-    services: ['Haarschnitt', 'Bartpflege', 'Kopfhautmassage'],
-  },
-  {
-    id: 10,
-    name: 'Glam Nails & More',
-    category: 'nagel',
-    rating: 4.5,
-    reviewCount: 114,
-    location: 'Aachen-Hörn',
-    descriptionDe: 'Gel-Nägel, Nagelverlängerung und extravagantes Nageldesign für jeden Geschmack.',
-    descriptionEn: 'Gel nails, nail extensions and extravagant nail design for every taste.',
-    services: ['Gel-Nägel', 'Nagelverlängerung', '3D-Design'],
-  },
-];
+import { Search, MapPin, Star, ArrowRight, Sparkles, Scissors, Palette, Droplet, Zap, Store, Loader2, AlertCircle } from 'lucide-react';
+import { MarketplaceApi } from '../../lib/api';
 
 /**
  * Generates initials from a vendor name
@@ -200,35 +73,88 @@ const renderStars = (rating) => {
 export default function MarketplacePage() {
   const { t, i18n } = useTranslation();
 
+  const [vendors, setVendors] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const categories = [
-    { key: 'all', label: 'Alle' },
-    { key: 'tattoo', label: 'Tattoo', icon: 'Sparkles' },
-    { key: 'kosmetik', label: 'Kosmetik', icon: '✦' },
-    { key: 'friseur', label: 'Friseur', icon: '✁' },
-    { key: 'barber', label: 'Barbershop', icon: 'Scissors' },
+  // Fetch categories on mount
+  useEffect(() => {
+    let cancelled = false;
+    MarketplaceApi.countries()
+      .then(() => {
+        // Countries endpoint indicates API is reachable; categories come from vendors
+      })
+      .catch(() => {});
+    return () => { cancelled = true; };
+  }, []);
+
+  // Fetch vendors on mount
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+
+    MarketplaceApi.vendors()
+      .then((data) => {
+        if (!cancelled) {
+          // data can be an array or { vendors: [...] }
+          const vendorList = Array.isArray(data) ? data : (data.vendors || data.data || []);
+          setVendors(vendorList);
+
+          // Extract unique categories from vendor data
+          const cats = new Set();
+          vendorList.forEach(v => {
+            if (v.category) cats.add(v.category);
+          });
+          setCategories([{ key: 'all', label: t('marketplace.filter_all', 'Alle'), icon: null }, ...Array.from(cats).map(c => ({ key: c, label: c, icon: '✦' }))]);
+        }
+      })
+      .catch((err) => {
+        if (!cancelled) {
+          console.error('Marketplace fetch error:', err);
+          setError(err.message || t('marketplace.error_load', 'Fehler beim Laden der Daten.'));
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => { cancelled = true; };
+  }, []);
+
+  // Fallback categories if API doesn't return any
+  const displayCategories = categories.length > 1 ? categories : [
+    { key: 'all', label: t('marketplace.filter_all', 'Alle'), icon: null },
+    { key: 'tattoo', label: t('marketplace.filter_tattoo', 'Tattoo'), icon: 'Sparkles' },
+    { key: 'kosmetik', label: t('marketplace.filter_kosmetik', 'Kosmetik'), icon: '✦' },
+    { key: 'friseur', label: t('marketplace.filter_friseur', 'Friseur'), icon: '✁' },
+    { key: 'barber', label: t('marketplace.filter_barber', 'Barbershop'), icon: 'Scissors' },
     { key: 'nagel', label: t('marketplace.filter_nagel', 'Nagelstudio'), icon: '✦' },
-    { key: 'laser', label: 'Laser', icon: '✦' },
+    { key: 'laser', label: t('marketplace.filter_laser', 'Laser'), icon: '✦' },
   ];
 
   const filteredVendors = useMemo(() => {
-    return DEMO_VENDORS.filter((vendor) => {
+    return vendors.filter((vendor) => {
       const matchesCategory = activeCategory === 'all' || vendor.category === activeCategory;
       const query = searchQuery.toLowerCase().trim();
-      const nameMatch = vendor.name.toLowerCase().includes(query);
-      const catMatch = vendor.category.toLowerCase().includes(query);
-      const descMatch = (i18n.language === 'de' ? vendor.descriptionDe : vendor.descriptionEn).toLowerCase().includes(query);
-      const serviceMatch = vendor.services.some((s) => s.toLowerCase().includes(query));
+      const nameMatch = (vendor.name || '').toLowerCase().includes(query);
+      const catMatch = (vendor.category || '').toLowerCase().includes(query);
+      const descDe = (vendor.descriptionDe || vendor.description_de || vendor.description || '');
+      const descEn = (vendor.descriptionEn || vendor.description_en || vendor.description || '');
+      const descMatch = (i18n.language === 'de' ? descDe : descEn).toLowerCase().includes(query);
+      const services = vendor.services || vendor.service_names || [];
+      const serviceMatch = services.some((s) => (typeof s === 'string' ? s : s.name || s).toLowerCase().includes(query));
       const matchesSearch = !query || nameMatch || catMatch || descMatch || serviceMatch;
       return matchesCategory && matchesSearch;
     });
-  }, [activeCategory, searchQuery, i18n.language]);
+  }, [activeCategory, searchQuery, i18n.language, vendors]);
 
   return (
     <div>
-      <SEOHead title="Bookando – Marketplace für Dienstleister" description="Finde den passenden Dienstleister in Aachen und Umgebung. Tattoo, Kosmetik, Friseur & mehr – mit Affiliate-Buchung." />
+      <SEOHead title="Bookando – Marketplace für Dienstleister" description="Finde den passenden Dienstleister in Aachen und Umgebung. Tattoo, Kosmetik, Friseur & mehr – mit Bookando." />
       <PublicNav />
       <main style={{ paddingTop: '96px', paddingBottom: '64px' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', paddingLeft: '24px', paddingRight: '24px' }}>
@@ -361,8 +287,41 @@ export default function MarketplacePage() {
             </div>
           </div>
 
+          {/* Loading State */}
+          {loading && (
+            <div style={{ textAlign: 'center', padding: '64px 24px' }}>
+              <Loader2 size={32} className="animate-spin" style={{ color: 'var(--color-primary)', margin: '0 auto 16px' }} />
+              <p style={{ color: 'var(--color-text-tertiary)', fontSize: '0.9rem' }}>
+                {t('marketplace.loading', 'Marktplatz wird geladen...')}
+              </p>
+            </div>
+          )}
+
+          {/* Error State */}
+          {!loading && error && (
+            <div style={{ textAlign: 'center', padding: '64px 24px' }}>
+              <AlertCircle size={32} style={{ color: '#EF4444', margin: '0 auto 16px' }} />
+              <p style={{ color: '#EF4444', fontSize: '0.9rem', marginBottom: '8px' }}>{error}</p>
+              <button
+                onClick={() => window.location.reload()}
+                style={{
+                  padding: '10px 24px',
+                  borderRadius: 'var(--radius-md)',
+                  border: '1px solid var(--color-divider)',
+                  backgroundColor: 'var(--color-surface)',
+                  color: 'var(--color-primary)',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                }}
+              >
+                {t('common.retry', 'Erneut versuchen')}
+              </button>
+            </div>
+          )}
+
           {/* Vendor Grid */}
-          {filteredVendors.length === 0 ? (
+          {!loading && !error && filteredVendors.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '64px 24px' }}>
               <p style={{ color: 'var(--color-text-tertiary)', fontSize: '1rem' }}>
                 {t('marketplace.no_results', 'Keine Ergebnisse gefunden.')}

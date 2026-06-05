@@ -8,8 +8,8 @@ import axios from 'axios';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 export const TOKEN_KEYS = {
-  access: 'nb_access_token',
-  refresh: 'nb_refresh_token',
+  access: 'bk_access_token',
+  refresh: 'bk_refresh_token',
 };
 
 export function getAccessToken() {
