@@ -98,7 +98,7 @@ export default function LoginPage() {
                       onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
                       required
                       autoComplete="email"
-                      placeholder="deine@email.de"
+                      placeholder={t('auth.email_ph')}
                       data-testid="login-email-input"
                       className="w-full border border-[var(--color-border)] rounded-md px-3.5 py-2.5 text-sm bg-white text-[var(--color-text-primary)] placeholder:text-[var(--color-text-tertiary)] focus:outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/10 transition-all"
                     />
@@ -116,7 +116,7 @@ export default function LoginPage() {
                       onChange={e => setForm(p => ({ ...p, password: e.target.value }))}
                       required
                       autoComplete="current-password"
-                      placeholder="••••••••"
+                      placeholder={t('auth.password_ph')}
                       data-testid="login-password-input"
                       className="w-full border border-[var(--color-border)] rounded-md px-3.5 py-2.5 text-sm bg-white text-[var(--color-text-primary)] placeholder:text-[var(--color-text-tertiary)] focus:outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/10 transition-all"
                     />

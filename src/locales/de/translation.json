@@ -244,7 +244,15 @@
     "have_account": "Bereits registriert?",
     "login_link": "Jetzt anmelden",
     "register_promo": "Treten Sie bei und werden Sie Teil von Bookando. Wählen Sie Ihre Rolle – als Kunde oder Anbieter – und starten Sie noch heute.",
-    "register_tagline": "Aachen | Digital | Vernetzt"
+    "register_tagline": "Aachen | Digital | Vernetzt",
+    "login_title": "Willkommen zurück",
+    "login_sub": "Melde dich an, um dein Bookando-Konto zu verwalten.",
+    "forgot_pw": "Passwort vergessen?",
+    "login_btn": "Anmelden",
+    "no_account": "Noch kein Konto?",
+    "register_link": "Jetzt registrieren",
+    "email_ph": "deine@email.de",
+    "password_ph": "••••••••"
   },
   "seo": {
     "home_title": "Bookando – Termine buchen & Affiliate skalieren",

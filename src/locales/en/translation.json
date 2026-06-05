@@ -244,7 +244,15 @@
     "have_account": "Already registered?",
     "login_link": "Sign in now",
     "register_promo": "Join Bookando. Choose your role – as a customer or provider – and get started today.",
-    "register_tagline": "Aachen | Digital | Connected"
+    "register_tagline": "Aachen | Digital | Connected",
+    "login_title": "Welcome back",
+    "login_sub": "Sign in to manage your Bookando account.",
+    "forgot_pw": "Forgot password?",
+    "login_btn": "Sign in",
+    "no_account": "No account yet?",
+    "register_link": "Register now",
+    "email_ph": "your@email.com",
+    "password_ph": "••••••••"
   },
   "seo": {
     "home_title": "Bookando – Book & Scale with Affiliates",
