@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from "react";
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
 import { Badge } from '../../components/ui/badge';
-import { Users, Calendar, TrendingUp, Wallet, Bell, Settings, LogOut } from 'lucide-react';
+import { Users, Calendar, TrendingUp, Wallet, Bell, Settings } from "lucide-react";
 
 export default function DashboardPage() {
   const { t } = useTranslation();
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   const stats = [
     { icon: Calendar, label: 'Buchungen', value: '12', variant: 'info' },

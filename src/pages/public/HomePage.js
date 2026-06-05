@@ -6,7 +6,7 @@ import PublicFooter from '../../components/layout/PublicFooter';
 import {
   ArrowRight, Store, CalendarCheck, BarChart3, Wallet,
   Palette, Globe, CheckCircle, Play, Star, TrendingUp,
-  Shield, Zap, Users, Gift, Bell, RefreshCw, Layers,
+  Shield,  Users, Gift, Bell, RefreshCw, Layers,
   ChevronRight, MapPin, MousePointer2, DollarSign
 } from 'lucide-react';
 
@@ -80,7 +80,7 @@ export default function HomePage() {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const heroImg = 'https://picsum.photos/id/1015/1600/900';
-  const heroImgSm = 'https://picsum.photos/id/1015/800/600';
+  // const heroImgSm = 'https://picsum.photos/id/1015/800/600';
 
   useEffect(() => {
     const img = new Image();
