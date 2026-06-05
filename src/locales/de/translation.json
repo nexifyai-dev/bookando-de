@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "features": "Features",
+    "pricing": "Preise",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "dashboard": "Dashboard"
+  },
+  "home": {
+    "hero_title": "Willkommen bei",
+    "hero_title_accent": "deinem Projekt",
+    "hero_subtitle": "Baue großartige Dinge mit diesem Design-Template. Modern, schnell und skalierbar.",
+    "hero_cta_primary": "Loslegen",
+    "hero_cta_secondary": "Mehr erfahren",
+    "features_title": "Features",
+    "features_subtitle": "Alles, was du brauchst, um durchzustarten.",
+    "stats_title": "In Zahlen",
+    "cta_title": "Bereit für den",
+    "cta_title_accent": "nächsten Schritt?",
+    "cta_desc": "Starte jetzt und überzeuge dich selbst von den Möglichkeiten.",
+    "cta_consultation": "Beratungstermin"
+  },
+  "footer": {
+    "copyright": "© 2025 Alle Rechte vorbehalten.",
+    "col_product": "Produkt",
+    "col_company": "Unternehmen",
+    "col_legal": "Rechtliches",
+    "col_contact": "Kontakt",
+    "link_features": "Features",
+    "link_pricing": "Preise",
+    "link_about": "Über uns",
+    "link_blog": "Blog",
+    "link_contact": "Kontakt",
+    "link_privacy": "Datenschutz",
+    "link_imprint": "Impressum",
+    "link_terms": "AGB",
+    "cookie_settings": "Cookie-Einstellungen"
+  },
+  "portal": {
+    "dashboard": "Dashboard",
+    "settings": "Einstellungen",
+    "profile": "Profil",
+    "logout": "Abmelden"
+  }
+}

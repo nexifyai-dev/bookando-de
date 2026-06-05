@@ -1,0 +1,48 @@
+{
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "pricing": "Pricing",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Sign In",
+    "register": "Sign Up",
+    "dashboard": "Dashboard"
+  },
+  "home": {
+    "hero_title": "Welcome to",
+    "hero_title_accent": "your project",
+    "hero_subtitle": "Build great things with this design template. Modern, fast and scalable.",
+    "hero_cta_primary": "Get Started",
+    "hero_cta_secondary": "Learn More",
+    "features_title": "Features",
+    "features_subtitle": "Everything you need to get started.",
+    "stats_title": "By the Numbers",
+    "cta_title": "Ready for the",
+    "cta_title_accent": "next step?",
+    "cta_desc": "Start now and see the possibilities for yourself.",
+    "cta_consultation": "Book a Call"
+  },
+  "footer": {
+    "copyright": "© 2025 All rights reserved.",
+    "col_product": "Product",
+    "col_company": "Company",
+    "col_legal": "Legal",
+    "col_contact": "Contact",
+    "link_features": "Features",
+    "link_pricing": "Pricing",
+    "link_about": "About Us",
+    "link_blog": "Blog",
+    "link_contact": "Contact",
+    "link_privacy": "Privacy Policy",
+    "link_imprint": "Imprint",
+    "link_terms": "Terms",
+    "cookie_settings": "Cookie Settings"
+  },
+  "portal": {
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "profile": "Profile",
+    "logout": "Sign Out"
+  }
+}
