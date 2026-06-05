@@ -70,7 +70,8 @@
     "link_imprint": "Impressum",
     "link_terms": "AGB",
     "copyright": "© 2026 Bookando. Alle Rechte vorbehalten.",
-    "tagline": "Die modulare Buchungs- & Vertriebsplattform für Dienstleister."
+    "tagline": "Die modulare Buchungs- & Vertriebsplattform für Dienstleister.",
+    "contact": "Kontakt"
   },
   "features": {
     "page_title": "Features – Bookando",
@@ -248,5 +249,18 @@
   "seo": {
     "home_title": "Bookando – Termine buchen & Affiliate skalieren",
     "home_desc": "Bookando.de vereint Terminbuchung, Affiliate-Marketing, Wallet und Marketplace in einer Plattform für Dienstleister."
+  },
+  "mk": {
+    "search": "Suchen...",
+    "all": "Alle",
+    "tattoo": "Tattoo",
+    "kosmetik": "Kosmetik",
+    "friseur": "Friseur",
+    "nagel": "Nageldesign",
+    "barber": "Barbershop",
+    "laser": "Laser",
+    "massage": "Massage",
+    "book": "Jetzt buchen",
+    "profile": "Profil anzeigen"
   }
 }

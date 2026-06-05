@@ -142,7 +142,7 @@ export default function PublicFooter({
           {/* Kontakt-Spalte */}
           {contactInfo && (
             <div>
-              <h3 className="w2g-footer-heading">Kontakt</h3>
+              <h3 className="w2g-footer-heading">{t('footer.contact')}</h3>
               <div className="space-y-3 text-[13px] text-white/50">
                 {contactInfo.address && (
                   <div className="flex items-start gap-2.5">

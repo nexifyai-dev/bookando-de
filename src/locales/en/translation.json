@@ -70,7 +70,8 @@
     "link_imprint": "Imprint",
     "link_terms": "Terms",
     "copyright": "© 2026 Bookando. All rights reserved.",
-    "tagline": "The modular booking & sales platform for service providers."
+    "tagline": "The modular booking & sales platform for service providers.",
+    "contact": "Contact"
   },
   "features": {
     "page_title": "Features – Bookando",
@@ -248,5 +249,18 @@
   "seo": {
     "home_title": "Bookando – Book & Scale with Affiliates",
     "home_desc": "Bookando combines booking, affiliate marketing, wallet and marketplace in one platform for service providers."
+  },
+  "mk": {
+    "search": "Search...",
+    "all": "All",
+    "tattoo": "Tattoo",
+    "kosmetik": "Cosmetics",
+    "friseur": "Hairdresser",
+    "nagel": "Nail Design",
+    "barber": "Barbershop",
+    "laser": "Laser",
+    "massage": "Massage",
+    "book": "Book Now",
+    "profile": "View Profile"
   }
 }
