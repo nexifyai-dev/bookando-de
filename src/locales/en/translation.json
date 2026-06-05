@@ -177,5 +177,25 @@
     "fee_platform_title": "Platform Payment",
     "fee_platform_pct": "5% + €1",
     "fee_platform_desc": "Per transaction when payment is fully handled via Bookando"
+  },
+  "dashboard": {
+    "title": "Dashboard – Bookando",
+    "welcome": "Welcome back!",
+    "welcome_sub": "Here you can see all key metrics at a glance.",
+    "vendors": "Vendors",
+    "vendors_trend": "+2 this week",
+    "affiliates": "Affiliates",
+    "affiliates_trend": "+12% activity",
+    "commissions": "Commissions",
+    "commissions_trend": "+8% vs last month",
+    "bookings": "Bookings",
+    "bookings_trend": "+23% vs last month",
+    "recent_bookings": "Recent Bookings",
+    "view_all": "View all",
+    "quick_actions": "Quick Actions",
+    "action_bookings": "Manage Bookings",
+    "action_analytics": "Analytics & Reports",
+    "action_wallet": "Wallet & Payouts",
+    "action_affiliates": "Affiliate Partners"
   }
 }

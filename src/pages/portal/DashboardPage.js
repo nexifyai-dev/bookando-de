@@ -1,147 +1,127 @@
-import React from "react";
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../../contexts/AuthContext';
-import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
-import { Badge } from '../../components/ui/badge';
-import { Users, Calendar, TrendingUp, Wallet, Bell, Settings } from "lucide-react";
+import { Link } from 'react-router-dom';
+import SEOHead from '../../components/shared/SEOHead';
+import { CalendarCheck, TrendingUp, Users, DollarSign, ArrowRight, BarChart3, Wallet, Link2 } from 'lucide-react';
 
-import SEOHead from '../../components/shared/SEOHead'
+function KpiCard({ icon: Icon, value, label, trend }) {
+  return (
+    <div className="rounded-xl p-5 transition-shadow hover:shadow-[var(--shadow-e2)]"
+      style={{ background: 'var(--color-surface)', border: '1px solid var(--color-divider)' }}>
+      <div className="flex items-center gap-3 mb-3">
+        <div className="w-10 h-10 rounded-lg flex items-center justify-center"
+          style={{ background: 'var(--color-accent-muted)' }}>
+          <Icon size={18} style={{ color: 'var(--color-accent)' }} />
+        </div>
+        <div>
+          <p className="text-[12px] font-medium" style={{ color: 'var(--color-text-secondary)' }}>{label}</p>
+          <p className="text-[22px] font-extrabold leading-none" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>{value}</p>
+        </div>
+      </div>
+      <p className="text-[11px]" style={{ color: '#4ADE80' }}>{trend}</p>
+    </div>
+  );
+}
+
+function BookingRow({ date, customer, service, status, amount }) {
+  const statusColors = {
+    confirmed: { bg: 'rgba(196,155,62,0.12)', text: 'var(--color-accent)' },
+    pending: { bg: 'rgba(74,144,201,0.12)', text: '#4A90C9' },
+    completed: { bg: 'rgba(74,222,128,0.12)', text: '#4ADE80' },
+    cancelled: { bg: 'rgba(239,68,68,0.12)', text: '#EF4444' },
+  };
+  const sc = statusColors[status] || statusColors.pending;
+
+  return (
+    <div className="flex items-center gap-4 py-3 px-4 rounded-lg transition-colors hover:bg-[var(--color-surface-elevated)]"
+      style={{ borderBottom: '1px solid var(--color-divider-subtle)' }}>
+      <p className="text-[13px] w-[90px] shrink-0" style={{ color: 'var(--color-text-secondary)' }}>{date}</p>
+      <p className="text-[13px] font-medium flex-1 min-w-0 truncate" style={{ color: 'var(--color-text-primary)' }}>{customer}</p>
+      <p className="text-[12px] w-[120px] shrink-0 hidden sm:block" style={{ color: 'var(--color-text-tertiary)' }}>{service}</p>
+      <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full shrink-0" style={{ background: sc.bg, color: sc.text }}>{status}</span>
+      <p className="text-[13px] font-semibold w-[70px] text-right shrink-0" style={{ color: 'var(--color-text-primary)' }}>{amount}</p>
+    </div>
+  );
+}
+
 export default function DashboardPage() {
   const { t } = useTranslation();
-  const { user } = useAuth();
 
-  const stats = [
-    { icon: Calendar, label: 'Buchungen', value: '12', variant: 'info' },
-    { icon: TrendingUp, label: 'Umsatz (Monat)', value: '2.450 €', variant: 'success' },
-    { icon: Users, label: 'Kunden', value: '48', variant: 'gold' },
-    { icon: Wallet, label: 'Guthaben', value: '890 €', variant: 'warning' },
+  const kpis = [
+    { icon: Users, value: '24', label: t('dashboard.vendors'), trend: t('dashboard.vendors_trend') },
+    { icon: TrendingUp, value: '128', label: t('dashboard.affiliates'), trend: t('dashboard.affiliates_trend') },
+    { icon: DollarSign, value: '4.820\u20ac', label: t('dashboard.commissions'), trend: t('dashboard.commissions_trend') },
+    { icon: CalendarCheck, value: '312', label: t('dashboard.bookings'), trend: t('dashboard.bookings_trend') },
+  ];
+
+  const bookings = [
+    { date: '01.06.', customer: 'Sarah K.', service: 'Tattoo-Session', status: 'confirmed', amount: '350\u20ac' },
+    { date: '01.06.', customer: 'Max M.', service: 'Kosmetik', status: 'completed', amount: '89\u20ac' },
+    { date: '31.05.', customer: 'Julia B.', service: 'Friseur', status: 'confirmed', amount: '65\u20ac' },
+    { date: '30.05.', customer: 'Tom L.', service: 'Barbershop', status: 'pending', amount: '35\u20ac' },
+    { date: '29.05.', customer: 'Anna S.', service: 'Nageldesign', status: 'cancelled', amount: '55\u20ac' },
   ];
 
   return (
-    <div className="space-y-6">
-      <SEOHead title="Dashboard – Bookando" description="Dein Bookando-Dashboard mit allen wichtigen Kennzahlen." noindex />
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-[var(--color-text-primary)] font-[var(--font-heading)]">
-            {t('portal.dashboard', 'Dashboard')}
+    <div style={{ background: 'var(--color-shell-bg)' }}>
+      <SEOHead title={t('dashboard.title')} />
+
+      <main className="p-6 lg:p-8 max-w-[1280px] mx-auto">
+        {/* Welcome */}
+        <div className="rounded-xl p-6 mb-6" 
+          style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))' }}>
+          <h1 className="text-[22px] lg:text-[26px] font-extrabold tracking-[-0.02em] text-white"
+            style={{ fontFamily: 'var(--font-heading)' }}>
+            {t('dashboard.welcome')}
           </h1>
-          <p className="text-sm text-[var(--color-text-secondary)] mt-1">
-            Willkommen zurück{user?.full_name ? `, ${user.full_name}` : ''}!
-          </p>
+          <p className="text-[14px] mt-1" style={{ color: 'rgba(255,255,255,0.55)' }}>{t('dashboard.welcome_sub')}</p>
         </div>
-        <div className="flex items-center gap-2">
-          <Badge variant="gold" size="sm">Premium</Badge>
+
+        {/* KPI Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          {kpis.map((kpi, i) => <KpiCard key={i} {...kpi} />)}
         </div>
-      </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((stat, idx) => {
-          const Icon = stat.icon;
-          return (
-            <Card key={idx}>
-              <CardContent className="py-4 px-5">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-[11px] font-medium text-[var(--color-text-tertiary)] uppercase tracking-wide">{stat.label}</p>
-                    <p className="text-[28px] font-bold tracking-tight text-[var(--color-text-primary)] font-[var(--font-heading)] mt-1">{stat.value}</p>
-                  </div>
-                  <div className="w-10 h-10 rounded-[var(--radius-sm)] flex items-center justify-center" style={{ background: 'var(--color-accent-muted)' }}>
-                    <Icon size={20} style={{ color: 'var(--color-accent)' }} />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
-
-      {/* Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* Recent Activity */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Aktuelle Aktivität</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="flex items-center gap-3 py-2 border-b border-[var(--color-divider-subtle)] last:border-0">
-                  <div className="w-8 h-8 rounded-[var(--radius-xs)] flex items-center justify-center bg-[var(--color-surface-sunken)]">
-                    <Calendar size={14} className="text-[var(--color-text-tertiary)]" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[13px] font-medium text-[var(--color-text-primary)] truncate">Neue Buchung #{i}</p>
-                    <p className="text-[11px] text-[var(--color-text-tertiary)]">Vor {i * 10} Minuten</p>
-                  </div>
-                  <Badge variant="muted" size="xs">Neu</Badge>
-                </div>
-              ))}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Letzte Buchungen */}
+          <div className="lg:col-span-2 rounded-xl"
+            style={{ background: 'var(--color-surface)', border: '1px solid var(--color-divider)' }}>
+            <div className="flex items-center justify-between px-5 pt-5 pb-3">
+              <h2 className="text-[14px] font-bold" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>{t('dashboard.recent_bookings')}</h2>
+              <Link to="/dashboard" className="text-[11px] font-medium flex items-center gap-1"
+                style={{ color: 'var(--color-accent)' }}>
+                {t('dashboard.view_all')} <ArrowRight size={12} />
+              </Link>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Quick Actions */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Schnellzugriff</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-3">
-              {[
-                { icon: Calendar, label: 'Buchungen', href: '/portal/bookings' },
-                { icon: Wallet, label: 'Wallet', href: '/portal/wallet' },
-                { icon: Settings, label: 'Einstellungen', href: '/portal/settings' },
-                { icon: Bell, label: 'Benachrichtigungen', href: '/portal/notifications' },
-              ].map((item) => (
-                <a key={item.label} href={item.href}
-                  className="flex flex-col items-center gap-2 px-4 py-5 text-[13px] font-medium text-[var(--color-text-secondary)] border border-[var(--color-divider)] rounded-[var(--radius-sm)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors">
-                  <item.icon size={20} />
-                  {item.label}
-                </a>
-              ))}
+            <div className="px-1">
+              {bookings.map((b, i) => <BookingRow key={i} {...b} />)}
             </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Quick Stats Table */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Letzte Buchungen</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-[var(--color-divider)]">
-                  <th className="text-left py-3 px-2 text-[11px] font-medium text-[var(--color-text-tertiary)] uppercase tracking-wide">Datum</th>
-                  <th className="text-left py-3 px-2 text-[11px] font-medium text-[var(--color-text-tertiary)] uppercase tracking-wide">Kunde</th>
-                  <th className="text-left py-3 px-2 text-[11px] font-medium text-[var(--color-text-tertiary)] uppercase tracking-wide">Service</th>
-                  <th className="text-left py-3 px-2 text-[11px] font-medium text-[var(--color-text-tertiary)] uppercase tracking-wide">Status</th>
-                  <th className="text-right py-3 px-2 text-[11px] font-medium text-[var(--color-text-tertiary)] uppercase tracking-wide">Betrag</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <tr key={i} className="border-b border-[var(--color-divider-subtle)] hover:bg-[var(--color-surface-elevated)] transition-colors">
-                    <td className="py-3 px-2 text-[13px]">01.06.2026</td>
-                    <td className="py-3 px-2 text-[13px] font-medium">Kunde #{i}</td>
-                    <td className="py-3 px-2 text-[13px] text-[var(--color-text-secondary)]">Service {i}</td>
-                    <td className="py-3 px-2">
-                      <Badge variant={i % 2 === 0 ? 'success' : 'warning'} size="xs">
-                        {i % 2 === 0 ? 'Bestätigt' : 'Ausstehend'}
-                      </Badge>
-                    </td>
-                    <td className="py-3 px-2 text-[13px] text-right font-medium">{i * 49} €</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
           </div>
-        </CardContent>
-      </Card>
+
+          {/* Quick Actions */}
+          <div className="rounded-xl p-5"
+            style={{ background: 'var(--color-surface)', border: '1px solid var(--color-divider)' }}>
+            <h2 className="text-[14px] font-bold mb-4" style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>{t('dashboard.quick_actions')}</h2>
+            <div className="space-y-2">
+              {[
+                { icon: CalendarCheck, label: t('dashboard.action_bookings'), to: '/bookings' },
+                { icon: BarChart3, label: t('dashboard.action_analytics'), to: '/analytics' },
+                { icon: Wallet, label: t('dashboard.action_wallet'), to: '/wallet' },
+                { icon: Link2, label: t('dashboard.action_affiliates'), to: '/affiliates' },
+              ].map((action, i) => (
+                <Link key={i} to={action.to}
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13px] font-medium transition-colors cursor-pointer hover:bg-[var(--color-surface-elevated)]"
+                  style={{ color: 'var(--color-text-secondary)' }}>
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'var(--color-accent-muted)' }}>
+                    <action.icon size={15} style={{ color: 'var(--color-accent)' }} />
+                  </div>
+                  {action.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }

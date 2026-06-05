@@ -177,5 +177,25 @@
     "fee_platform_title": "Plattform-Zahlung",
     "fee_platform_pct": "5 % + 1 €",
     "fee_platform_desc": "Pro Transaktion wenn die Zahlung vollständig über Bookando abgewickelt wird"
+  },
+  "dashboard": {
+    "title": "Dashboard – Bookando",
+    "welcome": "Willkommen zurück!",
+    "welcome_sub": "Hier siehst du alle wichtigen Kennzahlen auf einen Blick.",
+    "vendors": "Vendors",
+    "vendors_trend": "+2 diese Woche",
+    "affiliates": "Affiliates",
+    "affiliates_trend": "+12 % Aktivität",
+    "commissions": "Provisionen",
+    "commissions_trend": "+8 % zum Vormonat",
+    "bookings": "Buchungen",
+    "bookings_trend": "+23 % zum Vormonat",
+    "recent_bookings": "Letzte Buchungen",
+    "view_all": "Alle anzeigen",
+    "quick_actions": "Schnellzugriff",
+    "action_bookings": "Buchungen verwalten",
+    "action_analytics": "Analytics & Reports",
+    "action_wallet": "Wallet & Auszahlungen",
+    "action_affiliates": "Affiliate-Partner"
   }
 }
