@@ -2,38 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
 @layer base {
   :root {
     /* ════════════════════════════════════════════════════════════
-       BOOKANDO — BRAND TOKENS
-       Ocean-Blue Primary + Teal Accent
+       CI-FARBSYSTEM — Überschreibbar für jedes Projekt
+       Einfach diese Variablen in deinem Projekt überschreiben.
        ════════════════════════════════════════════════════════════ */
-    --color-primary: #1A4570;
-    --color-primary-light: #2A6A9E;
-    --color-primary-dark: #0A2036;
-    --color-primary-muted: rgba(26,69,112,0.05);
+    --color-primary: #0A192F;
+    --color-primary-light: #172A45;
+    --color-primary-dark: #020C1B;
+    --color-primary-muted: rgba(10,25,47,0.05);
     --color-accent: #C49B3E;
-    --color-accent-hover: #B8922E;
-    --color-accent-light: #FEF7E6;
+    --color-accent-hover: #A6802C;
+    --color-accent-light: #f0e6c8;
     --color-accent-muted: rgba(196,155,62,0.10);
     --color-accent-subtle: rgba(196,155,62,0.05);
-    --color-accent-gold: #C49B3E;
+    --color-accent-teal: #0D9488;
     --color-accent-pink: #DB2777;
     --color-shell-bg: #F8FAFC;
     --color-surface: #ffffff;
     --color-surface-elevated: #FAFBFC;
     --color-surface-sunken: #F1F5F9;
     --color-divider: #E2E8F0;
-    --color-border: #E2E8F0;
     --color-divider-subtle: #F1F5F9;
     --color-text-primary: #0F172A;
     --color-text-secondary: #475569;
     --color-text-tertiary: #94A3B8;
 
     /* ════════════════════════════════════════════════════════════
-       LAYOUT
+       LAYOUT — App-Struktur
        ════════════════════════════════════════════════════════════ */
     --shell-max-width: 1280px;
     --page-gutter: 24px;
@@ -54,7 +53,7 @@
     --spacing-3xl: 64px;
 
     /* ════════════════════════════════════════════════════════════
-       TIEFENSTAFFELUNG
+       TIEFENSTAFFELUNG — Subtile, crisp Shadows
        ════════════════════════════════════════════════════════════ */
     --shadow-e0: none;
     --shadow-e1: 0 1px 2px rgba(0,0,0,0.04);
@@ -66,28 +65,28 @@
     --shadow-glass: 0 4px 16px rgba(0,0,0,0.06);
     --shadow-elevated: var(--shadow-e2);
     --shadow-modal: var(--shadow-e4);
-    --shadow-focus: 0 0 0 2px var(--color-primary), 0 0 0 4px rgba(26,69,112,0.12);
+    --shadow-focus: 0 0 0 2px var(--color-primary), 0 0 0 4px rgba(10,25,47,0.12);
     --shadow-inset: inset 0 1px 2px rgba(0,0,0,0.04);
 
     /* ════════════════════════════════════════════════════════════
-       RADII
+       RADII — Sharp Technical (max 8px für Cards)
        ════════════════════════════════════════════════════════════ */
     --radius-xs: 3px;
     --radius-sm: 4px;
     --radius-md: 6px;
     --radius-lg: 8px;
-    --radius-xl: 12px;
+    --radius-xl: 8px;
     --radius-full: 9999px;
 
     /* ════════════════════════════════════════════════════════════
        TYPOGRAFIE
        ════════════════════════════════════════════════════════════ */
-    --font-heading: 'Space Grotesk', system-ui, sans-serif;
-    --font-body: 'Inter', system-ui, sans-serif;
+    --font-heading: 'Cabinet Grotesk', 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-body: 'IBM Plex Sans', 'Inter', system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
 
     /* ════════════════════════════════════════════════════════════
-       SEMANTISCHE FARBEN
+       SEMANTISCHE FARBEN — Status, Feedback
        ════════════════════════════════════════════════════════════ */
     --color-success: #059669;
     --color-success-bg: #ECFDF5;
@@ -103,7 +102,7 @@
     --color-info-border: #BFDBFE;
 
     /* ════════════════════════════════════════════════════════════
-       STATUS
+       STATUS — Badges & Tags
        ════════════════════════════════════════════════════════════ */
     --status-new-bg: #EFF6FF;
     --status-new-text: #1E40AF;
@@ -129,7 +128,7 @@
     --transition-slow: 320ms ease-out;
 
     /* ════════════════════════════════════════════════════════════
-       Z-INDEX
+       Z-INDEX — Systematisch, keine Magic Numbers
        ════════════════════════════════════════════════════════════ */
     --z-base: 1;
     --z-dropdown: 40;
@@ -141,6 +140,9 @@
     --z-tooltip: 100;
   }
 
+  /* ════════════════════════════════════════════════════════════
+     BASE STYLES
+     ════════════════════════════════════════════════════════════ */
   html { scroll-behavior: smooth; overflow-x: hidden; }
 
   body {
@@ -168,9 +170,10 @@
 
   ::selection {
     background: var(--color-accent);
-    color: white;
+    color: var(--color-primary-dark);
   }
 
+  /* Scrollbar unsichtbar (systemweit) */
   *, *::before, *::after {
     scrollbar-width: none !important;
     -ms-overflow-style: none !important;
@@ -185,7 +188,11 @@
   .scrollbar-hide { scrollbar-width: none !important; -ms-overflow-style: none !important; }
 }
 
+/* ════════════════════════════════════════════════════════════════
+   LAYER: COMPONENTS — Wiederverwendbare Utility-Klassen
+   ════════════════════════════════════════════════════════════════ */
 @layer components {
+
   /* ── TOPBAR ── */
   .w2g-topbar-frame {
     position: fixed; left: 0; right: 0; top: 0; z-index: 80;
@@ -205,7 +212,9 @@
   @media (min-width: 640px) { .w2g-topbar { padding: 0 20px; } }
   @media (min-width: 1024px) { .w2g-topbar { padding: 0 24px; } }
 
-  .w2g-shell-main { padding-top: calc(var(--topbar-height) + 20px); }
+  .w2g-shell-main {
+    padding-top: calc(var(--topbar-height) + 20px);
+  }
   .w2g-shell-content {
     margin: 0 auto; width: 100%;
     padding: 0 16px;
@@ -243,6 +252,7 @@
     border-color: var(--color-primary);
   }
 
+  /* ── SIDEBAR OFFSET (für PortalShell) ── */
   .w2g-sidebar-offset {
     margin-left: var(--sb-w, 64px);
     transition: margin-left 200ms ease-out;
@@ -259,7 +269,9 @@
     margin-bottom: 24px;
   }
   @media (min-width: 640px) {
-    .w2g-page-header { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+    .w2g-page-header {
+      flex-direction: row; align-items: flex-end; justify-content: space-between;
+    }
   }
   .w2g-page-title {
     font-family: var(--font-heading);
@@ -273,7 +285,9 @@
     font-size: 14px; color: var(--color-text-secondary);
     line-height: 1.4;
   }
-  .w2g-page-stack { display: flex; flex-direction: column; gap: 24px; padding-bottom: 32px; }
+  .w2g-page-stack {
+    display: flex; flex-direction: column; gap: 24px; padding-bottom: 32px;
+  }
 
   /* ── CARDS ── */
   .w2g-card {
@@ -284,7 +298,9 @@
     box-shadow: var(--shadow-e1);
     transition: box-shadow var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
   }
-  .w2g-card:hover { box-shadow: var(--shadow-e2); }
+  .w2g-card:hover {
+    box-shadow: var(--shadow-e2);
+  }
   .w2g-card-interactive {
     background: var(--color-surface);
     border: 1px solid var(--color-divider);
@@ -312,41 +328,13 @@
     border-radius: var(--radius-md);
     padding: 20px;
   }
+
   .w2g-panel {
     background: var(--color-surface);
     border: 1px solid var(--color-divider);
     border-radius: var(--radius-md);
     padding: 20px;
     box-shadow: var(--shadow-e1);
-  }
-
-  /* ── GLASS CARDS ── */
-  .glass-card {
-    @apply relative bg-white/65 border border-white/55 backdrop-blur-sm rounded-md;
-    background-image: linear-gradient(180deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.45) 100%);
-  }
-  .glass-card-strong {
-    @apply relative bg-white/85 border border-white/60 backdrop-blur-sm shadow-card-hover rounded-md;
-  }
-  .glass-card::before {
-    content: '';
-    position: absolute; inset: 0 0 auto 0; height: 1px;
-    background: linear-gradient(90deg, transparent 5%, rgba(255,255,255,0.85) 50%, transparent 95%);
-    pointer-events: none;
-    border-top-left-radius: inherit; border-top-right-radius: inherit;
-  }
-
-  /* ── 3D BUTTONS ── */
-  .btn-3d {
-    @apply relative inline-flex items-center justify-center font-semibold rounded-sm transition-all duration-150 ease-out;
-    box-shadow: 0 1px 2px rgba(26,69,112,0.15), 0 1px 0 rgba(255,255,255,0.08) inset;
-  }
-  .btn-3d:hover { box-shadow: 0 4px 12px rgba(26,69,112,0.20), 0 1px 0 rgba(255,255,255,0.10) inset; transform: translateY(-1px); }
-  .btn-3d:active { transform: translateY(0); box-shadow: 0 1px 2px rgba(26,69,112,0.15); }
-  .btn-3d-primary {
-    @apply btn-3d text-white;
-    background-image: linear-gradient(180deg, #1a4570 0%, #113655 50%, #0e2d47 100%);
-    border: 1px solid rgba(255,255,255,0.06);
   }
 
   /* ── FOOTER ── */
@@ -361,7 +349,7 @@
     color: white; margin-bottom: 20px;
   }
 
-  /* ── BOTTOM NAV ── */
+  /* ── BOTTOM NAV (Mobile) ── */
   .w2g-bottom-nav {
     position: fixed; bottom: 0; left: 0; right: 0;
     background: rgba(255,255,255,0.95);
@@ -380,7 +368,9 @@
     transition: color var(--transition-fast);
     text-decoration: none;
   }
-  .w2g-bottom-nav-item-active { color: var(--color-primary); }
+  .w2g-bottom-nav-item-active {
+    color: var(--color-primary);
+  }
 
   /* ── ANIMATIONS ── */
   .animate-slide-up {
@@ -390,6 +380,7 @@
     from { transform: translateY(8px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
   }
+
   .animate-fade-in {
     animation: fadeIn 300ms ease-out;
   }
@@ -397,6 +388,8 @@
     from { opacity: 0; transform: translateY(4px); }
     to { opacity: 1; transform: translateY(0); }
   }
+
+  /* ── SPINNER ── */
   .w2g-spinner {
     width: 24px; height: 24px;
     border: 2px solid var(--color-divider);
@@ -406,72 +399,36 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── LIFT EFFECT ── */
-  .lift {
-    @apply transition-[transform,box-shadow] duration-200 ease-out;
-  }
-  .lift:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(26,69,112,0.10), 0 2px 4px rgba(26,69,112,0.04);
-  }
-}
-
-/* Accessibility: prefers-reduced-motion */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* Dark Mode */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-primary: #4A90C9;
-    --color-primary-light: #6BA5D6;
-    --color-primary-dark: #0F1729;
-    --color-shell-bg: #0F1729;
-    --color-surface: #1A2332;
-    --color-surface-elevated: #1E293B;
-    --color-surface-sunken: #0F1729;
-    --color-divider: rgba(255,255,255,0.08);
-    --color-border: rgba(255,255,255,0.08);
-    --color-divider-subtle: rgba(255,255,255,0.04);
-    --color-text-primary: #F1F5F9;
-    --color-text-secondary: #94A3B8;
-    --color-text-tertiary: #64748B;
-    --shadow-card: 0 1px 3px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.04);
-    --shadow-e1: 0 1px 2px rgba(0,0,0,0.3);
-    --shadow-e2: 0 2px 8px rgba(0,0,0,0.4);
-    --shadow-e3: 0 8px 24px rgba(0,0,0,0.5);
-    --color-accent-muted: rgba(196,155,62,0.15);
-    --color-accent-subtle: rgba(196,155,62,0.08);
+  /* ── STATUS BADGE ── */
+  .w2g-status-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 10px;
+    font-size: 11px; font-weight: 600;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
   }
 
-  body {
-    background: #0F1729;
-    color: #F1F5F9;
+  /* ── GLASSMORPHISM ── */
+  .w2g-glass {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.3);
   }
 
-  .w2g-topbar-frame {
-    background: rgba(15,23,41,0.85);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+  /* ── DANGER BUTTON ── */
+  .w2g-btn-danger {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 8px 16px; font-size: 13px; font-weight: 600;
+    color: var(--color-danger);
+    background: var(--color-danger-bg);
+    border: 1px solid var(--color-danger-border);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
   }
-
-  .w2g-footer {
-    background: #0A1420;
-  }
-
-  .w2g-bottom-nav {
-    background: rgba(15,23,41,0.95);
-    border-top: 1px solid rgba(255,255,255,0.05);
-  }
-
-  input, select, textarea {
-    background: #1A2332 !important;
-    border-color: rgba(255,255,255,0.1) !important;
-    color: #F1F5F9 !important;
+  .w2g-btn-danger:hover {
+    background: var(--color-danger);
+    color: white;
+    border-color: var(--color-danger);
   }
 }
