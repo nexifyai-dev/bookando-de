@@ -153,7 +153,7 @@ export default function HomePage() {
               <div className="relative w-full max-w-[400px]">
                 {/* Cathedral Image Container */}
                 <div className="relative rounded-[16px] overflow-hidden"
-                  style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.05)' }}>
+                  style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}>
                   <img
                     src="/images/bookando-hero.jpg"
                     alt="Bookando – Moderne Buchungs- und Vertriebsplattform für Dienstleister"
