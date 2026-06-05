@@ -85,11 +85,19 @@ export default function HomePage() {
       {/* HERO – Stripesque Single Column */}
       <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden"
         style={{ background: 'linear-gradient(160deg, var(--color-primary-dark) 0%, var(--color-primary) 40%, var(--color-primary-light) 100%)' }}>
-        <div className="absolute inset-0 opacity-[0.03]"
+        {/* Noise Texture */}
+        <div className="absolute inset-0 opacity-[0.025]"
           style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'1\'/%3E%3C/svg%3E")',
             backgroundSize: '128px 128px' }} />
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-[0.08] pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse, rgba(196,155,62,0.4), transparent)', filter: 'blur(80px)' }} />
+        {/* Subtle Network Dots – kommuniziert "Affiliate-Netzwerk" */}
+        <div className="absolute inset-0 opacity-[0.06]"
+          style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '48px 48px' }} />
+        {/* Diagonal Connection Lines */}
+        <div className="absolute inset-0 opacity-[0.02]"
+          style={{ backgroundImage: 'linear-gradient(45deg, transparent 0%, transparent 49%, rgba(255,255,255,0.15) 50%, transparent 51%)', backgroundSize: '96px 96px' }} />
+        {/* Gold Atmospheric Glow */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] opacity-[0.1] pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse, rgba(196,155,62,0.3), transparent)', filter: 'blur(100px)' }} />
 
         <div className={`relative z-10 w-full max-w-[1280px] mx-auto px-6 lg:px-12 py-24 md:py-32 ${stagger(heroVis, 0)}`} style={staggerDelay(0)}>
           <div className="max-w-[800px] mx-auto text-center">
