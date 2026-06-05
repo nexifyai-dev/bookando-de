@@ -108,8 +108,8 @@ export default function HomePage() {
 
               <h1 className="text-[40px] sm:text-[56px] lg:text-[64px] font-extrabold text-white leading-[1] tracking-[-0.035em] mb-6"
                 style={{ fontFamily: 'var(--font-heading)' }}>
-                <span className="block">{t("hero.title")}</span>
-                <span style={{ color: '#C49B3E' }}>{t('hero.title_gold')}</span>
+                <span className="block">{t('hero.title_line1')}</span>
+                <span style={{ color: '#C49B3E' }}>{t('hero.title_line2')}</span>
               </h1>
 
               <p className="text-[16px] sm:text-[18px] text-white/50 leading-relaxed max-w-[520px] mb-10">
