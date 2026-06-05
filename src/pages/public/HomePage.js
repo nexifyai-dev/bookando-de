@@ -7,7 +7,7 @@ import PublicNav from '../../components/layout/PublicNav';
 import PublicFooter from '../../components/layout/PublicFooter';
 import {
   ArrowRight, Shield, Globe, Users, Store, CalendarCheck,
-  TrendingUp, Wallet, Palette, Layers
+  TrendingUp, Wallet, Palette, Layers, Star, BarChart3
 } from 'lucide-react';
 
 function AnimatedCounter({ end, suffix = '', duration = 2000 }) {
@@ -36,55 +36,23 @@ function FeatureCard({ icon: Icon, title, desc, vis, idx }) {
         <Icon size={22} style={{ color: 'var(--color-accent)' }} />
       </div>
       <h3 className="text-lg font-bold tracking-tight mb-2"
-        style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
-        {title}
-      </h3>
+        style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>{title}</h3>
       <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>{desc}</p>
     </div>
   );
 }
 
-function HeroVisual({ t }) {
+function StatRow({ icon: Icon, label, sub, idx }) {
   return (
-    <div className="flex flex-col gap-3">
-      <div className="rounded-xl overflow-hidden"
-        style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-        <div className="px-5 pt-5 pb-3">
-          <p className="text-xs font-semibold text-white/30 uppercase tracking-widest">{t('hero.viz_title')}</p>
-        </div>
-        <div className="px-5 pb-5 flex flex-col gap-3">
-          {[
-            { label: t('hero.viz_booking'), sub: t('hero.viz_booking_sub') },
-            { label: t('hero.viz_affiliate'), sub: t('hero.viz_affiliate_sub') },
-            { label: t('hero.viz_marketplace'), sub: t('hero.viz_marketplace_sub') },
-          ].map((item, i) => (
-            <div key={i} className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 text-xs font-bold text-white"
-                style={{ background: 'var(--color-accent)' }}>{i + 1}</div>
-              <div className="min-w-0">
-                <p className="text-sm font-medium text-white leading-snug">{item.label}</p>
-                <p className="text-xs text-white/25 leading-snug mt-0.5">{item.sub}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+    <div className="flex items-center gap-4 px-4 py-3 rounded-lg"
+      style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.04)' }}>
+      <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
+        style={{ background: 'rgba(255,255,255,0.05)' }}>
+        <Icon size={18} className="text-white/60" />
       </div>
-      <div className="rounded-xl overflow-hidden px-5 py-4"
-        style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-        <p className="text-xs text-white/35 leading-relaxed mb-3">
-          {t('hero.viz_tagline')}
-        </p>
-        <div className="flex items-center gap-2">
-          <div className="flex gap-0">
-            <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center text-[5px] font-bold text-white"
-              style={{ background: 'var(--color-accent)', borderColor: 'var(--color-primary-dark)' }}>SK</div>
-            <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center text-[5px] font-bold text-white"
-              style={{ background: 'var(--color-primary-light)', borderColor: 'var(--color-primary-dark)' }}>TM</div>
-            <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center text-[5px] font-bold text-white"
-              style={{ background: 'var(--color-primary-lighter)', borderColor: 'var(--color-primary-dark)' }}>AL</div>
-          </div>
-          <p className="text-xs text-white/25">{t('hero.viz_vendors')}</p>
-        </div>
+      <div>
+        <p className="text-sm font-semibold text-white">{label}</p>
+        <p className="text-xs text-white/30">{sub}</p>
       </div>
     </div>
   );
@@ -109,56 +77,62 @@ export default function HomePage() {
   return (
     <div>
       <SEOHead
-        title={t('seo.home_title')}
-        description={t('seo.home_desc')}
+        title="Bookando – Termine buchen & Affiliate skalieren"
+        description="Bookando.de vereint Terminbuchung, Affiliate-Marketing, Wallet und Marketplace in einer Plattform für Dienstleister."
       />
       <PublicNav />
 
-      {/* HERO */}
-      <section ref={heroRef} className="relative min-h-[90vh] flex items-center overflow-hidden"
-        style={{ background: 'linear-gradient(160deg, var(--color-primary-dark), var(--color-primary) 35%, var(--color-primary-light))' }}>
-        <div className="absolute inset-0 opacity-[0.04]"
+      {/* HERO – Stripesque Single Column */}
+      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden"
+        style={{ background: 'linear-gradient(160deg, var(--color-primary-dark) 0%, var(--color-primary) 40%, var(--color-primary-light) 100%)' }}>
+        <div className="absolute inset-0 opacity-[0.03]"
           style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'1\'/%3E%3C/svg%3E")',
             backgroundSize: '128px 128px' }} />
-        <div className="absolute top-1/4 -right-48 w-[500px] h-[500px] rounded-full opacity-[0.06]"
-          style={{ background: 'radial-gradient(circle, rgba(196,155,62,0.6), transparent)', filter: 'blur(80px)' }} />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-[0.08] pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse, rgba(196,155,62,0.4), transparent)', filter: 'blur(80px)' }} />
 
-        <div className="relative z-10 w-full max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12 py-20 md:py-32">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Text */}
-            <div className={`lg:col-span-7 ${stagger(heroVis, 0)}`} style={staggerDelay(0)}>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-6"
-                style={{ borderColor: 'rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)' }}>
-                <span className="w-2 h-2 rounded-full" style={{ background: 'var(--color-accent)' }} />
-                <span className="text-xs font-semibold tracking-wider uppercase text-white/60">{t('hero.badge_made_in')}</span>
-              </div>
-              <h1 className="text-5xl lg:text-6xl font-extrabold text-white leading-[1] tracking-tight mb-6"
-                style={{ fontFamily: 'var(--font-heading)' }}>
-                <span className="block">{t('hero.title_line1')}</span>
-                <span style={{ color: 'var(--color-accent)' }}>{t('hero.title_line2')}</span>
-              </h1>
-              <p className="text-base lg:text-lg text-white/50 leading-relaxed max-w-[520px] mb-10">{t('hero.subtitle')}</p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/auth/register"
-                  className="inline-flex items-center justify-center gap-2 h-14 px-10 text-base font-bold rounded-full transition-all duration-300 hover:scale-[1.02] group"
-                  style={{ background: 'var(--color-accent)', color: 'var(--color-primary-dark)', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}>
-                  {t('hero.cta_primary')} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                </Link>
-                <Link to="/contact"
-                  className="inline-flex items-center justify-center gap-2 h-14 px-8 text-base font-semibold rounded-full border-2 transition-all duration-300 hover:border-white/30 hover:text-white"
-                  style={{ color: 'rgba(255,255,255,0.7)', borderColor: 'rgba(255,255,255,0.15)' }}>
-                  {t('hero.cta_secondary')}
-                </Link>
-              </div>
-              <div className="flex flex-wrap items-center gap-6 mt-10 pt-8 border-t border-white/10">
+        <div className={`relative z-10 w-full max-w-[1280px] mx-auto px-6 lg:px-12 py-24 md:py-32 ${stagger(heroVis, 0)}`} style={staggerDelay(0)}>
+          <div className="max-w-[800px] mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-8"
+              style={{ borderColor: 'rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)' }}>
+              <span className="w-2 h-2 rounded-full" style={{ background: 'var(--color-accent)' }} />
+              <span className="text-xs font-semibold tracking-wider uppercase text-white/60">{t('hero.badge_made_in')}</span>
+            </div>
+
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white leading-[0.95] tracking-tight mb-6"
+              style={{ fontFamily: 'var(--font-heading)' }}>
+              <span className="block">{t('hero.title_line1')}</span>
+              <span style={{ color: 'var(--color-accent)' }}>{t('hero.title_line2')}</span>
+            </h1>
+
+            <p className="text-base md:text-lg text-white/50 leading-relaxed max-w-[560px] mx-auto mb-12">{t('hero.subtitle')}</p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+              <Link to="/auth/register"
+                className="inline-flex items-center justify-center gap-2 h-14 px-10 text-base font-bold rounded-full transition-all duration-300 hover:scale-[1.02] group"
+                style={{ background: 'var(--color-accent)', color: 'var(--color-primary-dark)', boxShadow: '0 4px 32px rgba(196,155,62,0.25)' }}>
+                {t('hero.cta_primary')} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link to="/contact"
+                className="inline-flex items-center justify-center gap-2 h-14 px-8 text-base font-semibold rounded-full border-2 transition-all duration-300 hover:border-white/30"
+                style={{ color: 'rgba(255,255,255,0.7)', borderColor: 'rgba(255,255,255,0.15)' }}>
+                {t('hero.cta_secondary')}
+              </Link>
+            </div>
+
+            {/* Trust + Mini-Stats Row */}
+            <div className="flex flex-col items-center gap-6">
+              <div className="flex flex-wrap items-center justify-center gap-6">
                 <div className="flex items-center gap-2"><Shield size={14} className="text-white/30" /><span className="text-xs text-white/40">{t('hero.trust_dsgvo')}</span></div>
                 <div className="flex items-center gap-2"><Globe size={14} className="text-white/30" /><span className="text-xs text-white/40">{t('hero.trust_lang')}</span></div>
                 <div className="flex items-center gap-2"><Users size={14} className="text-white/30" /><span className="text-xs text-white/40">{t('hero.trust_multi')}</span></div>
               </div>
-            </div>
-            {/* Visual */}
-            <div className={`hidden lg:flex lg:col-span-5 items-center justify-center ${stagger(heroVis, 1)}`} style={staggerDelay(1)}>
-              <div className="w-full max-w-[360px]"><HeroVisual t={t} /></div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-[560px] mt-4">
+                <StatRow icon={Store} label="500+" sub="Vendors" idx={0} />
+                <StatRow icon={BarChart3} label="50.000+" sub="Buchungen" idx={1} />
+                <StatRow icon={Star} label="98%" sub="Zufriedenheit" idx={2} />
+                <StatRow icon={Users} label="128+" sub="Affiliates" idx={3} />
+              </div>
             </div>
           </div>
         </div>
@@ -166,7 +140,7 @@ export default function HomePage() {
 
       {/* FEATURES */}
       <section ref={featuresRef} className="py-20 lg:py-28">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
           <div className="text-center max-w-[600px] mx-auto mb-16">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--color-accent)' }}>{t('home.section_platform')}</p>
             <h2 className="text-3xl lg:text-5xl font-extrabold tracking-tight leading-tight"
@@ -185,7 +159,7 @@ export default function HomePage() {
 
       {/* STATS */}
       <section ref={statsRef} className="py-16 lg:py-24" style={{ background: 'var(--color-primary)' }}>
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {[
               { value: 500, suffix: '+', label: t('home.stats_vendors') },
@@ -206,7 +180,7 @@ export default function HomePage() {
 
       {/* HOW IT WORKS */}
       <section className="py-20 lg:py-28">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
           <div className="text-center max-w-[600px] mx-auto mb-16">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: 'var(--color-accent)' }}>{t('home.section_how_tag')}</p>
             <h2 className="text-3xl lg:text-5xl font-extrabold tracking-tight leading-tight"
@@ -232,9 +206,7 @@ export default function HomePage() {
                     <Icon size={22} style={{ color: 'var(--color-primary)' }} />
                   </div>
                   <h3 className="text-lg font-bold tracking-tight mb-2"
-                    style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>
-                    {item.title}
-                  </h3>
+                    style={{ fontFamily: 'var(--font-heading)', color: 'var(--color-primary)' }}>{item.title}</h3>
                   <p className="text-sm leading-relaxed max-w-[260px] mx-auto" style={{ color: 'var(--color-text-secondary)' }}>{item.desc}</p>
                 </div>
               );
@@ -245,8 +217,8 @@ export default function HomePage() {
 
       {/* CTA */}
       <section ref={ctaRef} className="py-16 lg:py-24">
-        <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="relative overflow-hidden rounded-xl text-center p-10 sm:p-12 lg:p-16 xl:p-20"
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
+          <div className="relative overflow-hidden rounded-xl text-center p-12 lg:p-20 xl:p-24"
             style={{ background: 'linear-gradient(160deg, var(--color-primary-dark), var(--color-primary) 50%, var(--color-primary-light))' }}>
             <div className={`max-w-[600px] mx-auto ${stagger(ctaVis, 0)}`}>
               <h2 className="text-3xl lg:text-5xl font-extrabold text-white leading-tight tracking-tight mb-5"
@@ -257,11 +229,11 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link to="/auth/register"
                   className="inline-flex items-center justify-center gap-2 h-14 px-10 text-base font-bold rounded-full transition-all duration-300 hover:scale-[1.02] group"
-                  style={{ background: 'var(--color-accent)', color: 'var(--color-primary-dark)', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}>
+                  style={{ background: 'var(--color-accent)', color: 'var(--color-primary-dark)', boxShadow: '0 4px 32px rgba(196,155,62,0.25)' }}>
                   {t('hero.cta_primary')} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link to="/contact"
-                  className="inline-flex items-center justify-center gap-2 h-14 px-8 text-base font-semibold rounded-full border-2 transition-all duration-300 hover:border-white/30 hover:text-white"
+                  className="inline-flex items-center justify-center gap-2 h-14 px-8 text-base font-semibold rounded-full border-2 transition-all duration-300 hover:border-white/30"
                   style={{ color: 'rgba(255,255,255,0.6)', borderColor: 'rgba(255,255,255,0.15)' }}>
                   {t('home.cta_btn2')}
                 </Link>
