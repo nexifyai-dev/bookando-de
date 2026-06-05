@@ -155,8 +155,8 @@ export default function HomePage() {
                 <div className="relative rounded-[16px] overflow-hidden"
                   style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.05)' }}>
                   <img
-                    src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=600&q=80&auto=format"
-                    alt="Aachener Dom – UNESCO Welterbe, Wahrzeichen der Stadt Aachen"
+                    src="/images/bookando-hero.jpg"
+                    alt="Bookando – Moderne Buchungs- und Vertriebsplattform für Dienstleister"
                     className="w-full h-auto block"
                     style={{ aspectRatio: '4/5', objectFit: 'cover' }}
                     loading="eager" referrerpolicy="no-referrer"
