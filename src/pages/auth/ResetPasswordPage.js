@@ -139,8 +139,8 @@ export default function ResetPasswordPage() {
         <div className="absolute inset-0"
           style={{ background: 'radial-gradient(1200px circle at 20% 10%, rgba(13,148,136,0.9), transparent 55%), radial-gradient(900px circle at 80% 30%, rgba(26,69,112,0.10), transparent 60%)' }} />
         <div className="relative z-10 flex flex-col items-center justify-center h-full p-12 text-center">
-          <img src="/images/brand-logo-horizontal.png" alt="Bookando"
-            className="h-10 w-auto object-contain mb-6 opacity-80 brightness-0 invert" />
+          <img src="/images/brand-logo-white.png" alt="Bookando"
+            className="h-10 w-auto object-contain mb-6" />
           <h2 className="text-2xl font-bold text-white mb-3 font-[var(--font-heading)]">{t('brand.name', 'Bookando')}</h2>
           <p className="text-white/50 text-sm max-w-xs">{t('brand.tagline', 'Buchungs- & Sales-Plattform')}</p>
         </div>

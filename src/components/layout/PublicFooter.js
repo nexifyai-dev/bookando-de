@@ -77,9 +77,9 @@ export default function PublicFooter({
           {/* Brand-Spalte */}
           <div className="col-span-2 sm:col-span-3 lg:col-span-2">
             <Link to="/" className="inline-flex items-center gap-3 mb-5 hover:opacity-80 transition-opacity group">
-              <img src="/images/brand-logo-horizontal.png" alt="Bookando"
-                className="h-8 w-auto object-contain brightness-0 invert" />
-              <span className="text-[16px] font-bold text-white group-hover:text-[var(--color-accent)] transition-colors"
+              <img src="/images/brand-logo-white.png" alt="Bookando"
+                className="h-8 w-auto object-contain" />
+              <span className="text-[16px] font-bold text-white group-hover:text-white/70 transition-colors"
                 style={{ fontFamily: 'var(--font-heading)' }}>
                 {brandName}
               </span>
