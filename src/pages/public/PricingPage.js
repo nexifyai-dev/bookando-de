@@ -58,7 +58,7 @@ export default function PricingPage() {
 
       {/* Hero */}
       <section ref={heroRef} className="relative pt-[120px] pb-16 overflow-hidden"
-        style={{ background: 'linear-gradient(160deg, #0A2036, #1A4570)' }}>
+        style={{ background: 'linear-gradient(160deg, var(--color-primary-dark), var(--color-primary))' }}>
         <div className="max-w-[1280px] mx-auto px-6 lg:px-12 text-center">
           <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-4" style={{ color: 'var(--color-accent)' }}>Pricing</p>
           <h1 className="text-[32px] sm:text-[44px] font-extrabold text-white leading-[1.05] tracking-[-0.03em] mb-4"

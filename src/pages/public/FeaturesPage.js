@@ -86,7 +86,7 @@ function FeatureCategory({ category, idx }) {
   const Icon = category.icon;
 
   return (
-    <section ref={ref} className={`py-[60px] md:py-[80px]`} style={idx % 2 === 1 ? { background: 'rgba(26,69,112,0.03)' } : {}} data-testid={`features-category-${idx}`}>
+    <section ref={ref} className={`py-[60px] md:py-[80px]`} style={idx % 2 === 1 ? { background: 'var(--color-primary-muted)' } : {}} data-testid={`features-category-${idx}`}>
       <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
         <div className="text-center max-w-[500px] mx-auto mb-12">
           <h2 className="text-[26px] sm:text-[32px] font-extrabold tracking-[-0.02em] leading-[1.1] mb-3"
@@ -138,7 +138,7 @@ export default function FeaturesPage() {
 
       {/* Hero */}
       <section ref={heroRef} className="relative pt-[120px] pb-20 overflow-hidden"
-        style={{ background: 'linear-gradient(160deg, #0A2036 0%, #1A4570 35%, #2A6A9E 100%)' }}
+        style={{ background: 'linear-gradient(160deg, var(--color-primary-dark) 0%, var(--color-primary) 35%, var(--color-primary-light) 100%)' }}
         data-testid="features-hero">
         <div className={`relative z-10 max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12 text-center ${stagger(heroVis, 0)}`}>
           <p className="text-[12px] font-bold uppercase tracking-[0.2em] mb-4" style={{ color: 'var(--color-accent)' }}>Plattform-Features</p>
@@ -166,7 +166,7 @@ export default function FeaturesPage() {
       <section className="py-[64px]" data-testid="features-cta">
         <div className="max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12">
           <div className="relative overflow-hidden rounded-[12px] text-center p-10 sm:p-14 lg:p-16"
-            style={{ background: 'linear-gradient(160deg, #0A2036 0%, #1A4570 50%, #2A6A9E 100%)' }}>
+            style={{ background: 'linear-gradient(160deg, var(--color-primary-dark) 0%, var(--color-primary) 50%, var(--color-primary-light) 100%)' }}>
             <h2 className="text-[28px] sm:text-[36px] font-extrabold text-white leading-[1.1] tracking-[-0.025em] mb-4"
               style={{ fontFamily: 'var(--font-heading)' }}>
               Über 40 Features – und täglich mehr
