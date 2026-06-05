@@ -160,12 +160,12 @@ export default function HomePage() {
                       src="/images/bookando-hero.jpg"
                       alt="Aachen – UNESCO Welterbe, Aachener Dom"
                       className="w-full h-auto block transition-all duration-700"
-                      style={{ aspectRatio: '4/5', objectFit: 'cover', filter: 'brightness(0.85) saturate(0.7) sepia(0.15)' }}
+                      style={{ aspectRatio: '4/5', objectFit: 'cover', filter: 'brightness(0.75) saturate(0.55) sepia(0.25) contrast(1.1)' }}
                       loading="eager" referrerpolicy="no-referrer"
                     />
                     {/* Farb-Overlay – Bookando Blau/Gold */}
                     <div className="absolute inset-0 pointer-events-none mix-blend-soft-light"
-                      style={{ background: 'linear-gradient(180deg, rgba(10,32,54,0.6) 0%, rgba(26,69,112,0.3) 50%, rgba(196,155,62,0.15) 100%)' }} />
+                      style={{ background: 'linear-gradient(180deg, rgba(10,32,54,0.65) 0%, rgba(26,69,112,0.35) 40%, rgba(196,155,62,0.2) 100%)' }} />
                     {/* Subtiler Vignette-Effekt */}
                     <div className="absolute inset-0 pointer-events-none"
                       style={{ background: 'radial-gradient(ellipse at center, transparent 50%, rgba(10,32,54,0.4) 100%)' }} />

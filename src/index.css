@@ -14,12 +14,12 @@
     --color-primary-light: #2A6A9E;
     --color-primary-dark: #0A2036;
     --color-primary-muted: rgba(26,69,112,0.05);
-    --color-accent: #0D9488;
-    --color-accent-hover: #0F766E;
-    --color-accent-light: #CCFBF1;
-    --color-accent-muted: rgba(13,148,136,0.10);
-    --color-accent-subtle: rgba(13,148,136,0.05);
-    --color-accent-teal: #0D9488;
+    --color-accent: #C49B3E;
+    --color-accent-hover: #B8922E;
+    --color-accent-light: #FEF7E6;
+    --color-accent-muted: rgba(196,155,62,0.10);
+    --color-accent-subtle: rgba(196,155,62,0.05);
+    --color-accent-gold: #C49B3E;
     --color-accent-pink: #DB2777;
     --color-shell-bg: #F8FAFC;
     --color-surface: #ffffff;
