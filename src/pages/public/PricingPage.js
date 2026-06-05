@@ -54,7 +54,7 @@ export default function PricingPage() {
   return (
     <div>
       <SEOHead title={t('pricing.page_title')} description={t('pricing.page_desc')} />
-      <PublicNav />
+      <PublicNav logoUrl="/logo192.png" />
 
       {/* Hero */}
       <section ref={heroRef} className="relative pt-[120px] pb-16 overflow-hidden"

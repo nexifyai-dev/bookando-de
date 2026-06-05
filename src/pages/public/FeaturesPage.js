@@ -134,7 +134,7 @@ export default function FeaturesPage() {
         title="Features – Bookando"
         description="Entdecke alle Funktionen von Bookando: Terminbuchung, Marketplace, Affiliate-Marketing, Wallet, WhiteLabel, CRM und mehr."
       />
-      <PublicNav />
+      <PublicNav logoUrl="/logo192.png" />
 
       {/* Hero */}
       <section ref={heroRef} className="relative pt-[120px] pb-20 overflow-hidden"

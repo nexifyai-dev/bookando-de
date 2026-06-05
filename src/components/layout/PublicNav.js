@@ -24,7 +24,7 @@ export default function PublicNav({
     { href: '/features', label: 'Features', labelKey: 'nav.features' },
     { href: '/contact', label: 'Kontakt', labelKey: 'nav.contact' },
   ],
-  logoUrl,
+  logoUrl = '/logo192.png',
   logoText = 'Bookando',
   logoHref = '/',
   primaryCta = { label: 'Registrieren', labelKey: 'nav.register', href: '/auth/register' },

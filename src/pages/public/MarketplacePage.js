@@ -155,7 +155,7 @@ export default function MarketplacePage() {
   return (
     <div>
       <SEOHead title="Bookando – Marketplace für Dienstleister" description="Finde den passenden Dienstleister in Aachen und Umgebung. Tattoo, Kosmetik, Friseur & mehr – mit Bookando." />
-      <PublicNav />
+      <PublicNav logoUrl="/logo192.png" />
       <main style={{ paddingTop: '96px', paddingBottom: '64px' }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', paddingLeft: '24px', paddingRight: '24px' }}>
           {/* Hero Section */}
@@ -440,7 +440,7 @@ export default function MarketplacePage() {
                             {renderStars(vendor.rating)}
                           </span>
                           <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--color-text-primary)' }}>
-                            {vendor.rating.toFixed(1)}
+                            {vendor.rating ? vendor.rating.toFixed(1) : '0.0'}
                           </span>
                           {vendor.reviewCount != null && (
                             <span style={{ fontSize: '0.7rem', color: 'var(--color-text-tertiary)' }}>

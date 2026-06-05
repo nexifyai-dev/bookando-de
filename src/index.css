@@ -14,11 +14,11 @@
     --color-primary-light: #172A45;
     --color-primary-dark: #020C1B;
     --color-primary-muted: rgba(10,25,47,0.05);
-    --color-accent: #C49B3E;
-    --color-accent-hover: #A6802C;
-    --color-accent-light: #f0e6c8;
-    --color-accent-muted: rgba(196,155,62,0.10);
-    --color-accent-subtle: rgba(196,155,62,0.05);
+    --color-accent: #FFA604;
+    --color-accent-hover: #E09500;
+    --color-accent-light: #FFF0D0;
+    --color-accent-muted: rgba(255,166,4,0.10);
+    --color-accent-subtle: rgba(255,166,4,0.05);
     --color-accent-teal: #0D9488;
     --color-accent-pink: #DB2777;
     --color-shell-bg: #F8FAFC;

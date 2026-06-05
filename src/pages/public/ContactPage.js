@@ -19,7 +19,7 @@ export default function ContactPage() {
   return (
     <div>
       <SEOHead title="Bookando – Kontakt & Beratung" description="Kontaktiere Bookando aus Aachen. Wir beraten dich zu Terminbuchung, Affiliate-Marketing und deiner Dienstleister-Plattform." />
-      <PublicNav />
+      <PublicNav logoUrl="/logo192.png" />
 
       <main className="pt-24 pb-16 min-h-screen" style={{ background: 'var(--color-shell-bg)' }}>
         <div className="max-w-[1280px] mx-auto px-6 lg:px-12">

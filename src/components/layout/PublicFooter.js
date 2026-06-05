@@ -76,17 +76,12 @@ export default function PublicFooter({
 
           {/* Brand-Spalte */}
           <div className="col-span-2 sm:col-span-3 lg:col-span-2">
-            <div className="flex items-center gap-2.5 mb-5">
-              {BrandIcon && (
-                <div className="w-9 h-9 rounded-[4px] flex items-center justify-center"
-                  style={{ background: 'rgba(196,155,62,0.15)' }}>
-                  <BrandIcon size={18} style={{ color: 'var(--color-accent)' }} />
-                </div>
-              )}
+            <Link to="/" className="flex items-center gap-2.5 mb-5 hover:opacity-80 transition-opacity">
+              <img src="/logo192.png" alt="Bookando" className="w-9 h-9 rounded-[4px] object-cover" />
               <span className="text-[16px] font-bold text-white" style={{ fontFamily: 'var(--font-heading)' }}>
                 {brandName}
               </span>
-            </div>
+            </Link>
             <p className="text-[14px] text-white/40 leading-[1.7] max-w-[360px] mb-6">
               {description}
             </p>

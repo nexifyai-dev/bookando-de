@@ -15,9 +15,7 @@ export default function VerifyEmailPage() {
     <div className="min-h-screen flex items-center justify-center bg-[var(--color-shell-bg)] px-6">
       <div className="w-full max-w-md text-center">
         <Link to="/" className="inline-flex items-center gap-2.5 mb-10">
-          <div className="w-10 h-10 bg-[var(--color-primary)] flex items-center justify-center rounded-[var(--radius-md)]">
-            <Briefcase size={20} className="text-white" />
-          </div>
+          <img src="/logo192.png" alt="Bookando" className="w-10 h-10 rounded-[var(--radius-md)] object-cover shadow-sm" />
           <span className="text-lg font-bold font-[var(--font-heading)] tracking-tight text-[var(--color-primary)]">Bookando</span>
         </Link>
 

@@ -120,7 +120,7 @@ export default function HomePage() {
   return (
     <div>
       <SEOHead title="Bookando – Deine Buchungs- & Vertriebsplattform" description="Bookando.de vereint Terminbuchung, Affiliate-Marketing, Wallet und Marketplace in einer Plattform für Dienstleister." />
-      <PublicNav />
+      <PublicNav logoUrl="/logo192.png" />
 
       {/* HERO */}
       <section ref={heroRef} className="relative min-h-[90vh] flex items-center overflow-hidden"

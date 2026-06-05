@@ -57,10 +57,8 @@ export default function RegisterPage() {
       <div className="flex-1 flex flex-col relative bg-white">
         {/* Top bar with language switcher */}
         <div className="flex items-center justify-between px-6 py-4 relative z-10">
-          <Link to="/" className="inline-flex items-center gap-2 group" data-testid="register-brand">
-            <div className="w-9 h-9 rounded-lg flex items-center justify-center shadow-sm bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary-dark)] text-white group-hover:scale-105 transition-transform">
-              <span className="font-bold text-xs tracking-wider">AP</span>
-            </div>
+          <Link to="/" className="inline-flex items-center gap-2.5 group" data-testid="register-brand">
+            <img src="/logo192.png" alt="Bookando" className="w-9 h-9 rounded-lg object-cover shadow-sm group-hover:scale-105 transition-transform" />
             <span className="font-heading font-bold text-[var(--color-primary)] text-base tracking-tight">
               Bookando
             </span>
@@ -217,8 +215,8 @@ export default function RegisterPage() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-white/10"></div>
         </div>
         <div className="relative z-10 flex flex-col items-center justify-center w-full px-12 text-center">
-          <div className="w-20 h-20 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center mb-8 shadow-xl border border-white/10">
-            <Briefcase size={40} className="text-white" />
+          <div className="w-24 h-24 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center mb-8 shadow-xl border border-white/10 p-2 overflow-hidden">
+            <img src="/logo192.png" alt="Bookando" className="w-full h-full object-contain" />
           </div>
           <h2 className="text-3xl font-bold text-white mb-4 font-heading">Bookando</h2>
           <p className="text-white/70 text-base max-w-md leading-relaxed">
