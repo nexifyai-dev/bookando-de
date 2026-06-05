@@ -59,7 +59,7 @@ export default function HomePage() {
   const [ctaRef, ctaVis] = useInView(0.1);
 
   const features = [
-    { icon: Store, title: 'Multi-Vendor Marketplace', desc: 'Öffentliches Dienstleister-Verzeichnis mit Suchfunktion, Kategorien und Bewertungen. Kunden finden genau den passenden Anbieter.' },
+    { icon: Store, title: '{t("hero.trust_multi")} Marketplace', desc: 'Öffentliches Dienstleister-Verzeichnis mit Suchfunktion, Kategorien und Bewertungen. Kunden finden genau den passenden Anbieter.' },
     { icon: CalendarCheck, title: 'Smart Booking', desc: 'Professionelle Terminbuchung mit Echtzeit-Kalender, Mitarbeiter- und Ressourcenverwaltung, Wiederholungsterminen und Online-Meetings.' },
     { icon: TrendingUp, title: 'Affiliate-Tracking', desc: 'Vollständiges Affiliate-System mit Trackinglinks, Provisionszuordnung und automatischer Auszahlung – fair und transparent.' },
     { icon: Wallet, title: 'Wallet & Ledger', desc: 'Sicheres Wallet-System mit unveränderbaren Ledger-Einträgen, automatischen Gutschriften und Auszahlungslogik.' },
@@ -102,19 +102,18 @@ export default function HomePage() {
                 style={{ borderColor: 'rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)' }}>
                 <span className="w-2 h-2 rounded-full" style={{ background: '#C49B3E' }} />
                 <span className="text-[11px] font-semibold tracking-wider uppercase text-white/60">
-                  Made in Aachen
+                  {t("hero.badge_made_in")}
                 </span>
               </div>
 
               <h1 className="text-[40px] sm:text-[56px] lg:text-[64px] font-extrabold text-white leading-[1] tracking-[-0.035em] mb-6"
                 style={{ fontFamily: 'var(--font-heading)' }}>
-                <span className="block">Deine Buchungs- &</span>
-                <span style={{ color: '#C49B3E' }}>Vertriebsplattform</span>
+                <span className="block">{t("hero.title")}</span>
+                <span style={{ color: '#C49B3E' }}>{t('hero.title_gold')}</span>
               </h1>
 
               <p className="text-[16px] sm:text-[18px] text-white/50 leading-relaxed max-w-[520px] mb-10">
-                Bookando vereint Terminbuchung, Affiliate-Marketing, Wallet, Marketplace und WhiteLabel in einem System.
-                Die Plattform für Dienstleister, die skalieren wollen.
+                {t('hero.subtitle')}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -122,7 +121,7 @@ export default function HomePage() {
                   className="inline-flex items-center justify-center gap-2.5 h-[56px] px-10 text-[15px] font-bold tracking-wide text-[#0A2036] rounded-full group transition-all duration-300 hover:scale-[1.02]"
                   style={{ background: '#C49B3E', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}
                   data-testid="hero-primary-cta">
-                  Kostenlos starten <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  {t("hero.cta_primary")} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link to="/contact"
                   className="inline-flex items-center justify-center gap-2 h-[56px] px-8 text-[15px] font-semibold text-white/70 border-2 border-white/15 rounded-full transition-all duration-300 hover:border-white/30 hover:text-white"
@@ -135,15 +134,15 @@ export default function HomePage() {
               <div className="flex flex-wrap items-center gap-6 mt-10 pt-8 border-t border-white/10">
                 <div className="flex items-center gap-2">
                   <Shield size={14} className="text-white/30" />
-                  <span className="text-[12px] text-white/40">DSGVO-konform</span>
+                  <span className="text-[12px] text-white/40">{t("hero.trust_dsgvo")}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Globe size={14} className="text-white/30" />
-                  <span className="text-[12px] text-white/40">DE / EN</span>
+                  <span className="text-[12px] text-white/40">{t("hero.trust_lang")}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Users size={14} className="text-white/30" />
-                  <span className="text-[12px] text-white/40">Multi-Vendor</span>
+                  <span className="text-[12px] text-white/40">{t("hero.trust_multi")}</span>
                 </div>
               </div>
             </div>
@@ -309,14 +308,14 @@ export default function HomePage() {
                   Bereit für den nächsten Schritt?
                 </h2>
                 <p className="text-[15px] text-white/40 leading-relaxed mb-10 max-w-[440px] mx-auto">
-                  Starte jetzt durch und überzeuge dich selbst von den Möglichkeiten der Plattform. 30 Tage kostenlos testen.
+                  {t("home.cta_text")}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link to="/auth/register"
                     className="inline-flex items-center justify-center gap-2.5 h-[56px] px-10 text-[15px] font-bold tracking-wide text-[#0A2036] rounded-full group transition-all duration-300 hover:scale-[1.02]"
                     style={{ background: '#C49B3E', boxShadow: '0 4px 24px rgba(196,155,62,0.3)' }}
                     data-testid="cta-primary">
-                    Kostenlos starten <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    {t("hero.cta_primary")} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </Link>
                   <Link to="/contact"
                     className="inline-flex items-center justify-center gap-2 h-[56px] px-8 text-[15px] font-semibold text-white/60 border-2 border-white/15 rounded-full transition-all duration-300 hover:border-white/30 hover:text-white"
