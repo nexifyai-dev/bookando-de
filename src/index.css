@@ -26,6 +26,7 @@
     --color-surface-elevated: #FAFBFC;
     --color-surface-sunken: #F1F5F9;
     --color-divider: #E2E8F0;
+    --color-border: #E2E8F0;
     --color-divider-subtle: #F1F5F9;
     --color-text-primary: #0F172A;
     --color-text-secondary: #475569;
@@ -436,6 +437,7 @@
     --color-surface-elevated: #1E293B;
     --color-surface-sunken: #0F1729;
     --color-divider: rgba(255,255,255,0.08);
+    --color-border: rgba(255,255,255,0.08);
     --color-divider-subtle: rgba(255,255,255,0.04);
     --color-text-primary: #F1F5F9;
     --color-text-secondary: #94A3B8;

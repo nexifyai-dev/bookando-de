@@ -167,7 +167,7 @@ export default function RegisterPage() {
                       onChange={updateField('password')}
                       required
                       autoComplete="new-password"
-                      placeholder="min. 8"
+                      placeholder={t('auth.password_min')}
                       data-testid="register-password-input"
                       className="w-full border border-[var(--color-border)] rounded-md px-3.5 py-2.5 text-sm bg-white text-[var(--color-text-primary)] placeholder:text-[var(--color-text-tertiary)] focus:outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/10 transition-all"
                     />
@@ -220,12 +220,12 @@ export default function RegisterPage() {
           </div>
           <h2 className="text-3xl font-bold text-white mb-4 font-heading">Bookando</h2>
           <p className="text-white/70 text-base max-w-md leading-relaxed">
-            Treten Sie bei und werden Sie Teil des Bookando. Wählen Sie Ihre Rolle — als Kunde oder Anbieter — und starten Sie noch heute.
+            {t('auth.register_promo')}
           </p>
           <div className="mt-10 flex items-center gap-4">
             <div className="flex items-center gap-2 text-white/60 text-sm">
               <Building2 size={16} />
-              <span>Aachen | Digital | Vernetzt</span>
+              <span>{t('auth.register_tagline')}</span>
             </div>
           </div>
         </div>
@@ -256,7 +256,7 @@ function RoleCard({ active, icon: Icon, title, desc, onClick, testid }) {
       <p className={`font-medium text-sm mt-2 ${active ? 'text-[var(--color-primary)]' : 'text-[var(--color-text-primary)]'}`}>
         {title}
       </p>
-      <p className="text-[11px] text-[var(--color-text-tertiary)] mt-0.5 leading-snug">{desc}</p>
+      <p className="text-xs text-[var(--color-text-tertiary)] mt-0.5 leading-snug">{desc}</p>
     </button>
   );
 }
