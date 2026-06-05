@@ -99,6 +99,14 @@ export default function App() {
             {/* PORTAL */}
             <Route path="/portal" element={<ProtectedRoute><PortalLayout /></ProtectedRoute>} />
 
+
+            {/* REDIRECTS */}
+            <Route path="/features" element={<Navigate to="/" replace />} />
+            <Route path="/about" element={<Navigate to="/" replace />} />
+            <Route path="/pricing" element={<Navigate to="/" replace />} />
+            <Route path="/privacy" element={<Navigate to="/legal/privacy" replace />} />
+            <Route path="/legal" element={<Navigate to="/legal/imprint" replace />} />
+            <Route path="/terms" element={<Navigate to="/legal/terms" replace />} />
             {/* NOTFOUND */}
             <Route path="/404" element={<NotFoundPage />} />
             <Route path="*" element={<NotFoundPage />} />
