@@ -75,7 +75,7 @@ const DEMO_VENDORS = [
     location: 'Aachen-Rothe Erde',
     descriptionDe: 'Kreatives Nageldesign und professionelle Nagelpflege. Von Gel bis Acryl.',
     descriptionEn: 'Creative nail design and professional nail care. From gel to acrylic.',
-    services: ['Gel-Nägel', 'Nagelverlängerung', {t('mk.nagel')}],
+    services: ['Gel-Nägel', 'Nagelverlängerung', 'Nageldesign'],
   },
   {
     id: 6,
@@ -204,13 +204,13 @@ export default function MarketplacePage() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const categories = [
-    { key: 'all', label: t('marketplace.filter_all', {t('mk.all')}) },
-    { key: 'tattoo', label: t('marketplace.filter_tattoo', {t('mk.tattoo')}), icon: 'Sparkles' },
-    { key: 'kosmetik', label: t('marketplace.filter_kosmetik', {t('mk.kosmetik')}), icon: '✦' },
-    { key: 'friseur', label: t('marketplace.filter_friseur', {t('mk.friseur')}), icon: '✁' },
-    { key: 'barber', label: t('marketplace.filter_barber', {t('mk.barber')}), icon: 'Scissors' },
+    { key: 'all', label: 'Alle' },
+    { key: 'tattoo', label: 'Tattoo', icon: 'Sparkles' },
+    { key: 'kosmetik', label: 'Kosmetik', icon: '✦' },
+    { key: 'friseur', label: 'Friseur', icon: '✁' },
+    { key: 'barber', label: 'Barbershop', icon: 'Scissors' },
     { key: 'nagel', label: t('marketplace.filter_nagel', 'Nagelstudio'), icon: '✦' },
-    { key: 'laser', label: t('marketplace.filter_laser', {t('mk.laser')}), icon: '✦' },
+    { key: 'laser', label: 'Laser', icon: '✦' },
   ];
 
   const filteredVendors = useMemo(() => {
