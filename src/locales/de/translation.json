@@ -1,7 +1,8 @@
 {
   "brand": {
     "name": "Bookando",
-    "tagline": "Buchungs- & Sales-Plattform"
+    "tagline": "Buchungs- & Sales-Plattform",
+    "footer_tagline": "Die modulare Buchungs- & Vertriebsplattform für Dienstleister. Basierend auf Bookando Technologie."
   },
   "common": {
     "loading": "Lädt…",
@@ -94,7 +95,14 @@
     "reviews_moderation": "Bewertungen",
     "settings": "Einstellungen",
     "profile": "Profil",
-    "logout": "Abmelden"
+    "logout": "Abmelden",
+    "home": "Startseite",
+    "marketplace": "Marktplatz",
+    "features": "Features",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "register": "Registrieren",
+    "login": "Anmelden"
   },
   "layout": {
     "role_customer": "Kunde",
@@ -202,7 +210,6 @@
     "theme_system": "System",
     "notify_email_book": "E-Mail bei neuer Buchung",
     "notify_email_marketing": "Marketing-E-Mails",
-
     "logo_url": "Logo-URL",
     "logo_url_hint": "Direkter Link zu deinem Logo (PNG/SVG, transparent empfohlen).",
     "primary_color": "Primärfarbe",
@@ -214,7 +221,6 @@
     "preview": "Vorschau",
     "live_preview": "Live-Vorschau",
     "branding_saved": "Branding gespeichert",
-
     "section_legal": "Impressum & Rechtliches (White-Label)",
     "section_legal_sub": "Diese Daten werden auf Impressum, Datenschutz und AGB deiner gebrandeten Buchungsseite angezeigt. Pflichtangaben gemäß § 5 TMG.",
     "legal_company_name": "Firmenname",
@@ -231,7 +237,6 @@
     "legal_register": "Handelsregister",
     "legal_privacy_extra": "Zusätzlicher Datenschutz-Text",
     "legal_privacy_extra_hint": "Optional: Ergänzende Hinweise (z. B. branchenspezifische Datenverarbeitung).",
-
     "domain_added": "Domain hinzugefügt",
     "domain_removed": "Domain entfernt",
     "domain_taken": "Diese Domain ist bereits vergeben.",
@@ -243,7 +248,6 @@
     "domain_dns_title": "DNS-Konfiguration",
     "domain_dns_hint": "Setze einen CNAME-Eintrag deiner Domain auf bookando.de. Die Verifizierung erfolgt anschließend durch unseren Support.",
     "confirm_remove_domain": "Diese Domain wirklich entfernen?",
-
     "current_plan": "Aktueller Tarif",
     "current_plan_short": "Aktiver Plan",
     "cancel_subscription": "Abo kündigen",
@@ -270,7 +274,6 @@
     "feat_custom_domain": "Eigene Domain",
     "feat_api_access": "API-Zugriff",
     "feat_priority_support": "Priority-Support",
-
     "feature_locked_branding": "White-Label Branding ist im aktuellen Tarif nicht enthalten.",
     "feature_locked_domain": "Eigene Domains sind im aktuellen Tarif nicht enthalten.",
     "feature_required_tier": "Verfügbar ab Tarif: {{tier}}",
@@ -390,5 +393,42 @@
     "deletion_at": "Geplant für: {{date}}",
     "deletion_cancel_action": "Löschung widerrufen",
     "deletion_cancelled": "Löschung widerrufen"
+  },
+  "footer": {
+    "col_product": "Produkt",
+    "col_company": "Unternehmen",
+    "col_legal": "Rechtliches",
+    "col_contact": "Kontakt",
+    "link_features": "Features",
+    "link_pricing": "Preise",
+    "link_about": "Über uns",
+    "link_blog": "Blog",
+    "link_contact": "Kontakt",
+    "link_privacy": "Datenschutz",
+    "link_imprint": "Impressum",
+    "link_terms": "AGB",
+    "copyright": "© 2026 Bookando. Alle Rechte vorbehalten.",
+    "tagline": "Die modulare Buchungs- & Vertriebsplattform für Dienstleister."
+  },
+  "hero": {
+    "cta_primary": "Loslegen",
+    "cta_secondary": "Mehr erfahren",
+    "title": "Deine Buchungs- & Vertriebsplattform",
+    "subtitle": "Bookando vereint Terminbuchung, Affiliate-Marketing, Wallet und WhiteLabel in einem System."
+  },
+  "marketplace": {
+    "title": "Marktplatz",
+    "subtitle": "Finde die besten Dienstleistungen und Angebote in Aachen und Umgebung.",
+    "search_placeholder": "Suche nach Dienstleistungen...",
+    "no_results": "Keine Ergebnisse gefunden."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Wir sind für dich da. Schreib uns einfach eine Nachricht.",
+    "address": "Adresse",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "name": "Name",
+    "message": "Nachricht"
   }
 }

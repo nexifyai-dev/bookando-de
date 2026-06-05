@@ -7,7 +7,7 @@ import SEOHead from "../../components/shared/SEOHead";
 import {
   ArrowRight, Store, CalendarCheck, BarChart3, Wallet,
   Palette, Globe, CheckCircle, Play, Star, TrendingUp,
-  Shield,  Users, Gift, Bell, RefreshCw, Layers,
+  Shield, Users, Gift, Bell, RefreshCw, Layers,
   ChevronRight, MapPin, MousePointer2, DollarSign
 } from 'lucide-react';
 
@@ -78,19 +78,28 @@ export default function HomePage() {
   const [statsRef, statsVis] = useInView(0.2);
   const [howRef, howVis] = useInView(0.1);
   const [ctaRef, ctaVis] = useInView(0.1);
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [cathedralLoaded, setCathedralLoaded] = useState(false);
 
-  const heroImg = 'https://picsum.photos/id/1015/1600/900';
-  // const heroImgSm = 'https://picsum.photos/id/1015/800/600';
+  const cathedralImg = 'https://images.unsplash.com/photo-1544776193-352d25ca8280?w=800&q=80';
+  const cathedralImgFallback = 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=800&q=80';
 
   useEffect(() => {
     const img = new Image();
-    img.onload = () => setImageLoaded(true);
-    img.src = heroImg;
+    img.onload = () => setCathedralLoaded(true);
+    img.onerror = () => {
+      const fallback = new Image();
+      fallback.onload = () => setCathedralLoaded(true);
+      fallback.src = cathedralImgFallback;
+    };
+    img.src = cathedralImg;
   }, []);
 
   return (
     <div className="overflow-hidden">
+      <SEOHead
+        title="Bookando – Deine Buchungs- & Vertriebsplattform für Dienstleister"
+        description="Bookando.de ist die modulare SaaS- und Marketplace-Plattform aus Aachen. Terminbuchung, Affiliate-Marketing, Wallet und WhiteLabel in einem System."
+      />
       <PublicNav
         logoText="Bookando"
         primaryCta={{ labelKey: 'home.hero_cta_primary', href: '/auth/register' }}
@@ -98,6 +107,7 @@ export default function HomePage() {
         navItems={[
           { href: '/', labelKey: 'nav.home' },
           { href: '/features', labelKey: 'nav.features' },
+          { href: '/marketplace', labelKey: 'nav.marketplace' },
           { href: '/about', labelKey: 'nav.about' },
           { href: '/contact', labelKey: 'nav.contact' },
         ]}
@@ -112,27 +122,18 @@ export default function HomePage() {
         style={{ background: 'linear-gradient(160deg, #0A2036 0%, #1A4570 40%, #1A4570 70%, #0A2036 100%)' }}
         data-testid="hero-section"
       >
-        {/* Hintergrundbild – Aachener Stadtansicht */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div
-            className={`absolute inset-0 transition-all duration-1000 ease-out ${
-              imageLoaded ? 'opacity-20 scale-100' : 'opacity-0 scale-105'
-            }`}
-            style={{
-              backgroundImage: `url(${heroImg})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          />
-          {/* Overlay-Gradient für bessere Lesbarkeit */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                'linear-gradient(160deg, rgba(10,32,54,0.85) 0%, rgba(26,69,112,0.70) 40%, rgba(10,32,54,0.80) 100%)',
-            }}
-          />
-        </div>
+        {/* Subtiles geometrisches Pattern Overlay */}
+        <div className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage:
+              'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+            backgroundSize: '60px 60px',
+          }}
+        />
+
+        {/* Raster-Punkt-Muster */}
+        <div className="absolute inset-0 opacity-[0.03]"
+          style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, white 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
         {/* Gradient-Orbs */}
         <div className="absolute top-1/3 -right-32 w-[500px] h-[500px] rounded-full opacity-[0.06]"
@@ -140,9 +141,18 @@ export default function HomePage() {
         <div className="absolute bottom-1/4 -left-32 w-[400px] h-[400px] rounded-full opacity-[0.04]"
           style={{ background: 'radial-gradient(circle, #B3CDE1, transparent)', filter: 'blur(80px)' }} />
 
-        {/* Raster-Punkt-Muster */}
-        <div className="absolute inset-0 opacity-[0.03]"
-          style={{ backgroundImage: 'radial-gradient(circle at 50% 50%, white 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+        {/* Cathedral Image – decorative element right side */}
+        <div className={`absolute right-0 top-0 bottom-0 w-[45%] lg:w-[42%] transition-all duration-1500 ease-out pointer-events-none ${cathedralLoaded ? 'opacity-15 scale-100' : 'opacity-0 scale-105'}`}>
+          <img
+            src={cathedralImg}
+            alt="Aachener Dom – UNESCO Welterbe"
+            className="w-full h-full object-cover"
+            style={{ objectPosition: 'center 30%' }}
+          />
+          <div className="absolute inset-0" style={{
+            background: 'linear-gradient(90deg, #0A2036 0%, #1A4570 30%, transparent 50%, transparent 70%, #0A2036 100%)',
+          }} />
+        </div>
 
         <div className="relative z-10 max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12 py-28 md:py-40 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -193,11 +203,11 @@ export default function HomePage() {
               <div className="flex flex-wrap items-center gap-6 mt-12 pt-8 border-t border-white/10">
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-1.5">
-                    {[1,2,3,4].map((i) => (
+                    {[1, 2, 3, 4].map((i) => (
                       <div key={i} className="w-7 h-7 rounded-full border-2 border-[var(--color-primary-dark)] overflow-hidden"
                         style={{ background: 'rgba(255,255,255,0.08)' }}>
                         <img
-                          src={`https://picsum.photos/id/10${i}/28/28`}
+                          src={`https://i.pravatar.cc/28?u=${i}`}
                           alt=""
                           className="w-full h-full object-cover"
                           loading="lazy"
@@ -220,10 +230,10 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Rechte Spalte – Visual */}
+            {/* Rechte Spalte – Visual mit Aachen Cathedral Bezug */}
             <div className={`hidden lg:flex lg:col-span-5 items-center justify-center ${stagger(heroVis, 1)}`} style={staggerDelay(1)}>
               <div className="relative w-full max-w-[400px]">
-                {/* Haupt-Karte */}
+                {/* Haupt-Karte – Dashboard Preview */}
                 <div className="relative rounded-[20px] overflow-hidden shadow-2xl"
                   style={{
                     background: 'rgba(255,255,255,0.05)',
@@ -231,12 +241,23 @@ export default function HomePage() {
                     backdropFilter: 'blur(20px)',
                   }}
                 >
-                  <img
-                    src="https://picsum.photos/id/1039/400/300"
-                    alt="Aachen Architektur"
-                    className="w-full h-[200px] object-cover opacity-60"
-                    loading="lazy"
-                  />
+                  {/* Cathedral Miniatur */}
+                  <div className="relative h-[200px] overflow-hidden">
+                    <img
+                      src={cathedralImg}
+                      alt="Aachener Dom"
+                      className="w-full h-full object-cover opacity-70"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0" style={{
+                      background: 'linear-gradient(0deg, rgba(26,69,112,0.4) 0%, transparent 50%)',
+                    }} />
+                    <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                      <div className="px-2.5 py-1 rounded-md backdrop-blur-md" style={{ background: 'rgba(10,32,54,0.6)' }}>
+                        <span className="text-[10px] font-semibold text-white/80">Aachener Dom · UNESCO</span>
+                      </div>
+                    </div>
+                  </div>
                   <div className="p-6">
                     <div className="flex items-center gap-2 mb-4">
                       <MapPin size={14} style={{ color: 'var(--color-accent)' }} />
@@ -277,7 +298,6 @@ export default function HomePage() {
                       <TrendingUp size={16} style={{ color: 'var(--color-accent)' }} />
                     </div>
                     <div>
-      <SEOHead title="Bookando – Deine Buchungs- & Vertriebsplattform" description="Bookando.de ist die modulare SaaS- und Marketplace-Plattform für Dienstleister. Terminbuchung, Affiliate-Marketing, Wallet und WhiteLabel in einem System." />
                       <p className="text-[14px] font-bold text-white">+32% <span className="text-[11px] font-medium text-white/40">vs. Vormonat</span></p>
                     </div>
                   </div>
@@ -653,13 +673,13 @@ export default function HomePage() {
             <div className="absolute bottom-0 left-1/4 w-48 h-48 rounded-full opacity-[0.03]"
               style={{ background: 'radial-gradient(circle, #B3CDE1, transparent)', filter: 'blur(60px)' }} />
 
-            {/* Bild-Element */}
-            <div className="absolute right-0 top-0 bottom-0 w-1/3 hidden lg:block overflow-hidden opacity-20">
+            {/* Cathedral decorative element */}
+            <div className="absolute right-0 top-0 bottom-0 w-1/3 hidden lg:block overflow-hidden opacity-15">
               <img
-                src="https://picsum.photos/id/1016/600/800"
-                alt=""
+                src={cathedralImg}
+                alt="Aachener Dom"
                 className="w-full h-full object-cover"
-                style={{ objectPosition: 'center left' }}
+                style={{ objectPosition: 'center 30%' }}
                 loading="lazy"
               />
               <div className="absolute inset-0" style={{

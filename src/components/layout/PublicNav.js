@@ -19,16 +19,16 @@ import { ChevronRight, Menu, X } from 'lucide-react';
  */
 export default function PublicNav({
   navItems = [
-    { href: '/', labelKey: 'nav.home' },
-    { href: '/marketplace', labelKey: 'nav.marketplace' },
-    { href: '/features', labelKey: 'nav.features' },
-    { href: '/contact', labelKey: 'nav.contact' },
+    { href: '/', label: 'Startseite', labelKey: 'nav.home' },
+    { href: '/marketplace', label: 'Marktplatz', labelKey: 'nav.marketplace' },
+    { href: '/features', label: 'Features', labelKey: 'nav.features' },
+    { href: '/contact', label: 'Kontakt', labelKey: 'nav.contact' },
   ],
   logoUrl,
   logoText = 'Bookando',
   logoHref = '/',
-  primaryCta = { labelKey: 'nav.register', href: '/auth/register' },
-  secondaryCta = { labelKey: 'nav.login', href: '/auth/login' },
+  primaryCta = { label: 'Registrieren', labelKey: 'nav.register', href: '/auth/register' },
+  secondaryCta = { label: 'Anmelden', labelKey: 'nav.login', href: '/auth/login' },
   hideLanguageSwitch = false,
   dataTestId = 'public-nav',
 }) {

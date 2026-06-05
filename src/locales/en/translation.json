@@ -1,7 +1,8 @@
 {
   "brand": {
     "name": "Bookando",
-    "tagline": "Booking & Sales Platform"
+    "tagline": "Booking & Sales Platform",
+    "footer_tagline": "The modular booking & sales platform for service providers. Powered by Bookando technology."
   },
   "common": {
     "loading": "Loading…",
@@ -94,7 +95,14 @@
     "reviews_moderation": "Reviews",
     "settings": "Settings",
     "profile": "Profile",
-    "logout": "Sign out"
+    "logout": "Sign out",
+    "home": "Home",
+    "marketplace": "Marketplace",
+    "features": "Features",
+    "about": "About",
+    "contact": "Contact",
+    "register": "Sign Up",
+    "login": "Sign In"
   },
   "layout": {
     "role_customer": "Customer",
@@ -202,7 +210,6 @@
     "theme_system": "System",
     "notify_email_book": "Email on new booking",
     "notify_email_marketing": "Marketing emails",
-
     "logo_url": "Logo URL",
     "logo_url_hint": "Direct link to your logo (PNG/SVG, transparent recommended).",
     "primary_color": "Primary color",
@@ -214,7 +221,6 @@
     "preview": "Preview",
     "live_preview": "Live preview",
     "branding_saved": "Branding saved",
-
     "section_legal": "Imprint & legal (white-label)",
     "section_legal_sub": "These details appear on imprint, privacy and terms pages of your branded booking page. Required by § 5 TMG (Germany).",
     "legal_company_name": "Company name",
@@ -231,7 +237,6 @@
     "legal_register": "Commercial register",
     "legal_privacy_extra": "Additional privacy notes",
     "legal_privacy_extra_hint": "Optional: industry-specific data processing notes.",
-
     "domain_added": "Domain added",
     "domain_removed": "Domain removed",
     "domain_taken": "This domain is already taken.",
@@ -243,7 +248,6 @@
     "domain_dns_title": "DNS configuration",
     "domain_dns_hint": "Point a CNAME record of your domain to bookando.de. Verification will be confirmed by our support team.",
     "confirm_remove_domain": "Really remove this domain?",
-
     "current_plan": "Current plan",
     "current_plan_short": "Active plan",
     "cancel_subscription": "Cancel subscription",
@@ -270,7 +274,6 @@
     "feat_custom_domain": "Custom domain",
     "feat_api_access": "API access",
     "feat_priority_support": "Priority support",
-
     "feature_locked_branding": "White-label branding is not included in your current plan.",
     "feature_locked_domain": "Custom domains are not included in your current plan.",
     "feature_required_tier": "Available from plan: {{tier}}",
@@ -390,5 +393,42 @@
     "deletion_at": "Scheduled for: {{date}}",
     "deletion_cancel_action": "Cancel deletion",
     "deletion_cancelled": "Deletion cancelled"
+  },
+  "footer": {
+    "col_product": "Product",
+    "col_company": "Company",
+    "col_legal": "Legal",
+    "col_contact": "Contact",
+    "link_features": "Features",
+    "link_pricing": "Pricing",
+    "link_about": "About Us",
+    "link_blog": "Blog",
+    "link_contact": "Contact",
+    "link_privacy": "Privacy Policy",
+    "link_imprint": "Imprint",
+    "link_terms": "Terms",
+    "copyright": "© 2026 Bookando. All rights reserved.",
+    "tagline": "The modular booking & sales platform for service providers."
+  },
+  "hero": {
+    "cta_primary": "Get Started",
+    "cta_secondary": "Learn More",
+    "title": "Your Booking & Sales Platform",
+    "subtitle": "Bookando combines booking, affiliate marketing, wallet and whitelabel in one system."
+  },
+  "marketplace": {
+    "title": "Marketplace",
+    "subtitle": "Find the best services and offers in Aachen and surrounding areas.",
+    "search_placeholder": "Search for services...",
+    "no_results": "No results found."
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "We're here for you. Just drop us a message.",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "name": "Name",
+    "message": "Message"
   }
 }
