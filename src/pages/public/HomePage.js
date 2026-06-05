@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import PublicNav from '../../components/layout/PublicNav';
 import PublicFooter from '../../components/layout/PublicFooter';
+import SEOHead from "../../components/shared/SEOHead";
 import {
   ArrowRight, Store, CalendarCheck, BarChart3, Wallet,
   Palette, Globe, CheckCircle, Play, Star, TrendingUp,
@@ -276,7 +277,7 @@ export default function HomePage() {
                       <TrendingUp size={16} style={{ color: 'var(--color-accent)' }} />
                     </div>
                     <div>
-                      <p className="text-[11px] text-white/40">Wachstum</p>
+      <SEOHead title="Bookando – Deine Buchungs- & Vertriebsplattform" description="Bookando.de ist die modulare SaaS- und Marketplace-Plattform für Dienstleister. Terminbuchung, Affiliate-Marketing, Wallet und WhiteLabel in einem System." />
                       <p className="text-[14px] font-bold text-white">+32% <span className="text-[11px] font-medium text-white/40">vs. Vormonat</span></p>
                     </div>
                   </div>
@@ -622,7 +623,6 @@ export default function HomePage() {
                     <Icon size={18} style={{ color: 'var(--color-accent)' }} />
                   </div>
                   <div>
-                    <p className="text-[11px] text-white/40 font-medium">{item.label}</p>
                     <p className="text-[16px] font-bold text-white">{item.value}</p>
                   </div>
                 </div>

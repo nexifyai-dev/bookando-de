@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { MailCheck, Briefcase } from 'lucide-react';
 
 export default function VerifyEmailPage() {
-  const { t } = useTranslation();
+  const { t: _t } = useTranslation();
   const [searchParams] = useSearchParams();
   const status = searchParams.get('status');
 

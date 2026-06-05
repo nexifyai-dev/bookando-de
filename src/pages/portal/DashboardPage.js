@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/ca
 import { Badge } from '../../components/ui/badge';
 import { Users, Calendar, TrendingUp, Wallet, Bell, Settings } from "lucide-react";
 
+import SEOHead from '../../components/shared/SEOHead'
 export default function DashboardPage() {
   const { t } = useTranslation();
   const { user } = useAuth();
@@ -18,6 +19,7 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
+      <SEOHead title="Dashboard – Bookando" description="Dein Bookando-Dashboard mit allen wichtigen Kennzahlen." noindex />
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>

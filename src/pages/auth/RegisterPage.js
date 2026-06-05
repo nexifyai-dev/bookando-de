@@ -4,12 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { useAuth, formatApiError } from '../../contexts/AuthContext';
 import { Loader2, AlertCircle, User, Building2, Check, Briefcase } from 'lucide-react';
 import LanguageSwitcher from '../../components/shared/LanguageSwitcher';
-
 export default function RegisterPage() {
   const { t, i18n } = useTranslation();
   const { register } = useAuth();
   const navigate = useNavigate();
-
   const [form, setForm] = useState({
     role: 'customer',
     first_name: '',
@@ -21,7 +19,6 @@ export default function RegisterPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
   const handleSubmit = async e => {
     e.preventDefault();
     setError('');
@@ -51,9 +48,7 @@ export default function RegisterPage() {
       setLoading(false);
     }
   };
-
   const updateField = k => e => setForm(p => ({ ...p, [k]: e.target.value }));
-
   return (
     <div className="min-h-screen flex" data-testid="register-page">
       {/* Left Panel — Form */}
@@ -70,7 +65,6 @@ export default function RegisterPage() {
           </Link>
           <LanguageSwitcher tone="light" />
         </div>
-
         {/* Form center */}
         <div className="flex-1 flex items-center justify-center px-6 pb-12">
           <div className="w-full max-w-sm">
@@ -82,14 +76,12 @@ export default function RegisterPage() {
                 {t('auth.register_sub')}
               </p>
             </div>
-
             <div className="bg-white border border-[var(--color-border)] rounded-lg shadow-card p-6">
               {error && (
                 <div className="bg-red-50/80 backdrop-blur border border-red-200 rounded-md p-3 flex items-center gap-2 text-red-700 text-sm mb-4" data-testid="register-error">
                   <AlertCircle size={16} /> {error}
                 </div>
               )}
-
               <form onSubmit={handleSubmit} className="space-y-4" data-testid="register-form">
                 {/* Role Picker */}
                 <div>
@@ -113,7 +105,6 @@ export default function RegisterPage() {
                     />
                   </div>
                 </div>
-
                 {/* Name Fields */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
@@ -139,7 +130,6 @@ export default function RegisterPage() {
                     />
                   </div>
                 </div>
-
                 {/* Company Name (only for vendors) */}
                 {form.role === 'vendor' && (
                   <div>
@@ -154,7 +144,6 @@ export default function RegisterPage() {
                     />
                   </div>
                 )}
-
                 {/* Email */}
                 <div>
                   <label className="block text-sm font-medium text-[var(--color-text-primary)] mb-1">{t('auth.email')}</label>
@@ -168,7 +157,6 @@ export default function RegisterPage() {
                     className="w-full border border-[var(--color-border)] rounded-md px-3.5 py-2.5 text-sm bg-white text-[var(--color-text-primary)] placeholder:text-[var(--color-text-tertiary)] focus:outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/10 transition-all"
                   />
                 </div>
-
                 {/* Password Fields */}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
@@ -197,7 +185,6 @@ export default function RegisterPage() {
                     />
                   </div>
                 </div>
-
                 {/* Submit Button */}
                 <button
                   type="submit"
@@ -209,7 +196,6 @@ export default function RegisterPage() {
                   {t('auth.register_btn')}
                 </button>
               </form>
-
               <p className="mt-4 text-center text-sm text-[var(--color-text-secondary)]">
                 {t('auth.have_account')}{' '}
                 <Link to="/auth/login" className="text-[var(--color-primary)] font-medium hover:underline" data-testid="register-login-link">
@@ -220,7 +206,6 @@ export default function RegisterPage() {
           </div>
         </div>
       </div>
-
       {/* Right Panel — Brand Showcase */}
       <div className="hidden lg:flex flex-1 bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-primary)] to-[var(--color-primary-dark)] relative overflow-hidden">
         {/* Decorative elements */}
@@ -229,7 +214,6 @@ export default function RegisterPage() {
           <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-white"></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-white/10"></div>
         </div>
-
         <div className="relative z-10 flex flex-col items-center justify-center w-full px-12 text-center">
           <div className="w-20 h-20 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center mb-8 shadow-xl border border-white/10">
             <Briefcase size={40} className="text-white" />
@@ -249,7 +233,6 @@ export default function RegisterPage() {
     </div>
   );
 }
-
 function RoleCard({ active, icon: Icon, title, desc, onClick, testid }) {
   return (
     <button

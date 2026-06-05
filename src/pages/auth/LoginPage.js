@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useAuth, formatApiError } from '../../contexts/AuthContext';
 import { Loader2, AlertCircle, ShieldCheck, ArrowLeft, Briefcase, Building2 } from 'lucide-react';
 import LanguageSwitcher from '../../components/shared/LanguageSwitcher';
-
 export default function LoginPage() {
   const { t } = useTranslation();
   const { login } = useAuth();
@@ -15,13 +14,11 @@ export default function LoginPage() {
   const [totp, setTotp] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
   const tryLogin = async (totpCode = null) => {
     const user = await login(form.email, form.password, totpCode);
     const target = location.state?.from || '/dashboard';
     navigate(target, { replace: true });
   };
-
   const handleSubmit = async e => {
     e.preventDefault();
     setError('');
@@ -42,7 +39,6 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
-
   const handleTotpSubmit = async e => {
     e.preventDefault();
     setError('');
@@ -57,7 +53,6 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
-
   return (
     <div className="min-h-screen flex" data-testid="login-page">
       {/* Left Panel — Form */}
@@ -74,7 +69,6 @@ export default function LoginPage() {
           </Link>
           <LanguageSwitcher tone="light" />
         </div>
-
         {/* Form center */}
         <div className="flex-1 flex items-center justify-center px-6 pb-12">
           <div className="w-full max-w-sm">
@@ -86,14 +80,12 @@ export default function LoginPage() {
                 {step === 'totp' ? t('auth.totp_sub') : t('auth.login_sub')}
               </p>
             </div>
-
             <div className="bg-white border border-[var(--color-border)] rounded-lg shadow-card p-6 md:p-7">
               {error && (
                 <div className="bg-red-50/80 backdrop-blur border border-red-200 rounded-md p-3 flex items-center gap-2 text-red-700 text-sm mb-4" data-testid="login-error">
                   <AlertCircle size={16} /> {error}
                 </div>
               )}
-
               {step === 'credentials' ? (
                 <form onSubmit={handleSubmit} className="space-y-4" data-testid="login-form">
                   <div>
@@ -179,7 +171,6 @@ export default function LoginPage() {
                   </button>
                 </form>
               )}
-
               {step === 'credentials' && (
                 <p className="mt-5 text-center text-sm text-[var(--color-text-secondary)]">
                   {t('auth.no_account')}{' '}
@@ -192,7 +183,6 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-
       {/* Right Panel — Brand Showcase */}
       <div className="hidden lg:flex flex-1 bg-gradient-to-br from-[var(--color-primary)] via-[var(--color-primary)] to-[var(--color-primary-dark)] relative overflow-hidden">
         {/* Decorative elements */}
@@ -201,7 +191,6 @@ export default function LoginPage() {
           <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-white"></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-white/10"></div>
         </div>
-
         <div className="relative z-10 flex flex-col items-center justify-center w-full px-12 text-center">
           <div className="w-20 h-20 rounded-2xl bg-white/15 backdrop-blur flex items-center justify-center mb-8 shadow-xl border border-white/10">
             <Briefcase size={40} className="text-white" />

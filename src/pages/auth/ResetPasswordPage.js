@@ -6,7 +6,7 @@ import { Lock, Briefcase } from 'lucide-react';
 export default function ResetPasswordPage() {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
-  const token = searchParams.get("token");
+  const _token = searchParams.get("token");
 
   return (
     <div className="min-h-dvh grid lg:grid-cols-2">
