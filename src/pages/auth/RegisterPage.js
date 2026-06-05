@@ -92,7 +92,7 @@ export default function RegisterPage() {
                       icon={User}
                       title={t('auth.role_customer')}
                       desc={t('auth.role_customer_desc')}
-                      onClick={() => setForm(p => ({ ...p, role: 'customer' }))}
+                      className="cursor-pointer" onClick={() => setForm(p => ({ ...p, role: 'customer' }))}
                       testid="role-customer"
                     />
                     <RoleCard
@@ -100,7 +100,7 @@ export default function RegisterPage() {
                       icon={Building2}
                       title={t('auth.role_vendor')}
                       desc={t('auth.role_vendor_desc')}
-                      onClick={() => setForm(p => ({ ...p, role: 'vendor' }))}
+                      className="cursor-pointer" onClick={() => setForm(p => ({ ...p, role: 'vendor' }))}
                       testid="role-vendor"
                     />
                   </div>

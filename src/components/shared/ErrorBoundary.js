@@ -22,7 +22,7 @@ export class ErrorBoundary extends React.Component {
             <p className="text-[var(--color-text-secondary)] mb-6">Bitte lade die Seite neu oder versuche es später erneut.</p>
             <button
               onClick={() => window.location.reload()}
-              className="px-6 py-2.5 bg-[var(--color-primary)] text-white rounded-[var(--radius-sm)] font-semibold text-sm hover:opacity-90 transition-opacity"
+              className="px-6 py-2.5 bg-[var(--color-primary)] text-white rounded-[var(--radius-sm)] font-semibold text-sm hover:opacity-90 transition-opacity cursor-pointer"
             >
               Seite neu laden
             </button>

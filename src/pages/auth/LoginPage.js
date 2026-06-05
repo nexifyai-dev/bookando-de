@@ -104,7 +104,7 @@ export default function LoginPage() {
                   <div>
                     <div className="flex items-center justify-between mb-1.5">
                       <label className="text-sm font-medium text-[var(--color-text-primary)]">{t('auth.password')}</label>
-                      <Link to="/auth/forgot-password" className="text-xs text-[var(--color-primary)] hover:underline font-medium" data-testid="login-forgot-link">
+                      <Link to="/auth/forgot-password" className="text-xs text-[var(--color-primary)] hover:underline font-medium transition-colors duration-150" data-testid="login-forgot-link">
                         {t('auth.forgot_pw')}
                       </Link>
                     </div>
@@ -163,7 +163,7 @@ export default function LoginPage() {
                   </button>
                   <button
                     type="button"
-                    onClick={() => { setStep('credentials'); setTotp(''); setError(''); }}
+                    onClick={() => { setStep('credentials'); setTotp(''); setError(''); }} className="cursor-pointer"
                     data-testid="login-totp-back"
                     className="w-full text-xs text-[var(--color-text-tertiary)] hover:text-[var(--color-primary)] flex items-center justify-center gap-1"
                   >
