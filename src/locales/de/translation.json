@@ -113,10 +113,17 @@
     "footer_tagline": "Die modulare Buchungs- & Vertriebsplattform für Dienstleister. Basierend auf Bookando Technologie."
   },
   "marketplace": {
-    "title": "Marktplatz",
-    "subtitle": "Finde die besten Dienstleistungen und Angebote in Aachen und Umgebung.",
-    "search_placeholder": "Suche nach Dienstleistungen...",
-    "no_results": "Keine Ergebnisse gefunden."
+    "title": "Unser Marktplatz",
+    "subtitle": "Finde die besten Dienstleister in Aachen und Umgebung. Von Tattoo-Studios bis Kosmetik.",
+    "search_placeholder": "Dienstleistung, Kategorie oder Anbieter suchen...",
+    "filter_all": "Alle",
+    "filter_tattoo": "Tattoo",
+    "filter_kosmetik": "Kosmetik",
+    "filter_friseur": "Friseur",
+    "filter_barber": "Barbershop",
+    "filter_nagel": "Nagelstudio",
+    "categories": "Kategorien",
+    "book_now": "Jetzt buchen"
   },
   "contact": {
     "title": "Kontakt",

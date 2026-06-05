@@ -424,3 +424,52 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #4A90C9;
+    --color-primary-light: #6BA5D6;
+    --color-primary-dark: #0F1729;
+    --color-shell-bg: #0F1729;
+    --color-surface: #1A2332;
+    --color-surface-elevated: #1E293B;
+    --color-surface-sunken: #0F1729;
+    --color-divider: rgba(255,255,255,0.08);
+    --color-divider-subtle: rgba(255,255,255,0.04);
+    --color-text-primary: #F1F5F9;
+    --color-text-secondary: #94A3B8;
+    --color-text-tertiary: #64748B;
+    --shadow-card: 0 1px 3px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.04);
+    --shadow-e1: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-e2: 0 2px 8px rgba(0,0,0,0.4);
+    --shadow-e3: 0 8px 24px rgba(0,0,0,0.5);
+    --color-accent-muted: rgba(196,155,62,0.15);
+    --color-accent-subtle: rgba(196,155,62,0.08);
+  }
+
+  body {
+    background: #0F1729;
+    color: #F1F5F9;
+  }
+
+  .w2g-topbar-frame {
+    background: rgba(15,23,41,0.85);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .w2g-footer {
+    background: #0A1420;
+  }
+
+  .w2g-bottom-nav {
+    background: rgba(15,23,41,0.95);
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  input, select, textarea {
+    background: #1A2332 !important;
+    border-color: rgba(255,255,255,0.1) !important;
+    color: #F1F5F9 !important;
+  }
+}

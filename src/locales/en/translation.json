@@ -113,10 +113,17 @@
     "footer_tagline": "The modular booking & sales platform for service providers. Powered by Bookando technology."
   },
   "marketplace": {
-    "title": "Marketplace",
-    "subtitle": "Find the best services and offers in Aachen and surrounding areas.",
-    "search_placeholder": "Search for services...",
-    "no_results": "No results found."
+    "title": "Our Marketplace",
+    "subtitle": "Find the best service providers in Aachen and surroundings. From tattoo studios to cosmetics.",
+    "search_placeholder": "Search service, category or provider...",
+    "filter_all": "All",
+    "filter_tattoo": "Tattoo",
+    "filter_kosmetik": "Cosmetics",
+    "filter_friseur": "Hairdresser",
+    "filter_barber": "Barbershop",
+    "filter_nagel": "Nail Studio",
+    "categories": "Categories",
+    "book_now": "Book Now"
   },
   "contact": {
     "title": "Contact",
