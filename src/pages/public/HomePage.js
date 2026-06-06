@@ -248,11 +248,16 @@ export default function HomePage() {
                   </Link>
                 </div>
               </div>
-              <div className={`hidden lg:flex lg:col-span-5 items-center justify-center lg:justify-end p-8 sm:p-10 lg:p-12 ${stagger(ctaVis, 1)}`} style={staggerDelay(1)}>
-              <img src="/images/cta-grafik.png" alt="30 Tage kostenlos testen"
-                className="w-full max-w-[380px] h-auto object-contain drop-shadow-2xl"
-                style={{ filter: 'brightness(0.97) saturate(0.9)', transform: 'scale(1.15)' }} />
-            </div>
+              <div className={`hidden lg:flex lg:col-span-5 items-center justify-center lg:justify-end p-0 sm:p-4 lg:p-6 xl:p-8 relative ${stagger(ctaVis, 1)}`} style={staggerDelay(1)}>
+                {/* Radialer Glow hinter der Hand für weichen Abschluss */}
+                <div className="absolute bottom-0 right-0 w-[90%] h-[70%] pointer-events-none opacity-60"
+                  style={{
+                    background: 'radial-gradient(ellipse 100% 80% at 70% 90%, rgba(245,158,11,0.2) 0%, rgba(26,32,44,0) 70%)',
+                  }} />
+                <img src="/images/cta-grafik.png" alt="30 Tage kostenlos testen"
+                  className="w-full max-w-[380px] h-auto object-contain drop-shadow-2xl"
+                  style={{ filter: 'brightness(0.97) saturate(0.9)', transform: 'scale(1.12)' }} />
+              </div>
             </div>
           </div>
         </div>
