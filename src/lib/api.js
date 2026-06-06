@@ -94,6 +94,21 @@ export const MarketplaceApi = {
   countries: () => apiClient.get('/api/public/marketplace/countries').then(r => r.data),
 };
 
+/** Öffentliche Vendor-Detail-API */
+export const VendorDetailApi = {
+  /** Einzelnen Vendor abrufen */
+  get: (vendorId) => apiClient.get(`/api/marketplace/${vendorId}`).then(r => r.data),
+  /** Services eines Vendors abrufen */
+  services: (vendorId) => apiClient.get(`/api/marketplace/${vendorId}/services`).then(r => r.data),
+  /** Bewertungen eines Vendors abrufen */
+  reviews: (vendorId) => apiClient.get(`/api/marketplace/${vendorId}/reviews`).then(r => r.data),
+};
+
+/** Verfügbare Zeitslots abrufen */
+export const BookingSlotsApi = {
+  available: (params) => apiClient.post('/api/bookings/slots', params).then(r => r.data),
+};
+
 export const VerifyEmailApi = {
   request: () => apiClient.post('/api/auth/verify-email/request').then(r => r.data),
   confirm: (token) => apiClient.post('/api/auth/verify-email/confirm', { token }).then(r => r.data),

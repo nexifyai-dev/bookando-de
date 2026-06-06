@@ -69,7 +69,7 @@ const VendorCard = ({ vendor, t }) => {
 
   return (
     <Link
-      to={vendor.slug ? `/marketplace/${vendor.slug}` : '/auth/register'}
+      to={`/marketplace/${vendor.id || vendor.slug}`}
       className="block no-underline group"
     >
       <div

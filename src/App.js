@@ -28,6 +28,7 @@ const ForgotPasswordPage  = lazy(() => import('./pages/auth/ForgotPasswordPage')
 const ResetPasswordPage   = lazy(() => import('./pages/auth/ResetPasswordPage'));
 const VerifyEmailPage     = lazy(() => import('./pages/auth/VerifyEmailPage'));
 const MarketplacePage     = lazy(() => import('./pages/public/MarketplacePage'));
+const VendorDetailPage    = lazy(() => import('./pages/public/VendorDetailPage'));
 const AboutPage           = lazy(() => import('./pages/public/AboutPage'));
 const ContactPage         = lazy(() => import('./pages/public/ContactPage'));
 const PricingPage         = lazy(() => import('./pages/public/PricingPage'));
@@ -257,6 +258,7 @@ export default function App() {
             {/* PUBLIC */}
             <Route path="/" element={<HomePage />} />
             <Route path="/marketplace" element={<MarketplacePage />} />
+            <Route path="/marketplace/:slug" element={<VendorDetailPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/features" element={<FeaturesPage />} />
             <Route path="/about" element={<AboutPage />} />
