@@ -4,6 +4,7 @@ import {
   MapPin, Plus, Edit3, Trash2, X, Loader2, AlertCircle, Star, Phone, Globe
 } from 'lucide-react';
 import { LocationsApi } from '../../lib/api';
+import { useAutoRefresh, usePortalMutation } from '../../hooks/useAutoRefresh';
 import { toast } from 'sonner';
 
 function LocationModal({ location, onClose, onSave, loading }) {
@@ -182,28 +183,15 @@ function DeleteConfirmModal({ location, onClose, onConfirm, loading }) {
 export default function VendorLocationsPage() {
   const { t } = useTranslation();
 
-  const [locations, setLocations] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data: locations = [], isLoading, error, refetch } = useAutoRefresh(
+    ['vendor', 'locations'],
+    () => LocationsApi.list().then(d => Array.isArray(d) ? d : d?.locations || d?.data || []),
+  );
+
   const [modalOpen, setModalOpen] = useState(false);
   const [editingLocation, setEditingLocation] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [saving, setSaving] = useState(false);
-
-  const fetchLocations = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await LocationsApi.list();
-      setLocations(Array.isArray(data) ? data : (data.locations || data.data || []));
-    } catch (err) {
-      setError(err.message || t('vendor.locations.load_error', 'Fehler beim Laden der Standorte.'));
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => { fetchLocations(); }, [t]);
 
   const openCreate = () => { setEditingLocation(null); setModalOpen(true); };
   const openEdit = (loc) => { setEditingLocation(loc); setModalOpen(true); };
@@ -220,7 +208,7 @@ export default function VendorLocationsPage() {
       }
       setModalOpen(false);
       setEditingLocation(null);
-      fetchLocations();
+      refetch();
     } catch (err) {
       toast.error(err.message || t('vendor.locations.save_error', 'Fehler beim Speichern.'));
     } finally {
@@ -234,7 +222,7 @@ export default function VendorLocationsPage() {
       await LocationsApi.remove(id);
       toast.success(t('vendor.locations.delete_success', 'Standort gelöscht.'));
       setDeleteTarget(null);
-      fetchLocations();
+      refetch();
     } catch (err) {
       toast.error(err.message || t('vendor.locations.delete_error', 'Fehler beim Löschen.'));
     } finally {
@@ -256,17 +244,17 @@ export default function VendorLocationsPage() {
         </button>
       </div>
 
-      {loading && (
+      {isLoading && (
         <div className="flex items-center justify-center py-20">
           <Loader2 size={32} className="animate-spin" style={{ color: 'var(--color-primary)' }} />
         </div>
       )}
 
-      {!loading && error && (
+      {!isLoading && error && (
         <div className="text-center py-20">
           <AlertCircle size={40} style={{ color: '#EF4444', margin: '0 auto 16px' }} />
           <p style={{ color: '#EF4444', fontSize: '0.9rem', marginBottom: '16px' }}>{error}</p>
-          <button onClick={fetchLocations}
+          <button onClick={refetch}
             className="px-6 py-2.5 text-[13px] font-semibold rounded-lg cursor-pointer"
             style={{ background: 'var(--color-primary)', color: '#fff', border: 'none' }}>
             {t('common.retry', 'Erneut versuchen')}
@@ -274,7 +262,7 @@ export default function VendorLocationsPage() {
         </div>
       )}
 
-      {!loading && !error && locations.length === 0 && (
+      {!isLoading && !error && locations.length === 0 && (
         <div className="text-center py-20">
           <MapPin size={48} style={{ color: 'var(--color-text-tertiary)', margin: '0 auto 16px', opacity: 0.4 }} />
           <p style={{ color: 'var(--color-text-tertiary)', fontSize: '0.9rem', marginBottom: '12px' }}>
@@ -288,7 +276,7 @@ export default function VendorLocationsPage() {
         </div>
       )}
 
-      {!loading && !error && locations.length > 0 && (
+      {!isLoading && !error && locations.length > 0 && (
         <div className="grid gap-3">
           {locations.map((loc, i) => (
             <div key={loc.id || i}

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Users, Plus, Mail, X, Loader2, AlertCircle, Shield, UserMinus, UserCheck, ToggleLeft, ToggleRight
 } from 'lucide-react';
 import { EmployeeAccountsApi } from '../../lib/api';
+import { useAutoRefresh, usePortalMutation } from '../../hooks/useAutoRefresh';
 import { toast } from 'sonner';
 
 const ROLE_OPTIONS = [
@@ -126,27 +127,14 @@ function RevokeConfirmModal({ employee, onClose, onRevoke, loading }) {
 export default function VendorEmployeesPage() {
   const { t } = useTranslation();
 
-  const [employees, setEmployees] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data: employees = [], isLoading, error, refetch } = useAutoRefresh(
+    ['vendor', 'employees'],
+    () => EmployeeAccountsApi.list().then(d => Array.isArray(d) ? d : d?.employees || d?.data || []),
+  );
+
   const [inviteOpen, setInviteOpen] = useState(false);
   const [revokeTarget, setRevokeTarget] = useState(null);
   const [saving, setSaving] = useState(false);
-
-  const fetchEmployees = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await EmployeeAccountsApi.list();
-      setEmployees(Array.isArray(data) ? data : (data.employees || data.data || []));
-    } catch (err) {
-      setError(err.message || t('vendor.employees.load_error', 'Fehler beim Laden der Mitarbeiter.'));
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => { fetchEmployees(); }, [t]);
 
   const handleInvite = async (payload) => {
     setSaving(true);
@@ -154,7 +142,7 @@ export default function VendorEmployeesPage() {
       await EmployeeAccountsApi.invite(payload);
       toast.success(t('vendor.employees.invite_success', 'Einladung gesendet.'));
       setInviteOpen(false);
-      fetchEmployees();
+      refetch();
     } catch (err) {
       toast.error(err.message || t('vendor.employees.invite_error', 'Fehler beim Einladen.'));
     } finally {
@@ -169,7 +157,7 @@ export default function VendorEmployeesPage() {
       toast.success(emp.is_active
         ? t('vendor.employees.deactivated', 'Mitarbeiter deaktiviert.')
         : t('vendor.employees.activated', 'Mitarbeiter aktiviert.'));
-      fetchEmployees();
+      refetch();
     } catch (err) {
       toast.error(err.message || t('vendor.employees.update_error', 'Fehler beim Aktualisieren.'));
     } finally {
@@ -183,7 +171,7 @@ export default function VendorEmployeesPage() {
       await EmployeeAccountsApi.revoke(id);
       toast.success(t('vendor.employees.revoke_success', 'Mitarbeiter entfernt.'));
       setRevokeTarget(null);
-      fetchEmployees();
+      refetch();
     } catch (err) {
       toast.error(err.message || t('vendor.employees.revoke_error', 'Fehler beim Entfernen.'));
     } finally {
@@ -206,18 +194,18 @@ export default function VendorEmployeesPage() {
       </div>
 
       {/* Loading */}
-      {loading && (
+      {isLoading && (
         <div className="flex items-center justify-center py-20">
           <Loader2 size={32} className="animate-spin" style={{ color: 'var(--color-primary)' }} />
         </div>
       )}
 
       {/* Error */}
-      {!loading && error && (
+      {!isLoading && error && (
         <div className="text-center py-20">
           <AlertCircle size={40} style={{ color: '#EF4444', margin: '0 auto 16px' }} />
           <p style={{ color: '#EF4444', fontSize: '0.9rem', marginBottom: '16px' }}>{error}</p>
-          <button onClick={fetchEmployees}
+          <button onClick={refetch}
             className="px-6 py-2.5 text-[13px] font-semibold rounded-lg cursor-pointer"
             style={{ background: 'var(--color-primary)', color: '#fff', border: 'none' }}>
             {t('common.retry', 'Erneut versuchen')}
@@ -226,7 +214,7 @@ export default function VendorEmployeesPage() {
       )}
 
       {/* Empty */}
-      {!loading && !error && employees.length === 0 && (
+      {!isLoading && !error && employees.length === 0 && (
         <div className="text-center py-20">
           <Users size={48} style={{ color: 'var(--color-text-tertiary)', margin: '0 auto 16px', opacity: 0.4 }} />
           <p style={{ color: 'var(--color-text-tertiary)', fontSize: '0.9rem', marginBottom: '12px' }}>
@@ -241,7 +229,7 @@ export default function VendorEmployeesPage() {
       )}
 
       {/* Employee List */}
-      {!loading && !error && employees.length > 0 && (
+      {!isLoading && !error && employees.length > 0 && (
         <div className="rounded-xl overflow-hidden"
           style={{ background: 'var(--color-surface)', border: '1px solid var(--color-divider)' }}>
           <div className="hidden md:flex items-center gap-4 px-5 py-3 text-[11px] font-semibold uppercase tracking-wider"

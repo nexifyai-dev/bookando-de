@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Clock, Plus, X, Loader2, AlertCircle, Calendar, Umbrella, Sun
 } from 'lucide-react';
 import { WorkingHoursApi } from '../../lib/api';
+import { useAutoRefresh, usePortalMutation } from '../../hooks/useAutoRefresh';
 import { toast } from 'sonner';
 
 const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
@@ -117,27 +118,20 @@ export default function VendorHoursPage() {
 
   const [weeklyHours, setWeeklyHours] = useState({});
   const [holidays, setHolidays] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
   const [holidayModal, setHolidayModal] = useState(false);
 
-  const fetchHours = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await WorkingHoursApi.get();
-      const wh = data?.weekly || data?.hours || data?.weekly_hours || {};
-      setWeeklyHours(wh);
-      setHolidays(data?.holidays || data?.closures || []);
-    } catch (err) {
-      setError(err.message || t('vendor.hours.load_error', 'Fehler beim Laden der Öffnungszeiten.'));
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { data: hoursData, isLoading, refetch } = useAutoRefresh(
+    ['vendor', 'hours'],
+    () => WorkingHoursApi.get().then(d => d || {}),
+  );
 
-  useEffect(() => { fetchHours(); }, [t]);
+  // Sync useAutoRefresh data into local state
+  if (hoursData && !Object.keys(weeklyHours).length && !holidays.length) {
+    setWeeklyHours(hoursData?.weekly || hoursData?.hours || hoursData?.weekly_hours || {});
+    setHolidays(hoursData?.holidays || hoursData?.closures || []);
+  }
 
   const handleDayChange = (day, field, value) => {
     setWeeklyHours(prev => ({
@@ -204,17 +198,17 @@ export default function VendorHoursPage() {
         </div>
       </div>
 
-      {loading && (
+      {isLoading && (
         <div className="flex items-center justify-center py-20">
           <Loader2 size={32} className="animate-spin" style={{ color: 'var(--color-primary)' }} />
         </div>
       )}
 
-      {!loading && error && (
+      {!isLoading && error && (
         <div className="text-center py-20">
           <AlertCircle size={40} style={{ color: '#EF4444', margin: '0 auto 16px' }} />
           <p style={{ color: '#EF4444', fontSize: '0.9rem', marginBottom: '16px' }}>{error}</p>
-          <button onClick={fetchHours}
+          <button onClick={refetch}
             className="px-6 py-2.5 text-[13px] font-semibold rounded-lg cursor-pointer"
             style={{ background: 'var(--color-primary)', color: '#fff', border: 'none' }}>
             {t('common.retry', 'Erneut versuchen')}
@@ -222,7 +216,7 @@ export default function VendorHoursPage() {
         </div>
       )}
 
-      {!loading && !error && (
+      {!isLoading && !error && (
         <div className="w2g-page-stack">
           {/* Weekly Hours */}
           <div className="rounded-xl p-5"
