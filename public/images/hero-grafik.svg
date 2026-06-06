@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <!-- Brand-Farben -->
+    <linearGradient id="screenGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a2230"/>
+      <stop offset="100%" stop-color="#0f1923"/>
+    </linearGradient>
+    <linearGradient id="accGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="4"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="screenShadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="20" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Smartphone (links, leicht nach innen versetzt) -->
+  <g transform="translate(150, 240)" filter="url(#screenShadow)">
+    <!-- Phone Body -->
+    <rect x="0" y="0" width="280" height="560" rx="36" fill="#131a22" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+    <rect x="8" y="8" width="264" height="500" rx="24" fill="url(#screenGrad)"/>
+    
+    <!-- Status Bar -->
+    <rect x="20" y="18" width="240" height="20" rx="4"/>
+    <text x="30" y="32" font-size="9" fill="#6b7b8d" font-family="system-ui">09:41</text>
+    <rect x="220" y="22" width="30" height="12" rx="6" fill="rgba(255,255,255,0.06)"/>
+
+    <!-- Kalender-Header mit Orange-Akzent -->
+    <rect x="20" y="48" width="240" height="32" rx="6" fill="#F59E0B" opacity="0.12"/>
+    <text x="140" y="68" font-size="11" font-weight="600" fill="#e2e8f0" text-anchor="middle" font-family="system-ui">JUNI 2026</text>
+    
+    <!-- Kalender-Raster -->
+    <g transform="translate(20, 88)">
+      <!-- Wochen-Tage -->
+      <g font-size="8" fill="#64748b" font-family="system-ui" text-anchor="middle">
+        <text x="17" y="12">MO</text><text x="51" y="12">DI</text><text x="85" y="12">MI</text>
+        <text x="119" y="12">DO</text><text x="153" y="12">FR</text><text x="187" y="12">SA</text><text x="221" y="12">SO</text>
+      </g>
+      <!-- Tage 1–7 -->
+      <rect x="10" y="20" width="24" height="24" rx="4" fill="#F59E0B" opacity="0.25"/>
+      <text x="22" y="35" font-size="10" font-weight="600" fill="#e2e8f0" text-anchor="middle" font-family="system-ui">1</text>
+      <g font-size="10" fill="#e2e8f0" font-family="system-ui" text-anchor="middle">
+        <text x="56" y="35">2</text><text x="90" y="35">3</text><text x="124" y="35">4</text>
+        <text x="158" y="35">5</text><text x="192" y="41" fill="#64748b">6</text><text x="226" y="41" fill="#64748b">7</text>
+      </g>
+      <!-- Termin-Marker -->
+      <circle cx="22" cy="52" r="3" fill="#F59E0B"/>
+      <circle cx="90" cy="52" r="3" fill="#F59E0B"/>
+      <circle cx="124" cy="52" r="3" fill="#F59E0B"/>
+    </g>
+
+    <!-- Branchen-Icons im Brandkit-Grid -->
+    <g transform="translate(20, 168)">
+      <g>
+        <circle cx="20" cy="20" r="18" fill="#F59E0B" opacity="0.08"/>
+        <text x="20" y="25" font-size="16" text-anchor="middle" fill="#F59E0B" font-family="system-ui">✂</text>
+      </g>
+      <g transform="translate(60, 0)">
+        <circle cx="20" cy="20" r="18" fill="#F59E0B" opacity="0.08"/>
+        <text x="20" y="25" font-size="16" text-anchor="middle" fill="#F59E0B" font-family="system-ui">💈</text>
+      </g>
+      <g transform="translate(120, 0)">
+        <circle cx="20" cy="20" r="18" fill="#F59E0B" opacity="0.08"/>
+        <text x="20" y="25" font-size="16" text-anchor="middle" fill="#F59E0B" font-family="system-ui">💆</text>
+      </g>
+      <g transform="translate(180, 0)">
+        <circle cx="20" cy="20" r="18" fill="#F59E0B" opacity="0.08"/>
+        <text x="20" y="25" font-size="16" text-anchor="middle" fill="#F59E0B" font-family="system-ui">🔧</text>
+      </g>
+    </g>
+
+    <!-- Nächster Termin (Card) -->
+    <rect x="20" y="220" width="240" height="80" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+    <text x="32" y="240" font-size="9" font-weight="600" fill="#F59E0B" font-family="system-ui" letter-spacing="1">NÄCHSTER TERMIN</text>
+    <text x="32" y="258" font-size="11" fill="#e2e8f0" font-family="system-ui">Haarschnitt + Bart</text>
+    <text x="32" y="274" font-size="9" fill="#64748b" font-family="system-ui">Heute, 14:30 · 45 Min</text>
+    <text x="248" y="258" font-size="12" font-weight="600" fill="#F59E0B" text-anchor="end" font-family="system-ui">€35</text>
+    <circle cx="248" cy="282" r="2" fill="#34d399"/>
+
+    <!-- Bottom Navigation -->
+    <rect x="40" y="480" width="200" height="24" rx="12" fill="rgba(255,255,255,0.03)"/>
+    <circle cx="80" cy="492" r="3" fill="#F59E0B" opacity="0.6"/>
+    <circle cx="140" cy="492" r="3" fill="rgba(255,255,255,0.12)"/>
+    <circle cx="200" cy="492" r="3" fill="rgba(255,255,255,0.12)"/>
+  </g>
+
+  <!-- Tablet (rechts, groß) -->
+  <g transform="translate(540, 100)" filter="url(#screenShadow)">
+    <rect x="0" y="0" width="640" height="820" rx="20" fill="#131a22" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+    <rect x="8" y="8" width="624" height="760" rx="12" fill="url(#screenGrad)"/>
+
+    <!-- Dashboard Header -->
+    <rect x="16" y="16" width="592" height="44" rx="8" fill="rgba(255,255,255,0.02)"/>
+    <text x="32" y="44" font-size="13" font-weight="700" fill="#e2e8f0" font-family="system-ui">Übersicht</text>
+    <text x="592" y="44" font-size="10" fill="#64748b" text-anchor="end" font-family="system-ui">Partner-Netzwerk DACH</text>
+
+    <!-- KPI Cards (Brandkit 2er-Grid) -->
+    <g transform="translate(16, 72)">
+      <rect x="0" y="0" width="200" height="64" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+      <text x="16" y="22" font-size="8" fill="#64748b" font-family="system-ui">BUCHUNGEN HEUTE</text>
+      <text x="16" y="50" font-size="24" font-weight="700" fill="#e2e8f0" font-family="system-ui">47</text>
+      <text x="80" y="50" font-size="11" fill="#34d399" font-family="system-ui">↑12%</text>
+
+      <rect x="212" y="0" width="200" height="64" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+      <text x="228" y="22" font-size="8" fill="#64748b" font-family="system-ui">UMSATZ DIESE WOCHE</text>
+      <text x="228" y="50" font-size="24" font-weight="700" fill="#e2e8f0" font-family="system-ui">€8.420</text>
+      <text x="324" y="50" font-size="11" fill="#34d399" font-family="system-ui">↑8%</text>
+
+      <rect x="424" y="0" width="180" height="64" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+      <text x="440" y="22" font-size="8" fill="#64748b" font-family="system-ui">PARTNER AKTIV</text>
+      <text x="440" y="50" font-size="24" font-weight="700" fill="#e2e8f0" font-family="system-ui">128</text>
+      <text x="536" y="50" font-size="11" fill="#34d399" font-family="system-ui">↑5</text>
+    </g>
+
+    <!-- Chart (Growth Curve mit Accent-Gradient) -->
+    <g transform="translate(16, 152)">
+      <text x="0" y="14" font-size="10" font-weight="600" fill="#e2e8f0" font-family="system-ui">Wachstum</text>
+      <text x="592" y="14" font-size="8" fill="#64748b" text-anchor="end" font-family="system-ui">30 TAGE</text>
+      <!-- Grid -->
+      <g stroke="rgba(255,255,255,0.03)" stroke-width="0.5">
+        <line x1="0" y1="35" x2="592" y2="35"/>
+        <line x1="0" y1="65" x2="592" y2="65"/>
+        <line x1="0" y1="95" x2="592" y2="95"/>
+        <line x1="0" y1="125" x2="592" y2="125"/>
+      </g>
+      <!-- Accent Curve (steigend) -->
+      <polyline points="0,120 20,115 40,110 60,105 80,98 100,92 120,85 140,78 160,72 180,65 200,58 220,52 240,48 260,42 280,38 300,35 320,30 340,28 360,25 380,22 400,20 420,18 440,16 460:14 480:12 500:10 520:9 540:8 560:7 580:6 592:5"
+        fill="none" stroke="url(#accGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="592" cy="5" r="3" fill="#F59E0B" filter="url(#softGlow)"/>
+    </g>
+
+    <!-- DACH-Netzwerk-Karte -->
+    <g transform="translate(16, 300)">
+      <text x="0" y="14" font-size="10" font-weight="600" fill="#e2e8f0" font-family="system-ui">Partner-Netzwerk</text>
+      <text x="592" y="14" font-size="8" fill="#64748b" text-anchor="end" font-family="system-ui">DACH-REGION</text>
+      
+      <!-- Europa-Grundfläche -->
+      <ellipse cx="240" cy="90" rx="200" ry="90" fill="rgba(255,255,255,0.01)" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+      
+      <!-- DACH-Highlight -->
+      <ellipse cx="180" cy="75" rx="55" ry="45" fill="#F59E0B" opacity="0.06" stroke="#F59E0B" stroke-width="0.8" stroke-dasharray="3,3"/>
+      <text x="180" y="70" font-size="9" font-weight="700" fill="#F59E0B" text-anchor="middle" font-family="system-ui">DE</text>
+      <text x="180" y="84" font-size="8" font-weight="600" fill="#F59E0B" text-anchor="middle" font-family="system-ui">AT/CH</text>
+
+      <!-- Netzwerk-Knoten -->
+      <g fill="#F59E0B">
+        <circle cx="120" cy="60" r="4" opacity="0.7"/>
+        <circle cx="160" cy="45" r="3" opacity="0.5"/>
+        <circle cx="200" cy="65" r="4" opacity="0.7"/>
+        <circle cx="240" cy="80" r="3" opacity="0.5"/>
+        <circle cx="170" cy="90" r="3" opacity="0.5"/>
+        <circle cx="130" cy="85" r="3" opacity="0.4"/>
+        <circle cx="210" cy="50" r="3" opacity="0.6"/>
+      </g>
+      <!-- Verbindungen -->
+      <g stroke="#F59E0B" stroke-width="0.5" opacity="0.3">
+        <line x1="120" y1="60" x2="160" y2="45"/>
+        <line x1="160" y1="45" x2="200" y2="65"/>
+        <line x1="200" y1="65" x2="240" y2="80"/>
+        <line x1="170" y1="90" x2="200" y2="65"/>
+        <line x1="160" y1="45" x2="210" y2="50"/>
+        <line x1="130" y1="85" x2="170" y2="90"/>
+        <line x1="120" y1="60" x2="130" y2="85"/>
+      </g>
+    </g>
+
+    <!-- 2er-Grid: Empfehlungen + Vertrauen -->
+    <g transform="translate(16, 430)">
+      <!-- Empfehlungen -->
+      <rect x="0" y="0" width="296" height="180" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+      <text x="148" y="20" font-size="9" font-weight="600" fill="#e2e8f0" text-anchor="middle" font-family="system-ui" letter-spacing="1">EMPFEHLUNGEN</text>
+      <!-- Liste -->
+      <g transform="translate(12, 32)">
+        <rect x="0" y="0" width="272" height="36" rx="6" fill="rgba(255,255,255,0.02)"/>
+        <text x="12" y="22" font-size="10" fill="#e2e8f0" font-family="system-ui">✂ BarberStyle Aachen</text>
+        <text x="260" y="22" font-size="10" fill="#F59E0B" text-anchor="end" font-family="system-ui">€25</text>
+        <rect x="0" y="40" width="272" height="36" rx="6" fill="rgba(255,255,255,0.02)"/>
+        <text x="12" y="62" font-size="10" fill="#e2e8f0" font-family="system-ui">💆 Wellness Oase</text>
+        <text x="260" y="62" font-size="10" fill="#F59E0B" text-anchor="end" font-family="system-ui">€89</text>
+        <rect x="0" y="80" width="272" height="36" rx="6" fill="rgba(255,255,255,0.02)"/>
+        <text x="12" y="102" font-size="10" fill="#e2e8f0" font-family="system-ui">🔧 AutoService Köln</text>
+        <text x="260" y="102" font-size="10" fill="#F59E0B" text-anchor="end" font-family="system-ui">€150</text>
+      </g>
+
+      <!-- Vertrauens-Siegel -->
+      <rect x="308" y="0" width="296" height="180" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"/>
+      <text x="456" y="20" font-size="9" font-weight="600" fill="#e2e8f0" text-anchor="middle" font-family="system-ui" letter-spacing="1">PARTNER-VERTRAUEN</text>
+      <g transform="translate(456, 90)">
+        <path d="M0,-24 L24,-14 L24,10 Q24,34 0,42 Q-24,34 -24,10 L-24,-14 Z" fill="#F59E0B" opacity="0.1" stroke="#F59E0B" stroke-width="1"/>
+        <path d="M-8,-5 L-3,0 L8,-10" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <text x="456" y="132" font-size="10" fill="#64748b" text-anchor="middle" font-family="system-ui">Geprüfte Qualität</text>
+      <text x="456" y="150" font-size="9" fill="#475569" text-anchor="middle" font-family="system-ui">DACH-zertifizierte Partner</text>
+    </g>
+  </g>
+
+  <!-- Verbindungslinie Smartphone ↔ Tablet (Synergie) -->
+  <g opacity="0.15">
+    <line x1="430" y1="520" x2="540" y2="480" stroke="#F59E0B" stroke-width="1" stroke-dasharray="4,4"/>
+    <line x1="430" y1="480" x2="540" y2="440" stroke="#F59E0B" stroke-width="0.5" stroke-dasharray="2,4"/>
+  </g>
+
+  <!-- Accent-Orb (Brandkit-Signatur-Element) -->
+  <circle cx="960" cy="540" r="300" fill="url(#glowGrad)" opacity="0.08"/>
+</svg>

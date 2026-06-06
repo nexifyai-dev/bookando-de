@@ -22,6 +22,8 @@ function isItemActive(item, pathname) {
  * PortalShell — Generalisierte Portal-Hülle mit Sidebar, Topbar, Mobile-Nav
  *
  * Props:
+ *   children           – React-Knoten (optional). Fallback: <Outlet />
+ *
  *   portalName         – Anzeigename des Portals (z.B. "Dashboard")
  *   logoHref           – Link-Ziel für Logo
  *   navItems           – Array von { path, label, icon, badge?, testId?, mobileOnly?, desktopOnly?, exact?, matchPaths? }
@@ -34,6 +36,7 @@ function isItemActive(item, pathname) {
  *   headerContent      – Optionaler ReactNode rechts in der Topbar (z.B. NotificationBell)
  */
 export function PortalShell({
+  children,
   portalName = 'Portal',
   logoHref = '/portal',
   navItems = [
@@ -115,9 +118,9 @@ export function PortalShell({
             {!hideLanguageSwitch && (
               <div className="hidden md:flex items-center border border-[var(--color-divider)] bg-white p-0.5" style={{ borderRadius: 'var(--radius-sm)' }} data-testid={`${dataTestId}-language-switch`}>
                 {LANG_OPTIONS.map((lang) => (
-                  <button key={lang.code} type="button" className="cursor-pointer" onClick={() => i18n.changeLanguage(lang.code)}
+                  <button key={lang.code} type="button" onClick={() => i18n.changeLanguage(lang.code)}
                     data-testid={`${dataTestId}-lang-${lang.code}`}
-                    className={i18n.language === lang.code ? 'w2g-lang-pill w2g-lang-pill-active' : 'w2g-lang-pill'}>
+                    className={`cursor-pointer ${i18n.language === lang.code ? 'w2g-lang-pill w2g-lang-pill-active' : 'w2g-lang-pill'}`}>
                     {lang.label}
                   </button>
                 ))}
@@ -127,8 +130,8 @@ export function PortalShell({
             {/* User-Menü */}
             {user && (
               <div className="hidden md:block relative" ref={userMenuRef}>
-                <button type="button" className="cursor-pointer" onClick={() => setUserMenuOpen((o) => !o)}
-                  className="flex items-center gap-2 border border-[var(--color-divider)] bg-white px-2 py-1.5 hover:border-[var(--color-primary)] transition-colors"
+                <button type="button" onClick={() => setUserMenuOpen((o) => !o)}
+                  className="cursor-pointer flex items-center gap-2 border border-[var(--color-divider)] bg-white px-2 py-1.5 hover:border-[var(--color-primary)] transition-colors"
                   style={{ borderRadius: 'var(--radius-md)' }} data-testid={`${dataTestId}-user-menu-button`}>
                   <div className="h-7 w-7 flex items-center justify-center bg-[var(--color-primary)] text-[10px] font-bold text-white" style={{ borderRadius: 'var(--radius-sm)' }}>{initials}</div>
                   <span className="hidden xl:block max-w-[120px] truncate text-xs font-semibold text-[var(--color-text-primary)]">{user?.full_name || user?.email}</span>
@@ -150,8 +153,8 @@ export function PortalShell({
               </div>
             )}
 
-            <button type="button" className="cursor-pointer" onClick={() => setMobileOpen((o) => !o)}
-              className="inline-flex h-9 w-9 items-center justify-center border border-[var(--color-divider)] bg-white lg:hidden"
+            <button type="button" onClick={() => setMobileOpen((o) => !o)}
+              className="cursor-pointer inline-flex h-9 w-9 items-center justify-center border border-[var(--color-divider)] bg-white lg:hidden"
               style={{ borderRadius: 'var(--radius-sm)' }} data-testid={`${dataTestId}-mobile-toggle`}>
               {mobileOpen ? <X size={16} className="text-[var(--color-text-secondary)]" /> : <Menu size={16} className="text-[var(--color-text-secondary)]" />}
             </button>
@@ -200,10 +203,10 @@ export function PortalShell({
         </nav>
 
         <div className="border-t border-[var(--color-divider)] p-2">
-          <button type="button" className="cursor-pointer" onClick={() => setCollapsed((c) => !c)}
+          <button type="button" onClick={() => setCollapsed((c) => !c)}
             data-testid={`${dataTestId}-sidebar-toggle`}
             title={collapsed ? 'Sidebar ausklappen' : 'Sidebar einklappen'}
-            className="flex items-center gap-4 w-full text-[12px] font-medium text-[var(--color-text-tertiary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-surface-sunken)] transition-all"
+            className="cursor-pointer flex items-center gap-4 w-full text-[12px] font-medium text-[var(--color-text-tertiary)] hover:text-[var(--color-primary)] hover:bg-[var(--color-surface-sunken)] transition-all"
             style={{
               borderRadius: 'var(--radius-md)',
               padding: collapsed ? '10px 0' : '10px 12px',
@@ -237,9 +240,9 @@ export function PortalShell({
                 <span className="flex items-center gap-2 text-sm font-medium text-[var(--color-text-secondary)]"><Globe size={14} /> Sprache</span>
                 <div className="flex gap-2">
                   {LANG_OPTIONS.map((lang) => (
-                    <button key={lang.code} type="button" className="cursor-pointer" onClick={() => i18n.changeLanguage(lang.code)}
+                    <button key={lang.code} type="button" onClick={() => i18n.changeLanguage(lang.code)}
                       data-testid={`${dataTestId}-mobile-lang-${lang.code}`}
-                      className={i18n.language === lang.code ? 'w2g-lang-pill w2g-lang-pill-active' : 'w2g-lang-pill'}>
+                      className={`cursor-pointer ${i18n.language === lang.code ? 'w2g-lang-pill w2g-lang-pill-active' : 'w2g-lang-pill'}`}>
                       {lang.label}
                     </button>
                   ))}
@@ -283,7 +286,7 @@ export function PortalShell({
         style={{ '--sb-w': `${sidebarWidth}px`, paddingTop: 'calc(var(--topbar-height) + 20px)', paddingBottom: mobileBottomNav.length ? '96px' : '32px' }}
       >
         <div className="px-4 sm:px-5 lg:px-6 mx-auto" style={{ maxWidth: 'calc(var(--shell-max-width) + 48px)' }}>
-          <Outlet />
+          {children || <Outlet />}
         </div>
       </main>
 

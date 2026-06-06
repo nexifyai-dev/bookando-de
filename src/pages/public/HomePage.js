@@ -119,7 +119,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <SEOHead title="Bookando – Deine Buchungs- & Vertriebsplattform" description="Bookando.de vereint Terminbuchung, Affiliate-Marketing, Wallet und Marketplace in einer Plattform für Dienstleister." />
+      <SEOHead title="Deine Buchungs- & Vertriebsplattform" description="Bookando.de vereint Terminbuchung, Affiliate-Marketing, Wallet und Marketplace in einer Plattform für Dienstleister." />
       <PublicNav />
 
       {/* HERO */}
@@ -161,16 +161,9 @@ export default function HomePage() {
               </div>
             </div>
             <div className={`hidden lg:flex lg:col-span-5 items-center justify-center ${stagger(heroVis, 1)}`} style={staggerDelay(1)}>
-              <div className="w-[320px] h-[320px] rounded-[24px] flex items-center justify-center"
-                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                <div className="text-center p-8">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-[16px] flex items-center justify-center"
-                    style={{ background: 'rgba(196,155,62,0.15)' }}>
-                    <Star size={32} style={{ color: 'var(--color-accent)' }} />
-                  </div>
-                  <p className="text-white/30 text-sm">Deine Grafik</p>
-                </div>
-              </div>
+              <img src="/images/hero-grafik.png" alt="Bookando Plattform Übersicht"
+                className="w-full max-w-[560px] h-auto object-contain drop-shadow-2xl"
+                style={{ filter: 'brightness(0.95) saturate(1.05)', transform: 'scale(1.1)' }} />
             </div>
           </div>
         </div>
@@ -256,14 +249,10 @@ export default function HomePage() {
                 </div>
               </div>
               <div className={`hidden lg:flex lg:col-span-5 items-center justify-center lg:justify-end p-8 sm:p-10 lg:p-12 ${stagger(ctaVis, 1)}`} style={staggerDelay(1)}>
-                <div className="w-[200px] sm:w-[240px] lg:w-[300px] h-auto aspect-square rounded-[16px] flex items-center justify-center"
-                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <div className="text-center">
-                    <CheckCircle size={48} style={{ color: 'var(--color-accent)' }} className="mx-auto mb-3" />
-                    <p className="text-white/30 text-sm">Deine Grafik</p>
-                  </div>
-                </div>
-              </div>
+              <img src="/images/cta-grafik.png" alt="30 Tage kostenlos testen"
+                className="w-full max-w-[380px] h-auto object-contain drop-shadow-2xl"
+                style={{ filter: 'brightness(0.97) saturate(0.9)', transform: 'scale(1.15)' }} />
+            </div>
             </div>
           </div>
         </div>

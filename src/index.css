@@ -10,15 +10,15 @@
        CI-FARBSYSTEM — Überschreibbar für jedes Projekt
        Einfach diese Variablen in deinem Projekt überschreiben.
        ════════════════════════════════════════════════════════════ */
-    --color-primary: #0A192F;
-    --color-primary-light: #172A45;
-    --color-primary-dark: #020C1B;
-    --color-primary-muted: rgba(10,25,47,0.05);
-    --color-accent: #FFA604;
-    --color-accent-hover: #E09500;
-    --color-accent-light: #FFF0D0;
-    --color-accent-muted: rgba(255,166,4,0.10);
-    --color-accent-subtle: rgba(255,166,4,0.05);
+    --color-primary: #1A202C;
+    --color-primary-light: #2D3748;
+    --color-primary-dark: #2D3748;
+    --color-primary-muted: rgba(26,32,44,0.05);
+    --color-accent: #F59E0B;
+    --color-accent-hover: #D97706;
+    --color-accent-light: #FEF3C7;
+    --color-accent-muted: rgba(245,158,11,0.10);
+    --color-accent-subtle: rgba(245,158,11,0.05);
     --color-accent-teal: #0D9488;
     --color-accent-pink: #DB2777;
     --color-shell-bg: #F8FAFC;
@@ -65,7 +65,7 @@
     --shadow-glass: 0 4px 16px rgba(0,0,0,0.06);
     --shadow-elevated: var(--shadow-e2);
     --shadow-modal: var(--shadow-e4);
-    --shadow-focus: 0 0 0 2px var(--color-primary), 0 0 0 4px rgba(10,25,47,0.12);
+    --shadow-focus: 0 0 0 2px var(--color-primary), 0 0 0 4px rgba(26,32,44,0.12);
     --shadow-inset: inset 0 1px 2px rgba(0,0,0,0.04);
 
     /* ════════════════════════════════════════════════════════════

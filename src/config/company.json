@@ -1,0 +1,39 @@
+{
+  "company": {
+    "name": "FixDigital",
+    "legal_form": "Einzelunternehmen",
+    "owner": "Kevin Gaus",
+    "address": {
+      "street": "Severinstr. 81",
+      "zip": "52080",
+      "city": "Aachen",
+      "country": "Deutschland"
+    },
+    "contact": {
+      "phone": "+49 15679 175426",
+      "email": "info@fixdigital.de",
+      "website": "https://fixdigital.de"
+    },
+    "tax": {
+      "vat_id": "DE349691679",
+      "note": "Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz"
+    },
+    "platform": {
+      "name": "Bookando",
+      "domain": "bookando.de",
+      "app_domain": "app.bookando.de",
+      "email_domain": "nexifyai.cloud",
+      "support_email": "hallo@bookando.de",
+      "noreply_email": "noreply@nexifyai.cloud"
+    },
+    "disclaimer": {
+      "ec_platform": "https://ec.europa.eu/consumers/odr/",
+      "dispute_resolution": "Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
+    },
+    "copyright": {
+      "year": 2026,
+      "holder": "Kevin Gaus",
+      "text": "Alle Rechte vorbehalten."
+    }
+  }
+}

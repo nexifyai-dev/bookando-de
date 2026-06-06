@@ -213,7 +213,7 @@ export default function RegisterPage() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-white/10"></div>
         </div>
         <div className="relative z-10 flex flex-col items-center justify-center w-full px-12 text-center">
-          <img src="/images/brand-logo-white.png" alt="Bookando"
+          <img src="/images/brand-logo-on-dark-full.png" alt="Bookando"
             className="h-12 w-auto object-contain mb-8" />
           <h2 className="text-3xl font-bold text-white mb-4 font-heading">Bookando</h2>
           <p className="text-white/70 text-base max-w-md leading-relaxed">

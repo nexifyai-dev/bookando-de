@@ -68,9 +68,11 @@ export default function PublicNav({
         {/* Logo */}
         <Link to={logoHref} className="flex items-center gap-4 shrink-0" data-testid={`${dataTestId}-logo`}>
           {logoUrl ? (
-            <img src={logoUrl} alt={logoText}
+            <img
+              src={scrolled || !isHome ? logoUrl : '/images/brand-logo-on-dark-full.png'}
+              alt={logoText}
               className="h-8 sm:h-9 w-auto object-contain"
-              style={{ filter: scrolled || !isHome ? 'none' : 'brightness(0) invert(1)' }} />
+            />
           ) : (
             <span className={`text-lg md:text-xl font-bold font-[var(--font-heading)] tracking-tight ${textColor}`}>
               {logoText}

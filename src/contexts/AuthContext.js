@@ -5,7 +5,8 @@ import i18n from '../i18n';
 const AuthContext = createContext(null);
 
 function syncLanguage(user) {
-  const lang = user?.profile?.language;
+  // BACKEND: language liegt auf root-level (user.language), nicht profile.language
+  const lang = user?.language;
   if (lang && i18n.language !== lang) {
     i18n.changeLanguage(lang);
   }
@@ -43,7 +44,8 @@ export function AuthProvider({ children }) {
     const payload = { email, password };
     if (totpCode) payload.totp_code = totpCode;
     const { data } = await apiClient.post('/api/auth/login', payload);
-    setTokens(data.tokens);
+    // FIX: Login-Response hat access_token/refresh_token auf oberster Ebene, nicht unter .tokens
+    setTokens(data);
     setUser(data.user);
     syncLanguage(data.user);
     return data.user;
@@ -51,6 +53,7 @@ export function AuthProvider({ children }) {
 
   const register = async (payload) => {
     const { data } = await apiClient.post('/api/auth/register', payload);
+    // Register-Response hat tokens unter .tokens
     setTokens(data.tokens);
     setUser(data.user);
     syncLanguage(data.user);
@@ -69,7 +72,8 @@ export function AuthProvider({ children }) {
   const refreshUser = async () => fetchMe();
 
   const updateProfile = async (patch) => {
-    const { data } = await apiClient.patch('/api/users/me', patch);
+    // FIX: Backend erwartet PUT /auth/profile, nicht PATCH /api/users/me
+    const { data } = await apiClient.put('/api/auth/profile', patch);
     setUser(data);
     syncLanguage(data);
     return data;

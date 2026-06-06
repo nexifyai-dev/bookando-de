@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <!-- Bookando Icon — Orange Hexagon + präzises "b" -->
+  <!-- Hexagon with brand orange fill -->
+  <polygon points="256,20 472,136 472,376 256,492 40,376 40,136" fill="#F59E0B"/>
+  
+  <!-- Hexagon guide lines (subtle brand detail) -->
+  <g opacity="0.10">
+    <line x1="40" y1="136" x2="472" y2="376" stroke="#2D3748" stroke-width="6"/>
+    <line x1="472" y1="136" x2="40" y2="376" stroke="#2D3748" stroke-width="6"/>
+    <line x1="256" y1="20" x2="256" y2="492" stroke="#2D3748" stroke-width="6"/>
+    <line x1="40" y1="256" x2="472" y2="256" stroke="#2D3748" stroke-width="6"/>
+  </g>
+  
+  <!-- "b" letterform as precise path (visually centered) -->
+  <path d="M 187.1,369.2 L 187.1,201.8 C 187.1,172.3 206.8,157.5 236.3,157.5 C 275.7,157.5 315.1,177.2 339.7,211.7 C 364.3,246.2 374.2,285.5 374.2,320.0 C 374.2,359.4 354.5,388.9 324.9,403.7 C 300.3,418.5 270.8,418.5 241.2,403.7 C 241.2,374.2 251.1,344.6 270.8,320.0 C 290.5,295.4 300.3,265.8 300.3,236.3 C 300.3,211.7 285.5,192.0 260.9,187.1 L 206.8,187.1 L 206.8,369.2 Z" fill="#2D3748"/>
+</svg>

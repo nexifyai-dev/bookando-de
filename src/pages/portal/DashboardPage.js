@@ -8,7 +8,7 @@ import { CustomerBookingsApi, PlansApi } from '../../lib/api';
 
 function KpiCard({ icon: Icon, value, label, trend }) {
   return (
-    <div className="rounded-xl p-5 transition-shadow hover:shadow-[var(--shadow-e2)]"
+    <div data-testid="dashboard-page" className="rounded-xl p-5 transition-shadow hover:shadow-[var(--shadow-e2)]"
       style={{ background: 'var(--color-surface)', border: '1px solid var(--color-divider)' }}>
       <div className="flex items-center gap-4 mb-3">
         <div className="w-10 h-10 rounded-lg flex items-center justify-center"

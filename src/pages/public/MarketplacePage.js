@@ -1,73 +1,145 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next';
 import SEOHead from '../../components/shared/SEOHead';
 import PublicNav from '../../components/layout/PublicNav';
 import PublicFooter from '../../components/layout/PublicFooter';
-import { Search, MapPin, Star, ArrowRight, Sparkles, Scissors, Palette, Droplet, Zap, Store, Loader2, AlertCircle } from 'lucide-react';
+import { Search, MapPin, Star, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
 import { MarketplaceApi } from '../../lib/api';
+import { cn } from '../../lib/utils-cn';
 
-/**
- * Generates initials from a vendor name
- * @param {string} name
- * @returns {string}
- */
 const getInitials = (name) => {
-  return name
-    .split(' ')
-    .map((w) => w.charAt(0))
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
+  if (!name) return '--';
+  return name.split(' ').map(w => w.charAt(0)).join('').slice(0, 2).toUpperCase();
 };
 
-/**
- * Generates a deterministic background color from a string
- * @param {string} name
- * @returns {string}
- */
 const getAvatarColor = (name) => {
-  const colors = [
-    '#7C3AED', '#EC4899', '#F59E0B', '#10B981', '#3B82F6',
-    '#EF4444', '#8B5CF6', '#14B8A6', '#F97316', '#6366F1',
-  ];
+  const colors = ['#F59E0B', '#1A202C', '#D97706', '#2D3748', '#B07C00', '#2D3748'];
   let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  }
+  for (let i = 0; i < (name || '').length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
   return colors[Math.abs(hash) % colors.length];
 };
 
-/**
- * Renders star rating as JSX elements
- * @param {number} rating
- * @returns {JSX.Element[]}
- */
 const renderStars = (rating) => {
-  const fullStars = Math.floor(rating);
-  const hasHalf = rating - fullStars >= 0.5;
+  const r = rating || 0;
+  const full = Math.floor(r);
+  const half = r - full >= 0.5;
   const stars = [];
   for (let i = 0; i < 5; i++) {
-    if (i < fullStars) {
+    if (i < full) {
+      stars.push(<Star key={i} size={14} fill="var(--color-warning)" style={{ color: 'var(--color-warning)' }} />);
+    } else if (i === full && half) {
       stars.push(
-        <Star key={i} size={14} fill="var(--color-warning)" style={{ color: 'var(--color-warning)' }} />
-      );
-    } else if (i === fullStars && hasHalf) {
-      stars.push(
-        <span key={i} style={{ position: 'relative', display: 'inline-block' }}>
+        <span key={i} className="relative inline-block">
           <Star size={14} style={{ color: 'var(--color-divider)' }} />
-          <span style={{ position: 'absolute', top: 0, left: 0, overflow: 'hidden', width: '50%' }}>
+          <span className="absolute top-0 left-0 overflow-hidden" style={{ width: '50%' }}>
             <Star size={14} fill="var(--color-warning)" style={{ color: 'var(--color-warning)' }} />
           </span>
         </span>
       );
     } else {
-      stars.push(
-        <Star key={i} size={14} style={{ color: 'var(--color-divider)' }} />
-      );
+      stars.push(<Star key={i} size={14} style={{ color: 'var(--color-divider)' }} />);
     }
   }
   return stars;
+};
+
+const CategoryPill = ({ cat, isActive, onClick }) => (
+  <button
+    onClick={onClick}
+    className={cn(
+      'inline-flex items-center gap-1.5 px-[18px] py-2 rounded-full text-[0.85rem] border-none cursor-pointer transition-all duration-200',
+      isActive ? 'font-semibold shadow-[var(--shadow-e2)]' : 'font-medium shadow-[var(--shadow-e1)]'
+    )}
+    style={{
+      backgroundColor: isActive ? 'var(--color-primary)' : 'var(--color-surface)',
+      color: isActive ? '#fff' : 'var(--color-text-primary)',
+    }}
+    onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.backgroundColor = 'var(--color-primary-muted)'; }}
+    onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.backgroundColor = 'var(--color-surface)'; }}
+  >
+    {cat.key !== 'all' && <span className="text-[0.8rem]">{cat.icon}</span>}
+    {cat.label}
+  </button>
+);
+
+const VendorCard = ({ vendor, t }) => {
+  const description = vendor.descriptionDe || vendor.description_de || vendor.descriptionEn || vendor.description_en || vendor.description || '';
+  const avatarColor = getAvatarColor(vendor.name);
+
+  return (
+    <Link
+      to={vendor.slug ? `/marketplace/${vendor.slug}` : '/auth/register'}
+      className="block no-underline group"
+    >
+      <div
+        className="flex flex-col h-full p-6 rounded-[var(--radius-lg)] cursor-pointer transition-all duration-250"
+        style={{
+          border: '1px solid var(--color-divider)',
+          backgroundColor: 'var(--color-surface)',
+        }}
+      >
+        {/* Header */}
+        <div className="flex items-center gap-3.5 mb-4">
+          <div
+            className="w-[50px] h-[50px] rounded-[var(--radius-sm)] flex items-center justify-center text-white font-bold shrink-0"
+            style={{ backgroundColor: avatarColor, fontFamily: 'var(--font-heading)', fontSize: '1.1rem' }}
+          >
+            {getInitials(vendor.name)}
+          </div>
+          <div className="min-w-0">
+            <h3 className="m-0 text-base font-semibold truncate" style={{ color: 'var(--color-text-primary)' }}>
+              {vendor.name}
+            </h3>
+            {vendor.location && (
+              <p className="m-0 mt-0.5 flex items-center gap-1 text-[0.75rem]" style={{ color: 'var(--color-text-tertiary)' }}>
+                <MapPin size={11} /> {vendor.location}
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Rating */}
+        <div className="flex items-center gap-1.5 mb-3">
+          <span className="flex items-center gap-px">{renderStars(vendor.rating)}</span>
+          <span className="text-[0.75rem] font-semibold" style={{ color: 'var(--color-text-primary)' }}>
+            {vendor.rating ? vendor.rating.toFixed(1) : '0.0'}
+          </span>
+          {vendor.reviewCount != null && (
+            <span className="text-[0.7rem]" style={{ color: 'var(--color-text-tertiary)' }}>
+              ({vendor.reviewCount})
+            </span>
+          )}
+        </div>
+
+        {/* Description */}
+        {description && (
+          <p className="m-0 mb-4 text-[0.85rem] leading-[1.5] flex-1 line-clamp-3" style={{ color: 'var(--color-text-secondary)' }}>
+            {description}
+          </p>
+        )}
+
+        {/* Services */}
+        {(vendor.services || vendor.service_names || []).length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mb-[18px]">
+            {(vendor.services || vendor.service_names || []).slice(0, 4).map((service, idx) => (
+              <span key={idx} className="text-[0.7rem] px-[10px] py-[3px] rounded-full font-medium"
+                style={{ backgroundColor: 'var(--color-primary-muted)', color: 'var(--color-primary)' }}>
+                {typeof service === 'string' ? service : service.name || service}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* CTA */}
+        <div className="flex items-center justify-center gap-1.5 w-full py-[10px] px-5 rounded-[var(--radius-md)] text-[0.85rem] font-semibold border-none cursor-pointer transition-all duration-200 group-hover:brightness-110"
+          style={{ backgroundColor: 'var(--color-primary)', color: '#fff' }}>
+          {t('marketplace.book_now', 'Jetzt buchen')}
+          <ArrowRight size={14} />
+        </div>
+      </div>
+    </Link>
+  );
 };
 
 export default function MarketplacePage() {
@@ -79,19 +151,9 @@ export default function MarketplacePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchFocused, setSearchFocused] = useState(false);
 
-  // Fetch categories on mount
-  useEffect(() => {
-    let cancelled = false;
-    MarketplaceApi.countries()
-      .then(() => {
-        // Countries endpoint indicates API is reachable; categories come from vendors
-      })
-      .catch(() => {});
-    return () => { cancelled = true; };
-  }, []);
-
-  // Fetch vendors on mount
+  // Fetch vendors
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
@@ -100,16 +162,14 @@ export default function MarketplacePage() {
     MarketplaceApi.vendors()
       .then((data) => {
         if (!cancelled) {
-          // data can be an array or { vendors: [...] }
           const vendorList = Array.isArray(data) ? data : (data.vendors || data.data || []);
           setVendors(vendorList);
-
-          // Extract unique categories from vendor data
           const cats = new Set();
-          vendorList.forEach(v => {
-            if (v.category) cats.add(v.category);
-          });
-          setCategories([{ key: 'all', label: t('marketplace.filter_all', 'Alle'), icon: null }, ...Array.from(cats).map(c => ({ key: c, label: c, icon: '✦' }))]);
+          vendorList.forEach(v => { if (v.category) cats.add(v.category); });
+          setCategories([
+            { key: 'all', label: t('marketplace.filter_all', 'Alle'), icon: null },
+            ...Array.from(cats).map(c => ({ key: c, label: c, icon: '✦' }))
+          ]);
         }
       })
       .catch((err) => {
@@ -118,20 +178,17 @@ export default function MarketplacePage() {
           setError(err.message || t('marketplace.error_load', 'Fehler beim Laden der Daten.'));
         }
       })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
+      .finally(() => { if (!cancelled) setLoading(false); });
 
     return () => { cancelled = true; };
-  }, []);
+  }, [t]);
 
-  // Fallback categories if API doesn't return any
   const displayCategories = categories.length > 1 ? categories : [
     { key: 'all', label: t('marketplace.filter_all', 'Alle'), icon: null },
-    { key: 'tattoo', label: t('marketplace.filter_tattoo', 'Tattoo'), icon: 'Sparkles' },
+    { key: 'tattoo', label: t('marketplace.filter_tattoo', 'Tattoo'), icon: '✦' },
     { key: 'kosmetik', label: t('marketplace.filter_kosmetik', 'Kosmetik'), icon: '✦' },
-    { key: 'friseur', label: t('marketplace.filter_friseur', 'Friseur'), icon: '✁' },
-    { key: 'barber', label: t('marketplace.filter_barber', 'Barbershop'), icon: 'Scissors' },
+    { key: 'friseur', label: t('marketplace.filter_friseur', 'Friseur'), icon: '✦' },
+    { key: 'barber', label: t('marketplace.filter_barber', 'Barbershop'), icon: '✦' },
     { key: 'nagel', label: t('marketplace.filter_nagel', 'Nagelstudio'), icon: '✦' },
     { key: 'laser', label: t('marketplace.filter_laser', 'Laser'), icon: '✦' },
   ];
@@ -140,386 +197,117 @@ export default function MarketplacePage() {
     return vendors.filter((vendor) => {
       const matchesCategory = activeCategory === 'all' || vendor.category === activeCategory;
       const query = searchQuery.toLowerCase().trim();
+      if (!query) return matchesCategory;
       const nameMatch = (vendor.name || '').toLowerCase().includes(query);
       const catMatch = (vendor.category || '').toLowerCase().includes(query);
-      const descDe = (vendor.descriptionDe || vendor.description_de || vendor.description || '');
-      const descEn = (vendor.descriptionEn || vendor.description_en || vendor.description || '');
-      const descMatch = (i18n.language === 'de' ? descDe : descEn).toLowerCase().includes(query);
+      const desc = (vendor.descriptionDe || vendor.description_de || vendor.descriptionEn || vendor.description_en || vendor.description || '');
+      const descMatch = desc.toLowerCase().includes(query);
       const services = vendor.services || vendor.service_names || [];
-      const serviceMatch = services.some((s) => (typeof s === 'string' ? s : s.name || s).toLowerCase().includes(query));
-      const matchesSearch = !query || nameMatch || catMatch || descMatch || serviceMatch;
-      return matchesCategory && matchesSearch;
+      const serviceMatch = services.some((s) => (typeof s === 'string' ? s : s.name || '').toLowerCase().includes(query));
+      return matchesCategory && (nameMatch || catMatch || descMatch || serviceMatch);
     });
-  }, [activeCategory, searchQuery, i18n.language, vendors]);
+  }, [activeCategory, searchQuery, vendors]);
 
   return (
-    <div>
-      <SEOHead title="Bookando – Marketplace für Dienstleister" description="Finde den passenden Dienstleister in Aachen und Umgebung. Tattoo, Kosmetik, Friseur & mehr – mit Bookando." />
+    <div data-testid="marketplace-page">
+      <SEOHead title={t('marketplace.seo_title', 'Bookando – Marketplace für Dienstleister')}
+               description={t('marketplace.seo_desc', 'Finde den passenden Dienstleister in Aachen und Umgebung.')} />
       <PublicNav />
-      <main style={{ paddingTop: '96px', paddingBottom: '64px' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', paddingLeft: '24px', paddingRight: '24px' }}>
-          {/* Hero Section */}
-          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
-            <h1
-              style={{
-                fontSize: 'clamp(1.75rem, 4vw, 2.5rem)',
-                fontWeight: 700,
-                color: 'var(--color-primary)',
-                marginBottom: '12px',
-                fontFamily: 'var(--font-heading)',
-              }}
-            >
+
+      <main className="pt-24 pb-16">
+        <div className="max-w-[1280px] mx-auto px-6">
+
+          {/* Hero */}
+          <div className="text-center mb-12">
+            <h1 className="text-[clamp(1.75rem,4vw,2.5rem)] font-bold mb-3 tracking-[-0.02em]"
+                style={{ color: 'var(--color-primary)', fontFamily: 'var(--font-heading)' }}>
               {t('marketplace.title', 'Unser Marktplatz')}
             </h1>
-            <p
-              style={{
-                color: 'var(--color-text-secondary)',
-                maxWidth: '560px',
-                margin: '0 auto',
-                lineHeight: 1.6,
-              }}
-            >
-              {t('marketplace.subtitle', 'Finde die besten Dienstleister in Aachen und Umgebung. Von Tattoo-Studios bis Kosmetik.')}
+            <p className="max-w-[560px] mx-auto leading-[1.6]" style={{ color: 'var(--color-text-secondary)' }}>
+              {t('marketplace.subtitle', 'Finde die besten Dienstleister in Aachen und Umgebung.')}
             </p>
           </div>
 
-          {/* Search Bar */}
-          <div style={{ maxWidth: '640px', margin: '0 auto 32px' }}>
-            <div style={{ position: 'relative' }}>
-              <Search
-                size={18}
-                style={{
-                  position: 'absolute',
-                  left: '16px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  color: 'var(--color-text-tertiary)',
-                  pointerEvents: 'none',
-                }}
-              />
+          {/* Search */}
+          <div className="max-w-[640px] mx-auto mb-8">
+            <div className="relative">
+              <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"
+                     style={{ color: 'var(--color-text-tertiary)' }} />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={t('marketplace.search_placeholder', 'Dienstleistung, Kategorie oder Anbieter suchen...')}
+                onFocus={() => setSearchFocused(true)}
+                onBlur={() => setSearchFocused(false)}
+                className="w-full h-[52px] pl-12 pr-4 rounded-[var(--radius-md)] text-[0.875rem] outline-none transition-all duration-200"
                 style={{
-                  width: '100%',
-                  height: '52px',
-                  paddingLeft: '48px',
-                  paddingRight: '16px',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--color-divider)',
+                  border: `1px solid ${searchFocused ? 'var(--color-primary)' : 'var(--color-divider)'}`,
                   backgroundColor: '#fff',
-                  fontSize: '0.875rem',
-                  outline: 'none',
-                  boxShadow: 'var(--shadow-e1)',
-                  transition: 'all 0.2s ease',
-                  boxSizing: 'border-box',
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = 'var(--color-primary)';
-                  e.target.style.boxShadow = '0 0 0 3px color-mix(in srgb, var(--color-primary) 15%, transparent)';
-                }}
-                onBlur={(e) => {
-                  e.target.style.borderColor = 'var(--color-divider)';
-                  e.target.style.boxShadow = 'var(--shadow-e1)';
+                  boxShadow: searchFocused
+                    ? '0 0 0 3px color-mix(in srgb, var(--color-primary) 15%, transparent)'
+                    : 'var(--shadow-e1)',
                 }}
               />
             </div>
           </div>
 
-          {/* Category Filter Pills */}
-          <div style={{ marginBottom: '40px' }}>
-            <p
-              style={{
-                fontSize: '0.75rem',
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '0.08em',
-                color: 'var(--color-text-tertiary)',
-                marginBottom: '12px',
-                textAlign: 'center',
-              }}
-            >
+          {/* Categories */}
+          <div className="mb-10">
+            <p className="text-[0.75rem] font-semibold uppercase tracking-[0.08em] mb-3 text-center"
+               style={{ color: 'var(--color-text-tertiary)' }}>
               {t('marketplace.categories', 'Kategorien')}
             </p>
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                gap: '8px',
-              }}
-            >
-              {categories.map((cat) => {
-                const isActive = activeCategory === cat.key;
-                return (
-                  <button
-                    key={cat.key}
-                    onClick={() => setActiveCategory(cat.key)}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      padding: '8px 18px',
-                      borderRadius: '9999px',
-                      fontSize: '0.85rem',
-                      fontWeight: isActive ? 600 : 500,
-                      border: 'none',
-                      cursor: 'pointer',
-                      backgroundColor: isActive ? 'var(--color-primary)' : 'var(--color-surface)',
-                      color: isActive ? '#fff' : 'var(--color-text-primary)',
-                      boxShadow: isActive ? 'var(--shadow-e2)' : 'var(--shadow-e1)',
-                      transition: 'all 0.2s ease',
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isActive) e.target.style.backgroundColor = 'var(--color-primary-muted)';
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isActive) e.target.style.backgroundColor = 'var(--color-surface)';
-                    }}
-                  >
-                    {cat.key !== 'all' && <span style={{ fontSize: '0.8rem' }}>{cat.icon}</span>}
-                    {cat.label}
-                  </button>
-                );
-              })}
+            <div className="flex flex-wrap justify-center gap-2">
+              {displayCategories.map((cat) => (
+                <CategoryPill key={cat.key} cat={cat} isActive={activeCategory === cat.key} onClick={() => setActiveCategory(cat.key)} />
+              ))}
             </div>
           </div>
 
-          {/* Loading State */}
+          {/* Loading */}
           {loading && (
-            <div style={{ textAlign: 'center', padding: '64px 24px' }}>
-              <Loader2 size={32} className="animate-spin" style={{ color: 'var(--color-primary)', margin: '0 auto 16px' }} />
-              <p style={{ color: 'var(--color-text-tertiary)', fontSize: '0.9rem' }}>
+            <div className="text-center py-16 px-6">
+              <Loader2 size={32} className="animate-spin mx-auto mb-4" style={{ color: 'var(--color-primary)' }} />
+              <p className="text-[0.9rem]" style={{ color: 'var(--color-text-tertiary)' }}>
                 {t('marketplace.loading', 'Marktplatz wird geladen...')}
               </p>
             </div>
           )}
 
-          {/* Error State */}
+          {/* Error */}
           {!loading && error && (
-            <div style={{ textAlign: 'center', padding: '64px 24px' }}>
-              <AlertCircle size={32} style={{ color: '#EF4444', margin: '0 auto 16px' }} />
-              <p style={{ color: '#EF4444', fontSize: '0.9rem', marginBottom: '8px' }}>{error}</p>
-              <button
-                onClick={() => window.location.reload()}
-                style={{
-                  padding: '10px 24px',
-                  borderRadius: 'var(--radius-md)',
-                  border: '1px solid var(--color-divider)',
-                  backgroundColor: 'var(--color-surface)',
-                  color: 'var(--color-primary)',
-                  fontSize: '0.85rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                }}
-              >
+            <div className="text-center py-16 px-6">
+              <AlertCircle size={32} className="mx-auto mb-4" style={{ color: '#EF4444' }} />
+              <p className="text-[0.9rem] mb-2" style={{ color: '#EF4444' }}>{error}</p>
+              <button onClick={() => window.location.reload()}
+                className="px-6 py-[10px] rounded-[var(--radius-md)] text-[0.85rem] font-semibold cursor-pointer"
+                style={{ border: '1px solid var(--color-divider)', backgroundColor: 'var(--color-surface)', color: 'var(--color-primary)' }}>
                 {t('common.retry', 'Erneut versuchen')}
               </button>
             </div>
           )}
 
-          {/* Vendor Grid */}
-          {!loading && !error && filteredVendors.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '64px 24px' }}>
-              <p style={{ color: 'var(--color-text-tertiary)', fontSize: '1rem' }}>
+          {/* Empty */}
+          {!loading && !error && filteredVendors.length === 0 && (
+            <div className="text-center py-16 px-6">
+              <p className="text-base" style={{ color: 'var(--color-text-tertiary)' }}>
                 {t('marketplace.no_results', 'Keine Ergebnisse gefunden.')}
               </p>
             </div>
-          ) : (
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(1, 1fr)',
-                gap: '24px',
-              }}
-            >
-              {/* Responsive grid: 1 col base, 2 cols md, 3 cols lg */}
-              <style>{`
-                @media (min-width: 768px) {
-                  .vendor-grid { grid-template-columns: repeat(2, 1fr) !important; }
-                }
-                @media (min-width: 1024px) {
-                  .vendor-grid { grid-template-columns: repeat(3, 1fr) !important; }
-                }
-              `}</style>
-              <div className="vendor-grid" style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(1, 1fr)',
-                gap: '24px',
-              }}>
-                {filteredVendors.map((vendor) => {
-                  const description = vendor.descriptionDe || vendor.description_en || vendor.descriptionEn || vendor.description || '';
-                  const avatarColor = getAvatarColor(vendor.name);
-                  const initials = getInitials(vendor.name);
+          )}
 
-                  return (
-                    <Link
-                      key={vendor.id}
-                      to="/auth/register"
-                      style={{ textDecoration: 'none', display: 'block' }}
-                    >
-                      <div
-                        style={{
-                          border: '1px solid var(--color-divider)',
-                          borderRadius: 'var(--radius-lg)',
-                          padding: '24px',
-                          backgroundColor: 'var(--color-surface)',
-                          cursor: 'pointer',
-                          transition: 'all 0.25s ease',
-                          height: '100%',
-                          boxSizing: 'border-box',
-                          display: 'flex',
-                          flexDirection: 'column',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.boxShadow = 'var(--shadow-e3)';
-                          e.currentTarget.style.transform = 'translateY(-2px)';
-                          e.currentTarget.style.borderColor = 'var(--color-primary-light)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.boxShadow = 'none';
-                          e.currentTarget.style.transform = 'translateY(0)';
-                          e.currentTarget.style.borderColor = 'var(--color-divider)';
-                        }}
-                      >
-                        {/* Vendor Header: Avatar + Name/Location */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
-                          <div
-                            style={{
-                              width: '50px',
-                              height: '50px',
-                              borderRadius: 'var(--radius-sm)',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              backgroundColor: avatarColor,
-                              color: '#fff',
-                              fontWeight: 700,
-                              fontSize: '1.1rem',
-                              fontFamily: 'var(--font-heading)',
-                              flexShrink: 0,
-                            }}
-                          >
-                            {initials}
-                          </div>
-                          <div style={{ minWidth: 0 }}>
-                            <h3
-                              style={{
-                                fontWeight: 600,
-                                fontSize: '1rem',
-                                color: 'var(--color-text-primary)',
-                                margin: 0,
-                                whiteSpace: 'nowrap',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                              }}
-                            >
-                              {vendor.name}
-                            </h3>
-                            <p
-                              style={{
-                                fontSize: '0.75rem',
-                                color: 'var(--color-text-tertiary)',
-                                margin: '2px 0 0 0',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '4px',
-                              }}
-                            >
-                              <MapPin size={11} />
-                              {vendor.location}
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Rating */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px' }}>
-                          <span style={{ display: 'flex', alignItems: 'center', gap: '1px' }}>
-                            {renderStars(vendor.rating)}
-                          </span>
-                          <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--color-text-primary)' }}>
-                            {vendor.rating ? vendor.rating.toFixed(1) : '0.0'}
-                          </span>
-                          {vendor.reviewCount != null && (
-                            <span style={{ fontSize: '0.7rem', color: 'var(--color-text-tertiary)' }}>
-                              ({vendor.reviewCount})
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Description */}
-                        <p
-                          style={{
-                            fontSize: '0.85rem',
-                            color: 'var(--color-text-secondary)',
-                            lineHeight: 1.5,
-                            margin: '0 0 16px 0',
-                            flex: 1,
-                          }}
-                        >
-                          {description}
-                        </p>
-
-                        {/* Services Tags */}
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '18px' }}>
-                          {(vendor.services || vendor.service_names || []).map((service, idx) => (
-                            <span
-                              key={idx}
-                              style={{
-                                fontSize: '0.7rem',
-                                padding: '3px 10px',
-                                borderRadius: '9999px',
-                                backgroundColor: 'var(--color-primary-muted)',
-                                color: 'var(--color-primary)',
-                                fontWeight: 500,
-                              }}
-                            >
-                              {service}
-                            </span>
-                          ))}
-                        </div>
-
-                        {/* CTA Button */}
-                        <div
-                          style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '6px',
-                            padding: '10px 20px',
-                            borderRadius: 'var(--radius-md)',
-                            backgroundColor: 'var(--color-primary)',
-                            color: '#fff',
-                            fontSize: '0.85rem',
-                            fontWeight: 600,
-                            border: 'none',
-                            cursor: 'pointer',
-                            transition: 'all 0.2s ease',
-                            width: '100%',
-                            boxSizing: 'border-box',
-                            textDecoration: 'none',
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = 'var(--color-primary-dark)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = 'var(--color-primary)';
-                          }}
-                        >
-                          {t('marketplace.book_now', 'Jetzt buchen')}
-                          <ArrowRight size={14} />
-                        </div>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
+          {/* Vendor Grid */}
+          {!loading && !error && filteredVendors.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredVendors.map((vendor) => (
+                <VendorCard key={vendor.id} vendor={vendor} t={t} />
+              ))}
             </div>
           )}
         </div>
       </main>
+
       <PublicFooter />
     </div>
   );

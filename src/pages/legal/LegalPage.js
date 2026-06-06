@@ -26,9 +26,9 @@ const LEGAL_CONTENT = {
       <h3>Datenerfassung auf dieser Website</h3>
       <p><strong>Wer ist verantwortlich für die Datenerfassung?</strong></p>
       <p>Die Datenverarbeitung auf dieser Website erfolgt durch den Betreiber (Inhaber):<br/>
-      <strong>nexifyai-dev</strong><br/>
-      vertreten durch den Betreiber<br/>
-      E-Mail: support@bookando.de</p>
+      <strong>Kevin Gaus</strong><br/>
+      vertreten durch Kevin Gaus<br/>
+      E-Mail: info@fixdigital.de</p>
 
       <p><strong>Wie erfassen wir Ihre Daten?</strong><br/>
       Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in unser Kontaktformular oder bei der Registrierung eingeben. Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z. B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Sie diese Website betreten.</p>
@@ -52,9 +52,9 @@ const LEGAL_CONTENT = {
       <h3>Hinweis zur verantwortlichen Stelle</h3>
       <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
       <p>
-      <strong>nexifyai-dev</strong><br/>
-      Inhaber: Der Betreiber<br/>
-      E-Mail: support@bookando.de</p>
+      <strong>Kevin Gaus</strong><br/>
+      Inhaber: Kevin Gaus (FixDigital)<br/>
+      E-Mail: info@fixdigital.de</p>
       <p>Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z. B. Namen, E-Mail-Adressen o. Ä.) entscheidet.</p>
 
       <h3>SSL- bzw. TLS-Verschlüsselung</h3>
@@ -161,20 +161,20 @@ const LEGAL_CONTENT = {
     title: 'Impressum',
     content: `
       <h2>Angaben gemäß § 5 TMG</h2>
-      <p><strong>nexifyai-dev</strong><br/>
-      Inhaber: Der Betreiber<br/>
+      <p><strong>Kevin Gaus</strong><br/>
+      Inhaber: Kevin Gaus (FixDigital)<br/>
       c/o Bookando<br/>
-      Adalbertsteinweg 1<br/>
-      52070 Aachen</p>
+      Severinstr. 81<br/>
+      52080 Aachen</p>
 
       <p><strong>Kontakt</strong><br/>
-      E-Mail: support@bookando.de</p>
+      E-Mail: info@fixdigital.de</p>
 
       <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
       <p>Der Betreiber<br/>
-      Adalbertsteinweg 1<br/>
-      52070 Aachen<br/>
-      E-Mail: support@bookando.de</p>
+      Severinstr. 81<br/>
+      52080 Aachen<br/>
+      E-Mail: info@fixdigital.de</p>
 
       <h2>Umsatzsteuer-ID</h2>
       <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br/>
@@ -204,7 +204,7 @@ const LEGAL_CONTENT = {
       <p class="legal-stand"><strong>Stand: Juni 2026</strong></p>
 
       <h2>§1 Geltungsbereich</h2>
-      <p>Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für die Nutzung der Plattform Bookando (bookando.de), betrieben durch nexifyai-dev, Inhaber: Der Betreiber, Adalbertsteinweg 1, 52070 Aachen (nachfolgend "Bookando" oder "Betreiber"). Die Plattform dient der Vermittlung von Terminbuchungen zwischen Dienstleistern (nachfolgend "Anbieter") und Kunden (nachfolgend "Nutzer").</p>
+      <p>Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für die Nutzung der Plattform Bookando (bookando.de), betrieben durch FixDigital, Inhaber: Kevin Gaus, Severinstr. 81, 52080 Aachen (nachfolgend "Bookando"). Die Plattform dient der Vermittlung von Terminbuchungen zwischen Dienstleistern (nachfolgend "Anbieter") und Kunden (nachfolgend "Nutzer").</p>
 
       <h2>§2 Vertragsgegenstand</h2>
       <p>(1) Bookando stellt eine technische Plattform zur Verfügung, die es Anbietern ermöglicht, ihre Dienstleistungen zu präsentieren und Kunden die Buchung von Terminen zu ermöglichen.</p>
@@ -236,7 +236,7 @@ const LEGAL_CONTENT = {
       <p>(3) Die Haftung für die Qualität der vermittelten Dienstleistungen liegt beim jeweiligen Anbieter.</p>
 
       <h2>§8 Kündigung</h2>
-      <p>(1) Die Kündigung des Nutzerkontos kann jederzeit durch den Nutzer erfolgen. Eine Kündigung ist per E-Mail an support@bookando.de möglich.</p>
+      <p>(1) Die Kündigung des Nutzerkontos kann jederzeit durch den Nutzer erfolgen. Eine Kündigung ist per E-Mail an info@fixdigital.de möglich.</p>
       <p>(2) Bookando kann das Nutzerkonto bei Verstoß gegen diese AGB mit einer Frist von 14 Tagen kündigen. Bei schwerwiegenden Verstößen ist eine fristlose Kündigung zulässig.</p>
       <p>(3) Nach Kündigung werden die personenbezogenen Daten des Nutzers gelöscht, soweit keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
 

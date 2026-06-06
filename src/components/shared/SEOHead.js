@@ -29,7 +29,7 @@ export default function SEOHead({ title, description, canonical, noindex }) {
       {canonical && <link rel="canonical" href={canonical} />}
       {noindex && <meta name="robots" content="noindex,nofollow" />}
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="theme-color" content="#1A4570" />
+      <meta name="theme-color" content="#F59E0B" />
       <html lang={i18n.language || 'de'} />
     </Helmet>
   );
