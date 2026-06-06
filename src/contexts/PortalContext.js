@@ -282,9 +282,9 @@ export function PortalProvider({ children }) {
       can,
       switchRole,
       switchTenant,
-      isReady: !auth.loading,
+      isReady: auth.isReady,
     }),
-    [navItems, defaultRoute, can, switchRole, switchTenant, auth.loading],
+    [navItems, defaultRoute, can, switchRole, switchTenant, auth.isReady],
   );
 
   return <PortalContext.Provider value={value}>{children}</PortalContext.Provider>;

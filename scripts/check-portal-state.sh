@@ -182,6 +182,41 @@ else
   echo "$BAD_LS" | sed 's/^/      /'
 fi
 
+# ─── 11. useAuth() exportiert isReady (sonst: Ladeschleife!) ──
+echo ""
+echo "── 11. useAuth() exportiert isReady (verhindert Ladeschleife) ──"
+# isReady MUSS in AuthContext.js in den destructure/return-Block
+# aufgenommen werden, sonst rendert PortalLayout permanent LoadingFallback.
+if grep -q "isReady" "$SRC/contexts/AuthContext.js" \
+   && grep -q "isReady" "$SRC/App.js" \
+   && grep -qE "isReady[[:space:]]*[:=]" "$SRC/contexts/AuthContext.js"; then
+  ok "isReady ist im AuthContext definiert und in App.js konsumiert"
+else
+  fail "isReady fehlt in AuthContext.js oder App.js — Risiko: Ladeschleife"
+fi
+
+# ─── 12. PortalLayout rendert NICHT permanent LoadingFallback ──
+echo ""
+echo "── 12. PortalLayout-Loading-Guard kombiniert isReady+user ──"
+# Der Guard muss isReady UND user prüfen, damit nicht permanent
+# LoadingFallback angezeigt wird, wenn isReady undefined ist.
+GUARD=$(sed -n '/PortalLayout/,/^function /p' "$SRC/App.js" \
+  | grep -A3 "isReady\|loading" | head -20 || true)
+if echo "$GUARD" | grep -q "isReady" && echo "$GUARD" | grep -q "user"; then
+  ok "PortalLayout prüft isReady + user"
+else
+  fail "PortalLayout-Loading-Guard fehlt oder ist unvollständig"
+fi
+
+# ─── 13. PortalContext.isReady nutzt auth.isReady (zentral) ───
+echo ""
+echo "── 13. PortalContext.isReady delegiert an auth.isReady ──"
+if grep -q "isReady: auth.isReady" "$SRC/contexts/PortalContext.js"; then
+  ok "PortalContext.isReady delegiert an auth.isReady"
+else
+  fail "PortalContext.isReady sollte auth.isReady nutzen, nicht auth.loading"
+fi
+
 # ─── Zusammenfassung ───────────────────────────────────────────
 echo ""
 echo "═══════════════════════════════════════════════════════════"

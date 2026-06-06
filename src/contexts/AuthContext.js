@@ -176,6 +176,8 @@ export function AuthProvider({ children }) {
    * Komponenten greifen via useAuth() auf diese zu und re-rendern automatisch.
    */
   const derived = useMemo(() => {
+    // isReady = !loading (zentral, damit ALLE Consumer eine konsistente Quelle haben)
+    const isReady = !loading;
     if (!user) {
       return {
         activeRole: null,
@@ -189,6 +191,7 @@ export function AuthProvider({ children }) {
         isCustomer: false,
         isAffiliate: false,
         isFranchiser: false,
+        isReady,
       };
     }
     const activeRole = user.active_role || user.role || 'customer';
@@ -222,8 +225,9 @@ export function AuthProvider({ children }) {
       isCustomer: activeRole === 'customer',
       isAffiliate: activeRole === 'affiliate',
       isFranchiser: activeRole === 'franchiser',
+      isReady,
     };
-  }, [user]);
+  }, [user, loading]);
 
   const value = useMemo(
     () => ({
