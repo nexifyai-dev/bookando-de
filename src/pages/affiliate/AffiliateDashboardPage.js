@@ -1,47 +1,35 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Loader2, ExternalLink, MousePointerClick, ShoppingCart, Wallet, Percent } from 'lucide-react';
 import apiClient from '../../lib/apiClient';
+import { useAutoRefresh } from '../../hooks/useAutoRefresh';
 import { Card, CardContent } from '../../components/ui/card';
 
 export default function AffiliateDashboardPage() {
   const { t } = useTranslation();
-  const [stats, setStats] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  const fetchStats = useCallback(async () => {
-    setLoading(true); setError(null);
-    try {
-      // Pull data from multiple endpoints efficiently
-      const [linksRes, commissionsRes, walletRes, statsRes] = await Promise.allSettled([
-        apiClient.get('/api/affiliate/links'),
-        apiClient.get('/api/affiliate/commissions'),
-        apiClient.get('/api/wallet/balance'),
-        apiClient.get('/api/affiliate/stats'),
-      ]);
-      const links = linksRes.status === 'fulfilled' ? (linksRes.value.data || []) : [];
-      const commissions = commissionsRes.status === 'fulfilled' ? (commissionsRes.value.data || []) : [];
-      const wallet = walletRes.status === 'fulfilled' ? (walletRes.value.data || {}) : {};
-      const affStats = statsRes.status === 'fulfilled' ? (statsRes.value.data || {}) : {};
+  const { data: links = [], isLoading: linksLoading } = useAutoRefresh(['affiliate', 'links'], () =>
+    apiClient.get('/api/affiliate/links').then(r => Array.isArray(r.data) ? r.data : []));
+  const { data: commissions = [] } = useAutoRefresh(['affiliate', 'commissions'], () =>
+    apiClient.get('/api/affiliate/commissions').then(r => Array.isArray(r.data) ? r.data : []));
+  const { data: wallet = {} } = useAutoRefresh(['affiliate', 'wallet'], () =>
+    apiClient.get('/api/wallet/balance').then(r => r.data || {}));
+  const { data: affStats = {} } = useAutoRefresh(['affiliate', 'stats'], () =>
+    apiClient.get('/api/affiliate/stats').then(r => r.data || {}));
 
-      setStats({
-        linkCount: Array.isArray(links) ? links.length : 0,
-        commissionPending: Array.isArray(commissions) ? commissions.filter(c => c.status === 'pending').reduce((s, c) => s + (c.amount || 0), 0) : 0,
-        commissionApproved: Array.isArray(commissions) ? commissions.filter(c => c.status === 'approved').reduce((s, c) => s + (c.amount || 0), 0) : 0,
-        walletBalance: wallet.balance || wallet.current_balance || 0,
-        walletPending: wallet.pending_balance || wallet.pending || 0,
-        clicks: affStats.clicks || affStats.total_clicks || 0,
-        conversions: affStats.conversions || affStats.total_conversions || 0,
-      });
-    } catch (err) { setError('Fehler beim Laden der Statistiken'); }
-    setLoading(false);
-  }, []);
+  const isLoading = linksLoading;
 
-  useEffect(() => { fetchStats(); }, [fetchStats]);
+  const stats = {
+    linkCount: Array.isArray(links) ? links.length : 0,
+    commissionPending: Array.isArray(commissions) ? commissions.filter(c => c.status === 'pending').reduce((s, c) => s + (c.amount || 0), 0) : 0,
+    commissionApproved: Array.isArray(commissions) ? commissions.filter(c => c.status === 'approved').reduce((s, c) => s + (c.amount || 0), 0) : 0,
+    walletBalance: wallet.balance || wallet.current_balance || 0,
+    walletPending: wallet.pending_balance || wallet.pending || 0,
+    clicks: affStats.clicks || affStats.total_clicks || 0,
+    conversions: affStats.conversions || affStats.total_conversions || 0,
+  };
 
-  if (loading) return <div className="p-6 flex items-center justify-center min-h-[60vh]"><Loader2 size={32} className="animate-spin" style={{color:'var(--color-accent)'}} /></div>;
-  if (error) return <div className="p-6 flex flex-col items-center justify-center min-h-[60vh]" style={{color:'var(--color-danger)'}}><p>{error}</p></div>;
+  if (isLoading && !links.length && !commissions.length) return <div className="p-6 flex items-center justify-center min-h-[60vh]"><Loader2 size={32} className="animate-spin" style={{color:'var(--color-accent)'}} /></div>;
 
   const kpis = [
     { label: t('affiliate.links', 'Trackinglinks'), value: stats?.linkCount || 0, icon: ExternalLink, color: '#3182CE' },

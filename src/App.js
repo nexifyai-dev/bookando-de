@@ -74,7 +74,7 @@ const AdminReviewsPage   = lazy(() => import('./pages/admin/AdminReviewsPage'));
 const AdminCommissionPage = lazy(() => import('./pages/admin/AdminCommissionPage'));
 
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { staleTime: 30_000, retry: 1, refetchOnWindowFocus: false } },
+  defaultOptions: { queries: { staleTime: 30_000, retry: 1, refetchOnWindowFocus: true, refetchOnReconnect: true } },
 });
 
 function NotFoundPage() {

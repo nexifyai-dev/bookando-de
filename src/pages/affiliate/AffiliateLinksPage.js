@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Loader2, Plus, Copy, CheckCircle2, ExternalLink, Trash2 } from 'lucide-react';
+import { Loader2, Plus, Copy, CheckCircle2, ExternalLink } from 'lucide-react';
 import apiClient from '../../lib/apiClient';
+import { useAutoRefresh, usePortalMutation } from '../../hooks/useAutoRefresh';
 import { Card, CardContent } from '../../components/ui/card';
 
 function formatDate(str) {
@@ -12,36 +13,21 @@ function formatDate(str) {
 
 export default function AffiliateLinksPage() {
   const { t } = useTranslation();
-  const [links, setLinks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [copiedId, setCopiedId] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ vendor_id: '', commission_percent: 10 });
 
-  const fetchLinks = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await apiClient.get('/api/affiliate/links');
-      setLinks(Array.isArray(res.data) ? res.data : []);
-    } catch (err) {
-      setError(err?.response?.data?.detail || 'Fehler beim Laden');
-    }
-    setLoading(false);
-  }, []);
+  const { data: links = [], isLoading } = useAutoRefresh(
+    ['affiliate', 'links'],
+    () => apiClient.get('/api/affiliate/links').then(r => Array.isArray(r.data) ? r.data : []),
+  );
 
-  useEffect(() => { fetchLinks(); }, [fetchLinks]);
-
-  const createLink = async () => {
-    try {
-      await apiClient.post('/api/affiliate/link', form);
-      setShowForm(false);
-      setForm({ vendor_id: '', commission_percent: 10 });
-      await fetchLinks();
-    } catch (err) {
-      alert(err?.response?.data?.detail || 'Fehler beim Erstellen');
-    }
-  };
+  const createMutation = usePortalMutation({
+    mutationFn: () => apiClient.post('/api/affiliate/link', form),
+    invalidateKeys: [['affiliate', 'links'], ['affiliate', 'dashboard']],
+    onSuccess: () => { setShowForm(false); setForm({ vendor_id: '', commission_percent: 10 }); },
+    onError: (err) => alert(err?.response?.data?.detail || 'Fehler beim Erstellen'),
+  });
 
   const copyToClipboard = (code) => {
     const url = `${window.location.origin}/?ref=${code}`;
@@ -51,7 +37,7 @@ export default function AffiliateLinksPage() {
     });
   };
 
-  if (loading) return <div className="p-6 flex items-center justify-center min-h-[40vh]"><Loader2 size={32} className="animate-spin" style={{color:'var(--color-accent)'}} /></div>;
+  if (isLoading) return <div className="p-6 flex items-center justify-center min-h-[40vh]"><Loader2 size={32} className="animate-spin" style={{color:'var(--color-accent)'}} /></div>;
 
   return (
     <div className="p-6 space-y-6">
@@ -83,7 +69,7 @@ export default function AffiliateLinksPage() {
                 style={{border:'1px solid var(--color-divider)', backgroundColor:'var(--color-surface)', color:'var(--color-text-primary)'}} />
             </div>
             <div className="flex gap-3">
-              <button onClick={createLink}
+              <button onClick={() => createMutation.mutate()}
                 className="px-4 py-2 rounded-[var(--radius-md)] text-sm font-medium transition-all duration-150 active:scale-[0.97] text-white"
                 style={{backgroundColor:'var(--color-accent)'}}>
                 {t('common.save', 'Speichern')}

@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Loader2, Filter } from 'lucide-react';
 import apiClient from '../../lib/apiClient';
+import { useAutoRefresh } from '../../hooks/useAutoRefresh';
 
 const STATUS_STYLES = {
   pending: { bg:'rgba(245,158,11,0.12)', color:'var(--color-warning)' },
@@ -20,24 +21,17 @@ function formatEuro(v) { return v != null ? `${Number(v).toFixed(2)} €` : '—
 
 export default function AffiliateCommissionsPage() {
   const { t } = useTranslation();
-  const [commissions, setCommissions] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [statusFilter, setStatusFilter] = useState('all');
 
-  const fetch = useCallback(async () => {
-    setLoading(true);
-    try {
+  const { data: commissions = [], isLoading, isError, error, refetch } = useAutoRefresh(
+    ['affiliate', 'commissions', statusFilter],
+    () => {
       const params = statusFilter !== 'all' ? { status: statusFilter } : {};
-      const res = await apiClient.get('/api/affiliate/commissions', { params });
-      setCommissions(Array.isArray(res.data) ? res.data : []);
-    } catch (err) { setError(err?.response?.data?.detail || 'Fehler beim Laden'); }
-    setLoading(false);
-  }, [statusFilter]);
+      return apiClient.get('/api/affiliate/commissions', { params }).then(r => Array.isArray(r.data) ? r.data : []);
+    },
+  );
 
-  useEffect(() => { fetch(); }, [fetch]);
-
-  if (loading) return <div className="p-6 flex items-center justify-center min-h-[40vh]"><Loader2 size={32} className="animate-spin" style={{color:'var(--color-accent)'}} /></div>;
+  if (isLoading) return <div className="p-6 flex items-center justify-center min-h-[40vh]"><Loader2 size={32} className="animate-spin" style={{color:'var(--color-accent)'}} /></div>;
   if (error) return <div className="p-6 flex flex-col items-center justify-center min-h-[40vh]" style={{color:'var(--color-danger)'}}><p>{error}</p><button onClick={fetch} className="mt-4 px-4 py-2 rounded text-sm text-white" style={{backgroundColor:'var(--color-accent)'}}>Erneut</button></div>;
 
   return (
