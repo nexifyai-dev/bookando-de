@@ -129,7 +129,8 @@ export default function VendorWalletPage() {
     }
   };
 
-  useEffect(() => { fetchWallet(); }, [t]);
+  useEffect(() => { fetchWallet(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t]);
 
   const handlePayoutRequest = async (payload) => {
     setRequesting(true);

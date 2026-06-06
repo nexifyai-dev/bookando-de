@@ -2,7 +2,8 @@ import React, { useMemo, useState, useEffect, useRef, useCallback } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ChevronDown, Globe, LogOut, Menu, PanelLeftClose, PanelLeftOpen, User, X, LayoutDashboard, Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-// import { useAuth } from '../../contexts/AuthContext'; // Wird pro Projekt bereitgestellt
+import { useAuth } from '../../contexts/AuthContext';
+import { RoleSwitcher, TenantSwitcher, LanguageSwitcher } from '../portal/PortalSwitchers';
 
 const LANG_OPTIONS = [
   { code: 'de', label: 'DE' },
@@ -29,7 +30,7 @@ function isItemActive(item, pathname) {
  *   navItems           – Array von { path, label, icon, badge?, testId?, mobileOnly?, desktopOnly?, exact?, matchPaths? }
  *   mobileBottomNav    – Array von { path, label, icon } für mobile Bottom-Nav (optional)
  *   user               – User-Objekt mit { full_name, email, role } (optional)
- *   onLogout           – Callback für Logout
+ *   effectiveLogout           – Callback für Logout
  *   dataTestId         – Test-ID Prefix
  *   hideLanguageSwitch – Booleon für Language-Switch
  *   sidebarStorageKey  – localStorage Key für Sidebar-Zustand (default 'sidebar_collapsed')
@@ -44,7 +45,7 @@ export function PortalShell({
     { path: '/portal/settings', labelKey: 'portal.settings', icon: Settings },
   ],
   mobileBottomNav = [],
-  user = null,
+  user: userProp = null,
   onLogout,
   dataTestId = 'portal-shell',
   hideLanguageSwitch = false,
@@ -52,10 +53,16 @@ export function PortalShell({
   headerContent,
 }) {
   const { i18n, t } = useTranslation();
-  // const { user, logout } = useAuth(); // Aktivieren, sobald AuthContext vorhanden
+  // REAKTIV: AuthContext ist die Quelle der Wahrheit.
+  // Der user-Prop wird nur als Fallback für Tests/Isolated-Renders respektiert.
+  const { user: authUser, logout: authLogout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const userMenuRef = useRef(null);
+
+  // AuthContext-Wert schlägt Prop — reagiert automatisch auf Kontextwechsel
+  const effectiveUser = authUser || userProp || null;
+  const effectiveLogout = authLogout || onLogout || null;
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -85,12 +92,11 @@ export function PortalShell({
   const mobileItems = useMemo(() => navItems.filter((i) => !i.desktopOnly), [navItems]);
 
   const handleLogout = useCallback(async () => {
-    if (onLogout) await onLogout();
-    // if (logout) await logout();
+    if (effectiveLogout) await effectiveLogout();
     navigate('/');
-  }, [onLogout, navigate]);
+  }, [effectiveLogout, navigate]);
 
-  const initials = user?.full_name?.trim()?.[0]?.toUpperCase() || user?.email?.[0]?.toUpperCase() || 'U';
+  const initials = effectiveUser?.full_name?.trim()?.[0]?.toUpperCase() || effectiveUser?.email?.[0]?.toUpperCase() || 'U';
   const sidebarWidth = collapsed ? SIDEBAR_COLLAPSED : SIDEBAR_EXPANDED;
 
   return (
@@ -115,36 +121,31 @@ export function PortalShell({
             {/* Header Content (z.B. NotificationBell) */}
             {headerContent && <div className="hidden sm:block">{headerContent}</div>}
 
-            {!hideLanguageSwitch && (
-              <div className="hidden md:flex items-center border border-[var(--color-divider)] bg-white p-0.5" style={{ borderRadius: 'var(--radius-sm)' }} data-testid={`${dataTestId}-language-switch`}>
-                {LANG_OPTIONS.map((lang) => (
-                  <button key={lang.code} type="button" onClick={() => i18n.changeLanguage(lang.code)}
-                    data-testid={`${dataTestId}-lang-${lang.code}`}
-                    className={`cursor-pointer ${i18n.language === lang.code ? 'w2g-lang-pill w2g-lang-pill-active' : 'w2g-lang-pill'}`}>
-                    {lang.label}
-                  </button>
-                ))}
-              </div>
-            )}
+            {/* Reaktive Switcher — reagieren auf useAuth() ohne Reload */}
+            <div className="hidden md:flex items-center gap-2">
+              <RoleSwitcher />
+              <TenantSwitcher />
+              {!hideLanguageSwitch && <LanguageSwitcher />}
+            </div>
 
             {/* User-Menü */}
-            {user && (
+            {effectiveUser && (
               <div className="hidden md:block relative" ref={userMenuRef}>
                 <button type="button" onClick={() => setUserMenuOpen((o) => !o)}
                   className="cursor-pointer flex items-center gap-2 border border-[var(--color-divider)] bg-white px-2 py-1.5 hover:border-[var(--color-primary)] transition-colors"
                   style={{ borderRadius: 'var(--radius-md)' }} data-testid={`${dataTestId}-user-menu-button`}>
                   <div className="h-7 w-7 flex items-center justify-center bg-[var(--color-primary)] text-[10px] font-bold text-white" style={{ borderRadius: 'var(--radius-sm)' }}>{initials}</div>
-                  <span className="hidden xl:block max-w-[120px] truncate text-xs font-semibold text-[var(--color-text-primary)]">{user?.full_name || user?.email}</span>
+                  <span className="hidden xl:block max-w-[120px] truncate text-xs font-semibold text-[var(--color-text-primary)]">{effectiveUser?.full_name || effectiveUser?.email}</span>
                   <ChevronDown size={11} className={`text-[var(--color-text-tertiary)] transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {userMenuOpen && (
                   <div className="absolute right-0 top-[calc(100%+6px)] min-w-[220px] border border-[var(--color-divider)] bg-white overflow-hidden"
                     style={{ borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-e4)', zIndex: 90 }} data-testid={`${dataTestId}-user-dropdown`}>
                     <div className="border-b border-[var(--color-divider-subtle)] px-4 py-3">
-                      <p className="text-sm font-semibold text-[var(--color-text-primary)]">{user?.full_name || user?.email}</p>
-                      <p className="text-xs text-[var(--color-text-secondary)]">{user?.email}</p>
+                      <p className="text-sm font-semibold text-[var(--color-text-primary)]">{effectiveUser?.full_name || effectiveUser?.email}</p>
+                      <p className="text-xs text-[var(--color-text-secondary)]">{effectiveUser?.email}</p>
                     </div>
-                    <button type="button" onClick={handleLogout} data-testid={`${dataTestId}-logout-button`}
+                    <button type="button" onClick={effectiveLogout} data-testid={`${dataTestId}-logout-button`}
                       className="flex w-full items-center gap-2 px-4 py-3 text-sm text-[var(--color-text-secondary)] hover:bg-[var(--color-danger-bg)] hover:text-[var(--color-danger)] transition-colors">
                       <LogOut size={14} /> {t('portal.logout', 'Abmelden')}
                     </button>
@@ -225,12 +226,12 @@ export function PortalShell({
           <div className="absolute inset-0 bg-[rgba(12,29,46,0.4)]" style={{ backdropFilter: 'blur(3px)' }} onClick={() => setMobileOpen(false)} />
           <div className="absolute left-0 right-0 bg-white border-b border-[var(--color-divider)] max-h-[75vh] overflow-y-auto animate-slide-up"
             style={{ top: 'var(--topbar-height-mobile, 56px)', boxShadow: 'var(--shadow-e3)' }}>
-            {user && (
+            {effectiveUser && (
               <div className="px-4 py-3 border-b border-[var(--color-divider-subtle)] flex items-center gap-4">
                 <div className="h-9 w-9 flex items-center justify-center bg-[var(--color-primary)] text-sm font-bold text-white shrink-0" style={{ borderRadius: 'var(--radius-sm)' }}>{initials}</div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-[var(--color-text-primary)]">{user?.full_name || user?.email}</p>
-                  <p className="truncate text-xs text-[var(--color-text-tertiary)]">{user?.email}</p>
+                  <p className="truncate text-sm font-semibold text-[var(--color-text-primary)]">{effectiveUser?.full_name || effectiveUser?.email}</p>
+                  <p className="truncate text-xs text-[var(--color-text-tertiary)]">{effectiveUser?.email}</p>
                 </div>
               </div>
             )}
@@ -267,9 +268,9 @@ export function PortalShell({
               })}
             </nav>
 
-            {user && (
+            {effectiveUser && (
               <div className="p-3 border-t border-[var(--color-divider-subtle)]">
-                <button type="button" onClick={handleLogout} data-testid={`${dataTestId}-mobile-logout-button`}
+                <button type="button" onClick={effectiveLogout} data-testid={`${dataTestId}-mobile-logout-button`}
                   className="flex w-full items-center justify-center gap-2 border border-[var(--color-danger-border)] bg-[var(--color-danger-bg)] px-4 py-3 text-sm font-medium text-[var(--color-danger)]"
                   style={{ borderRadius: 'var(--radius-md)' }}>
                   <LogOut size={14} /> {t('portal.logout', 'Abmelden')}

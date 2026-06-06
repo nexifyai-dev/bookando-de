@@ -152,6 +152,7 @@ export default function MarketplacePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchFocused, setSearchFocused] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
 
   // Fetch vendors
   useEffect(() => {
@@ -174,6 +175,7 @@ export default function MarketplacePage() {
       })
       .catch((err) => {
         if (!cancelled) {
+          // eslint-disable-next-line no-console
           console.error('Marketplace fetch error:', err);
           setError(err.message || t('marketplace.error_load', 'Fehler beim Laden der Daten.'));
         }
@@ -181,7 +183,7 @@ export default function MarketplacePage() {
       .finally(() => { if (!cancelled) setLoading(false); });
 
     return () => { cancelled = true; };
-  }, [t]);
+  }, [t, reloadKey]);
 
   const displayCategories = categories.length > 1 ? categories : [
     { key: 'all', label: t('marketplace.filter_all', 'Alle'), icon: null },
@@ -280,7 +282,7 @@ export default function MarketplacePage() {
             <div className="text-center py-16 px-6">
               <AlertCircle size={32} className="mx-auto mb-4" style={{ color: '#EF4444' }} />
               <p className="text-[0.9rem] mb-2" style={{ color: '#EF4444' }}>{error}</p>
-              <button onClick={() => window.location.reload()}
+              <button onClick={() => setReloadKey((k) => k + 1)}
                 className="px-6 py-[10px] rounded-[var(--radius-md)] text-[0.85rem] font-semibold cursor-pointer"
                 style={{ border: '1px solid var(--color-divider)', backgroundColor: 'var(--color-surface)', color: 'var(--color-primary)' }}>
                 {t('common.retry', 'Erneut versuchen')}

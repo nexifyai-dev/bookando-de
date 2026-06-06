@@ -50,7 +50,8 @@ export default function VendorAffiliatesPage() {
     }
   };
 
-  useEffect(() => { fetchData(); }, [t]);
+  useEffect(() => { fetchData(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t]);
 
   const copyToClipboard = async (text, id) => {
     try {

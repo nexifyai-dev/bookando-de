@@ -1,11 +1,12 @@
 import React, { Suspense, lazy, useMemo } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation, Outlet } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'sonner';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './i18n';
 import { useTranslation } from 'react-i18next';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { PortalProvider, usePortal } from './contexts/PortalContext';
 import { ErrorBoundary } from './components/shared/ErrorBoundary';
 import ScrollToTop from './components/shared/ScrollToTop';
 import CookieBanner from './components/shared/CookieBanner';
@@ -106,26 +107,22 @@ function PublicOnlyRoute({ children }) {
 function VendorPortal({ children }) {
   const { t } = useTranslation();
   const { user, logout } = useAuth();
+  const { navItems } = usePortal();
 
-  const navItems = useMemo(() => [
-    { path: '/portal', label: t('nav.dashboard'), icon: LayoutDashboard, exact: true },
-    { path: '/portal/bookings', label: t('nav.bookings'), icon: CalendarCheck, matchPaths: ['/portal/bookings'] },
-    { path: '/portal/calendar', label: t('nav.calendar', 'Kalender'), icon: CalendarCheck, matchPaths: ['/portal/calendar'] },
-    { path: '/portal/services', label: t('nav.services'), icon: Store, matchPaths: ['/portal/services'] },
-    { path: '/portal/employees', label: t('nav.employees'), icon: Users, matchPaths: ['/portal/employees'] },
-    { path: '/portal/locations', label: t('nav.locations'), icon: Briefcase, matchPaths: ['/portal/locations'] },
-    { path: '/portal/hours', label: t('nav.hours'), icon: Clock, matchPaths: ['/portal/hours'] },
-    { path: '/portal/customers', label: t('nav.customers'), icon: UserCircle, matchPaths: ['/portal/customers'] },
-    { path: '/portal/reports', label: t('nav.reports'), icon: BarChart3, matchPaths: ['/portal/reports'] },
-    { path: '/portal/wallet', label: t('nav.wallet'), icon: Wallet, matchPaths: ['/portal/wallet'] },
-    { path: '/portal/affiliates', label: t('nav.affiliates'), icon: Link2, matchPaths: ['/portal/affiliates'] },
-    { path: '/portal/branding', label: t('nav.branding'), icon: Palette, matchPaths: ['/portal/branding'] },
-    { path: '/portal/settings', label: t('nav.settings'), icon: Settings, matchPaths: ['/portal/settings'] },
-  ], []);
+  // Mobile-Bottom-Nav als gefilterte Teilmenge der rollenbasierten navItems
+  const mobileBottomNav = useMemo(
+    () => navItems.filter((i) => ['/portal', '/portal/bookings', '/portal/services', '/portal/settings'].includes(i.path)),
+    [navItems],
+  );
+
   return (
-    <PortalShell portalName={t('portal.name_vendor', 'Vendor')} navItems={navItems}
-      mobileBottomNav={navItems.filter(i => ['/portal','/portal/bookings','/portal/services','/portal/settings'].includes(i.path))}
-      user={user} onLogout={logout}>
+    <PortalShell
+      portalName={t('portal.name_vendor', 'Vendor')}
+      navItems={navItems}
+      mobileBottomNav={mobileBottomNav}
+      user={user}
+      onLogout={logout}
+    >
       <Suspense fallback={<LoadingFallback />}>{children}</Suspense>
     </PortalShell>
   );
@@ -134,18 +131,21 @@ function VendorPortal({ children }) {
 function CustomerPortal({ children }) {
   const { t } = useTranslation();
   const { user, logout } = useAuth();
+  const { navItems } = usePortal();
 
-  const navItems = useMemo(() => [
-    { path: '/portal', label: t('nav.dashboard'), icon: LayoutDashboard, exact: true },
-    { path: '/portal/bookings', label: t('nav.bookings'), icon: CalendarCheck, matchPaths: ['/portal/bookings'] },
-    { path: '/portal/recurring', label: t('nav.recurring'), icon: Repeat, matchPaths: ['/portal/recurring'] },
-    { path: '/portal/vouchers', label: t('nav.vouchers'), icon: Ticket, matchPaths: ['/portal/vouchers'] },
-    { path: '/portal/profile', label: t('nav.profile'), icon: UserCircle, matchPaths: ['/portal/profile'] },
-  ], []);
+  const mobileBottomNav = useMemo(
+    () => navItems.filter((i) => ['/portal', '/portal/bookings', '/portal/vouchers', '/portal/profile'].includes(i.path)),
+    [navItems],
+  );
+
   return (
-    <PortalShell portalName={t('portal.name_vendor', 'Vendor')} navItems={navItems}
-      mobileBottomNav={navItems.filter(i => ['/portal','/portal/bookings','/portal/vouchers','/portal/profile'].includes(i.path))}
-      user={user} onLogout={logout}>
+    <PortalShell
+      portalName={t('portal.name_customer', 'Mein Bereich')}
+      navItems={navItems}
+      mobileBottomNav={mobileBottomNav}
+      user={user}
+      onLogout={logout}
+    >
       <Suspense fallback={<LoadingFallback />}>{children}</Suspense>
     </PortalShell>
   );
@@ -154,17 +154,21 @@ function CustomerPortal({ children }) {
 function AffiliatePortal({ children }) {
   const { t } = useTranslation();
   const { user, logout } = useAuth();
+  const { navItems } = usePortal();
 
-  const navItems = useMemo(() => [
-    { path: '/portal', label: t('nav.dashboard'), icon: LayoutDashboard, exact: true },
-    { path: '/portal/links', label: t('nav.links', 'Trackinglinks'), icon: Link2, matchPaths: ['/portal/links'] },
-    { path: '/portal/commissions', label: t('nav.commissions', 'Provisionen'), icon: Wallet, matchPaths: ['/portal/commissions'] },
-    { path: '/portal/wallet', label: t('nav.wallet'), icon: Wallet, matchPaths: ['/portal/wallet'] },
-  ], [t]);
+  const mobileBottomNav = useMemo(
+    () => navItems.filter((i) => ['/portal', '/portal/links', '/portal/wallet'].includes(i.path)),
+    [navItems],
+  );
+
   return (
-    <PortalShell portalName="Affiliate" navItems={navItems}
-      mobileBottomNav={navItems.filter(i => ['/portal','/portal/links','/portal/wallet'].includes(i.path))}
-      user={user} onLogout={logout}>
+    <PortalShell
+      portalName={t('portal.name_affiliate', 'Affiliate')}
+      navItems={navItems}
+      mobileBottomNav={mobileBottomNav}
+      user={user}
+      onLogout={logout}
+    >
       <Suspense fallback={<LoadingFallback />}>{children}</Suspense>
     </PortalShell>
   );
@@ -173,16 +177,16 @@ function AffiliatePortal({ children }) {
 function FranchiserPortal({ children }) {
   const { t } = useTranslation();
   const { user, logout } = useAuth();
+  const { navItems } = usePortal();
 
-  const navItems = useMemo(() => [
-    { path: '/portal', label: t('nav.dashboard'), icon: LayoutDashboard, exact: true },
-    { path: '/portal/vendors', label: t('nav.vendors'), icon: Store, matchPaths: ['/portal/vendors'] },
-    { path: '/portal/reports', label: t('nav.reports'), icon: BarChart3, matchPaths: ['/portal/reports'] },
-    { path: '/portal/settings', label: t('nav.settings'), icon: Settings, matchPaths: ['/portal/settings'] },
-  ], []);
   return (
-    <PortalShell portalName={t('portal.name_vendor', 'Vendor')} navItems={navItems}
-      mobileBottomNav={navItems} user={user} onLogout={logout}>
+    <PortalShell
+      portalName={t('portal.name_franchiser', 'Franchise')}
+      navItems={navItems}
+      mobileBottomNav={navItems}
+      user={user}
+      onLogout={logout}
+    >
       <Suspense fallback={<LoadingFallback />}>{children}</Suspense>
     </PortalShell>
   );
@@ -191,40 +195,60 @@ function FranchiserPortal({ children }) {
 function AdminPortal({ children }) {
   const { t } = useTranslation();
   const { user, logout } = useAuth();
+  const { navItems } = usePortal();
 
-  const navItems = useMemo(() => [
-    { path: '/portal', label: t('nav.dashboard'), icon: LayoutDashboard, exact: true },
-    { path: '/portal/users', label: t('nav.users'), icon: Users, matchPaths: ['/portal/users'] },
-    { path: '/portal/vendors', label: t('nav.vendors'), icon: Store, matchPaths: ['/portal/vendors'] },
-    { path: '/portal/plans', label: t('nav.plans'), icon: CreditCard, matchPaths: ['/portal/plans'] },
-    { path: '/portal/audit', label: t('nav.audit'), icon: Shield, matchPaths: ['/portal/audit'] },
-    { path: '/portal/reviews', label: t('nav.reviews'), icon: MessageSquare, matchPaths: ['/portal/reviews'] },
-    { path: '/portal/commissions', label: t('nav.commissions', 'Provisionen'), icon: Wallet, matchPaths: ['/portal/commissions'] },
-    { path: '/portal/settings', label: t('nav.settings'), icon: Settings, matchPaths: ['/portal/settings'] },
-  ], []);
+  const mobileBottomNav = useMemo(
+    () => navItems.filter((i) => ['/portal', '/portal/users', '/portal/vendors', '/portal/settings'].includes(i.path)),
+    [navItems],
+  );
+
   return (
-    <PortalShell portalName={t('portal.name_vendor', 'Vendor')} navItems={navItems}
-      mobileBottomNav={navItems.filter(i => ['/portal','/portal/users','/portal/vendors','/portal/settings'].includes(i.path))}
-      user={user} onLogout={logout}>
+    <PortalShell
+      portalName={t('portal.name_admin', 'Admin')}
+      navItems={navItems}
+      mobileBottomNav={mobileBottomNav}
+      user={user}
+      onLogout={logout}
+    >
       <Suspense fallback={<LoadingFallback />}>{children}</Suspense>
     </PortalShell>
   );
 }
 
 /* ════════════════════════════════════════════════════════════════
-   PORTAL LAYOUT — role-based dispatcher
+   PORTAL LAYOUT — reaktiver, rollenbasierter Dispatcher
+   ════════════════════════════════════════════════════════════════
+   Frühere Bug-Quelle: las `window.location.pathname` und `user.role`
+   zum Mount-Zeitpunkt — bei Rollenwechsel sah man erst nach Browser-
+   Refresh den neuen Kontext.
+
+   Fix:
+   - useLocation() → reagiert auf Navigation
+   - useAuth().activeRole → reagiert auf Rollen-/Tenant-Wechsel
+   - defaultRoute via usePortal() → bei verbotener Route automatischer
+     Redirect ohne window.location.reload
    ════════════════════════════════════════════════════════════════ */
 function PortalLayout() {
-  const { user } = useAuth();
-  const role = user?.role || 'customer';
+  const location = useLocation();
+  const { activeRole, user, isReady } = useAuth();
+  const { defaultRoute } = usePortal();
+  const path = location.pathname;
 
-  // Which shell + which child component to render
+  // Auth noch nicht bereit → Loading, kein Child-Render
+  if (!isReady || !user) {
+    return <LoadingFallback />;
+  }
+
+  // /portal ohne Subroute → defaultRoute redirecten (kein Hard-Reload!)
+  if (path === '/portal' || path === '/portal/') {
+    return <Navigate to={defaultRoute} replace />;
+  }
+
   let Shell, Child;
-  const path = window.location.pathname;
 
-  if (role === 'admin') {
+  if (activeRole === 'admin' || activeRole === 'super_admin') {
     Shell = AdminPortal;
-    if (path === '/portal' || path === '/portal/') Child = AdminDashboardPage;
+    if (path.startsWith('/portal/admin')) Child = AdminDashboardPage;
     else if (path.startsWith('/portal/users')) Child = AdminUsersPage;
     else if (path.startsWith('/portal/vendors')) Child = AdminVendorsPage;
     else if (path.startsWith('/portal/plans')) Child = AdminPlansPage;
@@ -232,11 +256,11 @@ function PortalLayout() {
     else if (path.startsWith('/portal/reviews')) Child = AdminReviewsPage;
     else if (path.startsWith('/portal/commissions')) Child = AdminCommissionPage;
     else if (path.startsWith('/portal/settings')) Child = VendorSettingsPage;
+    else if (path.startsWith('/portal')) Child = AdminDashboardPage;
     else Child = NotFoundPage;
-  } else if (role === 'vendor' || role === 'staff') {
+  } else if (activeRole === 'vendor' || activeRole === 'staff') {
     Shell = VendorPortal;
-    if (path === '/portal' || path === '/portal/') Child = VendorDashboardPage;
-    else if (path.startsWith('/portal/bookings')) Child = VendorBookingsPage;
+    if (path.startsWith('/portal/bookings')) Child = VendorBookingsPage;
     else if (path.startsWith('/portal/calendar')) Child = VendorCalendarPage;
     else if (path.startsWith('/portal/services')) Child = VendorServicesPage;
     else if (path.startsWith('/portal/employees')) Child = VendorEmployeesPage;
@@ -248,30 +272,31 @@ function PortalLayout() {
     else if (path.startsWith('/portal/affiliates')) Child = VendorAffiliatesPage;
     else if (path.startsWith('/portal/branding')) Child = VendorBrandingPage;
     else if (path.startsWith('/portal/settings')) Child = VendorSettingsPage;
+    else if (path.startsWith('/portal')) Child = VendorDashboardPage;
     else Child = NotFoundPage;
-  } else if (role === 'affiliate') {
+  } else if (activeRole === 'affiliate') {
     Shell = AffiliatePortal;
-    if (path === '/portal' || path === '/portal/') Child = AffiliateDashboardPage;
-    else if (path.startsWith('/portal/links')) Child = AffiliateLinksPage;
+    if (path.startsWith('/portal/links')) Child = AffiliateLinksPage;
     else if (path.startsWith('/portal/commissions')) Child = AffiliateCommissionsPage;
     else if (path.startsWith('/portal/wallet')) Child = AffiliateWalletPage;
+    else if (path.startsWith('/portal')) Child = AffiliateDashboardPage;
     else Child = NotFoundPage;
-  } else if (role === 'franchiser') {
+  } else if (activeRole === 'franchiser') {
     Shell = FranchiserPortal;
-    if (path === '/portal' || path === '/portal/') Child = FranchiserDashboardPage;
-    else if (path.startsWith('/portal/vendors')) Child = FranchiserVendorsPage;
+    if (path.startsWith('/portal/vendors')) Child = FranchiserVendorsPage;
     else if (path.startsWith('/portal/reports')) Child = FranchiserReportsPage;
     else if (path.startsWith('/portal/settings')) Child = VendorSettingsPage;
+    else if (path.startsWith('/portal')) Child = FranchiserDashboardPage;
     else Child = NotFoundPage;
   } else {
-    // customer
+    // customer (default)
     Shell = CustomerPortal;
-    if (path === '/portal' || path === '/portal/') Child = CustomerDashboardPage;
-    else if (path.startsWith('/portal/bookings')) Child = CustomerBookingsPage;
+    if (path.startsWith('/portal/bookings')) Child = CustomerBookingsPage;
     else if (path.startsWith('/portal/recurring')) Child = CustomerRecurringPage;
     else if (path.startsWith('/portal/vouchers')) Child = CustomerVouchersPage;
     else if (path.startsWith('/portal/profile')) Child = CustomerProfilePage;
     else if (path.startsWith('/portal/settings')) Child = CustomerProfilePage;
+    else if (path.startsWith('/portal')) Child = CustomerDashboardPage;
     else Child = NotFoundPage;
   }
 
@@ -288,6 +313,7 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
     <AuthProvider>
       <BrowserRouter>
+        <PortalProvider>
         <ScrollToTop />
         <CookieBanner />
         <Toaster position="top-right" richColors closeButton duration={3500} />
@@ -330,6 +356,7 @@ export default function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
+        </PortalProvider>
       </BrowserRouter>
     </AuthProvider>
     </QueryClientProvider>

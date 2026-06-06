@@ -66,6 +66,7 @@ export default function DashboardPage() {
   const [plan, setPlan] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -101,7 +102,7 @@ export default function DashboardPage() {
 
     fetchDashboard();
     return () => { cancelled = true; };
-  }, []);
+  }, [reloadKey]);
 
   // Berechne KPIs aus echten Daten
   const bookingCount = bookings.length;
@@ -141,7 +142,7 @@ export default function DashboardPage() {
             <AlertCircle size={40} style={{ color: '#EF4444', margin: '0 auto 16px' }} />
             <p style={{ color: '#EF4444', fontSize: '0.9rem', marginBottom: '16px' }}>{error}</p>
             <button
-              onClick={() => window.location.reload()}
+              onClick={() => setReloadKey((k) => k + 1)}
               style={{
                 padding: '10px 24px',
                 borderRadius: 'var(--radius-md)',

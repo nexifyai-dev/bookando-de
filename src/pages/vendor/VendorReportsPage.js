@@ -50,7 +50,8 @@ export default function VendorReportsPage() {
     }
   };
 
-  useEffect(() => { fetchData(); }, [t]);
+  useEffect(() => { fetchData(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t]);
 
   const handleDownload = async () => {
     try {

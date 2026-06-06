@@ -46,6 +46,7 @@ export default function VendorDashboardPage() {
   const [report, setReport] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -82,7 +83,7 @@ export default function VendorDashboardPage() {
     }
     fetchData();
     return () => { cancelled = true; };
-  }, [t]);
+  }, [t, reloadKey]);
 
   const kpis = [
     { icon: DollarSign, value: stats ? formatAmount(stats.revenue_today || 0) : '0 €', label: t('vendor.dashboard.revenue_today', 'Umsatz (heute)'), trend: t('vendor.dashboard.revenue_today_trend', '+0 % zum Vortag') },
@@ -127,7 +128,7 @@ export default function VendorDashboardPage() {
           <AlertCircle size={40} style={{ color: 'var(--color-danger)', margin: '0 auto 16px' }} />
           <p style={{ color: 'var(--color-danger)', fontSize: '0.9rem', marginBottom: '16px' }}>{error}</p>
           <button
-            onClick={() => window.location.reload()}
+            onClick={() => setReloadKey((k) => k + 1)}
             style={{
               padding: '10px 24px', borderRadius: 'var(--radius-md)',
               border: '1px solid var(--color-divider)', backgroundColor: 'var(--color-surface)',

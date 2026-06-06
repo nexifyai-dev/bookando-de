@@ -92,7 +92,8 @@ export default function VendorBrandingPage() {
     }
   };
 
-  useEffect(() => { fetchBranding(); }, [t]);
+  useEffect(() => { fetchBranding(); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t]);
 
   const handleSaveBranding = async () => {
     setSaving(true);

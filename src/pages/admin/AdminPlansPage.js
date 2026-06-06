@@ -16,6 +16,7 @@ export default function AdminPlansPage() {
   const [plans, setPlans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -30,7 +31,7 @@ export default function AdminPlansPage() {
     }
     fetch();
     return () => { cancelled = true; };
-  }, [t]);
+  }, [t, reloadKey]);
 
   if (loading) return (
     <div data-testid="admin-plans-page" className="flex items-center justify-center py-20"><Loader2 size={32} className="animate-spin" style={{ color: 'var(--color-primary)' }} /></div>
@@ -40,7 +41,7 @@ export default function AdminPlansPage() {
     <div className="text-center py-20">
       <AlertCircle size={40} className="mx-auto mb-4" style={{ color: 'var(--color-danger)' }} />
       <p className="text-sm mb-4" style={{ color: 'var(--color-danger)' }}>{error}</p>
-      <button onClick={() => window.location.reload()} className="px-5 py-2 rounded-md border text-sm font-semibold cursor-pointer"
+      <button onClick={() => setReloadKey((k) => k + 1)} className="px-5 py-2 rounded-md border text-sm font-semibold cursor-pointer"
         style={{ background: 'var(--color-surface)', borderColor: 'var(--color-divider)', color: 'var(--color-primary)' }}>
         {t('common.retry', 'Erneut versuchen')}
       </button>
