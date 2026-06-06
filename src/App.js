@@ -57,6 +57,12 @@ const CustomerProfilePage   = lazy(() => import('./pages/customer/CustomerProfil
 
 const FranchiserDashboardPage = lazy(() => import('./pages/franchiser/FranchiserDashboardPage'));
 const FranchiserVendorsPage   = lazy(() => import('./pages/franchiser/FranchiserVendorsPage'));
+
+/* Affiliate Portal */
+const AffiliateDashboardPage   = lazy(() => import('./pages/affiliate/AffiliateDashboardPage'));
+const AffiliateLinksPage       = lazy(() => import('./pages/affiliate/AffiliateLinksPage'));
+const AffiliateCommissionsPage = lazy(() => import('./pages/affiliate/AffiliateCommissionsPage'));
+const AffiliateWalletPage      = lazy(() => import('./pages/affiliate/AffiliateWalletPage'));
 const FranchiserReportsPage   = lazy(() => import('./pages/franchiser/FranchiserReportsPage'));
 
 const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage'));
@@ -144,6 +150,25 @@ function CustomerPortal({ children }) {
   );
 }
 
+function AffiliatePortal({ children }) {
+  const { t } = useTranslation();
+  const { user, logout } = useAuth();
+
+  const navItems = useMemo(() => [
+    { path: '/portal', label: t('nav.dashboard'), icon: LayoutDashboard, exact: true },
+    { path: '/portal/links', label: t('nav.links', 'Trackinglinks'), icon: Link2, matchPaths: ['/portal/links'] },
+    { path: '/portal/commissions', label: t('nav.commissions', 'Provisionen'), icon: Wallet, matchPaths: ['/portal/commissions'] },
+    { path: '/portal/wallet', label: t('nav.wallet'), icon: Wallet, matchPaths: ['/portal/wallet'] },
+  ], [t]);
+  return (
+    <PortalShell portalName="Affiliate" navItems={navItems}
+      mobileBottomNav={navItems.filter(i => ['/portal','/portal/links','/portal/wallet'].includes(i.path))}
+      user={user} onLogout={logout}>
+      <Suspense fallback={<LoadingFallback />}>{children}</Suspense>
+    </PortalShell>
+  );
+}
+
 function FranchiserPortal({ children }) {
   const { t } = useTranslation();
   const { user, logout } = useAuth();
@@ -221,6 +246,13 @@ function PortalLayout() {
     else if (path.startsWith('/portal/affiliates')) Child = VendorAffiliatesPage;
     else if (path.startsWith('/portal/branding')) Child = VendorBrandingPage;
     else if (path.startsWith('/portal/settings')) Child = VendorSettingsPage;
+    else Child = NotFoundPage;
+  } else if (role === 'affiliate') {
+    Shell = AffiliatePortal;
+    if (path === '/portal' || path === '/portal/') Child = AffiliateDashboardPage;
+    else if (path.startsWith('/portal/links')) Child = AffiliateLinksPage;
+    else if (path.startsWith('/portal/commissions')) Child = AffiliateCommissionsPage;
+    else if (path.startsWith('/portal/wallet')) Child = AffiliateWalletPage;
     else Child = NotFoundPage;
   } else if (role === 'franchiser') {
     Shell = FranchiserPortal;
