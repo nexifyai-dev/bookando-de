@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Users, Search, Mail, Calendar, Loader2, AlertCircle, Phone, MapPin
 } from 'lucide-react';
 import { formatAmount, formatDate } from '../../lib/utils';
 import { VendorBookingsApi } from '../../lib/api';
+import { useAutoRefresh } from '../../hooks/useAutoRefresh';
 
 const statusColors = {
   confirmed: { bg: 'rgba(196,155,62,0.12)', text: 'var(--color-accent)' },
@@ -114,32 +115,13 @@ function CustomerDetailModal({ customer, bookings, onClose }) {
 export default function VendorCustomersPage() {
   const { t } = useTranslation();
 
-  const [bookings, setBookings] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data: bookings = [], isLoading, error, refetch } = useAutoRefresh(
+    ['vendor', 'customers'],
+    () => VendorBookingsApi.list().then(d => Array.isArray(d) ? d : d?.bookings || d?.data || []),
+  );
+
   const [search, setSearch] = useState('');
   const [selectedCustomer, setSelectedCustomer] = useState(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    async function fetch() {
-      setLoading(true);
-      setError(null);
-      try {
-        const data = await VendorBookingsApi.list();
-        if (!cancelled) {
-          const list = Array.isArray(data) ? data : (data.bookings || data.data || []);
-          setBookings(list);
-        }
-      } catch (err) {
-        if (!cancelled) setError(err.message || t('vendor.customers.load_error', 'Fehler beim Laden der Kunden.'));
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    }
-    fetch();
-    return () => { cancelled = true; };
-  }, [t]);
 
   // Gruppiere Buchungen nach Kunde
   const customerMap = {};
@@ -197,13 +179,13 @@ export default function VendorCustomersPage() {
         </div>
       </div>
 
-      {loading && (
+      {isLoading && (
         <div className="flex items-center justify-center py-20">
           <Loader2 size={32} className="animate-spin" style={{ color: 'var(--color-primary)' }} />
         </div>
       )}
 
-      {!loading && error && (
+      {!isLoading && error && (
         <div className="text-center py-20">
           <AlertCircle size={40} style={{ color: 'var(--color-danger)', margin: '0 auto 16px' }} />
           <p style={{ color: 'var(--color-danger)', fontSize: '0.9rem', marginBottom: '16px' }}>{error}</p>
@@ -215,7 +197,7 @@ export default function VendorCustomersPage() {
         </div>
       )}
 
-      {!loading && !error && customers.length === 0 && (
+      {!isLoading && !error && customers.length === 0 && (
         <div className="text-center py-20">
           <Users size={48} style={{ color: 'var(--color-text-tertiary)', margin: '0 auto 16px', opacity: 0.4 }} />
           <p style={{ color: 'var(--color-text-tertiary)', fontSize: '0.9rem' }}>
@@ -224,7 +206,7 @@ export default function VendorCustomersPage() {
         </div>
       )}
 
-      {!loading && !error && customers.length > 0 && (
+      {!isLoading && !error && customers.length > 0 && (
         <div className="rounded-xl overflow-hidden"
           style={{ background: 'var(--color-surface)', border: '1px solid var(--color-divider)' }}>
           <div className="hidden md:flex items-center gap-4 px-5 py-3 text-[11px] font-semibold uppercase tracking-wider"
