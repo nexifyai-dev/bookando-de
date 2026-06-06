@@ -45,6 +45,57 @@ Stattdessen:
 5. Nach jeder Datei Build
 ```
 
+### 2.4 Reactive Portal State (PFLICHT)
+
+**Regel:** Kontextwechsel — Rollen, Tenants, Sprache, User, Login, Logout, Token-Refresh — müssen **sofort reaktiv** greifen, ohne Browser-Refresh.
+
+| Kontextwechsel | Quelle der Wahrheit | Reaktiver Pfad |
+|----------------|--------------------|-----------------|
+| Role Switch | `useAuth().activeRole` | `setActiveRole()` → `POST /api/auth/context` → AuthContext-State → re-render |
+| Tenant Switch | `useAuth().activeTenant` | `setActiveTenant()` → Server-Validierung → Cache-Invalidation |
+| Sprache DE/EN | `i18n.changeLanguage()` | Komponenten greifen via `useTranslation()` zu |
+| Login/Logout | AuthContext | `login()`/`logout()` invalidieren Query-Cache komplett |
+| User-Update | AuthContext | `refreshUser()` neu, `updateProfile()` patcht State |
+
+**Verboten:**
+
+| Pattern | Warum verboten |
+|---------|----------------|
+| `window.location.reload()` als Lösung | Erzwingt Full-Page-Reload, verliert App-State, keine Snappy UX |
+| `useState(user)` mit nur `[]`-Deps | Liest nur initialen Wert, re-rendert nicht bei User-Änderung |
+| `useMemo(navItems, [])` mit hartkodierten Strings | Sprachwechsel zeigt stale deutsche Labels |
+| Direkter `localStorage.getItem('user')` in Komponenten | Nicht reaktiv, kein Re-Render bei Storage-Änderung |
+| Routen-Dispatch per `window.location.pathname` | Nicht reaktiv, kein Re-Render bei Navigation |
+
+**Erlaubt:**
+
+| Pattern | Zweck |
+|---------|-------|
+| `useLocation()` | Reaktive Navigation |
+| `useAuth().activeRole` | Reaktive Rolle |
+| `usePortal().navItems` | Rollenbasierte Nav-Items (re-rendert bei Switch) |
+| `queryClient.invalidateQueries()` bei Switch | Frische Daten nach Kontextwechsel |
+| `localStorage` für UI-State (z.B. `sidebar_collapsed`) | Persistenz, nicht Auth-State |
+| `window.location.reload()` in `ErrorBoundary` | Legitimer App-Reset bei unhandled error |
+
+**Pflicht-Prüfung pro Paket:**
+
+```bash
+./scripts/check-portal-state.sh   # 13 statische Checks
+```
+
+**Akzeptanzkriterien:**
+
+- Rollenwechsel Vendor→Staff→Customer ohne Browser-Refresh
+- Sidebar/Header/Dashboard aktualisieren sofort
+- Query-Cache wird invalidiert
+- Keine stale Vendor-Daten im Staff-Kontext
+- Build erfolgreich
+- Vercel Production READY
+- Live-Smoke durchgeführt
+
+**Verantwortlich:** Bei jedem Paket, das Auth/Portal/Routing betrifft, ist `check-portal-state.sh` Teil des Pre-Flight.
+
 ### 2.3 API-Contract First
 
 Bevor eine Frontend-Änderung deployed wird:

@@ -102,3 +102,72 @@
 | Kein Booking Status History Audit | Datenbank | Mittel | P2 |
 | Kein Affiliate Click-Tracking | Affiliate | Mittel | P1 geplant |
 | Keine Payment-Integration im BookingWidget | Payment | Mittel | P2 geplant |
+
+## 8. P0 Reactive Portal State — Role-Switch Test (manuell)
+
+**Commit:** `5a62b66` (Frontend) + `3fbf8b5` (Backend)
+**Datum:** 2026-06-06
+
+### Manuelle Test-Schritte (Akzeptanzkriterien)
+
+| # | Schritt | Erwartetes Verhalten | Status |
+|---|---------|---------------------|--------|
+| 1 | Login als User mit `roles = ["vendor", "staff"]` | Portal zeigt Vendor-Shell | ⏳ manuell |
+| 2 | Öffne `/portal/services` | Vendor-Sidebar aktiv, Services sichtbar | ⏳ manuell |
+| 3 | Klick auf `RoleSwitcher` → "Mitarbeiter" | Ohne Reload: Sidebar ändert sich, Route bleibt oder wechselt zu erlaubter Default-Route | ⏳ manuell |
+| 4 | Header zeigt "Mitarbeiter" | Sofort, kein Flackern, kein Browser-Refresh | ⏳ manuell |
+| 5 | Dashboard wechselt zu Staff-Default | Vendor-KPIs verschwinden, Staff-View sichtbar | ⏳ manuell |
+| 6 | Klick auf `RoleSwitcher` → "Anbieter" | Sofort zurück zu Vendor-View, Sidebar + Dashboard aktualisiert | ⏳ manuell |
+| 7 | Sprache DE → EN via `LanguageSwitcher` | Sidebar-Nav-Items zeigen englische Labels, ohne Reload | ⏳ manuell |
+| 8 | Logout | Portal komplett geleert, Query-Cache `queryClient.clear()` | ⏳ manuell |
+| 9 | Login erneut | AuthContext frisch, kein stale state | ⏳ manuell |
+
+### Verbotene Patterns (statisch geprüft)
+
+| Pattern | Erwartet | Tatsächlich |
+|---------|----------|-------------|
+| `window.location.reload()` in Portal-Pages | 0 (außer ErrorBoundary) | 0 ✓ |
+| `useMemo(navItems, [])` ohne deps in Portal-Shells | 0 | 0 ✓ (alle via `usePortal()`) |
+| Direkter `localStorage.getItem('role')` in Layouts | 0 | 0 ✓ |
+| `queryClient.invalidateQueries()` bei Switch | vorhanden | vorhanden ✓ |
+
+### Statische Prüfung
+
+```bash
+$ bash scripts/check-portal-state.sh
+── 1. Verbotene window.location.reload      ✅
+── 2. PortalLayout nutzt useAuth+useLocation ✅
+── 3. PortalContext mit reaktiver navItems   ✅
+── 4. AuthContext mit setActiveContext       ✅
+── 4b. AuthContext invalidiert Cache         ✅
+── 5. RoleSwitcher exportiert                ✅
+── 5b. TenantSwitcher exportiert             ✅
+── 5c. LanguageSwitcher exportiert           ✅
+── 6. Switcher in PortalShell eingebunden    ✅
+── 7. Backend POST /api/auth/context         ✅
+── 8. Backend _profile_from_db               ✅
+── 9. SQL-Migration active_role              ✅
+── 10. Kein localStorage-Role-Read           ✅
+
+Result: 13 passed, 0 failed
+```
+
+### Hinweis Test-Account
+
+Manuelle Tests in Schritt 1–9 erfordern einen Test-User mit `roles = ["vendor", "staff"]`
+in `public.users`. Aktuell existiert kein solcher User im System. Blockiert durch:
+- Migration `20260606_123000_user_multi_role.sql` muss in Supabase DB angewendet werden
+  (via SQL-Editor oder `supabase db push`)
+- Test-User-Creation per Admin-UI oder direkt in DB
+
+Sobald Migration angewendet + Test-User angelegt: manueller Smoke-Test durchführen.
+
+### Verwandte Dateien
+
+- Backend: `api/auth_routes.py` (`_profile_from_db`, `POST /api/auth/context`)
+- Backend: `supabase/migrations/20260606_123000_user_multi_role.sql`
+- Frontend: `src/contexts/AuthContext.js`, `src/contexts/PortalContext.js`
+- Frontend: `src/components/portal/PortalSwitchers.js`
+- Frontend: `src/components/layout/PortalShell.js`
+- Frontend: `src/App.js` (PortalLayout)
+- Script: `scripts/check-portal-state.sh`
