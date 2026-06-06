@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Search, Filter, X, CheckCircle, XCircle, Loader2, AlertCircle,
-  Clock, ChevronDown, UserX, Ban
+  Clock, ChevronDown, UserX, Ban, CalendarCheck
 } from 'lucide-react';
 import apiClient from '../../lib/apiClient';
 import { useAutoRefresh, usePortalMutation } from '../../hooks/useAutoRefresh';

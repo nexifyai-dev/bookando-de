@@ -18,6 +18,7 @@ import {
   Filter,
 } from 'lucide-react';
 import { CustomerBookingsApi } from '../../lib/api';
+import { useAutoRefresh, usePortalMutation } from '../../hooks/useAutoRefresh';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
 import { Badge } from '../../components/ui/badge';
 
@@ -319,86 +320,49 @@ export default function CustomerBookingsPage() {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
 
-  const [bookings, setBookings] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   // Cancel modal
   const [cancelTarget, setCancelTarget] = useState(null);
-  const [cancelProcessing, setCancelProcessing] = useState(false);
-
   // Reschedule modal
   const [rescheduleTarget, setRescheduleTarget] = useState(null);
-  const [rescheduleProcessing, setRescheduleProcessing] = useState(false);
-
   // Success feedback
   const [successMsg, setSuccessMsg] = useState(null);
 
-  const fetchData = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await CustomerBookingsApi.list();
-      const list = Array.isArray(data) ? data : data?.bookings || data?.data || [];
-      setBookings(list);
-    } catch (err) {
-      setError(err?.response?.data?.detail || err.message || t('customer.error_load', 'Fehler beim Laden der Buchungen.'));
-    } finally {
-      setLoading(false);
-    }
-  }, [t]);
+  // ─── useAutoRefresh für Buchungsdaten ───
+  const { data: raw, isLoading, error, refetch } = useAutoRefresh(
+    ['customer', 'bookings'],
+    () => CustomerBookingsApi.list().then(d => Array.isArray(d) ? d : d?.bookings || d?.data || []),
+    { refetchInterval: 30_000 },
+  );
+  const bookings = raw || [];
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  // Show success message briefly
-  const showSuccess = useCallback(
-    (msg) => {
-      setSuccessMsg(msg);
+  // ─── Cancel Mutation ───
+  const cancelMutation = usePortalMutation({
+    mutationFn: (id) => CustomerBookingsApi.cancel(id),
+    invalidateKeys: [['customer', 'bookings'], ['vendor', 'bookings'], ['vendor', 'dashboard']],
+    onSuccess: () => {
+      setCancelTarget(null);
+      setSuccessMsg(t('customer.cancelled_success', 'Buchung erfolgreich storniert.'));
       setTimeout(() => setSuccessMsg(null), 4000);
     },
-    []
-  );
+  });
+  const handleCancel = () => { if (cancelTarget) cancelMutation.mutate(cancelTarget.id); };
 
-  // Cancel handler
-  const handleCancel = useCallback(async () => {
-    if (!cancelTarget) return;
-    setCancelProcessing(true);
-    try {
-      await CustomerBookingsApi.cancel(cancelTarget.id);
-      showSuccess(t('customer.cancelled_success', 'Buchung erfolgreich storniert.'));
-      setCancelTarget(null);
-      fetchData();
-    } catch (err) {
-      const msg = err?.response?.data?.detail || err.message || t('customer.cancel_error', 'Fehler beim Stornieren.');
-      setError(msg);
-    } finally {
-      setCancelProcessing(false);
-    }
-  }, [cancelTarget, fetchData, showSuccess, t]);
-
-  // Reschedule handler
-  const handleReschedule = useCallback(
-    async (startAt) => {
-      if (!rescheduleTarget) return;
-      setRescheduleProcessing(true);
-      try {
-        await CustomerBookingsApi.reschedule(rescheduleTarget.id, startAt);
-        showSuccess(t('customer.rescheduled_success', 'Termin erfolgreich umgebucht.'));
-        setRescheduleTarget(null);
-        fetchData();
-      } catch (err) {
-        const msg = err?.response?.data?.detail || err.message || t('customer.reschedule_error', 'Fehler beim Umbuchen.');
-        setError(msg);
-      } finally {
-        setRescheduleProcessing(false);
-      }
+  // ─── Reschedule Mutation ───
+  const rescheduleMutation = usePortalMutation({
+    mutationFn: ({ id, start_at }) => CustomerBookingsApi.reschedule(id, start_at),
+    invalidateKeys: [['customer', 'bookings'], ['vendor', 'bookings'], ['vendor', 'dashboard']],
+    onSuccess: () => {
+      setRescheduleTarget(null);
+      setSuccessMsg(t('customer.rescheduled_success', 'Termin erfolgreich umgebucht.'));
+      setTimeout(() => setSuccessMsg(null), 4000);
     },
-    [rescheduleTarget, fetchData, showSuccess, t]
-  );
+  });
+  const handleReschedule = (startAt) => {
+    if (rescheduleTarget) rescheduleMutation.mutate({ id: rescheduleTarget.id, start_at: startAt });
+  };
 
   // Filter & Search
   const filtered = bookings.filter((b) => {
@@ -511,7 +475,7 @@ export default function CustomerBookingsPage() {
       </div>
 
       {/* ═══ Loading ═══ */}
-      {loading && (
+      {isLoading && (
         <div className="flex flex-col items-center justify-center py-20 gap-3">
           <Loader2 size={28} className="animate-spin" style={{ color: 'var(--color-primary)' }} />
           <p className="text-sm" style={{ color: 'var(--color-text-tertiary)' }}>
@@ -521,14 +485,14 @@ export default function CustomerBookingsPage() {
       )}
 
       {/* ═══ Error ═══ */}
-      {!loading && error && (
+      {!isLoading && error && (
         <div className="flex flex-col items-center justify-center py-16 gap-4">
           <AlertCircle size={36} style={{ color: 'var(--color-danger)' }} />
           <p className="text-sm font-medium" style={{ color: 'var(--color-danger)' }}>
             {error}
           </p>
           <button
-            onClick={fetchData}
+            onClick={refetch}
             className="px-5 py-2 text-sm font-semibold cursor-pointer transition-colors"
             style={{
               background: 'var(--color-surface)',
@@ -543,7 +507,7 @@ export default function CustomerBookingsPage() {
       )}
 
       {/* ═══ Empty State ═══ */}
-      {!loading && !error && filtered.length === 0 && (
+      {!isLoading && !error && filtered.length === 0 && (
         <div className="text-center py-16">
           <CalendarCheck size={40} className="mx-auto mb-3" style={{ color: 'var(--color-text-tertiary)' }} />
           <p className="text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>
@@ -567,7 +531,7 @@ export default function CustomerBookingsPage() {
       )}
 
       {/* ═══ Booking List ═══ */}
-      {!loading && !error && filtered.length > 0 && (
+      {!isLoading && !error && filtered.length > 0 && (
         <div className="space-y-3">
           {filtered.map((booking) => {
             const statusCfg = STATUS_CONFIG[booking.status] || STATUS_CONFIG.pending;
@@ -679,7 +643,7 @@ export default function CustomerBookingsPage() {
         booking={cancelTarget}
         onConfirm={handleCancel}
         onClose={() => setCancelTarget(null)}
-        processing={cancelProcessing}
+        processing={cancelMutation.isPending}
       />
 
       {/* ═══ Reschedule Modal ═══ */}
@@ -688,7 +652,7 @@ export default function CustomerBookingsPage() {
         booking={rescheduleTarget}
         onConfirm={handleReschedule}
         onClose={() => setRescheduleTarget(null)}
-        processing={rescheduleProcessing}
+        processing={rescheduleMutation.isPending}
       />
     </div>
   );
