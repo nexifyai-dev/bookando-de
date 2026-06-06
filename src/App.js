@@ -16,6 +16,7 @@ import {
   LayoutDashboard, CalendarCheck, Users, Store, Settings,
   Clock, CreditCard, BarChart3, Wallet, Link2, Palette,
   Briefcase, Repeat, Ticket, UserCircle, Shield, MessageSquare,
+  DollarSign,
 } from 'lucide-react';
 
 /* ════════════════════════════════════════════════════════════════
@@ -64,6 +65,7 @@ const AdminVendorsPage   = lazy(() => import('./pages/admin/AdminVendorsPage'));
 const AdminPlansPage     = lazy(() => import('./pages/admin/AdminPlansPage'));
 const AdminAuditPage     = lazy(() => import('./pages/admin/AdminAuditPage'));
 const AdminReviewsPage   = lazy(() => import('./pages/admin/AdminReviewsPage'));
+const AdminCommissionPage = lazy(() => import('./pages/admin/AdminCommissionPage'));
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 30_000, retry: 1, refetchOnWindowFocus: false } },
@@ -171,6 +173,7 @@ function AdminPortal({ children }) {
     { path: '/portal/plans', label: t('nav.plans'), icon: CreditCard, matchPaths: ['/portal/plans'] },
     { path: '/portal/audit', label: t('nav.audit'), icon: Shield, matchPaths: ['/portal/audit'] },
     { path: '/portal/reviews', label: t('nav.reviews'), icon: MessageSquare, matchPaths: ['/portal/reviews'] },
+    { path: '/portal/commissions', label: t('nav.commissions', 'Provisionen'), icon: Wallet, matchPaths: ['/portal/commissions'] },
     { path: '/portal/settings', label: t('nav.settings'), icon: Settings, matchPaths: ['/portal/settings'] },
   ], []);
   return (
@@ -201,6 +204,7 @@ function PortalLayout() {
     else if (path.startsWith('/portal/plans')) Child = AdminPlansPage;
     else if (path.startsWith('/portal/audit')) Child = AdminAuditPage;
     else if (path.startsWith('/portal/reviews')) Child = AdminReviewsPage;
+    else if (path.startsWith('/portal/commissions')) Child = AdminCommissionPage;
     else if (path.startsWith('/portal/settings')) Child = VendorSettingsPage;
     else Child = NotFoundPage;
   } else if (role === 'vendor' || role === 'staff') {
