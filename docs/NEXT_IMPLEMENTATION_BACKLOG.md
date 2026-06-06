@@ -15,7 +15,7 @@
 | 4 | Auto-Refresh (useAutoRefresh + refetchOnWindowFocus) | ✅ | Commit f556b20 |
 | 5 | Legal-Seiten DE/EN + Brand-Farben | ✅ | Commit 0b8f406 |
 | 6 | Security: .env.vercel bereinigt, .gitignore fix | ✅ | Commit eb99e31 |
-| 7 | **Reactive Portal State — Rollenwechsel ohne Browser-Refresh** | ✅ | Commit `5a62b66` (Frontend) + `3fbf8b5` (Backend). AuthContext/PortalContext/Switchers, `check-portal-state.sh 13/13`, Vercel READY. |
+| 7 | **Reactive Portal State — Rollenwechsel ohne Browser-Refresh** | ✅ | Commit `5a62b66` (Frontend) + `3fbf8b5` (Backend). AuthContext/PortalContext/Switchers, `check-portal-state.sh 16/16` (Stand f141e1b), Vercel READY. **Regression-Fix f141e1b:** isReady in AuthContext exportiert — vorher Ladeschleife auf `/portal/*`. |
 
 ---
 

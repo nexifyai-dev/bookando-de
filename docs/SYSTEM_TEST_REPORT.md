@@ -148,9 +148,53 @@ $ bash scripts/check-portal-state.sh
 ── 8. Backend _profile_from_db               ✅
 ── 9. SQL-Migration active_role              ✅
 ── 10. Kein localStorage-Role-Read           ✅
+── 11. useAuth() exportiert isReady          ✅  ← P0-Regression-Fix f141e1b
+── 12. PortalLayout-Loading-Guard            ✅  ← P0-Regression-Fix f141e1b
+── 13. PortalContext.isReady → auth.isReady  ✅  ← P0-Regression-Fix f141e1b
 
-Result: 13 passed, 0 failed
+Result: 16 passed, 0 failed
 ```
+
+## 9. P0-Regression-Fix: isReady-Ladeschleife (2026-06-06)
+
+**Commit:** `f141e1b` — P0-Regression-Fix
+**Symptom:** `/portal/customer`, `/portal/bookings`, `/portal/*` zeigten permanenten Spinner — `<LoadingFallback />` rendert endlos.
+
+### Root Cause
+
+`App.js` → `PortalLayout` destrukturiert `{ activeRole, user, isReady }` aus `useAuth()`. Der
+`AuthContext` exportierte das Feld `isReady` jedoch **nicht**. Folge: `!undefined === true`,
+der Loading-Guard `if (!isReady || !user) return <LoadingFallback />;` war **immer true**, und
+kein Portal-Child wurde je gerendert.
+
+Regression des P0-Commits `5a62b66`. `isReady` war in der Codebase geplant, aber beim finalen
+Refactor vergessen worden.
+
+### Fix
+
+| Datei | Änderung |
+|-------|----------|
+| `src/contexts/AuthContext.js` | `isReady = !loading` zentral im `derived`-Block; explizit in beiden Branches (no-user = false, with-user = true); `useMemo` deps = `[user, loading]` |
+| `src/contexts/PortalContext.js` | `isReady: auth.isReady` (zentrale Quelle statt `!auth.loading`) |
+| `scripts/check-portal-state.sh` | Drei neue statische Guards (#11, #12, #13), die genau diesen Regressions-Pfad abdecken |
+
+### Verifikation
+
+| Check | Resultat |
+|-------|----------|
+| `npm run build` | OK, Bundle `main.68ad08ff.js` (Build) → `main.fd38f460.js` (Vercel) |
+| `isReady` im Live-Bundle | 4 Vorkommen (`isReady:e`, `isReady:r.isReady`, `isReady])`, `isReady`) |
+| `bash scripts/check-portal-state.sh` | 16/16 passed (vorher 13/13) |
+| `bash scripts/preflight-bookando.sh` | 11/11 passed |
+| Vercel-Deploy | Commit `f141e1b` → main → app.bookando.de live |
+| Live-Smoke `https://app.bookando.de/portal/customer` | HTTP 200, Bundle `fd38f460` ausgeliefert |
+
+### Lessons Learned
+
+- Bei jedem neuen Feld in einem Context-Value: zentrales `grep` nach allen Konsumenten verpflichtend.
+- Statische Regressions-Guards in CI/Skripten: jeder `useFoo().bar`-Aufruf sollte ein
+  `check-foo-exports-bar.sh`-Pendant haben, sonst sind stille Defaults (`!undefined === true`)
+  die häufigste Fehlerklasse.
 
 ### Hinweis Test-Account
 

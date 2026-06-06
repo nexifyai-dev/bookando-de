@@ -96,6 +96,48 @@ Stattdessen:
 
 **Verantwortlich:** Bei jedem Paket, das Auth/Portal/Routing betrifft, ist `check-portal-state.sh` Teil des Pre-Flight.
 
+### 2.5 Lade-Loop-Defense (PFLICHT) — f141e1b
+
+**Lehre aus Bug f141e1b (Ladeschleife `/portal/*`):** Wenn ein `useFoo().bar`-Feld in einer
+Komponente destrukturiert und in einem Loading-Guard (`!bar || !user`) verwendet wird, **muss**
+`bar` zwingend im Provider-Value exportiert sein. `!undefined === true` ist eine stille Falle
+und führt zu permanenten `<LoadingFallback />`-Rendern, ohne sichtbaren Fehler.
+
+**Regel:** Jeder Loading-Guard der Form
+
+```js
+const { a, b, isReady, … } = useContext();
+if (!isReady || !user) return <LoadingFallback />;
+```
+
+muss statisch beweisbar erfüllt sein:
+
+| Prüfpunkt | Werkzeug |
+|-----------|----------|
+| `isReady` (oder Äquivalent) ist im Provider exportiert | `grep -q "isReady" Provider.js` |
+| Provider ist zentrale Quelle, nicht doppelt definiert | `grep -q "isReady: provider.isReady"` |
+| Dep-Listen in `useMemo` enthalten `loading`/`user`/`isReady` | manueller Review + ESLint |
+
+**Verboten:**
+
+| Anti-Pattern | Risiko |
+|--------------|--------|
+| Destrukturieren eines Felds, das im Provider nicht existiert | `!undefined === true` → permanenter Spinner |
+| Zwei parallele `isReady`-Definitionen (Provider vs. Context) | Inkonsistenter State, schwer debugbar |
+| `isReady: !auth.loading` als Kurzform in einem Sub-Context | Bricht bei abweichender `loading`-Semantik (z.B. `idle | loading | ready`) |
+
+**Pflicht-Prüfung pro Paket:** Die Guards `#11/#12/#13` in `scripts/check-portal-state.sh`
+sind Teil des Pre-Flight und blockieren Deploys, wenn `isReady` aus `useAuth()` fehlt.
+
+**Lessons Learned:**
+
+- Bei jedem neuen Feld in einem Context-Value: zentrales `grep` nach allen Konsumenten verpflichtend.
+- Statische Regressions-Guards in CI/Skripten: jeder `useFoo().bar`-Aufruf sollte ein
+  `check-foo-exports-bar.sh`-Pendant haben, sonst sind stille Defaults (`!undefined === true`)
+  die häufigste Fehlerklasse.
+- Jeder Bug, der durch fehlende Property-Definition in einem Provider entsteht, ist
+  ein Kandidat für einen statischen Guard. Wenn ein Check fehlt: ergänzen.
+
 ### 2.3 API-Contract First
 
 Bevor eine Frontend-Änderung deployed wird:
