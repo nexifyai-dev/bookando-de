@@ -16,7 +16,6 @@ import {
   LayoutDashboard, CalendarCheck, Users, Store, Settings,
   Clock, CreditCard, BarChart3, Wallet, Link2, Palette,
   Briefcase, Repeat, Ticket, UserCircle, Shield, MessageSquare,
-  DollarSign,
 } from 'lucide-react';
 
 /* ════════════════════════════════════════════════════════════════
@@ -45,6 +44,7 @@ const VendorHoursPage       = lazy(() => import('./pages/vendor/VendorHoursPage'
 const VendorCustomersPage   = lazy(() => import('./pages/vendor/VendorCustomersPage'));
 const VendorReportsPage     = lazy(() => import('./pages/vendor/VendorReportsPage'));
 const VendorWalletPage      = lazy(() => import('./pages/vendor/VendorWalletPage'));
+const VendorCalendarPage    = lazy(() => import('./pages/vendor/VendorCalendarPage'));
 const VendorAffiliatesPage  = lazy(() => import('./pages/vendor/VendorAffiliatesPage'));
 const VendorBrandingPage    = lazy(() => import('./pages/vendor/VendorBrandingPage'));
 const VendorSettingsPage    = lazy(() => import('./pages/vendor/VendorSettingsPage'));
@@ -110,6 +110,7 @@ function VendorPortal({ children }) {
   const navItems = useMemo(() => [
     { path: '/portal', label: t('nav.dashboard'), icon: LayoutDashboard, exact: true },
     { path: '/portal/bookings', label: t('nav.bookings'), icon: CalendarCheck, matchPaths: ['/portal/bookings'] },
+    { path: '/portal/calendar', label: t('nav.calendar', 'Kalender'), icon: CalendarCheck, matchPaths: ['/portal/calendar'] },
     { path: '/portal/services', label: t('nav.services'), icon: Store, matchPaths: ['/portal/services'] },
     { path: '/portal/employees', label: t('nav.employees'), icon: Users, matchPaths: ['/portal/employees'] },
     { path: '/portal/locations', label: t('nav.locations'), icon: Briefcase, matchPaths: ['/portal/locations'] },
@@ -236,6 +237,7 @@ function PortalLayout() {
     Shell = VendorPortal;
     if (path === '/portal' || path === '/portal/') Child = VendorDashboardPage;
     else if (path.startsWith('/portal/bookings')) Child = VendorBookingsPage;
+    else if (path.startsWith('/portal/calendar')) Child = VendorCalendarPage;
     else if (path.startsWith('/portal/services')) Child = VendorServicesPage;
     else if (path.startsWith('/portal/employees')) Child = VendorEmployeesPage;
     else if (path.startsWith('/portal/locations')) Child = VendorLocationsPage;
