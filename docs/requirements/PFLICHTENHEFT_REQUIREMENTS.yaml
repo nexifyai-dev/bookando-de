@@ -1,0 +1,1427 @@
+# Bookando.de — Canonical Requirements Registry
+# Single source of truth. Generated manually once, auto-verified thereafter.
+# Every PF-ID maps to one atomic customer requirement.
+#
+# Fields:
+#   id:          PF-XX-YYY (canonical ID)
+#   source_refs: list of customer document locations (chapter.section)
+#   requirement: short title matching the customer specification
+#   chapter:     original Pflichtenheft chapter
+#   phase:       MVP | Phase 2 | Phase 3 | alle
+#   mvp_system:  one exlusive MVP system (empty if non-MVP)
+#   status:      VERIFIED_COMPLETE | IMPLEMENTED_UNVERIFIED | PARTIAL |
+#                MOCK_ONLY | DOCUMENTED_ONLY | MISSING | CONTRADICTED |
+#                BLOCKED | FUTURE_PHASE
+#   weight:      decimal weight per status scale
+#   note:        optional remark
+#
+# Semantic duplicates are merged under one canonical ID with multiple source_refs.
+# Cross-referencing IDs that reference the same function carry the same canonical
+# requirement ID and are not double-counted in the MVP denominator.
+
+# ─── Kapitel 8 – Terminbuchungssystem ───────────────────────────────────────
+# Source: Pflichtenheft §8.1-§8.3
+
+- id: PF-08-001
+  source_refs: ["8.1.1"]
+  requirement: Echte Terminlogik (kein Produkt)
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-08-002
+  source_refs: ["8.1.2"]
+  requirement: Datum
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-08-003
+  source_refs: ["8.1.3"]
+  requirement: Uhrzeit
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-08-004
+  source_refs: ["8.1.4"]
+  requirement: Dauer
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-08-005
+  source_refs: ["8.1.5"]
+  requirement: Mitarbeiter-Zuordnung
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-08-006
+  source_refs: ["8.1.6"]
+  requirement: Standort-Zuordnung
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-08-007
+  source_refs: ["8.1.7"]
+  requirement: Ressourcen
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: MISSING
+  weight: 0.00
+
+- id: PF-08-008
+  source_refs: ["8.1.8"]
+  requirement: Vorlaufzeiten
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: MISSING
+  weight: 0.00
+
+- id: PF-08-009
+  source_refs: ["8.1.9"]
+  requirement: Pufferzeiten
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: MISSING
+  weight: 0.00
+
+- id: PF-08-010
+  source_refs: ["8.1.10"]
+  requirement: Gruppenlogik
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: MISSING
+  weight: 0.00
+
+- id: PF-08-011
+  source_refs: ["8.1.11"]
+  requirement: Online-/Offline-Termine
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-08-012
+  source_refs: ["8.2.1"]
+  requirement: Einzeltermine
+  chapter: 8
+  phase: MVP
+  mvp_system: Kalender
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-08-013
+  source_refs: ["8.2.2"]
+  requirement: Mehrfachsitzungen
+  chapter: 8
+  phase: MVP
+  mvp_system: Kalender
+  status: MISSING
+  weight: 0.00
+
+- id: PF-08-014
+  source_refs: ["8.2.3"]
+  requirement: Beratungsgespräche
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: MISSING
+  weight: 0.00
+
+- id: PF-08-015
+  source_refs: ["8.2.4"]
+  requirement: Gruppenbuchungen
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: MISSING
+  weight: 0.00
+
+- id: PF-08-016
+  source_refs: ["8.2.5"]
+  requirement: Online-Termine
+  chapter: 8
+  phase: MVP
+  mvp_system: Kalender
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-08-017
+  source_refs: ["8.2.6"]
+  requirement: Vor-Ort-Termine
+  chapter: 8
+  phase: MVP
+  mvp_system: Kalender
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-08-018
+  source_refs: ["8.2.7"]
+  requirement: Paketbuchungen
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-08-019
+  source_refs: ["8.2.8"]
+  requirement: Wiederkehrende Termine
+  chapter: 8
+  phase: MVP
+  mvp_system: Kalender
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-08-020
+  source_refs: ["8.3.1"]
+  requirement: Zeitslots blockierbar
+  chapter: 8
+  phase: MVP
+  mvp_system: Kalender
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-08-021
+  source_refs: ["8.3.2"]
+  requirement: Zeitslots reservierbar
+  chapter: 8
+  phase: MVP
+  mvp_system: Kalender
+  status: MISSING
+  weight: 0.00
+
+- id: PF-08-022
+  source_refs: ["8.3.3"]
+  requirement: Zeitslots synchronisierbar
+  chapter: 8
+  phase: MVP
+  mvp_system: Kalender
+  status: MISSING
+  weight: 0.00
+
+- id: PF-08-023
+  source_refs: ["8.3.4"]
+  requirement: Zeitslots direkt teilbar
+  chapter: 8
+  phase: MVP
+  mvp_system: Kalender
+  status: MISSING
+  weight: 0.00
+
+- id: PF-08-024
+  source_refs: ["8.3.5"]
+  requirement: Affiliate-fähige Slots
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-08-025
+  source_refs: ["8.3.6"]
+  requirement: Teilbar via Direktlinks
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: MISSING
+  weight: 0.00
+
+- id: PF-08-026
+  source_refs: ["8.3.7"]
+  requirement: Teilbar via Social Media
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: MISSING
+  weight: 0.00
+
+- id: PF-08-027
+  source_refs: ["8.3.8"]
+  requirement: Teilbar via QR-Codes
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: MISSING
+  weight: 0.00
+
+- id: PF-08-028
+  source_refs: ["8.3.9"]
+  requirement: Teilbar via Werbekampagnen
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: MISSING
+  weight: 0.00
+
+- id: PF-08-029
+  source_refs: ["8.3.10"]
+  requirement: Teilbar via Affiliate-Links
+  chapter: 8
+  phase: MVP
+  mvp_system: Terminbuchung
+  status: PARTIAL
+  weight: 0.35
+
+# ─── Kapitel 9 – Vendor-System ──────────────────────────────────────────────
+# Source: Pflichtenheft §9.1-§9.2
+
+- id: PF-09-001
+  source_refs: ["9.1.1"]
+  requirement: Vendor als Organisationseinheit
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-System
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-09-002
+  source_refs: ["9.1.2"]
+  requirement: Dienstleistungen anbieten
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-System
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-09-003
+  source_refs: ["9.1.3"]
+  requirement: Produkte verkaufen
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-System
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-09-004
+  source_refs: ["9.1.4"]
+  requirement: Mitarbeiter verwalten
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-System
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-09-005
+  source_refs: ["9.1.5"]
+  requirement: Kalender verwalten
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-System
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-09-006
+  source_refs: ["9.1.6"]
+  requirement: Standorte besitzen
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-System
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-09-007
+  source_refs: ["9.1.7"]
+  requirement: Affiliates anbinden
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-System
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-09-008
+  source_refs: ["9.1.8"]
+  requirement: Eigene Landingpages
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-System
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-09-009
+  source_refs: ["9.1.9"]
+  requirement: Marketplace-Sichtbarkeit
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-System
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-09-010
+  source_refs: ["9.2.1"]
+  requirement: Eigene Landingpages pro Vendor
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-Unterseiten
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-09-011
+  source_refs: ["9.2.2"]
+  requirement: Eigenes Buchungsprofil
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-Unterseiten
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-09-012
+  source_refs: ["9.2.3"]
+  requirement: Serviceübersichten
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-Unterseiten
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-09-013
+  source_refs: ["9.2.4"]
+  requirement: Kalender (öffentlich)
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-Unterseiten
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-09-014
+  source_refs: ["9.2.5"]
+  requirement: Branding
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-Unterseiten
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-09-015
+  source_refs: ["9.2.6"]
+  requirement: Bilder
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-Unterseiten
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-09-016
+  source_refs: ["9.2.7"]
+  requirement: Bewertungen
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-Unterseiten
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-09-017
+  source_refs: ["9.2.8"]
+  requirement: Zahlungsoptionen pro Vendor
+  chapter: 9
+  phase: MVP
+  mvp_system: Vendor-Unterseiten
+  status: PARTIAL
+  weight: 0.35
+
+# ─── Kapitel 10 – Marketplace-System ────────────────────────────────────────
+# Source: Pflichtenheft §10.1-§10.3
+
+- id: PF-10-001
+  source_refs: ["10.1.1"]
+  requirement: Öffentliches Verzeichnis
+  chapter: 10
+  phase: MVP
+  mvp_system: Marketplace
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-10-002
+  source_refs: ["10.1.2"]
+  requirement: Suche nach Standort
+  chapter: 10
+  phase: MVP
+  mvp_system: Marketplace
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-10-003
+  source_refs: ["10.1.3"]
+  requirement: Suche nach Kategorie
+  chapter: 10
+  phase: MVP
+  mvp_system: Marketplace
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-10-004
+  source_refs: ["10.1.4"]
+  requirement: Suche nach Bewertung
+  chapter: 10
+  phase: MVP
+  mvp_system: Marketplace
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-10-005
+  source_refs: ["10.1.5"]
+  requirement: Suche nach Preis
+  chapter: 10
+  phase: MVP
+  mvp_system: Marketplace
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-10-006
+  source_refs: ["10.1.6"]
+  requirement: Suche nach Dienstleistung
+  chapter: 10
+  phase: MVP
+  mvp_system: Marketplace
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-10-007
+  source_refs: ["10.1.7"]
+  requirement: Online-/Offline-Filter
+  chapter: 10
+  phase: MVP
+  mvp_system: Marketplace
+  status: MISSING
+  weight: 0.00
+
+- id: PF-10-008
+  source_refs: ["10.1.8"]
+  requirement: Reichweite erzeugen
+  chapter: 10
+  phase: MVP
+  mvp_system: Marketplace
+  status: DOCUMENTED_ONLY
+  weight: 0.05
+
+- id: PF-10-009
+  source_refs: ["10.1.9"]
+  requirement: Buchungen vermitteln
+  chapter: 10
+  phase: MVP
+  mvp_system: Marketplace
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-10-010
+  source_refs: ["10.1.10"]
+  requirement: Kleinere Dienstleister sichtbar
+  chapter: 10
+  phase: MVP
+  mvp_system: Marketplace
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-10-011
+  source_refs: ["10.1.11"]
+  requirement: Affiliate-Traffic bündeln
+  chapter: 10
+  phase: MVP
+  mvp_system: Marketplace
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-10-012
+  source_refs: ["10.1.12"]
+  requirement: Landingpages bereitstellen
+  chapter: 10
+  phase: MVP
+  mvp_system: Marketplace
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-10-013
+  source_refs: ["10.3.1"]
+  requirement: Öffentlich sichtbar
+  chapter: 10
+  phase: MVP
+  mvp_system: Marketplace
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-10-014
+  source_refs: ["10.3.2"]
+  requirement: Verborgen
+  chapter: 10
+  phase: MVP
+  mvp_system: Marketplace
+  status: MISSING
+  weight: 0.00
+
+- id: PF-10-015
+  source_refs: ["10.3.3"]
+  requirement: Nur per Direktlink
+  chapter: 10
+  phase: MVP
+  mvp_system: Marketplace
+  status: MISSING
+  weight: 0.00
+
+# ─── Kapitel 11 – Affiliate-Booking-System (★ KERN-USP) ────────────────────
+# Source: Pflichtenheft §11.1-§11.5
+
+- id: PF-11-001
+  source_refs: ["11.1"]
+  requirement: Affiliate-System als Kern-USP
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: DOCUMENTED_ONLY
+  weight: 0.05
+
+- id: PF-11-002
+  source_refs: ["11.2.1"]
+  requirement: Vendor bewerben
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-11-003
+  source_refs: ["11.2.2"]
+  requirement: Dienstleistung bewerben
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-11-004
+  source_refs: ["11.2.3"]
+  requirement: Paket bewerben
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-11-005
+  source_refs: ["11.2.4"]
+  requirement: Gutschein bewerben
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-11-006
+  source_refs: ["11.2.5"]
+  requirement: Festen Termin bewerben
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: MISSING
+  weight: 0.00
+
+- id: PF-11-007
+  source_refs: ["11.3.1"]
+  requirement: Individueller Trackinglink
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-11-008
+  source_refs: ["11.3.2"]
+  requirement: Kunde klickt → Landing
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-11-009
+  source_refs: ["11.3.3"]
+  requirement: Kunde bucht Termin
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-11-010
+  source_refs: ["11.3.4"]
+  requirement: Zahlung verarbeitet
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-11-011
+  source_refs: ["11.3.5"]
+  requirement: Umsatz gespeichert
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-11-012
+  source_refs: ["11.3.6"]
+  requirement: Provision automatisch berechnet
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: PARTIAL
+  weight: 0.35
+
+# PF-11-013: "Provision im Wallet" → Phase "alle" (MVP-Arkitektur-Enabler, nicht MVP-gezählt)
+- id: PF-11-013
+  source_refs: ["11.3.7"]
+  requirement: Provision im Wallet
+  chapter: 11
+  phase: alle
+  mvp_system: Affiliate-Tracking
+  status: PARTIAL
+  weight: 0.35
+  note: "Phase 'alle' — zählt nicht im MVP-Nenner, aber als Architektur-Enabler im Mapping geführt"
+
+- id: PF-11-014
+  source_refs: ["11.5"]
+  requirement: Auszahlung beantragbar (Kernarchitektur)
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+  note: "Siehe PF-17-005 für Auszahlungslogik"
+
+- id: PF-11-015
+  source_refs: ["11.6"]
+  requirement: Faire Zusammenarbeit
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: DOCUMENTED_ONLY
+  weight: 0.05
+
+- id: PF-11-016
+  source_refs: ["11.7"]
+  requirement: Transparente Umsatzzuordnung
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: MISSING
+  weight: 0.00
+
+- id: PF-11-017
+  source_refs: ["11.8"]
+  requirement: Nachvollziehbare Performance
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-11-018
+  source_refs: ["11.9"]
+  requirement: Automatisierte Provisionierung
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-11-019
+  source_refs: ["11.10"]
+  requirement: Skalierbares Empfehlungsmarketing
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: DOCUMENTED_ONLY
+  weight: 0.05
+
+- id: PF-11-020
+  source_refs: ["11.11"]
+  requirement: Affiliate = Kernarchitektur
+  chapter: 11
+  phase: MVP
+  mvp_system: Affiliate-Tracking
+  status: MISSING
+  weight: 0.00
+  note: "Semantisch verwandt mit PF-11-014 (Kern-USP + Kernarchitektur), aber eigenständige fachliche Forderung (tiefe Integration vs Auszahlbarkeit)"
+
+# ─── Kapitel 12 – Wallet- und Ledger-System ─────────────────────────────────
+# Source: Pflichtenheft §12.1-§12.2
+
+- id: PF-12-001
+  source_refs: ["12.1.1"]
+  requirement: Jeder Nutzer erhält Wallet
+  chapter: 12
+  phase: alle
+  mvp_system: Wallet-System
+  status: PARTIAL
+  weight: 0.35
+  note: "Phase 'alle' — Grundvoraussetzung, im Mapping gezählt"
+
+- id: PF-12-002
+  source_refs: ["12.1.2"]
+  requirement: Affiliate-Provisionen
+  chapter: 12
+  phase: MVP
+  mvp_system: Wallet-System
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-12-003
+  source_refs: ["12.1.3"]
+  requirement: Partnerprovisionen
+  chapter: 12
+  phase: MVP
+  mvp_system: Wallet-System
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-12-004
+  source_refs: ["12.1.4"]
+  requirement: Rückerstattungen
+  chapter: 12
+  phase: MVP
+  mvp_system: Wallet-System
+  status: MISSING
+  weight: 0.00
+
+- id: PF-12-005
+  source_refs: ["12.1.5"]
+  requirement: Gutscheinreste
+  chapter: 12
+  phase: MVP
+  mvp_system: Wallet-System
+  status: MISSING
+  weight: 0.00
+
+- id: PF-12-006
+  source_refs: ["12.1.6"]
+  requirement: Manuelle Gutschriften
+  chapter: 12
+  phase: MVP
+  mvp_system: Wallet-System
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-12-007
+  source_refs: ["12.1.7"]
+  requirement: Eigene Einzahlungen
+  chapter: 12
+  phase: MVP
+  mvp_system: Wallet-System
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-12-008
+  source_refs: ["12.2.1"]
+  requirement: Unveränderbare Ledger
+  chapter: 12
+  phase: MVP
+  mvp_system: Wallet-System
+  status: MISSING
+  weight: 0.00
+
+- id: PF-12-009
+  source_refs: ["12.2.2-5"]
+  requirement: Status-Typen (commission pending/approved)
+  chapter: 12
+  phase: MVP
+  mvp_system: Wallet-System
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-12-010
+  source_refs: ["12.2.8"]
+  requirement: Vollständig auditierbar
+  chapter: 12
+  phase: MVP
+  mvp_system: Wallet-System
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-12-011
+  source_refs: ["12.2.5.a"]
+  requirement: payout requested
+  chapter: 12
+  phase: MVP
+  mvp_system: Wallet-System
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-12-012
+  source_refs: ["12.2.5.b"]
+  requirement: payout paid
+  chapter: 12
+  phase: MVP
+  mvp_system: Wallet-System
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-12-013
+  source_refs: ["12.2.5.c"]
+  requirement: refund credit
+  chapter: 12
+  phase: MVP
+  mvp_system: Wallet-System
+  status: MISSING
+  weight: 0.00
+
+- id: PF-12-014
+  source_refs: ["12.2.6"]
+  requirement: wallet spent
+  chapter: 12
+  phase: alle
+  mvp_system: Wallet-System
+  status: PARTIAL
+  weight: 0.35
+  note: "Phase 'alle' — Grundfunktion, im Mapping gezählt"
+
+- id: PF-12-015
+  source_refs: ["12.2.8"]
+  requirement: Vollständig auditierbar (breiter)
+  chapter: 12
+  phase: MVP
+  mvp_system: Wallet-System
+  status: PARTIAL
+  weight: 0.35
+
+# ─── Kapitel 13 – WhiteLabel-System ─────────────────────────────────────────
+# Source: Pflichtenheft §13
+
+- id: PF-13-001
+  source_refs: ["13.1"]
+  requirement: Eigene Versionen
+  chapter: 13
+  phase: Phase 2
+  mvp_system: ""
+  status: MISSING
+  weight: 0.00
+
+- id: PF-13-002
+  source_refs: ["13.2"]
+  requirement: Eigene Domains
+  chapter: 13
+  phase: Phase 2
+  mvp_system: ""
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-13-003
+  source_refs: ["13.3"]
+  requirement: Eigenes Branding
+  chapter: 13
+  phase: Phase 2
+  mvp_system: ""
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-13-004
+  source_refs: ["13.4"]
+  requirement: Eigene Kunden
+  chapter: 13
+  phase: Phase 2
+  mvp_system: ""
+  status: FUTURE_PHASE
+  weight: 0.00
+
+- id: PF-13-005
+  source_refs: ["13.5"]
+  requirement: Eigene Loginseiten
+  chapter: 13
+  phase: Phase 2
+  mvp_system: ""
+  status: MISSING
+  weight: 0.00
+
+- id: PF-13-006
+  source_refs: ["13.6"]
+  requirement: Eigene Domains (WL-Domain-Routing)
+  chapter: 13
+  phase: Phase 2
+  mvp_system: ""
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-13-007
+  source_refs: ["13.7"]
+  requirement: Eigenes E-Mail-Branding
+  chapter: 13
+  phase: Phase 2
+  mvp_system: ""
+  status: MISSING
+  weight: 0.00
+
+- id: PF-13-008
+  source_refs: ["13.8"]
+  requirement: Eigene Farben
+  chapter: 13
+  phase: Phase 2
+  mvp_system: ""
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-13-009
+  source_refs: ["13.9"]
+  requirement: Eigene Marketplace-Strukturen
+  chapter: 13
+  phase: Phase 2
+  mvp_system: ""
+  status: MISSING
+  weight: 0.00
+
+# ─── Kapitel 14 – CRM-System ────────────────────────────────────────────────
+# Source: Pflichtenheft §14.1-§14.2
+
+- id: PF-14-001
+  source_refs: ["14.1.1"]
+  requirement: Kundenprofile
+  chapter: 14
+  phase: MVP
+  mvp_system: CRM
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-14-002
+  source_refs: ["14.1.2"]
+  requirement: Leads
+  chapter: 14
+  phase: MVP
+  mvp_system: CRM
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-14-003
+  source_refs: ["14.1.3"]
+  requirement: Buchungshistorien
+  chapter: 14
+  phase: MVP
+  mvp_system: CRM
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-14-004
+  source_refs: ["14.1.4"]
+  requirement: Kaufhistorien
+  chapter: 14
+  phase: MVP
+  mvp_system: CRM
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-14-005
+  source_refs: ["14.1.5"]
+  requirement: Tags
+  chapter: 14
+  phase: MVP
+  mvp_system: CRM
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-14-006
+  source_refs: ["14.1.6"]
+  requirement: Notizen
+  chapter: 14
+  phase: MVP
+  mvp_system: CRM
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-14-007
+  source_refs: ["14.1.7"]
+  requirement: Präferenzen
+  chapter: 14
+  phase: MVP
+  mvp_system: CRM
+  status: MISSING
+  weight: 0.00
+
+- id: PF-14-008
+  source_refs: ["14.1.8"]
+  requirement: Marketingsegmente
+  chapter: 14
+  phase: MVP
+  mvp_system: CRM
+  status: MISSING
+  weight: 0.00
+
+- id: PF-14-009
+  source_refs: ["14.1.9"]
+  requirement: Wiederkehrer-Erkennung
+  chapter: 14
+  phase: MVP
+  mvp_system: CRM
+  status: MISSING
+  weight: 0.00
+
+- id: PF-14-010
+  source_refs: ["14.2.1"]
+  requirement: Kundenbindung verbessern
+  chapter: 14
+  phase: MVP
+  mvp_system: CRM
+  status: DOCUMENTED_ONLY
+  weight: 0.05
+
+- id: PF-14-011
+  source_refs: ["14.2.2"]
+  requirement: Reaktivierungen ermöglichen
+  chapter: 14
+  phase: MVP
+  mvp_system: CRM
+  status: MISSING
+  weight: 0.00
+
+- id: PF-14-012
+  source_refs: ["14.2.3"]
+  requirement: Marketing automatisieren
+  chapter: 14
+  phase: MVP
+  mvp_system: CRM
+  status: MISSING
+  weight: 0.00
+
+- id: PF-14-013
+  source_refs: ["14.2.4"]
+  requirement: Auslastung unterstützen
+  chapter: 14
+  phase: MVP
+  mvp_system: CRM
+  status: MISSING
+  weight: 0.00
+
+# ─── Kapitel 15 – KI-Strategie ──────────────────────────────────────────────
+# Source: Pflichtenheft §15
+
+- id: PF-15-001
+  source_refs: ["15.1"]
+  requirement: KI als Kernbereich
+  chapter: 15
+  phase: Phase 3
+  mvp_system: ""
+  status: FUTURE_PHASE
+  weight: 0.00
+
+- id: PF-15-002
+  source_refs: ["15.2"]
+  requirement: KI-Funktionen gesamt
+  chapter: 15
+  phase: Phase 3
+  mvp_system: ""
+  status: FUTURE_PHASE
+  weight: 0.00
+
+# ─── Kapitel 16 – Mobile- und App-Strategie ─────────────────────────────────
+# Source: Pflichtenheft §16
+
+- id: PF-16-001
+  source_refs: ["16.1"]
+  requirement: Mobile First
+  chapter: 16
+  phase: MVP
+  mvp_system: Architektur-Enabler
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-16-002
+  source_refs: ["16.2"]
+  requirement: Native Apps
+  chapter: 16
+  phase: Phase 3
+  mvp_system: ""
+  status: FUTURE_PHASE
+  weight: 0.00
+
+# ─── Kapitel 17 – Geschäftsmodell ───────────────────────────────────────────
+# Source: Pflichtenheft §17
+
+- id: PF-17-001
+  source_refs: ["17.1"]
+  requirement: Monatliches SaaS-Modell
+  chapter: 17
+  phase: MVP
+  mvp_system: Zahlungen
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+  note: "Semantisch getrennt von PF-17-008 (Provider-unabhängigkeit)"
+
+- id: PF-17-002
+  source_refs: ["17.2"]
+  requirement: 30-Tage-Testphase
+  chapter: 17
+  phase: MVP
+  mvp_system: Zahlungen
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-17-003
+  source_refs: ["17.3"]
+  requirement: Standardpaket 49 €
+  chapter: 17
+  phase: MVP
+  mvp_system: Zahlungen
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-17-004
+  source_refs: ["17.4"]
+  requirement: Affiliate-Booking 189 €
+  chapter: 17
+  phase: MVP
+  mvp_system: Zahlungen
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-17-005
+  source_refs: ["17.5"]
+  requirement: Eigene Zahlungsanbieter
+  chapter: 17
+  phase: MVP
+  mvp_system: Zahlungen
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-17-006
+  source_refs: ["17.6"]
+  requirement: 2,5 % Auszahlungsgebühr
+  chapter: 17
+  phase: MVP
+  mvp_system: Zahlungen
+  status: MISSING
+  weight: 0.00
+
+- id: PF-17-007
+  source_refs: ["17.7"]
+  requirement: 5 % + 1 € Plattformgebühr
+  chapter: 17
+  phase: MVP
+  mvp_system: Zahlungen
+  status: MISSING
+  weight: 0.00
+
+- id: PF-17-008
+  source_refs: ["17.8"]
+  requirement: Provider-unabhängig
+  chapter: 17
+  phase: MVP
+  mvp_system: Zahlungen
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+  note: "Semantisch verwandt mit PF-17-005 (eigene Zahlungsanbieter), aber eigenständige fachliche Forderung (Unabhängigkeit vs Anbieter-Auswahl)"
+
+- id: PF-17-009
+  source_refs: ["17.9"]
+  requirement: Automatische Umstellung
+  chapter: 17
+  phase: MVP
+  mvp_system: Zahlungen
+  status: MISSING
+  weight: 0.00
+
+- id: PF-17-010
+  source_refs: ["17.10"]
+  requirement: Direkte Auszahlung Vendor
+  chapter: 17
+  phase: MVP
+  mvp_system: Zahlungen
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-17-011
+  source_refs: ["17.11"]
+  requirement: Plattform-Split-Payment
+  chapter: 17
+  phase: MVP
+  mvp_system: Zahlungen
+  status: MISSING
+  weight: 0.00
+
+- id: PF-17-012
+  source_refs: ["17.12"]
+  requirement: Affiliate-Split
+  chapter: 17
+  phase: MVP
+  mvp_system: Zahlungen
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-17-013
+  source_refs: ["17.13"]
+  requirement: Franchise-Split
+  chapter: 17
+  phase: Phase 2
+  mvp_system: ""
+  status: MISSING
+  weight: 0.00
+
+- id: PF-17-014
+  source_refs: ["17.14"]
+  requirement: WhiteLabel-Split
+  chapter: 17
+  phase: Phase 2
+  mvp_system: ""
+  status: MISSING
+  weight: 0.00
+
+# ─── Kapitel 18 – Technisches Zielbild ──────────────────────────────────────
+# Source: Pflichtenheft §18.1
+
+- id: PF-18-001
+  source_refs: ["18.1.1"]
+  requirement: Modular
+  chapter: 18
+  phase: MVP
+  mvp_system: Architektur-Enabler
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-18-002
+  source_refs: ["18.1.2"]
+  requirement: Skalierbar
+  chapter: 18
+  phase: MVP
+  mvp_system: Architektur-Enabler
+  status: DOCUMENTED_ONLY
+  weight: 0.05
+
+- id: PF-18-003
+  source_refs: ["18.1.3"]
+  requirement: API-First
+  chapter: 18
+  phase: MVP
+  mvp_system: Architektur-Enabler
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-18-004
+  source_refs: ["18.1.4"]
+  requirement: Multi-Tenant
+  chapter: 18
+  phase: MVP
+  mvp_system: Architektur-Enabler
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-18-005
+  source_refs: ["18.1.5"]
+  requirement: WhiteLabel-fähig
+  chapter: 18
+  phase: MVP
+  mvp_system: Architektur-Enabler
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-18-006
+  source_refs: ["18.1.6"]
+  requirement: Internationalisierbar
+  chapter: 18
+  phase: MVP
+  mvp_system: Architektur-Enabler
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-18-007
+  source_refs: ["18.1.7"]
+  requirement: Payment-unabhängig
+  chapter: 18
+  phase: MVP
+  mvp_system: Architektur-Enabler
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-18-008
+  source_refs: ["18.2"]
+  requirement: Langfrist-Anforderungen
+  chapter: 18
+  phase: alle
+  mvp_system: ""
+  status: FUTURE_PHASE
+  weight: 0.00
+
+# ─── Kapitel 19 – Entwicklerprioritäten ─────────────────────────────────────
+# Source: Pflichtenheft §19
+
+- id: PF-19-001
+  source_refs: ["19.1"]
+  requirement: Nicht als kleines Tool entwickeln
+  chapter: 19
+  phase: MVP
+  mvp_system: Architektur-Enabler
+  status: DOCUMENTED_ONLY
+  weight: 0.05
+
+- id: PF-19-002
+  source_refs: ["19.2"]
+  requirement: Kalender- & Ressourcenlogik
+  chapter: 19
+  phase: MVP
+  mvp_system: Architektur-Enabler
+  status: PARTIAL
+  weight: 0.35
+  note: "Querschnittsanforderung — im Mapping einmalig als Enabler gezählt"
+
+- id: PF-19-003
+  source_refs: ["19.3"]
+  requirement: Wallet- & Ledger-System
+  chapter: 19
+  phase: alle
+  mvp_system: Architektur-Enabler
+  status: PARTIAL
+  weight: 0.35
+  note: "Querschnittsanforderung (siehe Kap 12), Phase 'alle' — einmalig als Enabler gezählt"
+
+- id: PF-19-004
+  source_refs: ["19.4"]
+  requirement: Affiliate-Tracking
+  chapter: 19
+  phase: MVP
+  mvp_system: Architektur-Enabler
+  status: PARTIAL
+  weight: 0.35
+  note: "Querschnittsanforderung (siehe Kap 11) — einmalig als Enabler gezählt, nicht im Affiliate-System doppelt"
+
+- id: PF-19-005
+  source_refs: ["19.5"]
+  requirement: Rollen- & Rechteverwaltung
+  chapter: 19
+  phase: MVP
+  mvp_system: Architektur-Enabler
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+
+- id: PF-19-006
+  source_refs: ["19.6"]
+  requirement: WhiteLabel-Struktur
+  chapter: 19
+  phase: Phase 2
+  mvp_system: ""
+  status: PARTIAL
+  weight: 0.35
+
+- id: PF-19-007
+  source_refs: ["19.7"]
+  requirement: API-Architektur
+  chapter: 19
+  phase: MVP
+  mvp_system: Architektur-Enabler
+  status: IMPLEMENTED_UNVERIFIED
+  weight: 0.60
+

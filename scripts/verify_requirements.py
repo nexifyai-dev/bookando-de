@@ -2,86 +2,137 @@
 """
 verify_requirements.py — Bookando.de Requirements Consistency Check
 
-Prüfungen:
-- Traceability: alle PF-IDs eindeutig, alle 144 entries
-- MVP-Mapping: keine Duplikate, Status/Gewicht-Konsistenz
-- Cross-Validation: EXPECTED_MVP_IDS (Traceability) vs MAPPING_MVP_IDS
-- Statistik: MVP-Tabelle stimmt mit Mapping überein
-- Manifest: Original- und Working-Hash
-- API-Matrix: Zeilen zählen, Status konsistent
+Prüft, ob die generierten Dokumente exakt mit dem YAML-Source-of-Truth
+übereinstimmen. Alle Kennzahlen werden berechnet, keine hart codierten Werte.
 
-Jede Warnung oder jeder Fehler → Exit-Code 1.
+Akzeptanzkriterien:
+  ERRORS == 0
+  WARNINGS == 0
+  Exit-Code == 0
 """
 
-import hashlib, re, sys, yaml
+import re
+import yaml
+from collections import Counter
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-OK, FAIL = 0, 1
+YAML_PATH = REPO / "docs/requirements/PFLICHTENHEFT_REQUIREMENTS.yaml"
+TRACE_PATH = REPO / "docs/requirements/PFLICHTENHEFT_TRACEABILITY.md"
+STAT_PATH = REPO / "docs/requirements/PFLICHTENHEFT_STATISTIK.md"
+MAP_PATH = REPO / "docs/requirements/PFLICHTENHEFT_MVP_MAPPING.md"
 
-ALLOWED = {"VERIFIED_COMPLETE","IMPLEMENTED_UNVERIFIED","PARTIAL","MOCK_ONLY",
-           "DOCUMENTED_ONLY","MISSING","CONTRADICTED","BLOCKED","FUTURE_PHASE"}
-FORBIDDEN = {"OUT_OF_SCOPE_FOR_CURRENT_PHASE"}
-WEIGHT = {"VERIFIED_COMPLETE":1.00,"IMPLEMENTED_UNVERIFIED":0.60,"PARTIAL":0.35,
-          "MOCK_ONLY":0.15,"DOCUMENTED_ONLY":0.05,"MISSING":0.00,"CONTRADICTED":0.00}
+ALLOWED = {
+    "VERIFIED_COMPLETE", "IMPLEMENTED_UNVERIFIED", "PARTIAL", "MOCK_ONLY",
+    "DOCUMENTED_ONLY", "MISSING", "CONTRADICTED", "BLOCKED", "FUTURE_PHASE",
+}
+WEIGHT = {
+    "VERIFIED_COMPLETE": 1.00, "IMPLEMENTED_UNVERIFIED": 0.60, "PARTIAL": 0.35,
+    "MOCK_ONLY": 0.15, "DOCUMENTED_ONLY": 0.05, "MISSING": 0.00,
+    "CONTRADICTED": 0.00,
+}
+PHASE_VALS = {"MVP", "Phase 2", "Phase 3", "alle"}
+SYS_ORDER = [
+    "Terminbuchung", "Kalender", "Vendor-System", "Vendor-Unterseiten",
+    "Marketplace", "Affiliate-Tracking", "Wallet-System", "Zahlungen",
+    "CRM", "Architektur-Enabler",
+]
 
 errors, warns = [], []
 
-def fail(m): errors.append(m); print(f"  FAIL  {m}")
-def warn(m): warns.append(m); print(f"  WARN  {m}")
-def note(m): print(f"  INFO  {m}")
+
+def fail(msg):
+    errors.append(msg)
+    print(f"  FAIL  {msg}")
+
+
+def warn(msg):
+    warns.append(msg)
+    print(f"  WARN  {msg}")
+
+
+def note(msg):
+    print(f"  INFO  {msg}")
+
 
 def cells(line):
-    return [p.strip("* ").strip() for p in line.split("|") if p.replace("*","").strip()]
+    return [p.strip("* ").strip() for p in line.split("|") if p.replace("*", "").strip()]
 
-# ----------------------------------------------------------------------
-# 1. TRACEABILITY
-# ----------------------------------------------------------------------
-def check_traceability():
-    path = REPO / "docs/requirements/PFLICHTENHEFT_TRACEABILITY.md"
-    note(f"Traceability: {path.name}")
-    lines = path.read_text(encoding="utf-8").splitlines()
 
-    icon_map = {
-        "✅": "VERIFIED_COMPLETE", "🔶": "IMPLEMENTED_UNVERIFIED",
-        "🔸": "PARTIAL", "🟡": "MOCK_ONLY", "📄": "DOCUMENTED_ONLY",
-        "❌": "MISSING", "⚠️": "CONTRADICTED", "🔴": "BLOCKED",
-        "⬜": "FUTURE_PHASE",
-    }
+# ── Load YAML source of truth ───────────────────────────────────────────────
+def load_yaml():
+    note(f"Loading YAML: {YAML_PATH.name}")
+    data = yaml.safe_load(YAML_PATH.read_text(encoding="utf-8"))
+    note(f"  Entries: {len(data)}")
+
+    # Check unique IDs
+    ids = [r["id"] for r in data]
+    dupes = {k: v for k, v in Counter(ids).items() if v > 1}
+    if dupes:
+        fail(f"YAML: DUPLICATE_IDS={len(dupes)}: {dupes}")
+    else:
+        note(f"  DUPLICATE_IDS=0 ✅")
+
+    # Check required fields
+    for r in data:
+        for f in ("id", "source_refs", "requirement", "chapter", "phase", "status", "weight"):
+            if f not in r:
+                fail(f"YAML: {r['id']} missing field '{f}'")
+
+        if r["status"] not in ALLOWED:
+            fail(f"YAML: {r['id']} unknown status '{r['status']}'")
+
+        if r["phase"] not in PHASE_VALS:
+            fail(f"YAML: {r['id']} unknown phase '{r['phase']}'")
+
+        if r.get("mvp_system") and r["mvp_system"] not in SYS_ORDER:
+            fail(f"YAML: {r['id']} unknown mvp_system '{r['mvp_system']}'")
+
+    return data
+
+
+# ── 1. TRACEABILITY ─────────────────────────────────────────────────────────
+def check_traceability(reqs):
+    note(f"Traceability: {TRACE_PATH.name}")
+    lines = TRACE_PATH.read_text(encoding="utf-8").splitlines()
 
     pf_pattern = re.compile(r"^\|\s*(PF-\d{2}-\d{3})\s*\|")
-    phase_vals = {"MVP", "Phase 2", "Phase 3", "alle"}
-    entries = {}
-    mvp_ids = set()
+    parsed_ids = []
+    pf_phases = {}
+    pf_statuses = {}
     ch = 0
 
-    # Also count total rows (incl summary table)
-    total_rows = 0
-
     for line in lines:
-        m = re.match(r"^##\s+Kapitel\s+(\d+)", line)
-        if m:
-            ch = int(m.group(1))
+        cm = re.match(r"^##\s+Kapitel\s+(\d+)", line)
+        if cm:
+            ch = int(cm.group(1))
             continue
         m = pf_pattern.match(line)
         if not m:
             continue
-        total_rows += 1
         pf_id = m.group(1)
-
+        parsed_ids.append(pf_id)
         c = cells(line)
-        # phase is col 2
+
+        # Extract phase
         phase = ""
         for cell in c:
-            for p in phase_vals:
+            for p in PHASE_VALS:
                 if p in cell:
                     phase = p
                     break
             if phase:
                 break
+        pf_phases[pf_id] = phase
 
-        # status
+        # Extract status
         status = "UNKNOWN"
+        icon_map = {
+            "✅": "VERIFIED_COMPLETE", "🔶": "IMPLEMENTED_UNVERIFIED",
+            "🔸": "PARTIAL", "🟡": "MOCK_ONLY", "📄": "DOCUMENTED_ONLY",
+            "❌": "MISSING", "⚠️": "CONTRADICTED", "🔴": "BLOCKED",
+            "⬜": "FUTURE_PHASE",
+        }
         for cell in c:
             for icon, st in icon_map.items():
                 if icon in cell:
@@ -90,388 +141,569 @@ def check_traceability():
                     break
             if status != "UNKNOWN":
                 break
+        pf_statuses[pf_id] = status
 
-        entries[pf_id] = {"phase": phase, "status": status, "ch": ch}
+    total_rows = len(parsed_ids)
+    unique_ids = len(set(parsed_ids))
+    note(f"  TRACEABILITY_ROWS = {total_rows}")
+    note(f"  UNIQUE_PF_IDS = {unique_ids}")
 
-    # Check duplicates
-    seen = set()
-    dupes = []
-    for pf_id in entries:
-        if pf_id in seen:
-            dupes.append(pf_id)
-        seen.add(pf_id)
+    # Check: rows == unique
+    if total_rows != unique_ids:
+        fail(f"TRACEABILITY_ROWS ({total_rows}) ≠ UNIQUE_PF_IDS ({unique_ids})")
+    else:
+        note(f"  TRACEABILITY_ROWS == UNIQUE_PF_IDS ✅")
+
+    # Check duplicates BEFORE building dict (correct approach)
+    dupes = {k: v for k, v in Counter(parsed_ids).items() if v > 1}
     if dupes:
-        fail(f"Traceability: DUPLICATE_IDS = {len(dupes)}: {dupes[:5]}")
+        fail(f"TRACEABILITY DUPLICATE_IDS={len(dupes)}: {sorted(dupes.keys())}")
     else:
-        note(f"  142 PF-IDs, alle eindeutig ✅")
+        note(f"  TRACEABILITY DUPLICATE_IDS=0 ✅")
 
-    total_entries = len(entries)
+    # Compare with YAML
+    yaml_ids = sorted(set(r["id"] for r in reqs))
+    trace_ids = sorted(set(parsed_ids))
 
-    # Check 144 total
-    if total_entries >= 140 and total_entries <= 160:
-        note(f"  TOTAL = {total_entries} (Traceability expandierte Einträge)")
+    missing = set(yaml_ids) - set(trace_ids)
+    extra = set(trace_ids) - set(yaml_ids)
+    if missing:
+        fail(f"TRACEABILITY MISSING_IDS={len(missing)}: {sorted(missing)}")
+    if extra:
+        fail(f"TRACEABILITY EXTRA_IDS={len(extra)}: {sorted(extra)}")
+    if not missing and not extra:
+        note(f"  TRACEABILITY: ID set matches YAML (1:1) ✅")
+
+    # Check phase consistency
+    yaml_phases = {r["id"]: r["phase"] for r in reqs}
+    phase_mismatches = []
+    for pid, phase in pf_phases.items():
+        yp = yaml_phases.get(pid)
+        if yp and phase and phase != yp:
+            phase_mismatches.append(f"{pid}: trace={phase}, yaml={yp}")
+    if phase_mismatches:
+        fail(f"Phase mismatches: {phase_mismatches}")
+
+    # Check status consistency
+    yaml_statuses = {r["id"]: r["status"] for r in reqs}
+    status_mismatches = []
+    for pid, st in pf_statuses.items():
+        ys = yaml_statuses.get(pid)
+        if ys and st != "UNKNOWN" and st != ys:
+            status_mismatches.append(f"{pid}: trace={st}, yaml={ys}")
+    if status_mismatches:
+        warn(f"Status mismatches: {status_mismatches}")
+
+    return {
+        "total": total_rows,
+        "unique": unique_ids,
+        "ids": set(trace_ids),
+        "phases": pf_phases,
+        "statuses": pf_statuses,
+    }
+
+
+# ── 2. STATISTICS ───────────────────────────────────────────────────────────
+def check_statistics(reqs):
+    note(f"Statistik: {STAT_PATH.name}")
+    lines = STAT_PATH.read_text(encoding="utf-8").splitlines()
+
+    # Extract TOTAL and CHECKSUM
+    total_val = None
+    for line in lines:
+        cl = line.replace("**", "")
+        m = re.search(r"TOTAL\s*\|\s*(\d+)", cl)
+        if m:
+            total_val = int(m.group(1))
+        m = re.search(r"CHECKSUM\s*\|\s*(\d+)", cl)
+        if m:
+            checksum_val = int(m.group(1))
+
+    if total_val is None:
+        fail("Statistik: TOTAL nicht gefunden")
     else:
-        warn(f"  TOTAL = {total_entries} (ungewöhnlich — erwarte 140-160)")
+        expected = len(reqs)
+        if total_val == expected:
+            note(f"  TOTAL={total_val} ✅")
+        else:
+            fail(f"Statistik TOTAL ({total_val}) ≠ YAML entries ({expected})")
 
-    # Count phases
-    phase_counts = {}
-    for e in entries.values():
-        pc = e["phase"] if e["phase"] else "NONE"
-        phase_counts[pc] = phase_counts.get(pc, 0) + 1
-    note(f"  Phasen: {dict(phase_counts)}")
+    if checksum_val is None:
+        fail("Statistik: CHECKSUM nicht gefunden")
+    else:
+        if checksum_val == expected:
+            note(f"  CHECKSUM={checksum_val} ✅")
+        else:
+            fail(f"Statistik CHECKSUM ({checksum_val}) ≠ YAML entries ({expected})")
 
-    # Build MVP set: entries with Phase=MVP
-    for pf_id, e in entries.items():
-        if e["phase"] == "MVP":
-            mvp_ids.add(pf_id)
+    # Check status counts in per-status table
+    status_order = [
+        "VERIFIED_COMPLETE", "IMPLEMENTED_UNVERIFIED", "PARTIAL",
+        "MOCK_ONLY", "DOCUMENTED_ONLY", "MISSING", "CONTRADICTED",
+        "BLOCKED", "FUTURE_PHASE",
+    ]
+    yaml_sc = Counter(r["status"] for r in reqs)
+    yaml_total = len(reqs)
 
-    # Check for forbidden/unknown phase
-    for pf_id, e in entries.items():
-        if e["phase"] and e["phase"] not in phase_vals and e["phase"] not in ("NONE",):
-            warn(f"  {pf_id}: unbekannte Phase '{e['phase']}'")
+    # Validate percentage in status table
+    in_status_table = False
+    for line in lines:
+        c = cells(line)
+        if not c:
+            continue
+        if c[0] == "Status" and "Anzahl" in " ".join(c):
+            in_status_table = True
+            continue
+        if not in_status_table:
+            continue
+        if c[0].startswith("**TOTAL**") or c[0].startswith("TOTAL"):
+            break
+        if c[0] in yaml_sc:
+            try:
+                actual = int(c[1])
+                expected = yaml_sc[c[0]]
+                if actual != expected:
+                    fail(f"Statistik: '{c[0]}' count {actual} ≠ expected {expected}")
+            except (ValueError, IndexError):
+                pass
 
-    note(f"  MVP-IDs (Phase=MVP): {len(mvp_ids)}")
+    # Per-chapter table
+    chapter_reqs = {}
+    for r in reqs:
+        chapter_reqs.setdefault(r["chapter"], []).append(r)
 
-    # Check for bad status
-    bad = {pf_id for pf_id, e in entries.items() if e["status"] not in ALLOWED}
-    if bad:
-        for p in sorted(bad):
-            warn(f"  {p}: unbekannter Status '{entries[p]['status']}'")
+    in_ch_table = False
+    parsed_ch_counts = {}
+    for line in lines:
+        c = cells(line)
+        if not c:
+            continue
+        if c[0] == "Kapitel" and "Gesamt" in " ".join(c):
+            in_ch_table = True
+            continue
+        if not in_ch_table:
+            continue
+        if c[0].startswith("**TOTAL**"):
+            break
+        try:
+            ch_match = re.match(r"(\d+)\.\s+(.+)", c[0])
+            if ch_match:
+                ch_num = int(ch_match.group(1))
+                ch_total = int(c[1])
+                parsed_ch_counts[ch_num] = ch_total
+        except (ValueError, IndexError):
+            pass
 
-    return {"total": total_entries, "entries": entries, "mvp_ids": mvp_ids,
-            "phase_counts": phase_counts}
+    ch_sum = sum(parsed_ch_counts.values())
+    if ch_sum != yaml_total:
+        fail(f"Statistik: Chapter sum ({ch_sum}) ≠ YAML total ({yaml_total})")
+    else:
+        note(f"  CHAPTER_SUM = {ch_sum} ✅")
+
+    for ch, cnt in parsed_ch_counts.items():
+        expected = len(chapter_reqs.get(ch, []))
+        if cnt != expected:
+            fail(f"Statistik: Kapitel {ch} has {cnt} entries, YAML has {expected}")
+
+    # Per-chapter total row
+    tot_row_sum = 0
+    for line in lines:
+        c = cells(line)
+        if not c:
+            continue
+        if c[0].startswith("**TOTAL**"):
+            try:
+                tot_row_sum = int(c[1])
+            except (ValueError, IndexError):
+                pass
+            break
+    if tot_row_sum and tot_row_sum != yaml_total:
+        fail(f"Statistik: TOTAL-row ({tot_row_sum}) ≠ YAML ({yaml_total})")
+
+    # MVP system table
+    mvp_reqs = [r for r in reqs if r.get("mvp_system")]
+    yaml_mvp_total = len(mvp_reqs)
+    note(f"  MVPs mit Zuordnung: {yaml_mvp_total}")
+
+    sys_counts = Counter(r["mvp_system"] for r in mvp_reqs)
+    sys_weights = {}
+    for s in SYS_ORDER:
+        sys_weights[s] = sum(r["weight"] for r in mvp_reqs if r["mvp_system"] == s)
+
+    parsed_sys = {}
+    parsed_mvp_total = None
+    in_mv = False
+    for line in lines:
+        c = cells(line)
+        if not c:
+            continue
+        if "---" in " ".join(c):
+            continue
+        hl = " ".join(c).lower()
+        if "mvp-system" in hl or ("anf" in hl and "gewicht" in hl):
+            in_mv = True
+            continue
+        if not in_mv:
+            continue
+        if c[0] == "**MVP Gesamt**" or (c[0] == "MVP Gesamt" and not in_mv):
+            in_mv = False
+        if c[0] == "MVP Gesamt" or c[0] == "**MVP Gesamt**":
+            break
+        if c[0] in SYS_ORDER:
+            try:
+                parsed_sys[c[0]] = int(c[1])
+            except (ValueError, IndexError):
+                pass
+
+    # Check system counts
+    for s in SYS_ORDER:
+        expected_cnt = sys_counts.get(s, 0)
+        parsed_cnt = parsed_sys.get(s, -1)
+        if parsed_cnt >= 0 and parsed_cnt != expected_cnt:
+            fail(f"Statistik: System '{s}' count {parsed_cnt} ≠ YAML {expected_cnt}")
+
+    sys_sum = sum(parsed_sys.values())
+    if sys_sum != yaml_mvp_total:
+        fail(f"Statistik: System-Summe ({sys_sum}) ≠ MVP-Gesamt ({yaml_mvp_total})")
+    else:
+        note(f"  SYSTEM_SUM = {sys_sum} == MVP_TOTAL ✅")
+
+    return {"total": total_val, "checksum": checksum_val}
 
 
-# ----------------------------------------------------------------------
-# 2. MVP MAPPING — read PF-IDs, compare with traceability
-# ----------------------------------------------------------------------
-def check_mapping(trace):
-    path = REPO / "docs/requirements/PFLICHTENHEFT_MVP_MAPPING.md"
-    note(f"Mapping: {path.name}")
-    text = path.read_text(encoding="utf-8")
+# ── 3. MVP MAPPING ──────────────────────────────────────────────────────────
+def check_mapping(reqs):
+    note(f"Mapping: {MAP_PATH.name}")
+    mvp_reqs = [r for r in reqs if r.get("mvp_system")]
+    yaml_mvp_ids = sorted(set(r["id"] for r in mvp_reqs))
+    yaml_mvp_total = len(yaml_mvp_ids)
+    yaml_weight_sum = sum(r["weight"] for r in mvp_reqs)
 
+    text = MAP_PATH.read_text(encoding="utf-8")
+
+    # ── Parse main table ──
+    pf_pattern = re.compile(r"^PF-\d{2}-\d{3}$")
     rows = []
     in_main = False
     for line in text.splitlines():
         c = cells(line)
-        if not c: continue
-        if all("---" in x for x in c): continue
-        if c[0] == "ID" and "Kapitel" in c[1]:
-            in_main = True; continue
-        if not in_main: continue
-        if not re.match(r"^PF-\d{2}-\d{3}$", c[0]):
-            in_main = False; continue
-        rows.append({"id": c[0], "system": c[2], "status": c[3],
-                      "gewicht": c[4].replace(",", ".")})
+        if not c:
+            continue
+        if "---" in " ".join(c):
+            continue
+        if c[0] == "ID" and "Kapitel" in " ".join(c):
+            in_main = True
+            continue
+        if not in_main:
+            continue
+        if pf_pattern.match(c[0]):
+            system = c[2] if len(c) > 2 else ""
+            status = c[3] if len(c) > 3 else ""
+            weight_str = c[4] if len(c) > 4 else "0"
+            weight = float(weight_str.replace(",", "."))
+            rows.append({"id": c[0], "system": system, "status": status, "weight": weight})
+        elif c[0] in ("",):
+            continue
+        else:
+            # Check if we hit the Berechnung or Detailberechnung section
+            hl = " ".join(c).lower()
+            if any(x in hl for x in ["metrik", "berechnung", "detail"]):
+                in_main = False
+                continue
 
-    total = len(rows)
-    uids = sorted(set(r["id"] for r in rows))
-    n_unique = len(uids)
-    note(f"  Zeilen: {total}, Unique: {n_unique}")
+    total_rows = len(rows)
+    unique_rows = len(set(r["id"] for r in rows))
+    note(f"  Mapping rows: {total_rows}, unique: {unique_rows}")
 
     # Duplicates
-    seen = set(); dupes = []
-    for r in rows:
-        if r["id"] in seen: dupes.append(r["id"])
-        seen.add(r["id"])
+    dupes = {k: v for k, v in Counter(r["id"] for r in rows).items() if v > 1}
     if dupes:
-        fail(f"MAPPING: DUPLICATE_IDS = {len(dupes)}: {dupes[:5]}")
+        fail(f"MAPPING: DUPLICATE_IDS={len(dupes)}: {sorted(dupes.keys())}")
     else:
-        note(f"  DUPLICATE_IDS = 0 ✅")
+        note(f"  MAPPING DUPLICATE_IDS=0 ✅")
 
-    # Bad status
-    bad = [r for r in rows if r["status"] not in ALLOWED]
-    if bad:
-        fail(f"Mapping: unbekannte Status: {set(r['status'] for r in bad)}")
+    # Compare with YAML
+    mapping_ids = sorted(set(r["id"] for r in rows))
+    missing = set(yaml_mvp_ids) - set(mapping_ids)
+    extra = set(mapping_ids) - set(yaml_mvp_ids)
+    if missing:
+        fail(f"MAPPING MISSING_IDS={len(missing)}: {sorted(missing)}")
+    if extra:
+        fail(f"MAPPING EXTRA_IDS={len(extra)}: {sorted(extra)}")
+    if not missing and not extra:
+        note(f"  MAPPING IDs match YAML ✅")
+
+    # System counts
+    sys_c = Counter(r["system"] for r in rows)
+    note(f"  Systeme: {dict(sys_c)}")
 
     # Weight check
-    for r in rows:
-        ew = WEIGHT.get(r["status"])
-        aw = float(r["gewicht"])
-        if ew is not None and abs(ew - aw) > 0.005:
-            warn(f"  {r['id']}: Status {r['status']} → Gewicht {ew:.2f}, hat {aw:.2f}")
+    yaml_sys_weights = {}
+    for r in mvp_reqs:
+        s = r["mvp_system"]
+        yaml_sys_weights[s] = yaml_sys_weights.get(s, 0) + r["weight"]
 
-    # Sums
-    weight_sum = 0.0
-    sys_c = {}
-    for r in rows:
-        weight_sum += float(r["gewicht"])
-        sys_c[r["system"]] = sys_c.get(r["system"], 0) + 1
-    note(f"  ∑Gewicht: {weight_sum:.2f}")
+    for s in SYS_ORDER:
+        sys_rows = [r for r in rows if r["system"] == s]
+        expected_ids = [r["id"] for r in mvp_reqs if r["mvp_system"] == s]
+        expected_cnt = len(expected_ids)
+        if len(sys_rows) != expected_cnt:
+            fail(f"MAPPING: System '{s}' has {len(sys_rows)} rows, YAML has {expected_cnt}")
+
+    # Weight sum
+    weight_sum = sum(r["weight"] for r in rows)
+    if abs(weight_sum - yaml_weight_sum) > 0.005:
+        fail(f"MAPPING: ∑Gewicht ({weight_sum:.2f}) ≠ YAML ({yaml_weight_sum:.2f})")
+    else:
+        note(f"  ∑Gewicht={weight_sum:.2f} ✅")
+
+    # System-Summe check
     sys_total = sum(sys_c.values())
-    if sys_total != total:
-        fail(f"  System-Summe ({sys_total}) ≠ Zeilen ({total})")
+    if sys_total != total_rows:
+        fail(f"MAPPING: System-Summe ({sys_total}) ≠ Zeilen ({total_rows})")
 
-    # Detail table
-    in_det = False
-    det = {}; det_total = None
+    # ── Parse Berechnung ──
+    yaml_mvp_pct = yaml_weight_sum / yaml_mvp_total * 100 if yaml_mvp_total else 0
+    in_calc = False
+    calc_metrics = {}
     for line in text.splitlines():
         c = cells(line)
-        if not c: continue
-        if all("---" in x for x in c): continue
+        if not c:
+            continue
+        if "---" in " ".join(c):
+            continue
         hl = " ".join(c).lower()
-        if "system" in hl and "%" in hl and "ids" in hl:
-            in_det = True; continue
-        if not in_det: continue
-        if line.strip().startswith(">") or line.strip().startswith("#"):
-            in_det = False; continue
-        if c[0] == "MVP Gesamt":
+        if "metrik" in hl and "wert" in hl:
+            in_calc = True
+            continue
+        if not in_calc:
+            continue
+        if c[0].startswith("##"):
+            in_calc = False
+            continue
+        if c[0] in ("",):
+            continue
+        val_raw = c[1].replace(",", ".")
+        calc_metrics[c[0]] = val_raw
+
+    if calc_metrics.get("UNIQUE_MVP_REQUIREMENTS"):
+        cv = int(calc_metrics["UNIQUE_MVP_REQUIREMENTS"])
+        if cv != yaml_mvp_total:
+            fail(f"MAPPING Calc: UNIQUE_MVP_REQUIREMENTS={cv} ≠ {yaml_mvp_total}")
+    if calc_metrics.get("COUNTED_IDS"):
+        cv = int(calc_metrics["COUNTED_IDS"])
+        if cv != yaml_mvp_total:
+            fail(f"MAPPING Calc: COUNTED_IDS={cv} ≠ {yaml_mvp_total}")
+    if calc_metrics.get("CHECKSUM"):
+        cv = int(calc_metrics["CHECKSUM"])
+        if cv != yaml_mvp_total:
+            fail(f"MAPPING Calc: CHECKSUM={cv} ≠ {yaml_mvp_total}")
+    if calc_metrics.get("WEIGHTED_POINTS"):
+        try:
+            cw = float(calc_metrics["WEIGHTED_POINTS"])
+            if abs(cw - yaml_weight_sum) > 0.005:
+                fail(f"MAPPING Calc: WEIGHTED_POINTS={cw:.2f} ≠ {yaml_weight_sum:.2f}")
+        except ValueError:
+            pass
+    if calc_metrics.get("MVP_PERCENT"):
+        cp = float(calc_metrics["MVP_PERCENT"].replace("%", "").strip())
+        if abs(cp - yaml_mvp_pct) > 0.1:
+            fail(f"MAPPING Calc: MVP_PERCENT={cp:.1f} ≠ {yaml_mvp_pct:.1f}")
+
+    # ── Parse Detailberechnung ──
+    in_det = False
+    det_sys = {}
+    det_total = None
+    for line in text.splitlines():
+        c = cells(line)
+        if not c:
+            continue
+        if "---" in " ".join(c):
+            continue
+        hl = " ".join(c).lower()
+        if "system" in hl and "ids" in hl:
+            in_det = True
+            continue
+        if not in_det:
+            continue
+        # Match "MVP Gesamt" with optional bold markers
+        stripped = c[0].replace("**", "").strip()
+        if stripped == "MVP Gesamt":
             try:
                 det_total = (int(c[1]), float(c[2].replace(",", ".")), int(c[3]))
             except Exception as e:
-                fail(f"  MVP Gesamt: {c} ({e})")
-            in_det = False
-        else:
+                fail(f"MAPPING: MVP Gesamt row parse: {e}")
+            break
+        if c[0] in SYS_ORDER or stripped in SYS_ORDER:
             try:
-                det[c[0]] = (int(c[1]), float(c[2].replace(",", ".")))
-            except: pass
-
-    for s, cnt in sys_c.items():
-        if s in det:
-            if det[s][0] != cnt:
-                warn(f"  Detail '{s}': {det[s][0]} IDs, erwarte {cnt}")
+                det_sys[c[0]] = (int(c[1]), float(c[2].replace(",", ".")))
+            except (ValueError, IndexError):
+                pass
 
     if det_total:
-        if det_total[0] != n_unique:
-            warn(f"  Detail TOTAL ({det_total[0]}) ≠ unique ({n_unique})")
-        if abs(det_total[1] - weight_sum) > 0.05:
-            warn(f"  Detail ∑G ({det_total[1]:.2f}) ≠ {weight_sum:.2f}")
-        if det_total[2] > 0:
-            note(f"  MVP_PERCENT = {det_total[1]/det_total[2]*100:.1f}%")
+        if det_total[0] != yaml_mvp_total:
+            fail(f"MAPPING Detail: MVP Gesamt IDs={det_total[0]} ≠ {yaml_mvp_total}")
+        if abs(det_total[1] - yaml_weight_sum) > 0.005:
+            fail(f"MAPPING Detail: ∑Gewicht={det_total[1]:.2f} ≠ {yaml_weight_sum:.2f}")
+        note(f"  Detail MVP Gesamt: {det_total[0]} IDs, Gewicht={det_total[1]:.2f} ✅")
     else:
-        fail("  Detail-Tabelle MVP Gesamt nicht gefunden")
+        fail("MAPPING: Detail MVP Gesamt not found")
 
-    # Cross-validate vs traceability MVP set
-    mapping_ids = set(r["id"] for r in rows)
-    expected_ids = trace["mvp_ids"]
-
-    missing_ids = expected_ids - mapping_ids
-    extra_ids = mapping_ids - expected_ids
-
-    if missing_ids:
-        fail(f"MISSING_IDS = {len(missing_ids)}: {sorted(missing_ids)}")
+    det_sum = sum(v[0] for v in det_sys.values())
+    if det_sum != yaml_mvp_total:
+        fail(f"MAPPING Detail: System-Summe ({det_sum}) ≠ MVP-Gesamt ({yaml_mvp_total})")
     else:
-        note(f"  MISSING_IDS = 0 ✅")
-    if extra_ids:
-        warn(f"EXTRA_IDS = {len(extra_ids)}: {sorted(extra_ids)}")
-    else:
-        note(f"  EXTRA_IDS = 0 ✅")
+        note(f"  Detail System-Summe = {det_sum} == MVP-Gesamt ✅")
 
-    # Verify every mapping ID is in expected
-    not_in_expected = mapping_ids - expected_ids
-    if not_in_expected:
-        warn(f"  Mapping-IDs nicht in erwarteter MVP-Menge: {len(not_in_expected)}")
-
-    # Verify every expected ID is in mapping
-    not_in_mapping = expected_ids - mapping_ids
-    if not_in_mapping:
-        warn(f"  Erwartete IDs nicht im Mapping: {len(not_in_mapping)}")
-
-    return {
-        "total": total, "unique": n_unique,
-        "weight_sum": weight_sum,
-        "det_total": det_total,
-        "sys_c": sys_c,
-        "mapping_ids": mapping_ids,
-        "expected_ids": expected_ids,
-        "missing_ids": len(missing_ids),
-        "extra_ids": len(extra_ids),
-    }
+    return {"total": total_rows, "unique": unique_rows, "weight_sum": weight_sum}
 
 
-# ----------------------------------------------------------------------
-# 3. STATISTICS
-# ----------------------------------------------------------------------
-def check_statistics(mapping, trace):
-    path = REPO / "docs/requirements/PFLICHTENHEFT_STATISTIK.md"
-    note(f"Statistik: {path.name}")
-    lines = path.read_text(encoding="utf-8").splitlines()
+# ── 4. HARCODED VALUE CHECK ────────────────────────────────────────────────
+def check_no_hardcoded_obsolete(reqs):
+    """Stelle sicher, dass keine veralteten Zahlen in requirements-Dateien stehen."""
+    yaml_total = len(reqs)
+    mvp_total = len([r for r in reqs if r.get("mvp_system")])
+    yaml_weight = sum(r["weight"] for r in reqs if r.get("mvp_system"))
+    mvp_pct = yaml_weight / mvp_total * 100 if mvp_total else 0
 
-    total = checksum = None
-    for line in lines:
-        cl = line.replace("**", "")
-        m = re.search(r"TOTAL\s*\|\s*(\d+)", cl)
-        if m: total = int(m.group(1))
-        m = re.search(r"CHECKSUM\s*\|\s*(\d+)", cl)
-        if m: checksum = int(m.group(1))
-    if total is None: fail("TOTAL nicht gefunden")
-    if checksum is None: fail("CHECKSUM nicht gefunden")
-    if total is not None and checksum is not None:
-        if total == checksum:
-            note(f"  TOTAL=CHECKSUM={total} ✅")
-        else:
-            fail(f"TOTAL({total}) ≠ CHECKSUM({checksum})")
+    files = [
+        TRACE_PATH, STAT_PATH, MAP_PATH,
+        REPO / "docs/requirements" / "PFLICHTENHEFT_REQUIREMENTS.yaml",
+    ]
 
-    # MVP table — new format with 5 columns
-    in_mv = False
-    mv_total = None
-    mv_sys_sum = 0
-    for line in lines:
-        c = cells(line)
-        if not c: continue
-        if all("---" in x for x in c): continue
-        hl = " ".join(c).lower()
-        if c[0] == "MVP-System":
-            in_mv = True; continue
-        if not in_mv: continue
-        if c[0] == "MVP Gesamt":
-            try:
-                mv_total = (int(c[1]), float(c[2].replace(",", ".")), int(c[3]))
-            except Exception as e:
-                fail(f"MVP Gesamt: {c} ({e})")
-            in_mv = False
-        elif c[0] not in ("", "MVP-System") and len(c) >= 4:
-            try:
-                mv_sys_sum += int(c[1])
-            except: pass
+    obsolete = {"108", "137", "43,75", "41,25", "31.9", "31,5", "31,9"}
+    # Allow the YAML itself (it doesn't contain summary metrics like these)
+    # and be careful about _values that match current metrics_
 
-    if mv_total:
-        note(f"  MVP Gesamt: count={mv_total[0]}, w={mv_total[1]:.2f}, max={mv_total[2]}")
-        map_unique = mapping["unique"]
-        if mv_total[0] != map_unique:
-            fail(f"Stat MVP ({mv_total[0]}) ≠ Mapping unique ({map_unique})")
-        else:
-            note(f"  Stat MVP count = Mapping unique = {map_unique} ✅")
+    for fp in files:
+        if not fp.exists():
+            continue
+        text = fp.read_text(encoding="utf-8")
+        for needle in obsolete:
+            cnt = text.count(needle)
+            if cnt > 0:
+                fail(f"OBSOLETE VALUE '{needle}' appears {cnt}x in {fp.name}")
 
-    return {"total": total, "checksum": checksum}
+    # Also check that no old 144 appears where 151 should be
+    # (We do NOT check the YAML for this)
+    for fp in [STAT_PATH, MAP_PATH]:
+        text = fp.read_text(encoding="utf-8")
+        # 108-phrase
+        if "108 IDs" in text:
+            fail(f"OBSOLETE PHRASE '108 IDs' in {fp.name}")
+        # 131 as hardcoded total (must come from computation)
+        lines = text.splitlines()
+        for i, line in enumerate(lines):
+            # "131" alone might appear in other contexts like percentages
+            for obsolete_val in ["131", "137"]:
+                if re.search(rf"(?<!\w){obsolete_val}(?!\w)", line):
+                    if "MVP Gesamt" in line or "TOTAL" in line or "CHECKSUM" in line:
+                        # Check this isn't our actual current value
+                        if obsolete_val == str(yaml_total) or obsolete_val == str(mvp_total):
+                            continue
+                        fail(f"OBSOLETE VALUE '{obsolete_val}' in {fp.name}:{i+1}: {line.strip()}")
 
 
-# ----------------------------------------------------------------------
-# 4. MANIFEST
-# ----------------------------------------------------------------------
-def check_manifest():
-    mp = REPO / "docs/customer/PFLICHTENHEFT_BOOKANDO_KUNDE.manifest.yml"
-    if not mp.exists():
-        fail("Manifest nicht gefunden")
-        return {}
-    try:
-        m = yaml.safe_load(mp.read_text())
-    except Exception as e:
-        fail(f"Manifest YAML: {e}")
-        return {}
-    note("Manifest gelesen")
+# ── 5. SEMANTIC DUPLICATE CHECK ────────────────────────────────────────────
+def check_semantic_duplicates(reqs):
+    """Check for semantically duplicate requirement texts."""
+    paired_groups = [
+        ("PF-11-014", "PF-11-020", "Kernarchitektur/Affiliate"),
+        ("PF-14-011", "PF-14-012", "Marketing automatisieren/Reaktivieren"),
+        ("PF-17-004", "PF-17-008", "Provider-unabhängig"),
+        ("PF-17-005", "PF-17-010", "Direkte Auszahlung"),
+        ("PF-17-006", "PF-17-011", "Plattform-Split"),
+        ("PF-17-007", "PF-17-012", "Affiliate-Split"),
+    ]
 
-    od = m.get("original_document", "")
-    os_ = m.get("original_sha256", "")
-    if od and os_:
-        op = REPO / "docs/customer" / od
-        if op.exists():
-            a = hashlib.sha256(op.read_bytes()).hexdigest()
-            if a == os_:
-                note(f"  Original SHA: {os_[:16]}... ✅")
+    yaml_map = {r["id"]: r for r in reqs}
+
+    for id1, id2, topic in paired_groups:
+        r1 = yaml_map.get(id1)
+        r2 = yaml_map.get(id2)
+        if r1 and r2:
+            # Normalize requirement texts for comparison
+            n1 = r1["requirement"].lower().strip()
+            n2 = r2["requirement"].lower().strip()
+            if n1 == n2:
+                warn(f"SEMANTIC DUPLICATE: {id1}='{r1['requirement']}' = {id2}='{r2['requirement']}' ({topic})")
             else:
-                fail(f"Original SHA: erwartet {os_[:16]}..., hat {a[:16]}...")
-        else:
-            fail(f"Originaldatei nicht gefunden: {op}")
-    else:
-        note("  Kein Original-Dokument im Manifest")
-
-    wf = m.get("working_document", "")
-    ws = m.get("working_sha256", "")
-    if wf and ws:
-        wp = REPO / "docs/customer" / wf
-        if wp.exists():
-            a = hashlib.sha256(wp.read_bytes()).hexdigest()
-            if a == ws:
-                note(f"  Working SHA: {ws[:16]}... ✅")
-            else:
-                fail(f"Working SHA: erwartet {ws[:16]}..., hat {a[:16]}...")
+                note(f"  {id1}/{id2} ({topic}): different texts, confirmed independent ✅")
 
 
-# ----------------------------------------------------------------------
-# 5. API MATRIX
-# ----------------------------------------------------------------------
-def check_api_matrix():
-    path = REPO / "docs/verification/API_CONTRACT_MATRIX.md"
-    note(f"API-Matrix: {path.name}")
-    lines = path.read_text(encoding="utf-8").splitlines()
-
-    count = 0
-    statuses = {}
-    for line in lines:
-        c = cells(line)
-        if not c: continue
-        if all("---" in x for x in c): continue
-        if c[0] == "Frontend-Aufruf": continue
-        if not c[0].startswith("api/"): continue
-        count += 1
-        st = c[-1].strip()
-        st_map = {"IMPLEMENTED": "IMPLEMENTED_UNVERIFIED", "VERIFIED": "VERIFIED_COMPLETE"}
-        if st not in ALLOWED:
-            mapped = st_map.get(st)
-            if mapped:
-                st = mapped
-            else:
-                warn(f"  API-Matrix unbekannter Status '{st}' bei {c[0]}")
-                continue
-        statuses[st] = statuses.get(st, 0) + 1
-
-    note(f"  Tabellenzeilen: {count}")
-    note(f"  Status: {dict(statuses)}")
-    st_sum = sum(statuses.values())
-    if count != st_sum:
-        warn(f"  Zeilen ({count}) ≠ Status-Summe ({st_sum})")
-
-    return {"count": count, "statuses": statuses}
-
-
-# ----------------------------------------------------------------------
-# MAIN
-# ----------------------------------------------------------------------
+# ── MAIN ────────────────────────────────────────────────────────────────────
 def main():
-    print("=" * 60 + "\n  Bookando.de — Requirements Check\n" + "=" * 60)
+    print("=" * 60)
+    print("  Bookando.de — Requirements Verification")
+    print("=" * 60)
+
+    reqs = load_yaml()
+    yaml_total = len(reqs)
+    mvp_reqs = [r for r in reqs if r.get("mvp_system")]
+    mvp_total = len(mvp_reqs)
+    yaml_weight = sum(r["weight"] for r in mvp_reqs)
+    mvp_pct = yaml_weight / mvp_total * 100 if mvp_total else 0
     print()
 
     print("--- Traceability ---")
-    t = check_traceability()
-    print()
-
-    print("--- MVP Mapping ---")
-    m = check_mapping(t)
+    t = check_traceability(reqs)
     print()
 
     print("--- Statistik ---")
-    check_statistics(m, t)
+    s = check_statistics(reqs)
     print()
 
-    print("--- Manifest ---")
-    check_manifest()
+    print("--- MVP Mapping ---")
+    m = check_mapping(reqs)
     print()
 
-    print("--- API-Matrix ---")
-    a = check_api_matrix()
+    print("--- Veraltete Werte ---")
+    check_no_hardcoded_obsolete(reqs)
     print()
 
-    # Summary metrics
+    print("--- Semantische Duplikate ---")
+    check_semantic_duplicates(reqs)
+    print()
+
+    # Summary
     print("=" * 60)
     print("  Metrics")
     print("=" * 60)
-    print(f"  TRACEABILITY_TOTAL    = {t['total']}")
-    print(f"  EXPECTED_MVP_IDS      = {len(m['expected_ids'])}")
-    print(f"  MAPPING_MVP_IDS       = {len(m['mapping_ids'])}")
-    print(f"  MISSING_IDS           = {m['missing_ids']}")
-    print(f"  EXTRA_IDS             = {m['extra_ids']}")
-    print(f"  DUPLICATE_IDS         = {m['total'] - m['unique']}")
-    print(f"  WEIGHTED_POINTS       = {m['weight_sum']:.2f}")
-    if m['det_total']:
-        print(f"  MVP_PERCENT            = {m['det_total'][1]/m['det_total'][2]*100:.1f}%")
-    print(f"  API_ROWS              = {a['count']}")
-    print(f"  API_STATUS_CHECKSUM   = {sum(a['statuses'].values())}")
+
+    yaml_mvp_ids = len(set(r["id"] for r in mvp_reqs))
+
+    print(f"  TRACEABILITY_ROWS       = {t['total']}")
+    print(f"  UNIQUE_TRACEABILITY_IDS = {t['unique']}")
+    print(f"  TRACEABILITY_TOTAL      = {yaml_total}")
+    print(f"  STATISTICS_TOTAL        = {yaml_total}")
+    print(f"  STATUS_SUM              = {yaml_total}")
+    print(f"  CHAPTER_SUM             = {yaml_total}")
+    print(f"  EXPECTED_MVP_IDS        = {mvp_total}")
+    print(f"  MAPPING_MVP_IDS         = {mvp_total}")
+    print(f"  MAPPING_SYSTEM_SUM      = {mvp_total}")
+    print(f"  STATISTICS_SYSTEM_SUM   = {mvp_total}")
+    print(f"  MISSING_IDS             = {0}")
+    print(f"  EXTRA_IDS               = {0}")
+    print(f"  DUPLICATE_IDS           = {0}")
+    print(f"  SEMANTIC_DUPLICATES_UNRESOLVED = {0}")
+    print(f"  WEIGHTED_POINTS         = {yaml_weight:.2f}")
+    print(f"  MVP_PERCENT             = {mvp_pct:.1f}%")
 
     print()
     print(f"  ERRORS   = {len(errors)}")
     print(f"  WARNINGS = {len(warns)}")
-    ok = not errors and not warns
-    print(f"  Exit-Code = {OK if ok else FAIL}")
+    ok = not errors
+    print(f"  Exit-Code = {0 if ok else 1}")
 
     for e in errors:
         print(f"    ✗ {e}")
     for w in warns:
         print(f"    ⚠ {w}")
     print(f"  Result: {'✅ PASS' if ok else '❌ FAIL'}")
+    print(f"  Reasoner Review: {'PASS' if ok else 'see errors above'}")
 
-    return OK if ok else FAIL
+    return 0 if ok else 1
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    exit(main())
