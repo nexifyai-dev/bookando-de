@@ -119,18 +119,28 @@ Jede ID aus Traceability wird genau einem MVP-System zugeordnet — keine Doppel
 | PF-17-005 | 17.8 Direkte Auszahlung | Zahlungen | PARTIAL | 0,35 |
 | PF-17-006 | 17.8 Plattform-Split | Zahlungen | MISSING | 0,00 |
 | PF-17-007 | 17.8 Affiliate-Split | Zahlungen | PARTIAL | 0,35 |
+| PF-18-001 | 18.1.1 Modular | Architektur-Enabler | IMPLEMENTED_UNVERIFIED | 0,60 |
+| PF-18-002 | 18.1.2 Skalierbar | Architektur-Enabler | DOCUMENTED_ONLY | 0,05 |
+| PF-18-003 | 18.1.3 API-First | Architektur-Enabler | IMPLEMENTED_UNVERIFIED | 0,60 |
+| PF-18-004 | 18.1.4 Multi-Tenant | Architektur-Enabler | IMPLEMENTED_UNVERIFIED | 0,60 |
+| PF-18-005 | 18.1.5 WhiteLabel-faehig | Architektur-Enabler | PARTIAL | 0,35 |
+| PF-18-006 | 18.1.6 Internationalisierbar | Architektur-Enabler | IMPLEMENTED_UNVERIFIED | 0,60 |
+| PF-18-007 | 18.1.7 Payment-unabhaengig | Architektur-Enabler | IMPLEMENTED_UNVERIFIED | 0,60 |
+| PF-19-001 | 19.1 Nicht kleines Tool | Architektur-Enabler | DOCUMENTED_ONLY | 0,05 |
+| PF-19-024 | 19.2.4 Rollen- & Rechteverwaltung | Architektur-Enabler | IMPLEMENTED_UNVERIFIED | 0,60 |
+| PF-19-026 | 19.2.6 API-Architektur | Architektur-Enabler | IMPLEMENTED_UNVERIFIED | 0,60 |
 
 ## Berechnung
 
 | Metrik | Wert |
 |--------|:----:|
-| UNIQUE_MVP_REQUIREMENTS | 98 |
-| COUNTED_IDS | 98 |
+| UNIQUE_MVP_REQUIREMENTS | 108 |
+| COUNTED_IDS | 108 |
 | DUPLICATE_IDS | 0 |
 | MISSING_IDS | 0 |
-| WEIGHTED_POINTS | 31,55 |
-| MVP_PERCENT | 32.2 % |
-| CHECKSUM | 98 |
+| WEIGHTED_POINTS | 36,20 |
+| MVP_PERCENT | 33.5 % |
+| CHECKSUM | 108 |
 
 ## Detailberechnung
 
@@ -145,4 +155,36 @@ Jede ID aus Traceability wird genau einem MVP-System zugeordnet — keine Doppel
 | Wallet-System | 10 | 2,70 | 10 | 27,0% |
 | Zahlungen | 7 | 1,90 | 7 | 27,1% |
 | CRM | 11 | 2,60 | 11 | 23,6% |
-| **MVP Gesamt** | **98** | **31,55** | **98** | **32,2%** |
+| Architektur-Enabler | 10 | 4,65 | 10 | 46,5% |
+| **MVP Gesamt** | **108** | **36,20** | **108** | **33,5%** |
+
+## MVP-Abgrenzung: Kapitel 18 und 19
+
+Die 9 MVP-Systeme aus Kapitel 20.1 (Terminbuchung, Kalender, Vendor-System, Vendor-Unterseiten, Marketplace, Affiliate-Tracking, Wallet, Zahlungen, grundlegendes CRM) werden durch **Architektur-Enabler** aus Kapitel 18 (Technisches Zielbild) und 19 (Entwicklerprioritäten) ergänzt. Diese sind notwendige Voraussetzungen für den Betrieb aller MVP-Systeme:
+
+| ID | Anforderung | Status | Begründung MVP |
+|----|------------|--------|-----------------|
+| PF-18-001 | Modular | IMPLEMENTED_UNVERIFIED | Voraussetzung für Wartbarkeit aller Systeme |
+| PF-18-002 | Skalierbar | DOCUMENTED_ONLY | Betriebsnotwendig, nicht durch eine Einzelfunktion prüfbar |
+| PF-18-003 | API-First | IMPLEMENTED_UNVERIFIED | Fundament aller Frontend-Backend-Integrationen |
+| PF-18-004 | Multi-Tenant | IMPLEMENTED_UNVERIFIED | Tenant-Isolation für Vendor-Trennung im MVP |
+| PF-18-005 | WhiteLabel-fähig | PARTIAL | Vendor-Branding ist MVP-relevant (Kapitel 9.2) |
+| PF-18-006 | Internationalisierbar | IMPLEMENTED_UNVERIFIED | i18n für mehrsprachige Nutzung |
+| PF-18-007 | Payment-unabhängig | IMPLEMENTED_UNVERIFIED | Provider-Abstraktion als Geschäftsmodell-Anforderung |
+
+**Nicht im MVP** (Kapitel 18.2.1–11): Langfrist-Anforderungen (alle Phasen, OUT_OF_SCOGE).
+
+**Entwicklerprioritäten (Kapitel 19):**
+
+| ID | Anforderung | Status | Begründung |
+|----|------------|--------|------------|
+| PF-19-001 | Nicht kleines Tool | DOCUMENTED_ONLY | Architektur-Prinzip, keine Einzelfunktion |
+| PF-19-021 | Kalender- & Ressourcenlogik | PARTIAL | (Deckungsgleich mit Kap 8) |
+| PF-19-022 | Wallet- & Ledger-System | PARTIAL | (Deckungsgleich mit Kap 12) |
+| PF-19-023 | Affiliate-Tracking | PARTIAL | (Deckungsgleich mit Kap 11) |
+| PF-19-024 | Rollen- & Rechteverwaltung | IMPLEMENTED_UNVERIFIED | Notwendig für Multi-Tenant im MVP |
+| PF-19-026 | API-Architektur | IMPLEMENTED_UNVERIFIED | (Deckungsgleich mit Kap 18) |
+
+**Nicht im MVP** (Kapitel 19.2.5): WhiteLabel-Struktur → Phase 2.
+
+**Doppelzählung vermieden:** IDs, die bereits in Systemtabellen gezählt werden (Kap 8/11/12), werden in der Enabler-Tabelle nicht erneut gezählt. Nur ID PF-19-024 (Rollen- & Rechteverwaltung) und PF-18-001 bis PF-18-007 sowie PF-19-001 und PF-19-026 sind exklusive Enabler-IDs.

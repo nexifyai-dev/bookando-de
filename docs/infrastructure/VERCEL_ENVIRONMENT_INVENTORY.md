@@ -21,12 +21,16 @@
 
 ## Projekt Mapping
 
-| Service | Alt (Legacy) | Neu (agentur-projekte) |
-|---------|-------------|----------------------|
-| Frontend | bookando-de (Alt) | bookando-de (Neu) |
-| Backend | bookando-backend.vercel.app | bookando-de-riw8.vercel.app |
-| Build (rätselhaft) | existiert | ❌ nicht übernommen |
-| Domains | bookando.de | bookando-de-one.vercel.app (vorläufig) |
+| Service | Alt (Legacy) | Neu (agentur-projekte) | Soll-Name |
+|---------|-------------|----------------------|-----------|
+| Frontend | bookando-de (Alt) | bookando-de (Neu) | bookando-de |
+| Backend | bookando-backend.vercel.app | bookando-de-riw8.vercel.app | **bookando-api** |
+| Build (rätselhaft) | existiert | ❌ nicht übernommen | – |
+| Domains | bookando.de | bookando-de-one.vercel.app (vorläufig) | – |
+
+> **Backend-Projekt:** `bookando-de-riw8` ist bereits mit `nexifyai-dev/bookando-api` verknüpft.
+> Soll nach Secret-Rotation in `bookando-api` umbenannt werden (Vercel-Dashboard, kein Production-Cutover).
+> Git-Verknüpfung und Deployment-Historie bleiben erhalten.
 
 ## Security Incident (P0)
 

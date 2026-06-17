@@ -60,6 +60,34 @@ Erlaubte Statuswerte:
 - `BLOCKED` — durch externe Abhängigkeit blockiert
 - `FUTURE_PHASE` — laut Kunden-Pflichtenheft explizit spätere Phase
 
+## Einfachheit, Komfort und Qualitätsüberschuss
+
+- Verwende stets die einfachste robuste und wartbare Lösung.
+- Vermeide unnötige Abstraktionen, Dienste, Frameworks, Schichten, Konfigurationen und Anbieterabhängigkeiten.
+- Nutze vorhandene Infrastruktur und bestehende Projektmuster, bevor neue Komponenten eingeführt werden.
+- Zusätzliche Komplexität ist nur zulässig, wenn ein konkreter, messbarer Nutzen nachgewiesen wird.
+- Jede Änderung muss nach Abschluss erneut auf Vereinfachungsmöglichkeiten geprüft werden.
+- Das Kunden-Pflichtenheft definiert die Mindestanforderungen, nicht die angestrebte Qualität.
+- Anforderungen sind sinnvoll zu übertreffen bei:
+  - Leistung und Reaktionszeit
+  - Bedienkomfort
+  - Barrierefreiheit
+  - Zuverlässigkeit und Fehlertoleranz
+  - verständlicher Fehlerführung
+  - Automatisierung wiederkehrender Abläufe
+  - Wartbarkeit
+  - Datenschutz und Sicherheit
+  - Dokumentation und Betrieb
+- Der Bedienkomfort ist für alle Rollen zu optimieren:
+  - Kunden
+  - Vendors
+  - Mitarbeiter
+  - Affiliates
+  - Administratoren
+  - Support
+  - Entwickler und Betreiber
+- Qualitätsüberschuss darf nicht durch Feature-Bloat entstehen, sondern durch bessere, schnellere, verständlichere und zuverlässigere Umsetzung.
+
 ## Deployment
 
 - Frontend: Vercel (Projekt `bookando-de`)

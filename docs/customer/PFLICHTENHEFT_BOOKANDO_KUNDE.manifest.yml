@@ -1,39 +1,30 @@
-document: PFLICHTENHEFT_BOOKANDO_KUNDE.md
+# Manifest: PFLICHTENHEFT_BOOKANDO_KUNDE
 project: Bookando
 customer: FixDigital
 customer_contact: Kevin Gaus
 source_type: customer_supplied
 source_location: Anlage A des Master-Auftrags (Chat-Kontext)
 captured_at: 2026-06-17
-sha256: "bb94f8a8018f76a87ecacc06ba2cf5a175e94e30fc735a7e6eb0a77b819ee105"
-canonical: true
+
+# Bytegenaues Original (nicht lokal verfügbar)
+original_document: PFLICHTENHEFT_BOOKANDO_KUNDE.original.txt
+original_sha256: "f92e5c9d58938a43e43ec8f92e1bd88c0bde5100d8d34b7464e98e03eb7e0466"
+original_content_modified: false
+original_status: EXTERN_BLOCKIERT
+original_note: >
+  Die bytegenaue Originaldatei mit SHA f92e5c9d... wurde vom Kunden bereitgestellt,
+  ist auf diesem System aber nicht lokal verfügbar. Der Hash ist als Referenz
+  dokumentiert, kann aber nicht gegen eine lokale Datei validiert werden.
+  Keine Bytefassung wurde erfunden oder geraten.
+
+# Normalisierte Arbeitsfassung
+working_document: PFLICHTENHEFT_BOOKANDO_KUNDE.md
+working_sha256: "bb94f8a8018f76a87ecacc06ba2cf5a175e94e30fc735a7e6eb0a77b819ee105"
+working_copy_normalized: true
+working_note: >
+  Lesefreundliche Markdown-Fassung. Gleiche 21 Kapitel, gleicher semantischer
+  Inhalt. Kein bytegenaues Abbild des Originals. Zeilenumbrüche, Trennzeichen
+  und Formatierung können abweichen.
+canonical_document: PFLICHTENHEFT_BOOKANDO_KUNDE.original.txt
 chapters: 21
-content_modified: false
 metadata_embedded_in_document: false
-sha_note: >
-  Der angeforderte Hash f92e5c9d58938a43e43ec8f92e1bd88c0bde5100d8d34b7464e98e03eb7e0466
-  bezieht sich auf eine andere Byte-Kodierung (vermutlich andere Zeilenumbruch-Behandlung)
-  derselben semantischen Quelle. Der tatsächliche Hash dieser Datei lautet bb94f8a8... .
-  Kein Hash wird ohne bytegenaue Quelle erfunden.
-sections:
-  - "1. Einleitung"
-  - "2. Grundidee der Plattform"
-  - "3. Vision der Plattform"
-  - "4. Orientierung an Trafft"
-  - "5. Zielgruppen"
-  - "6. Kernziel der Plattform"
-  - "7. Plattformstruktur"
-  - "8. Terminbuchungssystem"
-  - "9. Vendor-System"
-  - "10. Marketplace-System"
-  - "11. Affiliate-Booking-System"
-  - "12. Wallet- und Ledger-System"
-  - "13. WhiteLabel-System"
-  - "14. CRM-System"
-  - "15. KI-Strategie"
-  - "16. Mobile- und App-Strategie"
-  - "17. Geschaeftsmodell"
-  - "18. Technisches Zielbild"
-  - "19. Wichtige Entwicklerprioritaeten"
-  - "20. MVP-Strategie"
-  - "21. Endziel der Plattform"
