@@ -1,7 +1,7 @@
 # Bookando.de – Anforderungs-Traceability-Matrix
 
 > **Grundlage:** Kunden-Pflichtenheft (docs/customer/PFLICHTENHEFT_BOOKANDO_KUNDE.md)
-> **SHA-256:** af63edaa65c199207c83a2ec3637b73f680708d7a469db70d6ef9485a0173f17
+> **SHA-256:** bb94f8a8018f76a87ecacc06ba2cf5a175e94e30fc735a7e6eb0a77b819ee105
 > **Stand:** 17.06.2026
 > **Audit-Tiefe:** Code-basiert (kein Live-Zugriff möglich — API 402)
 
