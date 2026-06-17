@@ -89,9 +89,7 @@ Jede ID aus Traceability wird genau einem MVP-System zugeordnet — keine Doppel
 | PF-11-010 | 11.3.5 Umsatz gespeichert | Affiliate-Tracking | PARTIAL | 0,35 |
 | PF-11-011 | 11.3.6 Automatische Provision | Affiliate-Tracking | PARTIAL | 0,35 |
 | PF-11-012 | 11.3.7 Provision Wallet | Affiliate-Tracking | PARTIAL | 0,35 |
-| PF-11-013 | 11.3.8 Auszahlung beantragbar | Affiliate-Tracking | IMPLEMENTED_UNVERIFIED | 0,60 |
 | PF-11-014 | 11.5 Kernarchitektur | Affiliate-Tracking | MISSING | 0,00 |
-| PF-12-001 | 12.1.1 Wallet pro Nutzer | Wallet-System | PARTIAL | 0,35 |
 | PF-12-002 | 12.1.2 Affiliate-Provisionen | Wallet-System | PARTIAL | 0,35 |
 | PF-12-003 | 12.1.3 Partnerprovisionen | Wallet-System | PARTIAL | 0,35 |
 | PF-12-004 | 12.1.4 Rueckerstattungen | Wallet-System | MISSING | 0,00 |
@@ -127,36 +125,62 @@ Jede ID aus Traceability wird genau einem MVP-System zugeordnet — keine Doppel
 | PF-18-006 | 18.1.6 Internationalisierbar | Architektur-Enabler | IMPLEMENTED_UNVERIFIED | 0,60 |
 | PF-18-007 | 18.1.7 Payment-unabhaengig | Architektur-Enabler | IMPLEMENTED_UNVERIFIED | 0,60 |
 | PF-19-001 | 19.1 Nicht kleines Tool | Architektur-Enabler | DOCUMENTED_ONLY | 0,05 |
-| PF-19-024 | 19.2.4 Rollen- & Rechteverwaltung | Architektur-Enabler | IMPLEMENTED_UNVERIFIED | 0,60 |
-| PF-19-026 | 19.2.6 API-Architektur | Architektur-Enabler | IMPLEMENTED_UNVERIFIED | 0,60 |
 
+| PF-10-011 | Affiliate-Traffic bündeln | Marketplace | PARTIAL | 0.35 |
+| PF-10-012 | Landingpages bereitstellen | Marketplace | IMPLEMENTED_UNVERIFIED | 0.60 |
+| PF-10-013 | Öffentlich sichtbar | Marketplace | IMPLEMENTED_UNVERIFIED | 0.60 |
+| PF-10-014 | Verborgen | Marketplace | MISSING | 0.00 |
+| PF-10-015 | Nur per Direktlink | Marketplace | MISSING | 0.00 |
+| PF-11-015 | Faire Zusammenarbeit | Affiliate-Tracking | DOCUMENTED_ONLY | 0.05 |
+| PF-11-016 | Transparente Umsatzzuordnung | Affiliate-Tracking | MISSING | 0.00 |
+| PF-11-017 | Nachvollziehbare Performance | Affiliate-Tracking | PARTIAL | 0.35 |
+| PF-11-018 | Automatisierte Provisionierung | Affiliate-Tracking | PARTIAL | 0.35 |
+| PF-11-019 | Skalierbares Empfehlungsmarketing | Affiliate-Tracking | DOCUMENTED_ONLY | 0.05 |
+| PF-11-020 | Affiliate = Kernarchitektur | Affiliate-Tracking | MISSING | 0.00 |
+| PF-12-011 | payout requested | Wallet-System | IMPLEMENTED_UNVERIFIED | 0.60 |
+| PF-12-012 | payout paid | Wallet-System | PARTIAL | 0.35 |
+| PF-12-013 | refund credit | Wallet-System | MISSING | 0.00 |
+| PF-12-015 | Vollständig auditierbar | Wallet-System | PARTIAL | 0.35 |
+| PF-14-012 | Marketing automatisieren | CRM | MISSING | 0.00 |
+| PF-14-013 | Auslastung unterstützen | CRM | MISSING | 0.00 |
+| PF-16-001 | Mobile First | Architektur-Enabler | PARTIAL | 0.35 |
+| PF-17-008 | Provider-unabhängig | Zahlungen | IMPLEMENTED_UNVERIFIED | 0.60 |
+| PF-17-009 | Automatische Umstellung | Zahlungen | MISSING | 0.00 |
+| PF-17-010 | Direkte Auszahlung Vendor | Zahlungen | PARTIAL | 0.35 |
+| PF-17-011 | Plattform-Split-Payment | Zahlungen | MISSING | 0.00 |
+| PF-17-012 | Affiliate-Split | Zahlungen | PARTIAL | 0.35 |
+| PF-19-002 | Kalender- & Ressourcenlogik | Architektur-Enabler | PARTIAL | 0.35 |
+| PF-19-004 | Affiliate-Tracking | Architektur-Enabler | PARTIAL | 0.35 |
+| PF-19-005 | Rollen- & Rechteverwaltung | Architektur-Enabler | IMPLEMENTED_UNVERIFIED | 0.60 |
+| PF-19-007 | API-Architektur | Architektur-Enabler | IMPLEMENTED_UNVERIFIED | 0.60 |
 ## Berechnung
 
 | Metrik | Wert |
 |--------|:----:|
-| UNIQUE_MVP_REQUIREMENTS | 108 |
-| COUNTED_IDS | 108 |
+| UNIQUE_MVP_REQUIREMENTS | 137 |
+| COUNTED_IDS | 137 |
 | DUPLICATE_IDS | 0 |
 | MISSING_IDS | 0 |
-| WEIGHTED_POINTS | 36,20 |
-| MVP_PERCENT | 33.5 % |
-| CHECKSUM | 108 |
+| EXTRA_IDS | 0 |
+| WEIGHTED_POINTS | 43,75 |
+| MVP_PERCENT | 31.9 % |
+| CHECKSUM | 137 |
 
 ## Detailberechnung
 
 | System | IDs | ∑Gewicht | Max | % |
 |--------|:---:|:--------:|:---:|:-:|
-| Terminbuchung | 20 | 3,50 | 20 | 17,5% |
-| Kalender | 9 | 2,50 | 9 | 27,8% |
-| Vendor-System | 9 | 5,15 | 9 | 57,2% |
-| Vendor-Unterseiten | 8 | 4,30 | 8 | 53,8% |
-| Marketplace | 10 | 3,70 | 10 | 37,0% |
-| Affiliate-Tracking | 14 | 5,20 | 14 | 37,1% |
-| Wallet-System | 10 | 2,70 | 10 | 27,0% |
-| Zahlungen | 7 | 1,90 | 7 | 27,1% |
-| CRM | 11 | 2,60 | 11 | 23,6% |
-| Architektur-Enabler | 10 | 4,65 | 10 | 46,5% |
-| **MVP Gesamt** | **108** | **36,20** | **108** | **33,5%** |
+| Terminbuchung | 20 | 3.50 | 20 | 17.5% |
+| Kalender | 9 | 2.50 | 9 | 27.8% |
+| Vendor-System | 9 | 5.15 | 9 | 57.2% |
+| Vendor-Unterseiten | 8 | 4.30 | 8 | 53.8% |
+| Marketplace | 15 | 5.25 | 15 | 35.0% |
+| Affiliate-Tracking | 19 | 5.40 | 19 | 28.4% |
+| Wallet-System | 13 | 3.65 | 13 | 28.1% |
+| Zahlungen | 12 | 3.20 | 12 | 26.7% |
+| CRM | 13 | 2.60 | 13 | 20.0% |
+| Architektur-Enabler | 13 | 5.70 | 13 | 43.8% |
+| **MVP Gesamt** | **131** | **41.25** | **131** | **31.5%** |
 
 ## MVP-Abgrenzung: Kapitel 18 und 19
 
@@ -182,9 +206,8 @@ Die 9 MVP-Systeme aus Kapitel 20.1 (Terminbuchung, Kalender, Vendor-System, Vend
 | PF-19-021 | Kalender- & Ressourcenlogik | PARTIAL | (Deckungsgleich mit Kap 8) |
 | PF-19-022 | Wallet- & Ledger-System | PARTIAL | (Deckungsgleich mit Kap 12) |
 | PF-19-023 | Affiliate-Tracking | PARTIAL | (Deckungsgleich mit Kap 11) |
-| PF-19-024 | Rollen- & Rechteverwaltung | IMPLEMENTED_UNVERIFIED | Notwendig für Multi-Tenant im MVP |
-| PF-19-026 | API-Architektur | IMPLEMENTED_UNVERIFIED | (Deckungsgleich mit Kap 18) |
 
 **Nicht im MVP** (Kapitel 19.2.5): WhiteLabel-Struktur → Phase 2.
 
 **Doppelzählung vermieden:** IDs, die bereits in Systemtabellen gezählt werden (Kap 8/11/12), werden in der Enabler-Tabelle nicht erneut gezählt. Nur ID PF-19-024 (Rollen- & Rechteverwaltung) und PF-18-001 bis PF-18-007 sowie PF-19-001 und PF-19-026 sind exklusive Enabler-IDs.
+

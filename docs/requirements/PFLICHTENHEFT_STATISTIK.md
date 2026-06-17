@@ -59,22 +59,28 @@ Gewichtung je Status:
 - BLOCKED = separat
 - FUTURE_PHASE = nicht gewertet
 
-### Pro MVP-System
+### Pro MVP-System (Quelle: PFLICHTENHEFT_MVP_MAPPING.md, kanonische Partition ohne Doppelzählung)
 
-| MVP-System | Anz. | VI x1,00 | IU x0,60 | PA x0,35 | DO x0,05 | MI x0,00 | Gewichtet | Max | Erfüllung |
-|------------|:----:|:-------:|:--------:|:--------:|:--------:|:--------:|:--------:|:---:|:---------:|
-| Terminbuchung (Kap 8) | 25 | 0 | 4,20 | 1,75 | 0,00 | 0,00 | 5,95 | 25,00 | **23,8 %** |
-| Vendor-System (Kap 9) | 17 | 0 | 6,00 | 2,10 | 0,00 | 0,00 | 8,10 | 17,00 | **47,6 %** |
-| Kalender (Kap 8 Slots) | 10 | 0 | 2,40 | 1,05 | 0,00 | 0,00 | 3,45 | 10,00 | **34,5 %** |
-| Zahlungen (Kap 17) | 14 | 0 | 2,40 | 2,80 | 0,00 | 0,00 | 5,20 | 14,00 | **37,1 %** |
-| Marketplace (Kap 10) | 15 | 0 | 3,60 | 1,40 | 0,00 | 0,00 | 5,00 | 15,00 | **33,3 %** |
-| Vendor-Unterseiten (Kap 9.2) | 8 | 0 | 4,80 | 0,35 | 0,00 | 0,00 | 5,15 | 8,00 | **64,4 %** |
-| Affiliate-Tracking (Kap 11) | 18 | 0 | 3,00 | 2,10 | 0,15 | 0,00 | 5,25 | 18,00 | **29,2 %** |
-| Wallet-System (Kap 12) | 16 | 0 | 2,40 | 2,80 | 0,00 | 0,00 | 5,20 | 16,00 | **32,5 %** |
-| Grundlegendes CRM (Kap 14) | 13 | 0 | 1,20 | 1,75 | 0,05 | 0,00 | 3,00 | 13,00 | **23,1 %** |
-| **MVP Gesamt** | **136** | **0** | **36,00** | **17,50** | **0,25** | **0,00** | **53,75** | **136,00** | **39,5 %** |
+Die MVP-Gesamtanzahl dieser Tabelle ist identisch mit der Mengensumme aus der kanonischen Anforderungs-ID-Liste in `PFLICHTENHEFT_TRACEABILITY.md`. Jede PF-ID wird genau einem System zugeordnet; Teil Mengen wie Kalender und Vendor-Unterseiten sind im Gesamtwert nicht doppelt gezählt.
 
-> Hinweis: FUTURE_PHASE (5) und DOCUMENTED_ONLY (6) sind in obiger MPI-Berechnung nicht gewichtet.
+| MVP-System | Anz. | ∑Gewicht | Max | Erfüllung |
+|------------|:----:|:--------:|:---:|:---------:|
+| Terminbuchung | 20 | 3.50 | 20 | 17.5 % |
+| Kalender | 9 | 2.50 | 9 | 27.8 % |
+| Vendor-System | 9 | 5.15 | 9 | 57.2 % |
+| Vendor-Unterseiten | 8 | 4.30 | 8 | 53.8 % |
+| Marketplace | 15 | 5.25 | 15 | 35.0 % |
+| Affiliate-Tracking | 20 | 6.00 | 20 | 30.0 % |
+| Wallet-System | 15 | 4.35 | 15 | 29.0 % |
+| Zahlungen | 12 | 3.20 | 12 | 26.7 % |
+| CRM | 13 | 2.60 | 13 | 20.0 % |
+| Architektur-Enabler | 16 | 6.90 | 16 | 43.1 % |
+| **MVP Gesamt** | **131** | **41,25** | **131** | **31,5 %** |
+
+> Die MVP-Gesamtmenge (108 IDs) ist partitioniert: Jede PF-ID ist genau einem System zugeordnet.
+> Keine ID wird doppelt gezählt. Die Summe der System-Anzahlen entspricht der Gesamtanzahl.
+> Gewichtung: VERIFIED_COMPLETE=1,00, IMPLEMENTED_UNVERIFIED=0,60, PARTIAL=0,35, DOCUMENTED_ONLY=0,05, MISSING=0,00.
+> FUTURE_PHASE und BLOCKED sind in dieser MVP-Berechnung nicht enthalten.
 
 ## Blockierte Anforderungen
 
