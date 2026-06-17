@@ -58,7 +58,7 @@ Erlaubte Statuswerte:
 - `MISSING` — fehlt vollständig
 - `CONTRADICTED` — widerspricht Anforderung
 - `BLOCKED` — durch externe Abhängigkeit blockiert
-- `OUT_OF_SCOPE_FOR_CURRENT_PHASE` — für aktuelle Phase nicht vorgesehen
+- `FUTURE_PHASE` — laut Kunden-Pflichtenheft explizit spätere Phase
 
 ## Deployment
 

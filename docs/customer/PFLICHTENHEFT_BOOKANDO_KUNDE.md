@@ -1,850 +1,1195 @@
-# 📘 Bookando.de – Pflichtenheft / Kundenoriginal
+1. Einleitung
 
-> **Projekt:** Bookando.de – Modulare SaaS-, Marketplace- & WhiteLabel-Plattform für Dienstleister
-> **Quelle:** Vom Kunden geliefert (FixDigital / Kevin Gaus) — verbindliche Soll-, Planungs- und Abnahmegrundlage
-> **Erfasst am:** 17.06.2026
-> **SHA-256:** `af63edaa65c199207c83a2ec3637b73f680708d7a469db70d6ef9485a0173f17`
+1.1 Projektname
 
----
+Bookando.de
 
-## 1. Einleitung
+1.2 Projektbeschreibung
 
-### 1.1 Projektname
-**Bookando.de**
+Bookando.de ist eine modulare SaaS-, Marketplace- und WhiteLabel-Plattform für Dienstleister.
 
-### 1.2 Projektbeschreibung
-Bookando.de ist eine modulare **SaaS-, Marketplace- und WhiteLabel-Plattform für Dienstleister**.
 Die Plattform kombiniert:
-- Professionelle Terminbuchung
-- Kalenderverwaltung
-- Dienstleisterverwaltung
-- Marketplace-Funktionen
-- Affiliate-Marketing
-- Automatisierte Provisionslogik
-- Wallet-Systeme
-- Zahlungsabwicklung
-- CRM
-- Marketing-Automationen
-- KI-Funktionen
-- WhiteLabel- und Franchise-Strukturen
+
+professionelle Terminbuchung,
+
+Kalenderverwaltung,
+
+Dienstleisterverwaltung,
+
+Marketplace-Funktionen,
+
+Affiliate-Marketing,
+
+automatisierte Provisionslogik,
+
+Wallet-Systeme,
+
+Zahlungsabwicklung,
+
+CRM,
+
+Marketing-Automationen,
+
+KI-Funktionen
+
+sowie WhiteLabel- und Franchise-Strukturen
 
 in einer gemeinsamen technischen Infrastruktur.
 
-Bookando ist dabei **nicht** als einfaches Terminbuchungstool gedacht, sondern als **vollständiges Betriebs-, Vertriebs- und Marketing-Ökosystem für Dienstleister**.
+Bookando ist dabei nicht als einfaches Terminbuchungstool gedacht, sondern als vollständiges Betriebs-, Vertriebs- und Marketing-Ökosystem für Dienstleister.
 
----
+2. Grundidee der Plattform
 
-## 2. Grundidee der Plattform
+2.1 Was Bookando lösen soll
 
-### 2.1 Was Bookando lösen soll
 Klassische Terminbuchungssysteme wie:
-- Calendly
-- Shore
-- Fresha
-- Treatwell
-- Booksy
-- SimplyBook
-- Trafft
+
+Calendly
+
+Shore
+
+Fresha
+
+Treatwell
+
+Booksy
+
+SimplyBook
+
+Trafft
 
 lösen hauptsächlich die reine Terminverwaltung.
-Bookando soll **deutlich weitergehen**.
+
+Bookando soll deutlich weitergehen.
 
 Die Plattform soll nicht nur Termine organisieren, sondern gleichzeitig:
-- Kundengewinnung
-- Affiliate-Marketing
-- Umsatzzuordnung
-- Partnerstrukturen
-- Wallet-Auszahlungen
-- Marketplace-Logik
-- CRM
-- Marketingautomationen
-- WhiteLabel-Modelle
 
-in **einem einzigen System** vereinen.
+Kundengewinnung,
 
-### 2.2 Hauptproblem im Markt
+Affiliate-Marketing,
+
+Umsatzzuordnung,
+
+Partnerstrukturen,
+
+Wallet-Auszahlungen,
+
+Marketplace-Logik,
+
+CRM,
+
+Marketingautomationen
+
+und WhiteLabel-Modelle
+
+in einem einzigen System vereinen.
+
+2.2 Hauptproblem im Markt
+
 Viele Dienstleister arbeiten mit:
-- Social-Media-Marketern
-- Influencern
-- Agenturen
-- Werbepartnern
-- Affiliates
-- Empfehlungsgebern
 
-zusammen.
+Social-Media-Marketern,
 
-**Aktuell fehlen jedoch:**
-- Transparente Trackingstrukturen
-- Automatische Provisionsabrechnungen
-- Nachvollziehbare Umsatzzuordnungen
-- Direkte Auszahlungen
-- Kontrollierte Partnerstrukturen
-- Gemeinsame Plattformen für Terminierung und Marketing
+Influencern,
+
+Agenturen,
+
+Werbepartnern,
+
+Affiliates
+
+oder Empfehlungsgebern zusammen.
+
+Aktuell fehlen jedoch:
+
+transparente Trackingstrukturen,
+
+automatische Provisionsabrechnungen,
+
+nachvollziehbare Umsatzzuordnungen,
+
+direkte Auszahlungen,
+
+kontrollierte Partnerstrukturen,
+
+gemeinsame Plattformen für Terminierung und Marketing.
 
 Die Zusammenarbeit erfolgt häufig:
-- Manuell
-- Unübersichtlich
-- Ohne Vertrauen
-- Ohne zentrale Statistik
-- Ohne automatisierte Auszahlung
 
-**Genau dieses Problem soll Bookando lösen.**
+manuell,
 
----
+unübersichtlich,
 
-## 3. Vision der Plattform
+ohne Vertrauen,
+
+ohne zentrale Statistik,
+
+ohne automatisierte Auszahlung.
+
+Genau dieses Problem soll Bookando lösen.
+
+3. Vision der Plattform
 
 Bookando soll langfristig:
-- Dienstleister
-- Affiliates
-- Kunden
-- Agenturen
-- Franchisegeber
-- WhiteLabel-Partner
 
-in einem **gemeinsamen digitalen Ökosystem** verbinden.
+Dienstleister,
+
+Affiliates,
+
+Kunden,
+
+Agenturen,
+
+Franchisegeber
+
+und WhiteLabel-Partner
+
+in einem gemeinsamen digitalen Ökosystem verbinden.
 
 Die Plattform soll:
-- Terminbuchung
-- Marketing
-- Vertrieb
-- Provisionierung
-- Zahlungsabwicklung
-- CRM
-- Marketplace
-- WhiteLabel-Infrastruktur
 
-**zentral steuern**.
+Terminbuchung,
 
-Langfristig soll Bookando weit über ein normales Buchungstool hinausgehen und sich zu einer **skalierbaren Infrastrukturplattform für Dienstleister** entwickeln.
+Marketing,
 
----
+Vertrieb,
 
-## 4. Orientierung an Trafft
+Provisionierung,
 
-### 4.1 Grundverständnis
-Die Plattform soll sich funktional und qualitativ stark an **Trafft** orientieren.
+Zahlungsabwicklung,
+
+CRM,
+
+Marketplace
+
+und WhiteLabel-Infrastruktur
+
+zentral steuern.
+
+Langfristig soll Bookando weit über ein normales Buchungstool hinausgehen und sich zu einer skalierbaren Infrastrukturplattform für Dienstleister entwickeln.
+
+4. Orientierung an Trafft
+
+4.1 Grundverständnis
+
+Die Plattform soll sich funktional und qualitativ stark an Trafft orientieren.
 
 Trafft dient als Referenz für:
-- Benutzererfahrung
-- Buchungslogik
-- Kalenderstruktur
-- UI/UX
-- Mobile Experience
-- Vendor-Verwaltung
-- Mitarbeiterlogik
-- Ressourcenverwaltung
-- Service-Management
-- Kundenverwaltung
-- Zahlungsintegration
-- Erinnerungen
-- Online-Meetings
-- Formularsysteme
-- Wiederholungsbuchungen
-- Gruppenbuchungen
-- Pakete
-- Coupons
-- Analytics
-- WhiteLabel-Strukturen
-- Allgemeine SaaS-Architektur
 
-Bookando soll jedoch **deutlich erweitert** werden.
+Benutzererfahrung,
 
-### 4.2 Erweiterung gegenüber Trafft
+Buchungslogik,
+
+Kalenderstruktur,
+
+UI/UX,
+
+Mobile Experience,
+
+Vendor-Verwaltung,
+
+Mitarbeiterlogik,
+
+Ressourcenverwaltung,
+
+Service-Management,
+
+Kundenverwaltung,
+
+Zahlungsintegration,
+
+Erinnerungen,
+
+Online-Meetings,
+
+Formularsysteme,
+
+Wiederholungsbuchungen,
+
+Gruppenbuchungen,
+
+Pakete,
+
+Coupons,
+
+Analytics,
+
+WhiteLabel-Strukturen
+
+und allgemeine SaaS-Architektur.
+
+Bookando soll jedoch deutlich erweitert werden.
+
+4.2 Erweiterung gegenüber Trafft
 
 Zusätzlich zu klassischen Funktionen wie bei Trafft soll Bookando folgende Kernbereiche integrieren:
 
-**Affiliate-Marketing-System:**
-- Trackinglinks
-- Umsatzzuordnung
-- Automatische Provisionen
-- Wallet-System
-- Affiliate-Dashboards
-- Auszahlungen
-- Kampagnenzuordnung
+Affiliate-Marketing-System
 
-**Marketplace-System:**
-- Öffentliches Dienstleisterverzeichnis
-- Suchfunktionen
-- Vendor-Unterseiten
-- Landingpages
-- Direktbuchungslinks
+Trackinglinks
 
-**WhiteLabel-System:**
-- Eigene Domains
-- Eigenes Branding
-- Eigene Plattformen
-- Agenturmodelle
-- Franchise-Strukturen
+Umsatzzuordnung
 
-**Wallet- und Ledger-System:**
-- Automatische Gutschriften
-- Provisionswallet
-- Auszahlungslogik
-- Unveränderbare Ledger-Einträge
+automatische Provisionen
 
-**KI-Funktionen:**
-- Marketingautomationen
-- Intelligente Auslastungsanalysen
-- KI-Kampagnen
-- Automatische Follow-Ups
-- AI-CRM
-- Reaktivierungen
+Wallet-System
 
-Bookando soll also auf dem Funktionsniveau von Trafft starten, jedoch um ein **vollständiges Vertriebs- und Marketingökosystem** erweitert werden.
+Affiliate-Dashboards
 
----
+Auszahlungen
 
-## 5. Zielgruppen
+Kampagnenzuordnung
 
-### 5.1 Primäre Zielgruppe zum Start
-Die erste Fokusbranche ist die **Beauty- und Ästhetikbranche**.
+Marketplace-System
+
+öffentliches Dienstleisterverzeichnis
+
+Suchfunktionen
+
+Vendor-Unterseiten
+
+Landingpages
+
+Direktbuchungslinks
+
+WhiteLabel-System
+
+eigene Domains
+
+eigenes Branding
+
+eigene Plattformen
+
+Agenturmodelle
+
+Franchise-Strukturen
+
+Wallet- und Ledger-System
+
+automatische Gutschriften
+
+Provisionswallet
+
+Auszahlungslogik
+
+unveränderbare Ledger-Einträge
+
+KI-Funktionen
+
+Marketingautomationen
+
+intelligente Auslastungsanalysen
+
+KI-Kampagnen
+
+automatische Follow-Ups
+
+AI-CRM
+
+Reaktivierungen
+
+Bookando soll also auf dem Funktionsniveau von Trafft starten, jedoch um ein vollständiges Vertriebs- und Marketingökosystem erweitert werden.
+
+5. Zielgruppen
+
+5.1 Primäre Zielgruppe zum Start
+
+Die erste Fokusbranche ist die Beauty- und Ästhetikbranche.
 
 Dazu gehören:
-- Tattoo-Studios
-- Kosmetikstudios
-- Friseure
-- Barbershops
-- Beauty-Salons
-- Laser-Studios
-- Tattooentfernung
-- Ästhetik-Dienstleister
 
-### 5.2 Erweiterbare Zielgruppen
+Tattoo-Studios
+
+Kosmetikstudios
+
+Friseure
+
+Barbershops
+
+Beauty-Salons
+
+Laser-Studios
+
+Tattooentfernung
+
+Ästhetik-Dienstleister
+
+5.2 Erweiterbare Zielgruppen
+
 Die Plattform muss jedoch technisch offen entwickelt werden.
 
 Spätere Zielgruppen:
-- Coaches
-- Berater
-- Healthcare
-- Fitness
-- Education
-- Lokale Dienstleistungen
-- Home Services
-- Automotive Services
-- Persönliche Dienstleistungen allgemein
 
-**Die Plattform darf deshalb niemals hart auf Beauty beschränkt werden.**
+Coaches
 
----
+Berater
 
-## 6. Kernziel der Plattform
+Healthcare
 
-### 6.1 Zentrales Ziel
-Bookando soll **Dienstleister digital skalierbar machen**.
+Fitness
+
+Education
+
+lokale Dienstleistungen
+
+Home Services
+
+Automotive Services
+
+persönliche Dienstleistungen allgemein
+
+Die Plattform darf deshalb niemals hart auf Beauty beschränkt werden.
+
+6. Kernziel der Plattform
+
+6.1 Zentrales Ziel
+
+Bookando soll Dienstleister digital skalierbar machen.
 
 Die Plattform soll ermöglichen:
-- Dienstleistungen online buchbar zu machen
-- Kunden automatisch zu terminieren
-- Affiliates kontrolliert einzubinden
-- Umsätze transparent auszuwerten
-- Provisionen automatisch auszuzahlen
-- Marketing messbar zu machen
-- WhiteLabel-Strukturen aufzubauen
-- Eigene Dienstleisterplattformen zu betreiben
 
-### 6.2 Wichtiges Verständnis für Entwickler
-**Bookando ist KEIN normales Terminbuchungssystem.**
+Dienstleistungen online buchbar zu machen,
+
+Kunden automatisch zu terminieren,
+
+Affiliates kontrolliert einzubinden,
+
+Umsätze transparent auszuwerten,
+
+Provisionen automatisch auszuzahlen,
+
+Marketing messbar zu machen,
+
+WhiteLabel-Strukturen aufzubauen,
+
+eigene Dienstleisterplattformen zu betreiben.
+
+6.2 Wichtiges Verständnis für Entwickler
+
+Bookando ist KEIN normales Terminbuchungssystem.
 
 Es ist:
-- ✅ ein Terminbuchungssystem
-- ✅ ein CRM
-- ✅ ein Affiliate-System
-- ✅ ein Wallet-System
-- ✅ ein Marketplace
-- ✅ ein WhiteLabel-System
-- ✅ ein Marketing-System
-- ✅ langfristig ein KI-gestütztes Plattform-Ökosystem
 
-**Alle Architekturentscheidungen müssen deshalb langfristig skalierbar geplant werden.**
+ein Terminbuchungssystem,
 
----
+ein CRM,
 
-## 7. Plattformstruktur
+ein Affiliate-System,
 
-```
-Bookando.de
-├── 8. Terminbuchungssystem
-│   ├── Zeitslot-Logik (blockierbar, reservierbar, teilbar)
-│   ├── Servicearten (Einzel-, Gruppen-, Online-, Vor-Ort-Termine)
-│   ├── Wiederkehrende Termine & Pakete
-│   └── Affiliate-fähige Teilbarkeit
-│
-├── 9. Vendor-System
-│   ├── Dienstleistungen, Produkte, Mitarbeiter, Kalender
-│   ├── Standorte, Affiliates, Branding
-│   └── Eigene Landingpages & Marketplace-Sichtbarkeit
-│
-├── 10. Marketplace-System
-│   ├── Öffentliches Verzeichnis mit Suche & Filter
-│   ├── Vendor-Unterseiten & Direktbuchung
-│   └── Sichtbarkeitslogik (öffentlich/verborgen/Direktlink)
-│
-├── 11. Affiliate-Booking-System (★ KERN-USP)
-│   ├── Trackinglinks & Umsatzzuordnung
-│   ├── Automatische Provisionen & Wallet
-│   ├── Kampagnen-Tracking & Statistiken
-│   └── Auszahlungsmanagement
-│
-├── 12. Wallet- & Ledger-System
-│   ├── Provisionswallet & Auszahlungslogik
-│   ├── Unveränderbare Ledger-Einträge
-│   └── Auditierbarkeit
-│
-├── 13. WhiteLabel-System
-│   ├── Eigene Domains & Branding
-│   ├── Agentur- & Franchise-Modelle
-│   └── Eigenständige Plattformen
-│
-├── 14. CRM-System
-│   ├── Kundenprofile, Buchungshistorien, Leads
-│   ├── Tags, Notizen, Präferenzen
-│   └── Marketingsegmente & Wiederkehrer-Erkennung
-│
-├── 15. KI-Strategie
-│   ├── Marketingtexte, Follow-Ups, Kampagnen
-│   ├── No-Show-Erkennung, Auslastungsoptimierung
-│   └── AI-CRM, Reaktivierung, Analysen
-│
-├── 16. Mobile- & App-Strategie
-│   ├── Mobile-First Frontend
-│   └── Native Apps (Kunden, Dienstleister, Affiliates)
-│
-└── 17. Geschäftsmodell (SaaS)
-    ├── Standard (49 €/Monat)
-    ├── Affiliate-Booking (189 €/Monat)
-    └── Gebühren (2,5 % / 5 % + 1 €)
-```
+ein Wallet-System,
 
----
+ein Marketplace,
 
-## 8. Terminbuchungssystem
+ein WhiteLabel-System,
 
-### 8.1 Grundprinzip
-Das System basiert auf **echter Terminlogik**.
-Es handelt sich **NICHT** um einfache Produktbestellungen.
+ein Marketing-System
+
+und langfristig ein KI-gestütztes Plattform-Ökosystem.
+
+Alle Architekturentscheidungen müssen deshalb langfristig skalierbar geplant werden.
+
+7. Plattformstruktur
+
+Die Plattform besteht aus mehreren Hauptsystemen.
+
+8. Terminbuchungssystem
+
+8.1 Grundprinzip
+
+Das System basiert auf echter Terminlogik.
+
+Es handelt sich NICHT um einfache Produktbestellungen.
 
 Jede Buchung kann enthalten:
-- Datum
-- Uhrzeit
-- Dauer
-- Mitarbeiter
-- Standort
-- Ressourcen
-- Vorlaufzeiten
-- Pufferzeiten
-- Gruppenlogik
-- Online- oder Offline-Termine
 
-### 8.2 Servicearten
+Datum
+
+Uhrzeit
+
+Dauer
+
+Mitarbeiter
+
+Standort
+
+Ressourcen
+
+Vorlaufzeiten
+
+Pufferzeiten
+
+Gruppenlogik
+
+Online- oder Offline-Termine
+
+8.2 Servicearten
+
 Unterstützt werden:
-- Einzeltermine
-- Mehrfachsitzungen
-- Beratungsgespräche
-- Gruppenbuchungen
-- Online-Termine
-- Vor-Ort-Termine
-- Paketbuchungen
-- Wiederkehrende Termine
 
-### 8.3 Zeitslotlogik
-Zeitslots müssen sein:
-- Blockierbar
-- Reservierbar
-- Synchronisierbar
-- Direkt teilbar
-- Affiliate-fähig
+Einzeltermine
 
-Jeder konkrete Zeitslot soll teilbar sein über:
-- Direktlinks
-- Social Media
-- QR-Codes
-- Werbekampagnen
-- Affiliate-Links
+Mehrfachsitzungen
 
----
+Beratungsgespräche
 
-## 9. Vendor-System
+Gruppenbuchungen
 
-### 9.1 Vendor-Grundprinzip
-Ein **Vendor** ist die organisatorische Haupteinheit.
+Online-Termine
+
+Vor-Ort-Termine
+
+Paketbuchungen
+
+wiederkehrende Termine
+
+8.3 Zeitslotlogik
+
+Zeitslots müssen:
+
+blockierbar,
+
+reservierbar,
+
+synchronisierbar,
+
+direkt teilbar
+
+und affiliatefähig sein.
+
+Jeder konkrete Zeitslot soll:
+
+über Direktlinks,
+
+Social Media,
+
+QR-Codes,
+
+Werbekampagnen
+
+oder Affiliate-Links
+
+teilbar sein.
+
+9. Vendor-System
+
+9.1 Vendor-Grundprinzip
+
+Ein Vendor ist die organisatorische Haupteinheit.
 
 Ein Vendor kann:
-- Dienstleistungen anbieten
-- Produkte verkaufen
-- Mitarbeiter verwalten
-- Kalender verwalten
-- Standorte besitzen
-- Affiliates anbinden
-- Eigene Landingpages nutzen
-- Im Marketplace sichtbar sein
 
-### 9.2 Vendor-Unterseiten
+Dienstleistungen anbieten,
+
+Produkte verkaufen,
+
+Mitarbeiter verwalten,
+
+Kalender verwalten,
+
+Standorte besitzen,
+
+Affiliates anbinden,
+
+eigene Landingpages nutzen,
+
+im Marketplace sichtbar sein.
+
+9.2 Vendor-Unterseiten
+
 Jeder Vendor erhält:
-- Eigene Landingpages
-- Ein eigenes Buchungsprofil
-- Serviceübersichten
-- Kalender
-- Branding
-- Bilder
-- Bewertungen
-- Zahlungsoptionen
 
-Dadurch soll ein Dienstleister auch **ohne eigene Website professionell online buchbar** sein.
+eigene Landingpages,
 
----
+ein eigenes Buchungsprofil,
 
-## 10. Marketplace-System
+Serviceübersichten,
 
-### 10.1 Öffentliches Verzeichnis
-Bookando enthält ein **öffentliches Marketplace-System**.
+Kalender,
+
+Branding,
+
+Bilder,
+
+Bewertungen,
+
+Zahlungsoptionen.
+
+Dadurch soll ein Dienstleister auch ohne eigene Website professionell online buchbar sein.
+
+10. Marketplace-System
+
+10.1 Öffentliches Verzeichnis
+
+Bookando enthält ein öffentliches Marketplace-System.
 
 Kunden sollen Dienstleister suchen können nach:
-- Standort
-- Kategorie
-- Bewertung
-- Preis
-- Dienstleistung
-- Online-/Offline-Service
 
-### 10.2 Marketplace-Ziel
+Standort,
+
+Kategorie,
+
+Bewertung,
+
+Preis,
+
+Dienstleistung,
+
+Online-/Offline-Service.
+
+10.2 Marketplace-Ziel
+
 Der Marketplace soll:
-- Reichweite erzeugen
-- Buchungen vermitteln
-- Kleinere Dienstleister sichtbar machen
-- Affiliate-Traffic bündeln
-- Landingpages bereitstellen
 
-### 10.3 Sichtbarkeitslogik
-Jeder Vendor kann sein:
-- Öffentlich sichtbar
-- Verborgen
-- Nur per Direktlink erreichbar
+Reichweite erzeugen,
 
----
+Buchungen vermitteln,
 
-## 11. Affiliate-Booking-System
+kleinere Dienstleister sichtbar machen,
 
-### 11.1 Haupt-USP
-Das **Affiliate-System ist der wichtigste Unterschied** zu klassischen Buchungssystemen.
-Bookando soll ein **affiliatefähiges Terminbuchungssystem** werden.
+Affiliate-Traffic bündeln,
 
-### 11.2 Grundprinzip
-Ein Affiliate oder Marketer kann bewerben:
-- Einen Vendor
-- Eine Dienstleistung
-- Ein Paket
-- Einen Gutschein
-- Einen festen Termin
+Landingpages bereitstellen.
 
-### 11.3 Trackingablauf
-1. Affiliate erhält individuellen Trackinglink
-2. Kunde klickt Link
-3. Kunde landet auf: Vendor-Seite, Service-Seite oder Direkt-Zeitslot
-4. Kunde bucht Termin
-5. Zahlung wird verarbeitet
-6. Umsatz wird gespeichert
-7. Affiliate-Provision wird automatisch berechnet
-8. Provision landet im Wallet
-9. Affiliate kann Auszahlung beantragen
+10.3 Sichtbarkeitslogik
 
-### 11.4 Ziel des Systems
+Jeder Vendor kann:
+
+öffentlich sichtbar,
+
+verborgen,
+
+oder nur per Direktlink erreichbar sein.
+
+11. Affiliate-Booking-System
+
+11.1 Haupt-USP
+
+Das Affiliate-System ist der wichtigste Unterschied zu klassischen Buchungssystemen.
+
+Bookando soll ein affiliatefähiges Terminbuchungssystem werden.
+
+11.2 Grundprinzip
+
+Ein Affiliate oder Marketer kann:
+
+einen Vendor,
+
+eine Dienstleistung,
+
+ein Paket,
+
+einen Gutschein
+
+oder einen festen Termin
+
+bewerben.
+
+11.3 Trackingablauf
+
+Ablauf:
+
+Affiliate erhält individuellen Trackinglink
+
+Kunde klickt Link
+
+Kunde landet auf:
+
+Vendor-Seite,
+
+Service-Seite
+
+oder Direkt-Zeitslot
+
+Kunde bucht Termin
+
+Zahlung wird verarbeitet
+
+Umsatz wird gespeichert
+
+Affiliate-Provision wird automatisch berechnet
+
+Provision landet im Wallet
+
+Affiliate kann Auszahlung beantragen
+
+11.4 Ziel des Systems
+
 Das Ziel ist:
-- Faire Zusammenarbeit
-- Transparente Umsatzzuordnung
-- Nachvollziehbare Marketingperformance
-- Automatisierte Provisionierung
-- Skalierbares Empfehlungsmarketing
 
-### 11.5 Wichtiges Entwicklerverständnis
-Das Affiliate-System darf **nicht nachträglich „drangebaut"** wirken.
-Es muss ein **Kernbestandteil der Plattformarchitektur** sein.
+faire Zusammenarbeit,
+
+transparente Umsatzzuordnung,
+
+nachvollziehbare Marketingperformance,
+
+automatisierte Provisionierung,
+
+skalierbares Empfehlungsmarketing.
+
+11.5 Wichtiges Entwicklerverständnis
+
+Das Affiliate-System darf nicht nachträglich "drangebaut" wirken.
+
+Es muss ein Kernbestandteil der Plattformarchitektur sein.
+
 Tracking, Wallet, Provisionen und Buchungen müssen technisch eng miteinander verbunden sein.
 
----
+12. Wallet- und Ledger-System
 
-## 12. Wallet- und Ledger-System
+12.1 Wallet-System
 
-### 12.1 Wallet-System
 Jeder Nutzer erhält ein Wallet.
 
 Wallets können enthalten:
-- Affiliate-Provisionen
-- Partnerprovisionen
-- Rückerstattungen
-- Gutscheinreste
-- Manuelle Gutschriften
-- Eigene Einzahlungen
 
-### 12.2 Ledger-Prinzip
-Alle Bewegungen müssen **unveränderbar** gespeichert werden.
+Affiliate-Provisionen
 
-Beispiele für Ledger-Einträge:
-- commission pending
-- commission approved
-- payout requested
-- payout paid
-- refund credit
-- wallet spent
+Partnerprovisionen
 
-Das System muss vollständig **nachvollziehbar und auditierbar** aufgebaut werden.
+Rückerstattungen
 
----
+Gutscheinreste
 
-## 13. WhiteLabel-System
+manuelle Gutschriften
 
-### 13.1 WhiteLabel-Ziel
+eigene Einzahlungen
+
+12.2 Ledger-Prinzip
+
+Alle Bewegungen müssen unveränderbar gespeichert werden.
+
+Beispiele:
+
+commission pending
+
+commission approved
+
+payout requested
+
+payout paid
+
+refund credit
+
+wallet spent
+
+Das System muss vollständig nachvollziehbar und auditierbar aufgebaut werden.
+
+13. WhiteLabel-System
+
+13.1 WhiteLabel-Ziel
+
 Bookando soll nicht nur direkt genutzt werden.
+
 Agenturen oder größere Anbieter sollen:
-- Eigene Versionen
-- Eigene Domains
-- Eigenes Branding
-- Eigene Kunden
 
-über **dieselbe Infrastruktur** verwalten können.
+eigene Versionen,
 
-### 13.2 WhiteLabel-Möglichkeiten
-WhiteLabel-Partner sollen nutzen können:
-- Eigene Loginseiten
-- Eigene Domains
-- Eigenes E-Mail-Branding
-- Eigene Farben
-- Eigene Marketplace-Strukturen
+eigene Domains,
 
----
+eigenes Branding,
 
-## 14. CRM-System
+eigene Kunden
 
-### 14.1 CRM-Funktionen
+über dieselbe Infrastruktur verwalten können.
+
+13.2 WhiteLabel-Möglichkeiten
+
+WhiteLabel-Partner sollen:
+
+eigene Loginseiten,
+
+eigene Domains,
+
+eigenes E-Mail-Branding,
+
+eigene Farben,
+
+eigene Marketplace-Strukturen
+
+verwenden können.
+
+14. CRM-System
+
+14.1 CRM-Funktionen
+
 Das CRM soll enthalten:
-- Kundenprofile
-- Leads
-- Buchungshistorien
-- Kaufhistorien
-- Tags
-- Notizen
-- Präferenzen
-- Marketingsegmente
-- Wiederkehrer-Erkennung
 
-### 14.2 Ziel des CRM
+Kundenprofile
+
+Leads
+
+Buchungshistorien
+
+Kaufhistorien
+
+Tags
+
+Notizen
+
+Präferenzen
+
+Marketingsegmente
+
+Wiederkehrer-Erkennung
+
+14.2 Ziel des CRM
+
 Das CRM soll:
-- Kundenbindung verbessern
-- Reaktivierungen ermöglichen
-- Marketing automatisieren
-- Dienstleister bei Auslastung unterstützen
 
----
+Kundenbindung verbessern,
 
-## 15. KI-Strategie
+Reaktivierungen ermöglichen,
 
-### 15.1 KI als langfristiger Kernbereich
-KI soll langfristig ein **wichtiger Bestandteil** der Plattform werden.
+Marketing automatisieren,
 
-### 15.2 Geplante KI-Funktionen
+Dienstleister bei Auslastung unterstützen.
+
+15. KI-Strategie
+
+15.1 KI als langfristiger Kernbereich
+
+KI soll langfristig ein wichtiger Bestandteil der Plattform werden.
+
+15.2 Geplante KI-Funktionen
+
 Mögliche Funktionen:
-- Automatische Marketingtexte
-- Intelligente Follow-Ups
-- Automatische Rebooking-Vorschläge
-- No-Show-Erkennung
-- Auslastungsoptimierung
-- Automatische Kampagnen
-- AI-CRM
-- Umsatzanalysen
-- Handlungsempfehlungen
-- Automatische Kundenreaktivierung
 
----
+automatische Marketingtexte
 
-## 16. Mobile- und App-Strategie
+intelligente Follow-Ups
 
-### 16.1 Mobile First
-Die Plattform muss von Beginn an **mobil optimiert** entwickelt werden.
+automatische Rebooking-Vorschläge
 
-### 16.2 Spätere Apps
+No-Show-Erkennung
+
+Auslastungsoptimierung
+
+automatische Kampagnen
+
+AI-CRM
+
+Umsatzanalysen
+
+Handlungsempfehlungen
+
+automatische Kundenreaktivierung
+
+16. Mobile- und App-Strategie
+
+16.1 Mobile First
+
+Die Plattform muss von Beginn an mobil optimiert entwickelt werden.
+
+16.2 Spätere Apps
+
 Später sollen Apps entstehen für:
-- Kunden
-- Dienstleister
-- Affiliates
 
-### 16.3 Geplante Appfunktionen
-- Kalender
-- Buchungen
-- Wallet
-- Affiliate-Dashboard
-- Push-Benachrichtigungen
-- Mobile CRM-Funktionen
-- Mobile Kommunikation
+Kunden
 
----
+Dienstleister
 
-## 17. Geschäftsmodell
+Affiliates
 
-### 17.1 SaaS-Modell
-Bookando basiert auf einem **monatlichen SaaS-Modell**.
+16.3 Geplante Appfunktionen
+
+Kalender
+
+Buchungen
+
+Wallet
+
+Affiliate-Dashboard
+
+Push-Benachrichtigungen
+
+mobile CRM-Funktionen
+
+mobile Kommunikation
+
+17. Geschäftsmodell
+
+17.1 SaaS-Modell
+
+Bookando basiert auf einem monatlichen SaaS-Modell.
+
 Die Plattform soll sowohl kleine Dienstleister als auch größere Dienstleisterstrukturen, Agenturen und WhiteLabel-Partner unterstützen.
 
-### 17.2 Testphase
-Neue Dienstleister sollen die Plattform zunächst über eine **kostenlose 30-Tage-Testphase** nutzen können.
+17.2 Testphase
+
+Neue Dienstleister sollen die Plattform zunächst über eine kostenlose 30-Tage-Testphase nutzen können.
 
 Die Testphase dient dazu:
-- Die Plattform kennenzulernen
-- Buchungsprozesse zu testen
-- Kalender einzurichten
-- Mitarbeiter anzulegen
-- Zahlungsanbieter zu verbinden
-- Erste Buchungen abzuwickeln
+
+die Plattform kennenzulernen,
+
+Buchungsprozesse zu testen,
+
+Kalender einzurichten,
+
+Mitarbeiter anzulegen,
+
+Zahlungsanbieter zu verbinden,
+
+erste Buchungen abzuwickeln.
 
 Nach Ablauf der Testphase erfolgt automatisch die Umstellung auf ein kostenpflichtiges Paket.
 
-### 17.3 Standard-Buchungssystem
-Das **Standardpaket** richtet sich an klassische Dienstleister, die hauptsächlich:
-- Online-Terminbuchung
-- Kalenderverwaltung
-- Mitarbeiterverwaltung
-- Kundenverwaltung
-- Marketplace-Sichtbarkeit
-- Landingpages
-- Zahlungsabwicklung
-- CRM-Funktionen
+17.3 Standard-Buchungssystem
+
+Das Standardpaket richtet sich an klassische Dienstleister, die hauptsächlich:
+
+Online-Terminbuchung,
+
+Kalenderverwaltung,
+
+Mitarbeiterverwaltung,
+
+Kundenverwaltung,
+
+Marketplace-Sichtbarkeit,
+
+Landingpages,
+
+Zahlungsabwicklung
+
+und CRM-Funktionen
 
 nutzen möchten.
 
-**Preisstruktur:** 49 € pro Monat
+Preisstruktur:
 
-Dieses Paket bildet die **Basisversion** der Plattform.
+49 € pro Monat
 
-### 17.4 Affiliate-Booking-Paket
-Zusätzlich zum Standard-Buchungssystem soll ein erweitertes **Affiliate-Booking-Paket** existieren.
+Dieses Paket bildet die Basisversion der Plattform.
+
+17.4 Affiliate-Booking-Paket
+
+Zusätzlich zum Standard-Buchungssystem soll ein erweitertes Affiliate-Booking-Paket existieren.
 
 Dieses Paket richtet sich an Dienstleister, die aktiv:
-- Marketer
-- Affiliates
-- Influencer
-- Agenturen
-- Externe Vertriebspartner
+
+Marketer,
+
+Affiliates,
+
+Influencer,
+
+Agenturen
+
+oder externe Vertriebspartner
 
 für ihre Kundengewinnung einsetzen möchten.
 
 Das Affiliate-Booking-Paket enthält zusätzlich:
-- Affiliate-Tracking
-- Partner-Dashboards
-- Wallet-System
-- Automatische Provisionsberechnung
-- Automatische Auszahlungsverwaltung
-- Kampagnen-Tracking
-- Umsatzzuordnung
-- Affiliate-Statistiken
-- Individuelle Trackinglinks
-- Provisionsbasierte Marketingsteuerung
 
-**Preisstruktur:** 189 € pro Monat
+Affiliate-Tracking
+
+Partner-Dashboards
+
+Wallet-System
+
+automatische Provisionsberechnung
+
+automatische Auszahlungsverwaltung
+
+Kampagnen-Tracking
+
+Umsatzzuordnung
+
+Affiliate-Statistiken
+
+individuelle Trackinglinks
+
+provisionsbasierte Marketingsteuerung
+
+Preisstruktur:
+
+189 € pro Monat
 
 Zusätzlich fallen Gebühren bei Auszahlungen an.
 
-### 17.5 Auszahlungssystem und Plattformgebühren
-Bookando soll Dienstleistern ermöglichen, **eigene Zahlungsanbieter** zu verbinden.
+17.5 Auszahlungssystem und Plattformgebühren
+
+Bookando soll Dienstleistern ermöglichen, eigene Zahlungsanbieter zu verbinden.
 
 Beispiele:
-- Stripe
-- PayPal
-- Mollie
-- Klarna
-- Weitere Zahlungsanbieter perspektivisch
 
-Das System muss technisch so aufgebaut sein, dass Dienstleister **eigene Zahlungsaccounts verbinden** können.
+Stripe
+
+PayPal
+
+Mollie
+
+Klarna
+
+weitere Zahlungsanbieter perspektivisch
+
+Das System muss technisch so aufgebaut sein, dass Dienstleister eigene Zahlungsaccounts verbinden können.
 
 Die Plattform verwaltet dabei:
-- Buchungen
-- Transaktionen
-- Provisionen
-- Wallets
-- Auszahlungen
-- Zuordnungen
 
-### 17.6 Gebührenmodell mit eigenem Zahlungsanbieter
+Buchungen,
+
+Transaktionen,
+
+Provisionen,
+
+Wallets,
+
+Auszahlungen
+
+und Zuordnungen.
+
+17.6 Gebührenmodell mit eigenem Zahlungsanbieter
+
 Wenn ein Dienstleister seinen eigenen Zahlungsanbieter verbindet:
 
-| Posten | Wert |
-|--------|------|
-| **Auszahlungsgebühr** | **2,5 %** über die Plattform |
+Gebühren:
+
+2,5 % Auszahlungsgebühr über die Plattform
 
 In diesem Modell laufen die Zahlungen primär über den Zahlungsanbieter des Dienstleisters.
+
 Bookando übernimmt dabei:
-- Zuordnung
-- Tracking
-- Provisionierung
-- Wallet-Logik
-- Auszahlungssteuerung
 
-### 17.7 Gebührenmodell ohne eigenen Zahlungsanbieter
-Wenn **kein** eigener Zahlungsanbieter verbunden wird und Zahlungen vollständig über die Plattform abgewickelt werden:
+Zuordnung,
 
-| Posten | Wert |
-|--------|------|
-| **Plattformgebühr** | **5 %** |
-| **Transaktionsgebühr** | **1 € pro Transaktion** |
+Tracking,
+
+Provisionierung,
+
+Wallet-Logik
+
+und Auszahlungssteuerung.
+
+17.7 Gebührenmodell ohne eigenen Zahlungsanbieter
+
+Wenn kein eigener Zahlungsanbieter verbunden wird und Zahlungen vollständig über die Plattform abgewickelt werden:
+
+Gebühren:
+
+5 % Plattformgebühr
+
+zusätzlich 1 € pro Transaktion
 
 In diesem Modell übernimmt Bookando:
-- Zahlungsabwicklung
-- Wallet-Verwaltung
-- Transaktionshandling
-- Auszahlungen
-- Affiliate-Provisionierung
-- Gebührenverteilung
 
-### 17.8 Wichtiges technisches Verständnis
-Das Payment-System muss **provider-unabhängig** aufgebaut werden.
+Zahlungsabwicklung,
+
+Wallet-Verwaltung,
+
+Transaktionshandling,
+
+Auszahlungen,
+
+Affiliate-Provisionierung
+
+und Gebührenverteilung.
+
+17.8 Wichtiges technisches Verständnis
+
+Das Payment-System muss provider-unabhängig aufgebaut werden.
 
 Das bedeutet:
-- Dienstleister können **eigene Zahlungsanbieter** verbinden
-- Die Plattform muss dennoch **zentrale Wallet- und Provisionslogiken** verwalten
-- Zahlungen, Provisionen und Auszahlungen müssen technisch **sauber voneinander getrennt** sein
 
-Das System muss langfristig mehrere Payment-Flows unterstützen:
-- Direkte Auszahlung an Vendor
-- Plattform-Split-Payment
-- Affiliate-Split
-- Franchise-Split
-- WhiteLabel-Split
+Dienstleister können eigene Zahlungsanbieter verbinden.
 
----
+Die Plattform muss dennoch zentrale Wallet- und Provisionslogiken verwalten.
 
-## 18. Technisches Zielbild
+Zahlungen, Provisionen und Auszahlungen müssen technisch sauber voneinander getrennt sein.
 
-### 18.1 Wichtige Architekturziele
-Die Plattform muss sein:
-- **Modular**
-- **Skalierbar**
-- **API-First**
-- **Multi-Tenant**
-- **WhiteLabel-fähig**
-- **Internationalisierbar**
-- **Payment-unabhängig**
+Das System muss langfristig mehrere Payment-Flows unterstützen.
 
-### 18.2 Wichtige technische Anforderungen
+Beispiele:
+
+direkte Auszahlung an Vendor
+
+Plattform-Split-Payment
+
+Affiliate-Split
+
+Franchise-Split
+
+WhiteLabel-Split
+
+18. Technisches Zielbild
+
+18.1 Wichtige Architekturziele
+
+Die Plattform muss:
+
+modular,
+
+skalierbar,
+
+API-first,
+
+multi-tenant,
+
+white-label-fähig,
+
+internationalisierbar,
+
+payment-unabhängig
+
+aufgebaut werden.
+
+18.2 Wichtige technische Anforderungen
+
 Das System muss langfristig unterstützen:
-- SaaS
-- Marketplace
-- Franchise
-- WhiteLabel
-- Internationale Zahlungen
-- Verschiedene Länder
-- Verschiedene Währungen
-- Apps
-- KI-Funktionen
-- Externe APIs
-- Webhooks
 
----
+SaaS
 
-## 19. Wichtige Entwicklerprioritäten
+Marketplace
 
-### 19.1 Wichtiges Verständnis
-Das Projekt darf **NICHT wie ein kleines Terminbuchungstool** entwickelt werden.
+Franchise
+
+WhiteLabel
+
+internationale Zahlungen
+
+verschiedene Länder
+
+verschiedene Währungen
+
+Apps
+
+KI-Funktionen
+
+externe APIs
+
+Webhooks
+
+19. Wichtige Entwicklerprioritäten
+
+19.1 Wichtiges Verständnis
+
+Das Projekt darf NICHT wie ein kleines Terminbuchungstool entwickelt werden.
 
 Die Plattform muss von Beginn an als:
-- **Skalierbares Ökosystem**
-- **Plattforminfrastruktur**
-- **Multi-Vendor-System**
+
+skalierbares Ökosystem,
+
+Plattforminfrastruktur,
+
+Multi-Vendor-System
 
 geplant werden.
 
-### 19.2 Besonders kritische Systeme
+19.2 Besonders kritische Systeme
+
 Folgende Systeme sind architektonisch besonders wichtig:
 
-| System | Priorität | Begründung |
-|--------|-----------|------------|
-| ⚡ **Kalender- & Ressourcenlogik** | Extrem kritisch | Muss extrem stabil und skalierbar sein |
-| 💰 **Wallet- & Ledger-System** | Extrem kritisch | Muss nachvollziehbar und unveränderbar sein |
-| 🔗 **Affiliate-Tracking** | Kritisch | Muss zuverlässig und manipulationssicher sein |
-| 🔐 **Rollen- & Rechteverwaltung** | Kritisch | Muss granular aufgebaut werden |
-| 🏢 **WhiteLabel-Struktur** | Früh mitdenken | Muss früh mitgedacht werden |
-| 🔌 **API-Architektur** | Kritisch | Muss appfähig und integrationsfähig sein |
+Kalender- und Ressourcenlogik
 
----
+muss extrem stabil und skalierbar sein.
 
-## 20. MVP-Strategie
+Wallet- und Ledger-System
 
-### 20.1 MVP (jetzt)
+muss nachvollziehbar und unveränderbar sein.
+
+Affiliate-Tracking
+
+muss zuverlässig und manipulationssicher sein.
+
+Rollen- und Rechteverwaltung
+
+muss granular aufgebaut werden.
+
+WhiteLabel-Struktur
+
+muss früh mitgedacht werden.
+
+API-Architektur
+
+muss appfähig und integrationsfähig sein.
+
+20. MVP-Strategie
+
+20.1 MVP
+
 Die erste Version soll enthalten:
-- ✅ Terminbuchung
-- ✅ Vendor-System
-- ✅ Kalender
-- ✅ Zahlungen
-- ✅ Marketplace
-- ✅ Vendor-Unterseiten
-- ✅ Affiliate-Tracking
-- ✅ Wallet-System
-- ✅ Grundlegendes CRM
 
-### 20.2 Phase 2
-- ⬜ WhiteLabel
-- ⬜ Franchise-Strukturen
-- ⬜ Erweiterte CRM-Automationen
-- ⬜ Ressourcenverwaltung
-- ⬜ Marketingkampagnen
+Terminbuchung
 
-### 20.3 Phase 3
-- ⬜ KI-Funktionen
-- ⬜ Native Apps
-- ⬜ Globale Marketplace-Logik
-- ⬜ Internationale Zahlungen
-- ⬜ API-Ökosystem
+Vendor-System
 
----
+Kalender
 
-## 21. Domain & Branding
+Zahlungen
 
-| Bereich | Wert |
-|---------|------|
-| **Hauptdomain** | `bookando.de` |
-| **App-Domain** | `app.bookando.de` |
-| **Backend-API** | `bookando-backend.vercel.app` |
-| **Marke** | Bookando |
-| **Claim** | Deine Buchungs- & Vertriebsplattform |
-| **Waben-Symbol** | Oranges Hexagon (#F59E0B) mit präzisem "b" (#2D3748) |
-| **Logo Light** | Orange Hex + dunkle Schrift (#2D3748) |
-| **Logo Dark** | Orange Hex + weiße Schrift (#FFFFFF) |
+Marketplace
 
----
+Vendor-Unterseiten
 
-## 22. Endziel der Plattform
+Affiliate-Tracking
+
+Wallet-System
+
+grundlegendes CRM
+
+20.2 Phase 2
+
+WhiteLabel
+
+Franchise-Strukturen
+
+erweiterte CRM-Automationen
+
+Ressourcenverwaltung
+
+Marketingkampagnen
+
+20.3 Phase 3
+
+KI-Funktionen
+
+native Apps
+
+globale Marketplace-Logik
+
+internationale Zahlungen
+
+API-Ökosystem
+
+21. Endziel der Plattform
 
 Bookando soll langfristig:
-- Terminbuchung
-- Marketplace
-- Affiliate-Marketing
-- Wallet-Systeme
-- WhiteLabel
-- CRM
-- KI
-- Zahlungsabwicklung
-- Dienstleisterverwaltung
 
-in **einer einzigen Plattform** vereinen.
+Terminbuchung,
 
-Das langfristige Ziel ist ein **vollständiges digitales Dienstleister-Ökosystem**, das weit über ein klassisches Terminbuchungssystem hinausgeht.
+Marketplace,
+
+Affiliate-Marketing,
+
+Wallet-Systeme,
+
+WhiteLabel,
+
+CRM,
+
+KI,
+
+Zahlungsabwicklung
+
+und Dienstleisterverwaltung
+
+in einer einzigen Plattform vereinen.
+
+Das langfristige Ziel ist ein vollständiges digitales Dienstleister-Ökosystem, das weit über ein klassisches Terminbuchungssystem hinausgeht.
 
 Die Plattform soll Dienstleistern ermöglichen:
-- Online buchbar zu sein
-- Skalierbar Kunden zu gewinnen
-- Affiliate-Marketing kontrolliert einzusetzen
-- Umsätze nachvollziehbar auszuwerten
-- Provisionen automatisch auszuzahlen
-- Eigene Markenplattformen aufzubauen
-- Ihr gesamtes Geschäft zentral über Bookando zu steuern
 
----
+online buchbar zu sein,
 
-## 23. Nächste konkrete Schritte
+skalierbar Kunden zu gewinnen,
 
-1. ✅ Frontend-Landingpage basierend auf Design-Template (erledigt)
-2. ✅ Auth-System (Login/Register/Forgot/Reset/Verify) (erledigt)
-3. ✅ Build & Deployment via Vercel (erledigt — https://bookando.de)
-4. ✅ Backend-API (FastAPI, deployed auf Vercel)
-5. ⬜ Umbenennung: Repo → `bookando-de`, alle Texte/Titel auf "Bookando" aktualisieren
-6. ⬜ Marketplace-Seite mit echten API-Daten fertigstellen
-7. ⬜ Dashboard mit echten API-Daten verbinden
-8. ⬜ WhiteLabel-Strukturen umsetzen
-9. ⬜ KI-Funktionen entwickeln
+Affiliate-Marketing kontrolliert einzusetzen,
+
+Umsätze nachvollziehbar auszuwerten,
+
+Provisionen automatisch auszuzahlen,
+
+eigene Markenplattformen aufzubauen
+
+und ihr gesamtes Geschäft zentral über Bookando zu steuern.
