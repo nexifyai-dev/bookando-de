@@ -1,0 +1,31 @@
+document: PFLICHTENHEFT_BOOKANDO_KUNDE.md
+project: Bookando
+customer: FixDigital
+customer_contact: Kevin Gaus
+source_type: customer_supplied
+captured_at: 2026-06-17
+sha256: "af63edaa65c199207c83a2ec3637b73f680708d7a469db70d6ef9485a0173f17"
+canonical: true
+chapters: 21
+sections:
+  - "1. Einleitung"
+  - "2. Grundidee der Plattform"
+  - "3. Vision der Plattform"
+  - "4. Orientierung an Trafft"
+  - "5. Zielgruppen"
+  - "6. Kernziel der Plattform"
+  - "7. Plattformstruktur"
+  - "8. Terminbuchungssystem"
+  - "9. Vendor-System"
+  - "10. Marketplace-System"
+  - "11. Affiliate-Booking-System"
+  - "12. Wallet- und Ledger-System"
+  - "13. WhiteLabel-System"
+  - "14. CRM-System"
+  - "15. KI-Strategie"
+  - "16. Mobile- und App-Strategie"
+  - "17. Geschaeftsmodell"
+  - "18. Technisches Zielbild"
+  - "19. Wichtige Entwicklerprioritaeten"
+  - "20. MVP-Strategie"
+  - "21. Endziel der Plattform"
