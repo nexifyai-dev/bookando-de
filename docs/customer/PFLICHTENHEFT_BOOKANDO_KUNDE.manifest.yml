@@ -6,25 +6,23 @@ source_type: customer_supplied
 source_location: Anlage A des Master-Auftrags (Chat-Kontext)
 captured_at: 2026-06-17
 
-# Bytegenaues Original (nicht lokal verfügbar)
+# Bytegenaues Original
 original_document: PFLICHTENHEFT_BOOKANDO_KUNDE.original.txt
 original_sha256: "f92e5c9d58938a43e43ec8f92e1bd88c0bde5100d8d34b7464e98e03eb7e0466"
 original_content_modified: false
-original_status: EXTERN_BLOCKIERT
+original_status: VERIFIED_LOCAL
 original_note: >
-  Die bytegenaue Originaldatei mit SHA f92e5c9d... wurde vom Kunden bereitgestellt,
-  ist auf diesem System aber nicht lokal verfügbar. Der Hash ist als Referenz
-  dokumentiert, kann aber nicht gegen eine lokale Datei validiert werden.
-  Keine Bytefassung wurde erfunden oder geraten.
+  Das bytegenaue Kundenoriginal wurde lokal validiert (sha256sum).
+  Keine Normalisierung, keine Formatierung, keine Änderung der Zeilenumbrüche.
+canonical_document: PFLICHTENHEFT_BOOKANDO_KUNDE.original.txt
 
-# Normalisierte Arbeitsfassung
+# Normalisierte Arbeitsfassung (Markdown)
 working_document: PFLICHTENHEFT_BOOKANDO_KUNDE.md
 working_sha256: "bb94f8a8018f76a87ecacc06ba2cf5a175e94e30fc735a7e6eb0a77b819ee105"
 working_copy_normalized: true
 working_note: >
   Lesefreundliche Markdown-Fassung. Gleiche 21 Kapitel, gleicher semantischer
-  Inhalt. Kein bytegenaues Abbild des Originals. Zeilenumbrüche, Trennzeichen
+  Inhalt. Keine bytegenaue Kopie des Originals. Zeilenumbrüche, Trennzeichen
   und Formatierung können abweichen.
-canonical_document: PFLICHTENHEFT_BOOKANDO_KUNDE.original.txt
 chapters: 21
 metadata_embedded_in_document: false

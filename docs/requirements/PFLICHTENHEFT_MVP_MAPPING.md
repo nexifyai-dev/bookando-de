@@ -172,7 +172,7 @@ Die 9 MVP-Systeme aus Kapitel 20.1 (Terminbuchung, Kalender, Vendor-System, Vend
 | PF-18-006 | Internationalisierbar | IMPLEMENTED_UNVERIFIED | i18n für mehrsprachige Nutzung |
 | PF-18-007 | Payment-unabhängig | IMPLEMENTED_UNVERIFIED | Provider-Abstraktion als Geschäftsmodell-Anforderung |
 
-**Nicht im MVP** (Kapitel 18.2.1–11): Langfrist-Anforderungen (alle Phasen, OUT_OF_SCOGE).
+**Nicht im MVP** (Kapitel 18.2.1–11): Langfrist-Anforderungen (alle Phasen, erst nach dem MVP relevant).
 
 **Entwicklerprioritäten (Kapitel 19):**
 
