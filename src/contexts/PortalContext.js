@@ -12,7 +12,11 @@ import { useTranslation } from 'react-i18next';
 import {
   Home, Store, Briefcase, Users, CalendarDays, CalendarCheck, Contact,
   BarChart3, UserCheck, CalendarClock, TrendingUp, PieChart, Network,
-  Shield, UserCog, Coins, LayoutDashboard,
+<<<<<<< HEAD
+  Shield, UserCog, Coins, LayoutDashboard, Clock, StickyNote, User, Wrench,
+=======
+  Shield, UserCog, Coins, LayoutDashboard, Wrench,
+>>>>>>> 26c685a (feat(wave2): vendor resources page, buffer/advance UI, missing shared components)
 } from 'lucide-react';
 
 /**
@@ -23,7 +27,7 @@ import {
 const ICONS = {
   Home, Store, Briefcase, Users, CalendarDays, CalendarCheck, Contact,
   BarChart3, UserCheck, CalendarClock, TrendingUp, PieChart, Network,
-  Shield, UserCog, Coins, LayoutDashboard,
+  Shield, UserCog, Coins, LayoutDashboard, Clock, StickyNote, User, Wrench,
 };
 
 export function getIcon(name) {
@@ -115,6 +119,14 @@ export function PortalProvider({ children }) {
         label: () => t('portal.nav.customers', 'Kunden (CRM)'),
       },
       {
+        key: 'vendor-resources',
+        path: '/portal/resources',
+        icon: 'Wrench',
+        roles: ['vendor', 'admin', 'super_admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.resources', 'Ressourcen'),
+      },
+      {
         key: 'vendor-reports',
         path: '/portal/reports',
         icon: 'BarChart3',
@@ -130,6 +142,53 @@ export function PortalProvider({ children }) {
         roles: ['staff', 'vendor', 'admin', 'super_admin'],
         requiresTenant: true,
         label: () => t('portal.nav.staffDashboard', 'Mein Arbeitsbereich'),
+      },
+      {
+        key: 'staff-appointments',
+        path: '/portal/staff/appointments',
+        icon: 'CalendarCheck',
+        roles: ['staff', 'admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.staffAppointments', 'Termine'),
+      },
+      {
+        key: 'staff-calendar',
+        path: '/portal/staff/calendar',
+        icon: 'CalendarDays',
+        roles: ['staff', 'admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.staffCalendar', 'Kalender'),
+      },
+      {
+        key: 'staff-availability',
+        path: '/portal/staff/availability',
+        icon: 'Clock',
+        roles: ['staff', 'admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.staffAvailability', 'Verfügbarkeit'),
+      },
+      {
+        key: 'staff-customers',
+        path: '/portal/staff/customers',
+        icon: 'Contact',
+        roles: ['staff', 'admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.staffCustomers', 'Kunden'),
+      },
+      {
+        key: 'staff-notes',
+        path: '/portal/staff/notes',
+        icon: 'StickyNote',
+        roles: ['staff', 'admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.staffNotes', 'Notizen'),
+      },
+      {
+        key: 'staff-profile',
+        path: '/portal/staff/profile',
+        icon: 'User',
+        roles: ['staff', 'admin'],
+        label: () => t('portal.nav.staffProfile', 'Profil'),
       },
       // Customer-Bereich
       {
