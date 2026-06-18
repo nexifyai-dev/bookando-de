@@ -74,6 +74,15 @@ const AdminAuditPage     = lazy(() => import('./pages/admin/AdminAuditPage'));
 const AdminReviewsPage   = lazy(() => import('./pages/admin/AdminReviewsPage'));
 const AdminCommissionPage = lazy(() => import('./pages/admin/AdminCommissionPage'));
 
+/* Staff Portal */
+const StaffDashboardPage    = lazy(() => import('./pages/staff/StaffDashboardPage'));
+const StaffAppointmentsPage = lazy(() => import('./pages/staff/StaffAppointmentsPage'));
+const StaffCalendarPage     = lazy(() => import('./pages/staff/StaffCalendarPage'));
+const StaffAvailabilityPage = lazy(() => import('./pages/staff/StaffAvailabilityPage'));
+const StaffCustomersPage    = lazy(() => import('./pages/staff/StaffCustomersPage'));
+const StaffNotesPage        = lazy(() => import('./pages/staff/StaffNotesPage'));
+const StaffProfilePage      = lazy(() => import('./pages/staff/StaffProfilePage'));
+
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 30_000, retry: 1, refetchOnWindowFocus: true, refetchOnReconnect: true } },
 });
@@ -192,6 +201,29 @@ function FranchiserPortal({ children }) {
   );
 }
 
+function StaffPortal({ children }) {
+  const { t } = useTranslation();
+  const { user, logout } = useAuth();
+  const { navItems } = usePortal();
+
+  const mobileBottomNav = useMemo(
+    () => navItems.filter((i) => ['/portal/staff', '/portal/staff/appointments', '/portal/staff/calendar', '/portal/staff/profile'].includes(i.path)),
+    [navItems],
+  );
+
+  return (
+    <PortalShell
+      portalName={t('portal.name_staff', 'Mitarbeiter')}
+      navItems={navItems}
+      mobileBottomNav={mobileBottomNav}
+      user={user}
+      onLogout={logout}
+    >
+      <Suspense fallback={<LoadingFallback />}>{children}</Suspense>
+    </PortalShell>
+  );
+}
+
 function AdminPortal({ children }) {
   const { t } = useTranslation();
   const { user, logout } = useAuth();
@@ -258,8 +290,17 @@ function PortalLayout() {
     else if (path.startsWith('/portal/settings')) Child = VendorSettingsPage;
     else if (path.startsWith('/portal')) Child = AdminDashboardPage;
     else Child = NotFoundPage;
-  } else if (activeRole === 'vendor' || activeRole === 'staff') {
-    Shell = VendorPortal;
+  } else if (activeRole === 'staff') {
+    Shell = StaffPortal;
+    if (path.startsWith('/portal/staff/appointments')) Child = StaffAppointmentsPage;
+    else if (path.startsWith('/portal/staff/calendar')) Child = StaffCalendarPage;
+    else if (path.startsWith('/portal/staff/availability')) Child = StaffAvailabilityPage;
+    else if (path.startsWith('/portal/staff/customers')) Child = StaffCustomersPage;
+    else if (path.startsWith('/portal/staff/notes')) Child = StaffNotesPage;
+    else if (path.startsWith('/portal/staff/profile')) Child = StaffProfilePage;
+    else if (path.startsWith('/portal/staff')) Child = StaffDashboardPage;
+    else Child = NotFoundPage;
+  } else if (activeRole === 'vendor') {
     if (path.startsWith('/portal/bookings')) Child = VendorBookingsPage;
     else if (path.startsWith('/portal/calendar')) Child = VendorCalendarPage;
     else if (path.startsWith('/portal/services')) Child = VendorServicesPage;
