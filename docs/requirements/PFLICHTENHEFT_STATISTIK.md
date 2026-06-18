@@ -1,7 +1,7 @@
 # Bookando.de – Pflichtenheft Statistik
 
 > **Quelle:** docs/requirements/PFLICHTENHEFT_REQUIREMENTS.yaml
-> **Stand:** 17.06.2026
+> **Stand:** 18.06.2026
 
 ## Gesamtstatistik
 
@@ -72,4 +72,4 @@ Keine ID wird doppelt gezählt. Die Summe der System-Anzahlen entspricht der Ges
 > Gewichtung: VERIFIED_COMPLETE=1,00, IMPLEMENTED_UNVERIFIED=0,60, PARTIAL=0,35, DOCUMENTED_ONLY=0,05, MISSING=0,00.
 > FUTURE_PHASE und BLOCKED sind in dieser MVP-Berechnung nicht enthalten.
 
-*Statistik generiert 17.06.2026. Aus YAML-Source-of-Truth.*
+*Statistik generiert 18.06.2026. Aus YAML-Source-of-Truth.*

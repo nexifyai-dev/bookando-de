@@ -1,0 +1,136 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nexifyai-dev/bookando/main/docs/requirements/backlog-schema.json",
+  "project": "bookando",
+  "customer": "FixDigital",
+  "generated_at": "2026-06-18T19:35:00Z",
+  "status": "IN_PROGRESS",
+  "waves": [
+    {
+      "id": "wave-0",
+      "name": "Wahrheit & Designbasis",
+      "status": "IN_PROGRESS",
+      "priority": 0,
+      "phase": "MVP",
+      "tasks": [
+        {"id": "W0-01", "name": "Pflichtenheft-Atomisierung abschließen", "status": "PARTIAL", "note": "Kap 1-7, 20, 21 qualitativ erfasst"},
+        {"id": "W0-02", "name": "PORTAL_DESIGN_AUDIT.md", "status": "IN_PROGRESS"},
+        {"id": "W0-03", "name": "BOOKANDO_DESIGN_SYSTEM.md", "status": "IN_PROGRESS"},
+        {"id": "W0-04", "name": "PORTAL_INFORMATION_ARCHITECTURE.md", "status": "IN_PROGRESS"},
+        {"id": "W0-05", "name": "RESPONSIVE_AND_ACCESSIBILITY_MATRIX.md", "status": "IN_PROGRESS"},
+        {"id": "W0-06", "name": "FEATURE_CATALOG.md", "status": "COMPLETE"},
+        {"id": "W0-07", "name": "PORTAL_FEATURE_MATRIX.md", "status": "COMPLETE"},
+        {"id": "W0-08", "name": "IMPLEMENTATION_BACKLOG.md", "status": "COMPLETE"},
+        {"id": "W0-09", "name": "IMPLEMENTATION_BACKLOG.json", "status": "COMPLETE"},
+        {"id": "W0-10", "name": "Daemon aktivieren", "status": "COMPLETE", "note": "pid 2038037"},
+        {"id": "W0-11", "name": "Brain-Store-Verbindung", "status": "COMPLETE"}
+      ]
+    },
+    {
+      "id": "wave-1",
+      "name": "Gemeinsame Plattformbasis",
+      "status": "PENDING",
+      "priority": 1,
+      "phase": "MVP",
+      "blocked_by": ["wave-0"],
+      "tasks": [
+        {"id": "W1-01", "name": "Responsive Portal Shell", "status": "PENDING"},
+        {"id": "W1-02", "name": "Mobile Navigation", "status": "PENDING"},
+        {"id": "W1-03", "name": "Seitentitel + Breadcrumbs", "status": "PENDING"},
+        {"id": "W1-04", "name": "Loading/Empty/Error States Basis", "status": "PENDING"},
+        {"id": "W1-05", "name": "Sidebar-Navigation (alle Rollen)", "status": "PENDING"},
+        {"id": "W1-06", "name": "Onboarding Flow", "status": "PENDING"},
+        {"id": "W1-07", "name": "Tenant-Wechsel UI", "status": "PENDING"},
+        {"id": "W1-08", "name": "Global Search", "status": "PENDING"},
+        {"id": "W1-09", "name": "Auth-Tests + Rollen-Tests", "status": "PENDING"},
+        {"id": "W1-10", "name": "Accessibility-Basis", "status": "PENDING"}
+      ]
+    },
+    {
+      "id": "wave-2",
+      "name": "MVP-Buchungskern",
+      "status": "PENDING",
+      "priority": 2,
+      "phase": "MVP",
+      "blocked_by": ["wave-1"],
+      "affected_requirements": [
+        "PF-08-007","PF-08-008","PF-08-009","PF-08-010","PF-08-021",
+        "PF-08-022","PF-08-023","PF-08-025","PF-08-026","PF-08-027",
+        "PF-08-028","PF-10-007","PF-10-014","PF-10-015"
+      ]
+    },
+    {
+      "id": "wave-3",
+      "name": "MVP-Umsatzkern",
+      "status": "PENDING",
+      "priority": 3,
+      "phase": "MVP",
+      "blocked_by": ["wave-2"],
+      "affected_requirements": [
+        "PF-11-006","PF-11-016","PF-12-004","PF-12-005","PF-12-008",
+        "PF-12-013","PF-17-006","PF-17-007","PF-17-009","PF-17-011"
+      ]
+    },
+    {
+      "id": "wave-4",
+      "name": "CRM & Betrieb",
+      "status": "PENDING",
+      "priority": 4,
+      "phase": "MVP",
+      "blocked_by": ["wave-3"],
+      "affected_requirements": [
+        "PF-14-007","PF-14-008","PF-14-009","PF-14-011","PF-14-012","PF-14-013"
+      ]
+    },
+    {
+      "id": "wave-5",
+      "name": "Phase 2 - WhiteLabel & Franchise",
+      "status": "PENDING",
+      "priority": 5,
+      "phase": "Phase 2",
+      "blocked_by": ["wave-4"]
+    },
+    {
+      "id": "wave-6",
+      "name": "Phase 3 - KI & Apps",
+      "status": "PENDING",
+      "priority": 6,
+      "phase": "Phase 3",
+      "blocked_by": ["wave-5"]
+    }
+  ],
+  "metrics": {
+    "total_requirements": 151,
+    "mvp_requirements": 135,
+    "phase_2_requirements": 12,
+    "phase_3_requirements": 3,
+    "alle_requirements": 5,
+    "mvp_weighted_completion": "33.7%",
+    "verified_complete": 0,
+    "implemented_unverified": 51,
+    "partial": 48,
+    "missing": 40
+  },
+  "orchestration": {
+    "mode": "COMPATIBILITY_ORCHESTRATION",
+    "daemon_pid": 2038037,
+    "parent_background_managed": false,
+    "supervisor_active": true,
+    "brain_write": true,
+    "last_heartbeat": "2026-06-18T19:35Z"
+  },
+  "next_action": "awaiting design agent completions",
+  "external_blockers": [
+    {
+      "blocker_type": "EXTERNAL_INTERACTIVE_AUTH",
+      "system": "Supabase",
+      "blocks": "SECURITY_PHASE_2",
+      "reason": "no SUPABASE_ACCESS_TOKEN"
+    },
+    {
+      "blocker_type": "EXTERNAL_INTERACTIVE_AUTH",
+      "system": "Vercel",
+      "blocks": "SECURITY_PHASE_2 + PRODUCTION_DEPLOY",
+      "reason": "vercel CLI needs OAuth"
+    }
+  ]
+}
