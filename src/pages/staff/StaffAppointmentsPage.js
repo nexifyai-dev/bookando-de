@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Calendar, Clock, MapPin, User } from 'lucide-react';
-import PageLoadingState from '../../../src/components/shared/PageLoadingState';
-import PageEmptyState from '../../../src/components/shared/PageEmptyState';
-import PageErrorState from '../../../src/components/shared/PageErrorState';
+import { Calendar, Clock, MapPin } from 'lucide-react';
+import apiClient from '../../lib/apiClient';
+import PageLoadingState from '../../components/shared/PageLoadingState';
+import PageEmptyState from '../../components/shared/PageEmptyState';
+import PageErrorState from '../../components/shared/PageErrorState';
 
 export default function StaffAppointmentsPage() {
   const { t } = useTranslation();
@@ -12,24 +13,19 @@ export default function StaffAppointmentsPage() {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('upcoming');
 
-  useEffect(() => {
-    let cancelled = false;
-    async function load() {
-      try {
-        setLoading(true); setError(null);
-        const res = await fetch('/api/vendor/bookings');
-        if (!res.ok) throw new Error('Fehler beim Laden der Termine');
-        const data = await res.json();
-        if (!cancelled) setAppointments(Array.isArray(data) ? data : []);
-      } catch (err) {
-        if (!cancelled) setError(err.message);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
+  const load = async () => {
+    try {
+      setLoading(true); setError(null);
+      const { data } = await apiClient.get('/api/vendor/bookings');
+      setAppointments(Array.isArray(data) ? data : []);
+    } catch (err) {
+      setError(err.response?.data?.detail || err.message || 'Fehler beim Laden');
+    } finally {
+      setLoading(false);
     }
-    load();
-    return () => { cancelled = true; };
-  }, []);
+  };
+
+  useEffect(() => { load(); }, []);
 
   const filtered = appointments.filter(a => {
     if (filter === 'today') return a.start_time?.startsWith(new Date().toISOString().split('T')[0]);
@@ -38,7 +34,7 @@ export default function StaffAppointmentsPage() {
   });
 
   if (loading) return <PageLoadingState text={t('staff.loading', 'Termine werden geladen…')} />;
-  if (error) return <PageErrorState title={t('staff.appointments.error', 'Fehler beim Laden')} message={error} onRetry={() => window.location.reload()} />;
+  if (error) return <PageErrorState title={t('staff.appointments.error', 'Fehler beim Laden')} message={error} onRetry={load} />;
 
   return (
     <div>

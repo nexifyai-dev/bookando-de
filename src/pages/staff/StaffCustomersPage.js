@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Users, Search } from 'lucide-react';
-import PageLoadingState from '../../../src/components/shared/PageLoadingState';
-import PageEmptyState from '../../../src/components/shared/PageEmptyState';
-import PageErrorState from '../../../src/components/shared/PageErrorState';
+import apiClient from '../../lib/apiClient';
+import PageLoadingState from '../../components/shared/PageLoadingState';
+import PageEmptyState from '../../components/shared/PageEmptyState';
+import PageErrorState from '../../components/shared/PageErrorState';
 
 export default function StaffCustomersPage() {
   const { t } = useTranslation();
@@ -12,25 +13,20 @@ export default function StaffCustomersPage() {
   const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
 
-  useEffect(() => {
-    let cancelled = false;
-    async function load() {
-      try { setLoading(true); setError(null);
-        const res = await fetch('/api/crm/contacts');
-        if (!res.ok) throw new Error('Fehler beim Laden der Kunden');
-        const data = await res.json();
-        if (!cancelled) setCustomers(Array.isArray(data) ? data : []);
-      } catch (err) { if (!cancelled) setError(err.message); }
-      finally { if (!cancelled) setLoading(false); }
-    }
-    load();
-    return () => { cancelled = true; };
-  }, []);
+  const load = async () => {
+    try { setLoading(true); setError(null);
+      const { data } = await apiClient.get('/api/crm/contacts');
+      setCustomers(Array.isArray(data) ? data : []);
+    } catch (err) { setError(err.message || 'Fehler beim Laden'); }
+    finally { setLoading(false); }
+  };
+
+  useEffect(() => { load(); }, []);
 
   const filtered = customers.filter(c => !search || c.name?.toLowerCase().includes(search.toLowerCase()) || c.email?.toLowerCase().includes(search.toLowerCase()));
 
   if (loading) return <PageLoadingState text={t('staff.loading', 'Kunden werden geladen…')} />;
-  if (error) return <PageErrorState title={t('staff.customers.error', 'Fehler beim Laden')} message={error} onRetry={() => window.location.reload()} />;
+  if (error) return <PageErrorState title={t('staff.customers.error', 'Fehler beim Laden')} message={error} onRetry={load} />;
 
   return (
     <div>

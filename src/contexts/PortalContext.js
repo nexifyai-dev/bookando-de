@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import {
   Home, Store, Briefcase, Users, CalendarDays, CalendarCheck, Contact,
   BarChart3, UserCheck, CalendarClock, TrendingUp, PieChart, Network,
-  Shield, UserCog, Coins, LayoutDashboard,
+  Shield, UserCog, Coins, LayoutDashboard, Clock, StickyNote, User, Wrench,
 } from 'lucide-react';
 
 /**
@@ -23,7 +23,7 @@ import {
 const ICONS = {
   Home, Store, Briefcase, Users, CalendarDays, CalendarCheck, Contact,
   BarChart3, UserCheck, CalendarClock, TrendingUp, PieChart, Network,
-  Shield, UserCog, Coins, LayoutDashboard,
+  Shield, UserCog, Coins, LayoutDashboard, Clock, StickyNote, User, Wrench,
 };
 
 export function getIcon(name) {

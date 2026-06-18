@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { CalendarCheck, Clock, Users, Bell, MapPin, ArrowRight, Briefcase, CalendarDays } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import apiClient from '../../lib/apiClient';
 
 export default function StaffDashboardPage() {
   const { t } = useTranslation();
@@ -12,25 +13,20 @@ export default function StaffDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    let cancelled = false;
-    async function load() {
-      try {
-        setLoading(true);
-        setError(null);
-        const res = await fetch('/api/vendor/bookings?limit=10&status=confirmed');
-        if (!res.ok) throw new Error('Fehler beim Laden');
-        const data = await res.json();
-        if (!cancelled) setAppointments(Array.isArray(data) ? data : []);
-      } catch (err) {
-        if (!cancelled) setError(err.message);
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
+  const load = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const { data } = await apiClient.get('/api/vendor/bookings', { params: { limit: 10, status: 'confirmed' } });
+      setAppointments(Array.isArray(data) ? data : []);
+    } catch (err) {
+      setError(err.message || 'Fehler beim Laden');
+    } finally {
+      setLoading(false);
     }
-    load();
-    return () => { cancelled = true; };
-  }, []);
+  };
+
+  useEffect(() => { load(); }, []);
 
   if (loading) {
     return (
@@ -54,10 +50,7 @@ export default function StaffDashboardPage() {
         </div>
         <h2 className="text-lg font-semibold text-[var(--color-text-primary)] mb-2">{t('staff.error', 'Fehler beim Laden')}</h2>
         <p className="text-sm text-[var(--color-text-secondary)] mb-6">{error}</p>
-        <button onClick={() => window.location.reload()}
-          className="inline-flex items-center h-11 px-6 bg-[var(--color-primary)] text-white font-semibold text-sm" style={{ borderRadius: 'var(--radius-sm)' }}>
-          {t('staff.retry', 'Erneut versuchen')}
-        </button>
+        <button type="button" onClick={load} className="inline-flex items-center h-11 px-6 bg-[var(--color-primary)] text-white font-semibold text-sm" style={{ borderRadius: 'var(--radius-sm)' }}>{t('staff.retry', 'Erneut versuchen')}</button>
       </div>
     );
   }
