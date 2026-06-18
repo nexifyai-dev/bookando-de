@@ -91,7 +91,8 @@ Erlaubte Statuswerte:
 ## Deployment
 
 - Frontend: Vercel (Projekt `bookando-de`)
-- Backend: Vercel (Projekt `bookando-api`)
+- Backend: Vercel (Projekt `bookando-de-riw8`)
+- Backend GitHub-Repository: `nexifyai-dev/bookando-api` (Vercel-Projektname abweichend)
 - Keine Production-Deployments ohne explizite Freigabe
 - Vor Deployment: Tests + Build + Security-Scan
 
@@ -111,3 +112,21 @@ Frontend-Vercel-Projekt: bookando-de (prj_zeVjo026RtGWcQy58uTYwrEHJLQE)
 Backend-Vercel-Projekt: bookando-de-riw8 (prj_zROZadgDMYRP6gxFODIj6q83qgeD)
 Backend-API: https://bookando-de-riw8.vercel.app
 GitHub-Repository (Backend): bookando-api (Vercel-Projektname abweichend)
+
+## Dynamic Workflows
+
+**Verbindlicher globaler Standard.** Definiert in `/root/.claude/CLAUDE.md`
+(Section "🔴 Dynamic Workflows — Verpflichtend"):
+
+```text
+DYNAMIC_WORKFLOWS_REQUIRED = true
+DISCOVERY = parallel_read_only
+IMPLEMENTATION = isolated_worktrees
+INTEGRATION = parent_only
+PRODUCTION_ACTIONS = parent_only
+FINAL_REVIEW = independent_reasoner
+```
+
+Vor jedem Langlauf: Version/Workflow-Verfügbarkeit/Combo-Kompatibilität prüfen.
+Bei Inkompatibilität: COMPATIBILITY_ORCHESTRATION (Subagents, Pipelines, Worktrees).
+Keine Duplikation der globalen Regel — bei Fragen die globale CLAUDE.md lesen.
