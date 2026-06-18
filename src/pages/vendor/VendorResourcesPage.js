@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Wrench, Plus, X, Edit3, Save, Loader2 } from 'lucide-react';
-import PageLoadingState from '../../components/shared/PageLoadingState';
-import PageEmptyState from '../../components/shared/PageEmptyState';
-import PageErrorState from '../../components/shared/PageErrorState';
+import { toast } from 'sonner';
+import apiClient from '../../../src/lib/apiClient';
+import PageLoadingState from '../../../src/components/shared/PageLoadingState';
+import PageEmptyState from '../../../src/components/shared/PageEmptyState';
+import PageErrorState from '../../../src/components/shared/PageErrorState';
 
 export default function VendorResourcesPage() {
   const { t } = useTranslation();
@@ -17,12 +19,12 @@ export default function VendorResourcesPage() {
   const load = async () => {
     try {
       setLoading(true); setError(null);
-      const res = await fetch('/api/vendor/resources');
-      if (!res.ok) throw new Error('Fehler beim Laden');
-      const data = await res.json();
+      const { data } = await apiClient.get('/api/vendor/resources');
       setResources(Array.isArray(data) ? data : []);
-    } catch (err) { setError(err.message); }
-    finally { setLoading(false); }
+    } catch (err) {
+      const msg = err.response?.data?.detail || err.message || 'Fehler beim Laden';
+      setError(msg);
+    } finally { setLoading(false); }
   };
 
   useEffect(() => { load(); }, []);
@@ -32,23 +34,33 @@ export default function VendorResourcesPage() {
     if (!form.name.trim()) return;
     setSaving(true);
     try {
-      const method = editing ? 'PATCH' : 'POST';
-      const url = editing ? `/api/vendor/resources/${editing.id}` : '/api/vendor/resources';
-      const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(form) });
-      if (!res.ok) throw new Error('Fehler beim Speichern');
+      const payload = { ...form, capacity: parseInt(form.capacity, 10) || 1 };
+      if (editing) {
+        await apiClient.patch(`/api/vendor/resources/${editing.id}`, payload);
+        toast.success(t('vendor.resources.updated', 'Ressource aktualisiert'));
+      } else {
+        await apiClient.post('/api/vendor/resources', payload);
+        toast.success(t('vendor.resources.created', 'Ressource erstellt'));
+      }
       setForm({ name: '', type: 'room', capacity: 1, location_id: '' });
       setEditing(null);
       await load();
-    } catch (err) { /* ignore */ }
-    finally { setSaving(false); }
+    } catch (err) {
+      const msg = err.response?.data?.detail || err.message || 'Fehler beim Speichern';
+      toast.error(msg);
+    } finally { setSaving(false); }
   };
 
   const handleRemove = async (id) => {
     if (!window.confirm(t('vendor.resources.confirmDelete', 'Ressource wirklich löschen?'))) return;
     try {
-      await fetch(`/api/vendor/resources/${id}`, { method: 'DELETE' });
+      await apiClient.delete(`/api/vendor/resources/${id}`);
       setResources(r => r.filter(x => x.id !== id));
-    } catch (err) { /* ignore */ }
+      toast.success(t('vendor.resources.deleted', 'Ressource gelöscht'));
+    } catch (err) {
+      const msg = err.response?.data?.detail || err.message || 'Fehler beim Löschen';
+      toast.error(msg);
+    }
   };
 
   const startEdit = (r) => {
