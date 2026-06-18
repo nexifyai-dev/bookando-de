@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next'
 import SEOHead from '../../components/shared/SEOHead';
 import { useAuth, formatApiError } from '../../contexts/AuthContext';
+import { logApiFailure } from '../../lib/apiClient';
 import { Loader2, AlertCircle, ShieldCheck, ArrowLeft, Briefcase, Building2 } from 'lucide-react';
 import LanguageSwitcher from '../../components/shared/LanguageSwitcher';
 export default function LoginPage() {
@@ -27,6 +28,7 @@ export default function LoginPage() {
     try {
       await tryLogin();
     } catch (err) {
+      logApiFailure('LoginPage', err);
       const detail = err.response?.data?.detail;
       if (detail === 'totp_required') {
         setStep('totp');
@@ -47,6 +49,7 @@ export default function LoginPage() {
     try {
       await tryLogin(totp.trim());
     } catch (err) {
+      logApiFailure('LoginPage/TOTP', err);
       const detail = err.response?.data?.detail;
       if (detail === 'invalid_totp') setError(t('auth.invalid_totp'));
       else setError(formatApiError(detail) || t('auth.login_failed'));

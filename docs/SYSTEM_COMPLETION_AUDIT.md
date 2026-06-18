@@ -3,7 +3,7 @@
 > **Stand:** 06.06.2026, 10:43 UTC
 > **Frontend:** `nexifyai-dev/bookando-de` (Commit `81b8217`)
 > **Backend:** `nexifyai-dev/bookando-api` (Commit `eb99e31`)
-> **Live:** `app.bookando.de` ✅ HTTP 200
+> **Live:** `https://www.bookando.de` (SUPERSEDED — alt: `www.bookando.de` (SUPERSEDED)) ✅ HTTP 200
 > **DNS:** `bookando.de` ❌ (NS bei 1blu.de, Apex ohne Records)
 
 ---

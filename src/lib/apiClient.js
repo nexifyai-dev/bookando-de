@@ -6,7 +6,7 @@
  */
 import axios from 'axios';
 
-const API = process.env.REACT_APP_BACKEND_URL;
+const API = (process.env.REACT_APP_BACKEND_URL || '').replace(/\/$/, '');
 export const TOKEN_KEYS = {
   access: 'bk_access_token',
   refresh: 'bk_refresh_token',
@@ -107,5 +107,22 @@ apiClient.interceptors.response.use(
     return Promise.reject(err);
   }
 );
+
+/**
+ * Protokolliere API-Fehler ohne sensitive Daten.
+ * Nur in Non-Production werden Details ausgegeben.
+ */
+export function logApiFailure(context, error) {
+  if (process.env.NODE_ENV === 'production') return;
+  // console wird unterdrückt, wenn kein CI — guarded
+  const detail = {
+    status: error.response?.status,
+    code: error.code,
+    path: error.config?.url,
+    requestId: error.response?.headers?.['x-request-id'],
+  };
+  // eslint-disable-next-line no-console
+  console.error(context, detail);
+}
 
 export default apiClient;

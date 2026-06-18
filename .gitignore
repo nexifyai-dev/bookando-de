@@ -32,3 +32,4 @@ coverage/
 # Microsoft MarkItDown Konvertierungen
 .markdown-converted/
 .vercel
+.env*

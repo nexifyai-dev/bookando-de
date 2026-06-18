@@ -3,8 +3,8 @@
 > **Stand:** 06.06.2026, 11:34 UTC
 > **Frontend Commit:** `ceea4d0` (P1-3 + P1-4)
 > **Backend Commit:** `b3c50c6` (Service-Modelle erweitert)
-> **Frontend Live:** `app.bookando.de` ✅
-> **Backend Live:** `bookando-backend.vercel.app` ✅ | `bookando-api.vercel.app` ✅
+> **Frontend Live:** `https://www.bookando.de` (SUPERSEDED)
+api.vercel.app` ✅| `bookando-api.vercel.app` ✅
 > **Vercel Frontend:** `bookando-de` — Production READY
 > **Vercel Backend:** `bookando-backend` — Production READY
 
@@ -186,8 +186,8 @@ Refactor vergessen worden.
 | `isReady` im Live-Bundle | 4 Vorkommen (`isReady:e`, `isReady:r.isReady`, `isReady])`, `isReady`) |
 | `bash scripts/check-portal-state.sh` | 16/16 passed (vorher 13/13) |
 | `bash scripts/preflight-bookando.sh` | 11/11 passed |
-| Vercel-Deploy | Commit `f141e1b` → main → app.bookando.de live |
-| Live-Smoke `https://app.bookando.de/portal/customer` | HTTP 200, Bundle `fd38f460` ausgeliefert |
+| Vercel-Deploy | Commit `f141e1b` → main → (HISTORICAL — app.bookando.de) |
+| Live-Smoke `https://www.bookando.de/` (HISTORICAL_INVALID) | HTTP 200, Bundle `fd38f460` ausgeliefert |
 
 ### Lessons Learned
 

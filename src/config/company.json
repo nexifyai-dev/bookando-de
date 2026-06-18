@@ -21,7 +21,7 @@
     "platform": {
       "name": "Bookando",
       "domain": "bookando.de",
-      "app_domain": "app.bookando.de",
+      "app_domain": "www.bookando.de",
       "email_domain": "nexifyai.cloud",
       "support_email": "hallo@bookando.de",
       "noreply_email": "noreply@nexifyai.cloud"

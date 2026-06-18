@@ -801,8 +801,8 @@ Die erste Version soll enthalten:
 | Bereich | Wert |
 |---------|------|
 | **Hauptdomain** | `bookando.de` |
-| **App-Domain** | `app.bookando.de` |
-| **Backend-API** | `bookando-backend.vercel.app` |
+| **App-Domain** | `www.bookando.de` |
+| **Backend-API** | `bookando-de-riw8.vercel.app` |
 | **Marke** | Bookando |
 | **Claim** | Deine Buchungs- & Vertriebsplattform |
 | **Waben-Symbol** | Oranges Hexagon (#F59E0B) mit präzisem "b" (#2D3748) |
