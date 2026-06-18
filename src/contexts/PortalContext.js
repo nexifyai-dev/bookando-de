@@ -12,7 +12,11 @@ import { useTranslation } from 'react-i18next';
 import {
   Home, Store, Briefcase, Users, CalendarDays, CalendarCheck, Contact,
   BarChart3, UserCheck, CalendarClock, TrendingUp, PieChart, Network,
+<<<<<<< HEAD
   Shield, UserCog, Coins, LayoutDashboard, Clock, StickyNote, User, Wrench,
+=======
+  Shield, UserCog, Coins, LayoutDashboard, Wrench,
+>>>>>>> 26c685a (feat(wave2): vendor resources page, buffer/advance UI, missing shared components)
 } from 'lucide-react';
 
 /**
@@ -113,6 +117,14 @@ export function PortalProvider({ children }) {
         roles: ['vendor', 'admin', 'super_admin'],
         requiresTenant: true,
         label: () => t('portal.nav.customers', 'Kunden (CRM)'),
+      },
+      {
+        key: 'vendor-resources',
+        path: '/portal/resources',
+        icon: 'Wrench',
+        roles: ['vendor', 'admin', 'super_admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.resources', 'Ressourcen'),
       },
       {
         key: 'vendor-reports',

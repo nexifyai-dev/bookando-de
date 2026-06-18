@@ -46,6 +46,7 @@ const VendorCustomersPage   = lazy(() => import('./pages/vendor/VendorCustomersP
 const VendorReportsPage     = lazy(() => import('./pages/vendor/VendorReportsPage'));
 const VendorWalletPage      = lazy(() => import('./pages/vendor/VendorWalletPage'));
 const VendorCalendarPage    = lazy(() => import('./pages/vendor/VendorCalendarPage'));
+const VendorResourcesPage   = lazy(() => import('./pages/vendor/VendorResourcesPage'));
 const VendorAffiliatesPage  = lazy(() => import('./pages/vendor/VendorAffiliatesPage'));
 const VendorBrandingPage    = lazy(() => import('./pages/vendor/VendorBrandingPage'));
 const VendorSettingsPage    = lazy(() => import('./pages/vendor/VendorSettingsPage'));
@@ -307,6 +308,7 @@ function PortalLayout() {
     else if (path.startsWith('/portal/employees')) Child = VendorEmployeesPage;
     else if (path.startsWith('/portal/locations')) Child = VendorLocationsPage;
     else if (path.startsWith('/portal/hours')) Child = VendorHoursPage;
+    else if (path.startsWith('/portal/resources')) Child = VendorResourcesPage;
     else if (path.startsWith('/portal/customers')) Child = VendorCustomersPage;
     else if (path.startsWith('/portal/reports')) Child = VendorReportsPage;
     else if (path.startsWith('/portal/wallet')) Child = VendorWalletPage;
