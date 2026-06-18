@@ -24,12 +24,12 @@
 | Service | Alt (Legacy) | Neu (agentur-projekte) | Soll-Name |
 |---------|-------------|----------------------|-----------|
 | Frontend | bookando-de (Alt) | bookando-de (Neu) | bookando-de |
-| Backend | bookando-backend.vercel.app | bookando-de-riw8.vercel.app | **bookando-api** |
+| Backend | bookando-de-riw8.vercel.app | bookando-de-riw8.vercel.app | bookando-de-riw8 |
 | Build (rätselhaft) | existiert | ❌ nicht übernommen | – |
 | Domains | bookando.de | bookando-de-one.vercel.app (vorläufig) | – |
 
-> **Backend-Projekt:** `bookando-de-riw8` ist bereits mit `nexifyai-dev/bookando-api` verknüpft.
-> Soll nach Secret-Rotation in `bookando-api` umbenannt werden (Vercel-Dashboard, kein Production-Cutover).
+> **Backend-Projekt:** `bookando-de-riw8` ist bereits mit `nexifyai-dev/bookando-de-riw8` verknüpft.
+> Soll nach Secret-Rotation in `bookando-de-riw8` umbenannt werden (Vercel-Dashboard, kein Production-Cutover).
 > Git-Verknüpfung und Deployment-Historie bleiben erhalten.
 
 ## Security Incident (P0)

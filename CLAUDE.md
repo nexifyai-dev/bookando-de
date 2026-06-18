@@ -7,7 +7,7 @@
 - **Repo Frontend**: `nexifyai-dev/bookando-de` → `/workspace/customers/fixdigital/bookando/bookando-de/`
 - **Repo Backend**: `nexifyai-dev/bookando-api` → `/workspace/customers/fixdigital/bookando/bookando-api/`
 - **Domain**: https://bookando.de
-- **Backend-API**: https://bookando-backend.vercel.app
+- **Backend-API**: https://bookando-de-riw8.vercel.app
 
 ## Verbindliche Grundlagen
 
@@ -105,3 +105,9 @@ Vor relevanter Arbeit sind passende Skills aus dem installierten Bestand zu lade
 - `web-performance-optimization` — Frontend-Optimierung
 - `ux-researcher-designer` — UI/UX-Audit
 - `web-design-guidelines` — Design-Consistency
+
+## Vercel-Projekte
+Frontend-Vercel-Projekt: bookando-de (prj_zeVjo026RtGWcQy58uTYwrEHJLQE)
+Backend-Vercel-Projekt: bookando-de-riw8 (prj_zROZadgDMYRP6gxFODIj6q83qgeD)
+Backend-API: https://bookando-de-riw8.vercel.app
+GitHub-Repository (Backend): bookando-api (Vercel-Projektname abweichend)

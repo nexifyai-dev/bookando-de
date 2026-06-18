@@ -5,7 +5,7 @@
 > **Repository:** `nexifyai-dev/affilinet-portal-aachen` → **umbenennen in `bookando-de`**
 > **Live:** https://bookando.de
 > **Frontend:** React 19 + TailwindCSS + i18next
-> **Backend:** FastAPI (Python) — https://bookando-backend.vercel.app
+> **Backend:** FastAPI (Python) — https://bookando-de-riw8.vercel.app
 
 ---
 
