@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SEOHead from '../../components/shared/SEOHead';
 import { ArrowLeft, Mail, Briefcase, CheckCircle, Loader2 } from 'lucide-react';
-import apiClient from '../../lib/apiClient';
+import apiClient, { logApiFailure } from '../../lib/apiClient';
 
 export default function ForgotPasswordPage() {
   const { t } = useTranslation();
@@ -21,6 +21,7 @@ export default function ForgotPasswordPage() {
       await apiClient.post('/api/auth/forgot-password', { email });
       setSent(true);
     } catch (err) {
+      logApiFailure('ForgotPassword', err);
       setError(err.response?.data?.detail || t('common.error', 'Ein Fehler ist aufgetreten'));
     } finally {
       setLoading(false);

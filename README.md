@@ -200,7 +200,7 @@ vercel --prod
 
 ### Domains
 - **Hauptdomain:** `bookando.de`
-- **App-Domain:** `app.bookando.de`
+- **App-Domain:** `www.bookando.de`
 
 ### Umgebungsvariablen
 

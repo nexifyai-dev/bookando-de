@@ -94,10 +94,10 @@ fi
 if [ "$QUICK" = false ] || [ "$SMOKE" = true ]; then
   echo "── 5. Frontend Live-Smoke ──"
   for url in \
-    "https://app.bookando.de/" \
-    "https://app.bookando.de/marketplace" \
-    "https://app.bookando.de/auth/login" \
-    "https://app.bookando.de/legal/privacy"
+    "https://www.bookando.de/" \
+    "https://www.bookando.de/marketplace" \
+    "https://www.bookando.de/auth/login" \
+    "https://www.bookando.de/legal/privacy"
   do
     if curl -sf -o /dev/null "$url" 2>/dev/null; then
       ok "$url"
@@ -111,9 +111,9 @@ fi
 if [ "$QUICK" = false ] || [ "$SMOKE" = true ]; then
   echo "── 6. Kritische Assets ──"
   for asset in \
-    "https://app.bookando.de/images/hero-grafik.png" \
-    "https://app.bookando.de/images/cta-grafik.png" \
-    "https://app.bookando.de/images/brand-logo-horizontal.png"
+    "https://www.bookando.de/images/hero-grafik.png" \
+    "https://www.bookando.de/images/cta-grafik.png" \
+    "https://www.bookando.de/images/brand-logo-horizontal.png"
   do
     size=$(curl -sI "$asset" 2>/dev/null | grep -i "content-length" | awk '{print $2}' | tr -d '\r')
     if [ -n "$size" ] && [ "$size" -gt 10000 ]; then

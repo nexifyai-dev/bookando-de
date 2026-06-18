@@ -30,7 +30,7 @@ const company = {
   platform: {
     name: 'Bookando',
     domain: 'bookando.de',
-    appDomain: 'app.bookando.de',
+    appDomain: 'www.bookando.de',
     emailDomain: 'nexifyai.cloud',
     supportEmail: 'hallo@bookando.de',
     noreplyEmail: 'noreply@nexifyai.cloud',

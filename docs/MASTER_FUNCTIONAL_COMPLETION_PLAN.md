@@ -2,7 +2,7 @@
 
 > **Stand:** 06.06.2026 | **Priorität:** P0-P4
 > **Frontend:** `nexifyai-dev/bookando-de` | **Backend:** `nexifyai-dev/bookando-api`
-> **Live:** `app.bookando.de`
+> **Live:** `https://www.bookando.de` (SUPERSEDED — alt: `app.bookando.de`)
 
 ---
 
