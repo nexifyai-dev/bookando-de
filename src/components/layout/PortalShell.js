@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect, useRef, useCallback } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { ChevronDown, Globe, LogOut, Menu, PanelLeftClose, PanelLeftOpen, User, X, LayoutDashboard, Settings } from 'lucide-react';
+import { ChevronDown, Globe, LogOut, Menu, PanelLeftClose, PanelLeftOpen, User, X, LayoutDashboard, Settings, ArrowDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../contexts/AuthContext';
 import { RoleSwitcher, TenantSwitcher, LanguageSwitcher } from '../portal/PortalSwitchers';
@@ -103,10 +103,15 @@ export function PortalShell({
     <div className="min-h-screen bg-[var(--color-shell-bg)]" data-testid={dataTestId}>
 
       {/* ═══ TOPBAR ═══ */}
-      <header className="w2g-topbar-frame" data-testid={`${dataTestId}-topbar`}>
+      {/* Skip-Link */}
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-[var(--color-primary)] focus:text-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:rounded" style={{ borderRadius: 'var(--radius-sm)' }}>
+        Zum Hauptinhalt springen
+      </a>
+
+      <header className="w2g-topbar-frame" data-testid={`${dataTestId}-topbar`} aria-label="Kopfzeile">
         <div className="flex items-center justify-between h-full px-4 lg:px-5 gap-4" style={{ minHeight: 'inherit' }}>
           <div className="flex items-center gap-4 min-w-0">
-            <Link to={logoHref} className="flex items-center gap-2.5 shrink-0" data-testid={`${dataTestId}-logo`}>
+            <Link to={logoHref} className="flex items-center gap-2.5 shrink-0" data-testid={`${dataTestId}-logo`} aria-label={`${portalName} Startseite`}>
               <div className="w-9 h-9 bg-[var(--color-primary)] flex items-center justify-center shrink-0" style={{ borderRadius: 'var(--radius-md)' }}>
                 <LayoutDashboard size={18} className="text-white" />
               </div>
@@ -132,6 +137,7 @@ export function PortalShell({
             {effectiveUser && (
               <div className="hidden md:block relative" ref={userMenuRef}>
                 <button type="button" onClick={() => setUserMenuOpen((o) => !o)}
+                  aria-haspopup="menu" aria-expanded={userMenuOpen} aria-controls="user-dropdown-menu"
                   className="cursor-pointer flex items-center gap-2 border border-[var(--color-divider)] bg-white px-2 py-1.5 hover:border-[var(--color-primary)] transition-colors"
                   style={{ borderRadius: 'var(--radius-md)' }} data-testid={`${dataTestId}-user-menu-button`}>
                   <div className="h-7 w-7 flex items-center justify-center bg-[var(--color-primary)] text-[10px] font-bold text-white" style={{ borderRadius: 'var(--radius-sm)' }}>{initials}</div>
@@ -139,7 +145,7 @@ export function PortalShell({
                   <ChevronDown size={11} className={`text-[var(--color-text-tertiary)] transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {userMenuOpen && (
-                  <div className="absolute right-0 top-[calc(100%+6px)] min-w-[220px] border border-[var(--color-divider)] bg-white overflow-hidden"
+                  <div id="user-dropdown-menu" role="menu" className="absolute right-0 top-[calc(100%+6px)] min-w-[220px] border border-[var(--color-divider)] bg-white overflow-hidden"
                     style={{ borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-e4)', zIndex: 90 }} data-testid={`${dataTestId}-user-dropdown`}>
                     <div className="border-b border-[var(--color-divider-subtle)] px-4 py-3">
                       <p className="text-sm font-semibold text-[var(--color-text-primary)]">{effectiveUser?.full_name || effectiveUser?.email}</p>
@@ -165,6 +171,7 @@ export function PortalShell({
 
       {/* ═══ SIDEBAR (Desktop) ═══ */}
       <aside
+        aria-label="Hauptnavigation"
         className="hidden lg:flex flex-col fixed bottom-0 left-0 bg-[var(--color-surface)] border-r border-[var(--color-divider)]"
         style={{ top: 'var(--topbar-height)', width: `${sidebarWidth}px`, transition: 'width 200ms ease-out', zIndex: 50 }}
         data-testid={`${dataTestId}-sidebar`}
@@ -282,7 +289,7 @@ export function PortalShell({
       )}
 
       {/* ═══ MAIN CONTENT ═══ */}
-      <main
+      <main id="main-content"
         className="w2g-sidebar-offset min-h-screen"
         style={{ '--sb-w': `${sidebarWidth}px`, paddingTop: 'calc(var(--topbar-height) + 20px)', paddingBottom: mobileBottomNav.length ? '96px' : '32px' }}
       >
