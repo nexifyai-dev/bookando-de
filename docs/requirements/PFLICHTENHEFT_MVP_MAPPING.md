@@ -1,6 +1,6 @@
 # Bookando.de – MVP-Anforderungsmapping
 
-> **Datum:** 17.06.2026
+> **Datum:** 18.06.2026
 > **Zweck:** Eindeutige, überschneidungsfreie Zuordnung jeder ID zu genau einem MVP-System
 
 ## MVP-Systeme (exklusive Partition)
@@ -187,4 +187,4 @@ Jede ID aus Traceability wird genau einem MVP-System zugeordnet — keine Doppel
 | Architektur-Enabler | 14 | 6,05 | 14 | 43.2% |
 | **MVP Gesamt** | **135** | **45,50** | **135** | **33.7%** |
 
-*Mapping generiert 17.06.2026. Aus YAML-Source-of-Truth.*
+*Mapping generiert 18.06.2026. Aus YAML-Source-of-Truth.*

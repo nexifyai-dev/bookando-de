@@ -2,7 +2,7 @@
 
 > **Grundlage:** Kunden-Pflichtenheft (docs/customer/PFLICHTENHEFT_BOOKANDO_KUNDE.md)
 > **Generiert aus:** docs/requirements/PFLICHTENHEFT_REQUIREMENTS.yaml
-> **Stand:** 17.06.2026
+> **Stand:** 18.06.2026
 
 ## Status-Legende
 
@@ -226,4 +226,4 @@
 | Entwicklerprioritäten (Kap 19) | 7 | 0 | 6 | 0 | 1 | 0 |
 | **Gesamt** | **151** | **0** | **99** | **40** | **7** | **5** |
 
-*Traceability generiert 17.06.2026. Aus YAML-Source-of-Truth.*
+*Traceability generiert 18.06.2026. Aus YAML-Source-of-Truth.*
