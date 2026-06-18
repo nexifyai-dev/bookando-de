@@ -148,22 +148,6 @@ export function PortalProvider({ children }) {
         label: () => t('portal.nav.staffAppointments', 'Termine'),
       },
       {
-        key: 'staff-calendar',
-        path: '/portal/staff/calendar',
-        icon: 'CalendarDays',
-        roles: ['staff', 'admin'],
-        requiresTenant: true,
-        label: () => t('portal.nav.staffCalendar', 'Kalender'),
-      },
-      {
-        key: 'staff-availability',
-        path: '/portal/staff/availability',
-        icon: 'Clock',
-        roles: ['staff', 'admin'],
-        requiresTenant: true,
-        label: () => t('portal.nav.staffAvailability', 'Verfügbarkeit'),
-      },
-      {
         key: 'staff-customers',
         path: '/portal/staff/customers',
         icon: 'Contact',
