@@ -1,0 +1,41 @@
+# Vercel Canonical Target — Frontend
+# DO NOT EDIT — managed by project-control/VERCEL_CANONICAL_TARGETS.yaml
+schema_version: 1
+status: CANONICAL
+verified_at: "2026-06-18T12:20:00+02:00"
+
+team:
+  slug: agentur-projekte
+  id: team_PysE3t7EB7f6F2bA85MBUdOD
+
+project:
+  name: bookando-de
+  id: prj_zeVjo026RtGWcQy58uTYwrEHJLQE
+  repository: nexifyai-dev/bookando-de
+  branch: main
+  framework: create-react-app
+
+production_domain: https://bookando-de-one.vercel.app
+
+current_deployment:
+  url: https://bookando-cqz8mk5t0-agentur-projekte.vercel.app
+  id: dpl_CG1F6Gux7jQkHag3BZyxoY2CxVT4
+  target: production
+  deployment_state: READY
+  application_health: UNKNOWN
+  operationally_approved: false
+  commit_sha: 50b9848e0a3d4098ac41f5ad9fa9483a7a25ef9c
+  commit_ref: main
+  commit_message: "Merge pull request #4 from nexifyai-dev/fix/frontend-api-connectivity"
+  created_at: 2026-06-18T07:58:41.127Z
+
+backend_target:
+  repository: nexifyai-dev/bookando-api
+  vercel_project_name: bookando-de-riw8
+  vercel_project_id: prj_zROZadgDMYRP6gxFODIj6q83qgeD
+  production_domain: https://bookando-de-riw8.vercel.app
+  production_health: FAIL
+  production_health_http: 500
+  verified_preview_deployment_id: dpl_77LTjX2264LF4u3tDd9Ccfg2A1zg
+  verified_preview_health: PASS
+  frontend_production_switch_allowed: false

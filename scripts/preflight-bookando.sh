@@ -73,7 +73,7 @@ fi
 # ─── 3. Backend Health ───
 if [ "$QUICK" = false ] || [ "$SMOKE" = true ]; then
   echo "── 3. Backend Health ──"
-  if health=$(curl -sf https://bookando-backend.vercel.app/api/health 2>/dev/null); then
+  if health=$(curl -sf https://bookando-de-riw8.vercel.app/api/health 2>/dev/null); then
     ok "Backend healthy: $(echo "$health" | grep -o '"status":"[^"]*"' | head -1 | tr -d '"')"
   else
     fail "Backend not reachable"
@@ -83,7 +83,7 @@ fi
 # ─── 4. OpenAPI ───
 if [ "$QUICK" = false ]; then
   echo "── 4. OpenAPI ──"
-  if curl -sf -o /dev/null https://bookando-backend.vercel.app/openapi.json 2>/dev/null; then
+  if curl -sf -o /dev/null https://bookando-de-riw8.vercel.app/openapi.json 2>/dev/null; then
     ok "OpenAPI schema reachable"
   else
     fail "OpenAPI schema not reachable"

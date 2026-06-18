@@ -3,7 +3,7 @@
 > **Skills:** `design-taste-frontend` (Anti-Slop Frontend) + `emil-design-eng` (UI Polish & Animation)
 > **Stand:** 06.06.2026, 10:02 UTC
 > **Basis:** `docs/PRODUKTSTRUKTUR.md` (1.041 Zeilen), `PFLICHTENHEFT.md` (852 Zeilen)
-> **Live:** https://bookando.de | https://bookando-backend.vercel.app
+> **Live:** https://bookando.de | https://bookando-de-riw8.vercel.app
 
 ---
 

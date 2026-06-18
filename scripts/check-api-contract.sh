@@ -23,8 +23,8 @@ echo "╚═══════════════════════�
 
 # ─── 1. OpenAPI erreichbar ───
 echo "── 1. OpenAPI ──"
-SPEC=$(curl -sf https://bookando-backend.vercel.app/openapi.json 2>/dev/null) || {
-  fail "OpenAPI not reachable (bookando-backend.vercel.app)"
+SPEC=$(curl -sf https://bookando-de-riw8.vercel.app/openapi.json 2>/dev/null) || {
+  fail "OpenAPI not reachable (bookando-de-riw8.vercel.app)"
   echo "  Aborting — no spec available"
   exit 1
 }

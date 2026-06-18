@@ -3,7 +3,7 @@
 > **Abgeleitet aus:** Pflichtenheft (852 Zeilen, 23 Kapitel)
 > **Stand:** 06.06.2026, 09:54 UTC
 > **Frontend:** https://bookando.de (React 19, Vercel)
-> **Backend:** https://bookando-backend.vercel.app (FastAPI, Supabase)
+> **Backend:** https://bookando-de-riw8.vercel.app (FastAPI, Supabase)
 > **Repository:** `nexifyai-dev/affilinet-portal-aachen` (Frontend), `nexifyai-dev/bookando-api` (Backend)
 
 ---
@@ -1004,7 +1004,7 @@ Woche 10-12: Franchise + Automation
 
 | Quelle | Format | Pfad | Status |
 |--------|--------|------|--------|
-| FastAPI Swagger UI | OpenAPI | `https://bookando-backend.vercel.app/api/docs` | ✅ Live |
+| FastAPI Swagger UI | OpenAPI | `https://bookando-de-riw8.vercel.app/api/docs` | ✅ Live |
 | Backend-README (Endpoint-Tabellen) | Markdown | `bookando-backend/README.md §5` | ✅ Aktuell |
 | PRODUKTSTRUKTUR.md (§6) | Markdown | Diese Datei | 🔧 Neu |
 
