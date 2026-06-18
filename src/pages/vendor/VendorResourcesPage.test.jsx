@@ -2,87 +2,149 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-jest.mock('../../lib/apiClient', () => ({
+jest.mock('../../../src/lib/apiClient', () => ({
   get: jest.fn(),
   post: jest.fn(),
   patch: jest.fn(),
   delete: jest.fn(),
 }));
 
-import apiClient from '../../lib/apiClient';
+const apiClient = require('../../../src/lib/apiClient');
 import VendorResourcesPage from './VendorResourcesPage';
 
 const mockResources = [
-  { id: 1, name: 'Raum A', type: 'room', capacity: 10, location_id: '' },
-  { id: 2, name: 'Gerät X', type: 'equipment', capacity: 1, location_id: '' },
+  { id: 1, name: 'Raum A', type: 'room', capacity: 10 },
+  { id: 2, name: 'Gerät X', type: 'equipment', capacity: 1 },
 ];
+
+const renderPage = () => render(<VendorResourcesPage />);
 
 describe('VendorResourcesPage CRUD', () => {
   beforeEach(() => { jest.clearAllMocks(); });
 
-  it('load success: rendert Ressourcenliste', async () => {
+  // ─── Load ───
+  it('load success: rendert alle Ressourcen', async () => {
     apiClient.get.mockResolvedValue({ data: mockResources });
-    render(<VendorResourcesPage />);
-    await waitFor(() => expect(screen.getByText('Raum A')).toBeInTheDocument());
-    expect(screen.getByText('Gerät X')).toBeInTheDocument();
+    renderPage();
+    await waitFor(() => {
+      expect(screen.getByText('Raum A')).toBeInTheDocument();
+      expect(screen.getByText('Gerät X')).toBeInTheDocument();
+    });
   });
 
-  it('load empty: rendert Empty State', async () => {
+  it('load empty: zeigt Empty-State', async () => {
     apiClient.get.mockResolvedValue({ data: [] });
-    render(<VendorResourcesPage />);
+    renderPage();
     await waitFor(() => expect(screen.getByText(/Keine Ressourcen/i)).toBeInTheDocument());
   });
 
-  it('load failure: rendert Error State mit Retry', async () => {
+  it('load failure: zeigt Fehler mit Retry-Button', async () => {
     apiClient.get.mockRejectedValue({ message: 'Netzwerkfehler' });
-    render(<VendorResourcesPage />);
+    renderPage();
     await waitFor(() => expect(screen.getByText('Netzwerkfehler')).toBeInTheDocument());
-    expect(screen.getByText('Erneut versuchen')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /erneut versuchen/i })).toBeInTheDocument();
   });
 
-  it('create success: ruft apiClient.post auf', async () => {
+  // ─── Create ───
+  it('create success: sendet korrekten POST-Payload', async () => {
     apiClient.get.mockResolvedValue({ data: [] });
-    apiClient.post.mockResolvedValue({ data: { id: 3, name: 'Neuer Raum', type: 'room', capacity: 5 } });
-    render(<VendorResourcesPage />);
-    await waitFor(() => expect(screen.getByPlaceholderText(/Name/)).toBeInTheDocument());
-    const nameInput = screen.getByPlaceholderText(/Name/);
-    await userEvent.type(nameInput, 'Neuer Raum');
-    const submitBtn = screen.getByRole('button', { name: /hinzufügen/i });
-    await userEvent.click(submitBtn);
-    await waitFor(() => expect(apiClient.post).toHaveBeenCalled());
+    apiClient.post.mockResolvedValue({});
+    renderPage();
+    await waitFor(() => expect(screen.getByPlaceholderText(/Name/i)).toBeInTheDocument());
+    await userEvent.type(screen.getByPlaceholderText(/Name/i), 'Neuer Raum');
+    await userEvent.click(screen.getByRole('button', { name: /hinzufügen/i }));
+    await waitFor(() => {
+      expect(apiClient.post).toHaveBeenCalledWith('/api/vendor/resources',
+        expect.objectContaining({ name: 'Neuer Raum', type: 'room', capacity: 1 }));
+    });
   });
 
-  it('delete success: entfernt Ressource nach API-Bestätigung', async () => {
+  it('create API failure: Formular bleibt gefüllt', async () => {
+    apiClient.get.mockResolvedValue({ data: [] });
+    apiClient.post.mockRejectedValue(new Error('Serverfehler'));
+    renderPage();
+    await waitFor(() => expect(screen.getByPlaceholderText(/Name/i)).toBeInTheDocument());
+    await userEvent.type(screen.getByPlaceholderText(/Name/i), 'Test');
+    await userEvent.click(screen.getByRole('button', { name: /hinzufügen/i }));
+    await waitFor(() => {
+      // Form data stays because we only reset on success
+      expect(screen.getByPlaceholderText(/Name/i)).toHaveValue('Test');
+    });
+  });
+
+  it('create double-submit blocked: Button disabled während Saving', async () => {
+    apiClient.get.mockResolvedValue({ data: [] });
+    let resolvePost;
+    apiClient.post.mockImplementation(() => new Promise(r => { resolvePost = r; }));
+    renderPage();
+    await waitFor(() => expect(screen.getByPlaceholderText(/Name/i)).toBeInTheDocument());
+    await userEvent.type(screen.getByPlaceholderText(/Name/i), 'Test');
+    await userEvent.click(screen.getByRole('button', { name: /hinzufügen/i }));
+    // Button should be disabled while saving
+    expect(screen.getByRole('button', { name: /hinzufügen/i })).toBeDisabled();
+    resolvePost({});
+  });
+
+  // ─── Update ───
+  it('update success: sendet korrekten PATCH-Payload', async () => {
+    apiClient.get.mockResolvedValue({ data: mockResources });
+    apiClient.patch.mockResolvedValue({});
+    renderPage();
+    await waitFor(() => expect(screen.getByText('Raum A')).toBeInTheDocument());
+    // Klick auf Bearbeiten-Button von Raum A
+    await userEvent.click(screen.getByRole('button', { name: /Ressource bearbeiten Raum A/i }));
+    await userEvent.clear(screen.getByPlaceholderText(/Name/i));
+    await userEvent.type(screen.getByPlaceholderText(/Name/i), 'Raum A+');
+    await userEvent.click(screen.getByRole('button', { name: /Speichern/i }));
+    await waitFor(() => {
+      expect(apiClient.patch).toHaveBeenCalledWith('/api/vendor/resources/1',
+        expect.objectContaining({ name: 'Raum A+', capacity: 10 }));
+    });
+  });
+
+  it('update API failure: Resource bleibt unverändert sichtbar', async () => {
+    apiClient.get.mockResolvedValue({ data: mockResources });
+    apiClient.patch.mockRejectedValue(new Error('Update-Fehler'));
+    renderPage();
+    await waitFor(() => expect(screen.getByText('Raum A')).toBeInTheDocument());
+    await userEvent.click(screen.getByRole('button', { name: /Ressource bearbeiten Raum A/i }));
+    await userEvent.clear(screen.getByPlaceholderText(/Name/i));
+    await userEvent.type(screen.getByPlaceholderText(/Name/i), 'Test');
+    await userEvent.click(screen.getByRole('button', { name: /Speichern/i }));
+    await new Promise(r => setTimeout(r, 100));
+    expect(screen.getByText('Raum A')).toBeInTheDocument();
+  });
+
+  // ─── Delete ───
+  it('delete success: entfernt nur die gelöschte Resource, andere bleibt', async () => {
     const mockConfirm = jest.spyOn(window, 'confirm').mockReturnValue(true);
     apiClient.get.mockResolvedValue({ data: mockResources });
     apiClient.delete.mockResolvedValue({});
-    render(<VendorResourcesPage />);
-    await waitFor(() => expect(screen.getByText('Raum A')).toBeInTheDocument());
-    // Submit button (Hinzufügen) + 2 resources × 2 action buttons = 1 + 4 = 5 buttons
-    // Delete buttons are the 4th and 5th (last in each resource row)
-    const allButtons = screen.getAllByRole('button');
-    const resourceDeleteButtons = allButtons.filter(b =>
-      b.tagName === 'BUTTON' && !b.querySelector('svg.lucide-save') &&
-      !b.querySelector('svg.lucide-plus') && !b.querySelector('svg.lucide-edit3') &&
-      (b.innerHTML.includes('X') || b.querySelector('svg.lucide-x'))
-    );
-    // Fallback: use the last button (delete of 2nd resource)
-    await userEvent.click(allButtons[allButtons.length - 1]);
+    renderPage();
     await waitFor(() => {
-      expect(apiClient.delete).toHaveBeenCalled();
+      expect(screen.getByText('Raum A')).toBeInTheDocument();
+      expect(screen.getByText('Gerät X')).toBeInTheDocument();
+    });
+    // Lösche Raum A
+    await userEvent.click(screen.getByRole('button', { name: /Ressource löschen Raum A/i }));
+    await waitFor(() => {
+      expect(apiClient.delete).toHaveBeenCalledWith('/api/vendor/resources/1');
+      expect(screen.queryByText('Raum A')).not.toBeInTheDocument();
+      expect(screen.getByText('Gerät X')).toBeInTheDocument();
     });
     mockConfirm.mockRestore();
   });
 
-  it('delete API error: Ressource bleibt sichtbar', async () => {
+  it('delete API failure: angeklickte Resource bleibt sichtbar', async () => {
     const mockConfirm = jest.spyOn(window, 'confirm').mockReturnValue(true);
     apiClient.get.mockResolvedValue({ data: mockResources });
     apiClient.delete.mockRejectedValue(new Error('Löschen fehlgeschlagen'));
-    render(<VendorResourcesPage />);
+    renderPage();
     await waitFor(() => expect(screen.getByText('Raum A')).toBeInTheDocument());
-    const allButtons = screen.getAllByRole('button');
-    await userEvent.click(allButtons[allButtons.length - 1]);
-    await waitFor(() => { expect(screen.getByText('Raum A')).toBeInTheDocument(); }, { timeout: 500 });
+    await userEvent.click(screen.getByRole('button', { name: /Ressource löschen Raum A/i }));
+    await waitFor(() => {
+      expect(screen.getByText('Raum A')).toBeInTheDocument();
+    }, { timeout: 500 });
     mockConfirm.mockRestore();
   });
 });

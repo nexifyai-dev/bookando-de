@@ -156,14 +156,6 @@ export function PortalProvider({ children }) {
         label: () => t('portal.nav.staffCustomers', 'Kunden'),
       },
       {
-        key: 'staff-notes',
-        path: '/portal/staff/notes',
-        icon: 'StickyNote',
-        roles: ['staff', 'admin'],
-        requiresTenant: true,
-        label: () => t('portal.nav.staffNotes', 'Notizen'),
-      },
-      {
         key: 'staff-profile',
         path: '/portal/staff/profile',
         icon: 'User',

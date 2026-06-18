@@ -134,11 +134,11 @@ export default function VendorResourcesPage() {
                   </p>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
-                  <button onClick={() => startEdit(r)}
+                  <button onClick={() => startEdit(r)} aria-label={`${t('vendor.resources.editLabel', 'Ressource bearbeiten')} ${r.name}`}
                     className="h-8 w-8 flex items-center justify-center border border-[var(--color-divider)] text-[var(--color-text-tertiary)] hover:text-[var(--color-primary)]" style={{borderRadius:'var(--radius-sm)'}}>
                     <Edit3 size={13}/>
                   </button>
-                  <button onClick={() => handleRemove(r.id)}
+                  <button onClick={() => handleRemove(r.id)} aria-label={`${t('vendor.resources.deleteLabel', 'Ressource löschen')} ${r.name}`}
                     className="h-8 w-8 flex items-center justify-center border border-[var(--color-divider)] text-[var(--color-text-tertiary)] hover:text-[var(--color-danger)]" style={{borderRadius:'var(--radius-sm)'}}>
                     <X size={13}/>
                   </button>
