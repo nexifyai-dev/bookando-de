@@ -13,7 +13,7 @@ export default function VendorResourcesPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [saving, setSaving] = useState(false);
-  const [form, setForm] = useState({ name: '', type: 'room', capacity: 1, location_id: '' });
+  const [form, setForm] = useState({ name: '', type: 'room', capacity: 1 });
   const [editing, setEditing] = useState(null);
 
   const load = async () => {
@@ -42,7 +42,7 @@ export default function VendorResourcesPage() {
         await apiClient.post('/api/vendor/resources', payload);
         toast.success(t('vendor.resources.created', 'Ressource erstellt'));
       }
-      setForm({ name: '', type: 'room', capacity: 1, location_id: '' });
+      setForm({ name: '', type: 'room', capacity: 1 });
       setEditing(null);
       await load();
     } catch (err) {
@@ -65,12 +65,12 @@ export default function VendorResourcesPage() {
 
   const startEdit = (r) => {
     setEditing(r);
-    setForm({ name: r.name, type: r.type || 'room', capacity: r.capacity || 1, location_id: r.location_id || '' });
+    setForm({ name: r.name, type: r.type || 'room', capacity: r.capacity || 1 });
   };
 
   const cancelEdit = () => {
     setEditing(null);
-    setForm({ name: '', type: 'room', capacity: 1, location_id: '' });
+    setForm({ name: '', type: 'room', capacity: 1 });
   };
 
   if (loading) return <PageLoadingState text={t('vendor.resources.loading', 'Ressourcen werden geladen…')} />;
