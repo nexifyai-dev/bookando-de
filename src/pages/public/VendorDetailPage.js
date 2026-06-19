@@ -7,7 +7,7 @@ import PublicNav from '../../components/layout/PublicNav';
 import PublicFooter from '../../components/layout/PublicFooter';
 import { VendorDetailApi, BookingSlotsApi, CustomerBookingsApi } from '../../lib/api';
 import { cn } from '../../lib/utils-cn';
-import { addDaysISO, buildDateWindow, clampToToday } from '../../lib/bookingDateWindow';
+import { addDaysISO, buildDateWindow, clampToToday, toLocalISODate } from '../../lib/bookingDateWindow';
 
 /* ════════════════════════════════════════════════════════════════
    HELPERS
@@ -22,10 +22,6 @@ function formatDate(isoStr) {
   if (!isoStr) return '';
   const d = new Date(isoStr);
   return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
-}
-
-function toLocalISODate(date) {
-  return date.toISOString().split('T')[0];
 }
 
 function getInitials(name) {
@@ -100,7 +96,7 @@ function BookingWidget({ vendorId, services: allServices }) {
         setSlots([]);
       })
       .finally(() => setSlotsLoading(false));
-  }, [selectedService, selectedDate, vendorId, step, slotsReloadKey]);
+  }, [selectedService, selectedDate, vendorId, step, slotsReloadKey, t]);
 
   const handleBook = useCallback(async () => {
     if (!selectedService || !selectedSlot || !customer.name || !customer.email) return;
@@ -128,7 +124,7 @@ function BookingWidget({ vendorId, services: allServices }) {
     } finally {
       setSubmitting(false);
     }
-  }, [selectedService, selectedSlot, customer, vendorId]);
+  }, [selectedService, selectedSlot, customer, vendorId, t]);
 
   // Service-Auswahl
   if (step === 0) {
