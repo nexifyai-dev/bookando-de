@@ -130,3 +130,17 @@ FINAL_REVIEW = independent_reasoner
 Vor jedem Langlauf: Version/Workflow-Verfügbarkeit/Combo-Kompatibilität prüfen.
 Bei Inkompatibilität: COMPATIBILITY_ORCHESTRATION (Subagents, Pipelines, Worktrees).
 Keine Duplikation der globalen Regel — bei Fragen die globale CLAUDE.md lesen.
+
+## Agenten-Loop und Selbstbewertungsfaktoren (BINDEND)
+
+Siehe `project-control/AGENT_LOOP_CHARTER.md` für den vollständigen verbindlichen Agenten-Loop.
+
+Kernregeln:
+- Jede atomare Aufgabe durchläuft OBSERVE → UNDERSTAND → PLAN → EXECUTE → VERIFY → CRITIQUE → SCORE → CORRECT → REVERIFY → RECORD
+- Vor jedem Loop aktuelle Git/Wahrheit prüfen — keine historischen Berichte ungeprüft übernehmen
+- Selbstfaktoren (0-5) für jede Aufgabe: goal_alignment, requirement_coverage, functional_correctness, evidence_quality, root_cause_resolution, security, privacy, tenant_isolation, data_integrity, regression_protection, reproducibility
+- Kritische Faktoren (security, privacy, tenant_isolation, data_integrity) müssen für Merge ≥ 4, für Production ≥ 5 sein
+- CRITICAL_FACTOR_OVERRIDE = forbidden
+- MAX_CORRECTION_CYCLES = 3, MAX_IDENTICAL_FAILURES = 2
+- Kein unabhängiger Reasoner-APPROVE → kein Merge
+- Kein Frontend-Build/Browser-E2E/Live-Smoke → kein BOOKING_P0 = VERIFIED_COMPLETE
