@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Star, MapPin, Clock, ArrowLeft, Loader2, AlertCircle, ChevronRight, Calendar, User, Phone, Mail, CheckCircle2 } from 'lucide-react';
+import { Star, MapPin, Clock, ArrowLeft, Loader2, AlertCircle, ChevronRight, ChevronLeft, Calendar, User, Phone, Mail, CheckCircle2, RotateCcw } from 'lucide-react';
 import SEOHead from '../../components/shared/SEOHead';
 import PublicNav from '../../components/layout/PublicNav';
 import PublicFooter from '../../components/layout/PublicFooter';
 import { VendorDetailApi, BookingSlotsApi, CustomerBookingsApi } from '../../lib/api';
 import { cn } from '../../lib/utils-cn';
+import { addDaysISO, buildDateWindow, clampToToday, toLocalISODate } from '../../lib/bookingDateWindow';
 
 /* ════════════════════════════════════════════════════════════════
    HELPERS
@@ -21,10 +22,6 @@ function formatDate(isoStr) {
   if (!isoStr) return '';
   const d = new Date(isoStr);
   return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
-}
-
-function toISODate(date) {
-  return date.toISOString().split('T')[0];
 }
 
 function getInitials(name) {
@@ -64,13 +61,16 @@ function BookingWidget({ vendorId, services: allServices }) {
   const { t } = useTranslation();
   const [step, setStep] = useState(0);
   const [selectedService, setSelectedService] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(toISODate(new Date()));
+  const [selectedDate, setSelectedDate] = useState(toLocalISODate(new Date()));
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [slots, setSlots] = useState([]);
   const [slotsLoading, setSlotsLoading] = useState(false);
   const [slotsError, setSlotsError] = useState(null);
+  const [slotsReloadKey, setSlotsReloadKey] = useState(0);
+  const [dateWindowStart, setDateWindowStart] = useState(toLocalISODate(new Date()));
   const [customer, setCustomer] = useState({ name: '', email: '', phone: '', notes: '' });
   const [booking, setBooking] = useState(null);
+  const [bookingError, setBookingError] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
   // Verfügbare Slots laden
@@ -88,15 +88,20 @@ function BookingWidget({ vendorId, services: allServices }) {
         setSelectedSlot(null);
       })
       .catch(err => {
-        setSlotsError(err?.response?.data?.detail || 'Fehler beim Laden der Termine');
+        const status = err?.response?.status;
+        const fallback = status >= 500
+          ? t('booking_unavailable', 'Der Terminservice ist vorübergehend nicht erreichbar.')
+          : t('booking_slot_error', 'Fehler beim Laden der Termine');
+        setSlotsError(err?.response?.data?.detail || fallback);
         setSlots([]);
       })
       .finally(() => setSlotsLoading(false));
-  }, [selectedService, selectedDate, vendorId, step]);
+  }, [selectedService, selectedDate, vendorId, step, slotsReloadKey, t]);
 
   const handleBook = useCallback(async () => {
     if (!selectedService || !selectedSlot || !customer.name || !customer.email) return;
     setSubmitting(true);
+    setBookingError(null);
     try {
       const startAt = selectedSlot.start || selectedSlot.start_at;
       const endAt = selectedSlot.end || selectedSlot.end_at;
@@ -115,11 +120,11 @@ function BookingWidget({ vendorId, services: allServices }) {
       setBooking(result?.data || result);
       setStep(3);
     } catch (err) {
-      alert(err?.response?.data?.detail || 'Buchung fehlgeschlagen. Bitte versuche es erneut.');
+      setBookingError(err?.response?.data?.detail || t('booking_failed', 'Buchung fehlgeschlagen. Bitte versuche es erneut.'));
     } finally {
       setSubmitting(false);
     }
-  }, [selectedService, selectedSlot, customer, vendorId]);
+  }, [selectedService, selectedSlot, customer, vendorId, t]);
 
   // Service-Auswahl
   if (step === 0) {
@@ -137,7 +142,14 @@ function BookingWidget({ vendorId, services: allServices }) {
             {allServices.map(s => (
               <button
                 key={s.id}
-                onClick={() => { setSelectedService(s); setStep(1); }}
+                onClick={() => {
+                  const today = toLocalISODate(new Date());
+                  setSelectedService(s);
+                  setSelectedDate(today);
+                  setDateWindowStart(today);
+                  setSlotsError(null);
+                  setStep(1);
+                }}
                 className="w-full text-left p-4 rounded-[var(--radius-md)] transition-all duration-200 hover:scale-[1.01] active:scale-[0.98]"
                 style={{
                   border: '1px solid var(--color-divider)',
@@ -169,8 +181,13 @@ function BookingWidget({ vendorId, services: allServices }) {
 
   // Slot-Auswahl
   if (step === 1) {
-    const today = toISODate(new Date());
-    const nextWeek = toISODate(new Date(Date.now() + 14 * 86400000));
+    const today = toLocalISODate(new Date());
+    const visibleDates = buildDateWindow(dateWindowStart, 14);
+    const shiftWindow = (days) => {
+      const nextStart = clampToToday(addDaysISO(dateWindowStart, days), today);
+      setDateWindowStart(nextStart);
+      setSelectedDate(nextStart);
+    };
     return (
       <div className="space-y-4">
         <div className="flex items-center gap-2">
@@ -193,10 +210,38 @@ function BookingWidget({ vendorId, services: allServices }) {
         </div>
 
         {/* Datum-Auswahl */}
-        <div className="flex gap-2 overflow-x-auto pb-2">
-          {Array.from({ length: 14 }, (_, i) => {
-            const d = new Date(Date.now() + i * 86400000);
-            const dateStr = toISODate(d);
+        <div className="flex items-center justify-between gap-2">
+          <button
+            type="button"
+            onClick={() => shiftWindow(-7)}
+            disabled={dateWindowStart <= today}
+            aria-label={t('booking_date_previous', 'Vorherige sieben Tage')}
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-[var(--radius-md)] disabled:opacity-40"
+            style={{ border: '1px solid var(--color-divider)', color: 'var(--color-text-primary)' }}
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <button
+            type="button"
+            onClick={() => { setDateWindowStart(today); setSelectedDate(today); }}
+            className="min-h-11 rounded-[var(--radius-md)] px-4 text-sm font-medium"
+            style={{ border: '1px solid var(--color-divider)', color: 'var(--color-text-primary)' }}
+          >
+            {t('booking_date_today', 'Heute')}
+          </button>
+          <button
+            type="button"
+            onClick={() => shiftWindow(7)}
+            aria-label={t('booking_date_next', 'Nächste sieben Tage')}
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-[var(--radius-md)]"
+            style={{ border: '1px solid var(--color-divider)', color: 'var(--color-text-primary)' }}
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
+        <div className="flex gap-2 overflow-x-auto pb-2" role="list" aria-label={t('booking_available_days', 'Verfügbare Buchungstage')}>
+          {visibleDates.map((dateStr) => {
+            const d = new Date(`${dateStr}T12:00:00`);
             const dayName = d.toLocaleDateString('de-DE', { weekday: 'short' });
             const dayNum = d.getDate();
             const month = d.toLocaleDateString('de-DE', { month: 'short' });
@@ -205,6 +250,7 @@ function BookingWidget({ vendorId, services: allServices }) {
               <button
                 key={dateStr}
                 onClick={() => setSelectedDate(dateStr)}
+                aria-pressed={isSelected}
                 className={cn(
                   'flex flex-col items-center px-3 py-2 rounded-[var(--radius-md)] transition-all duration-150 active:scale-[0.95] min-w-[56px]',
                   isSelected ? 'font-semibold' : ''
@@ -229,9 +275,18 @@ function BookingWidget({ vendorId, services: allServices }) {
             <Loader2 size={24} className="animate-spin" style={{ color: 'var(--color-accent)' }} />
           </div>
         ) : slotsError ? (
-          <div className="flex flex-col items-center py-8 text-center" style={{ color: 'var(--color-danger)' }}>
+          <div className="flex flex-col items-center py-8 text-center" role="alert" aria-live="polite" style={{ color: 'var(--color-danger)' }}>
             <AlertCircle size={24} />
             <p className="mt-2 text-sm">{slotsError}</p>
+            <button
+              type="button"
+              onClick={() => setSlotsReloadKey((value) => value + 1)}
+              className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-md)] px-4 text-sm font-semibold"
+              style={{ border: '1px solid var(--color-danger)', color: 'var(--color-danger)' }}
+            >
+              <RotateCcw size={16} />
+              {t('booking_retry', 'Erneut versuchen')}
+            </button>
           </div>
         ) : slots.length === 0 ? (
           <div className="flex flex-col items-center py-8 text-center" style={{ color: 'var(--color-text-secondary)' }}>
@@ -386,6 +441,11 @@ function BookingWidget({ vendorId, services: allServices }) {
             t('booking.book_now', 'Kostenpflichtig buchen')
           )}
         </button>
+        {bookingError && (
+          <p role="alert" aria-live="polite" className="text-sm" style={{ color: 'var(--color-danger)' }}>
+            {bookingError}
+          </p>
+        )}
       </div>
     );
   }

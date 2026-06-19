@@ -487,5 +487,13 @@
     "review_visible": "Visible",
     "review_hidden": "Hidden",
     "review_flagged": "Flagged"
-  }
+  },
+  "booking_date_previous": "Previous seven days",
+  "booking_date_today": "Today",
+  "booking_date_next": "Next seven days",
+  "booking_retry": "Try again",
+  "booking_unavailable": "The booking service is temporarily unavailable.",
+  "booking_slot_error": "Error loading appointments",
+  "booking_failed": "Booking failed. Please try again.",
+  "booking_available_days": "Available booking days"
 }
