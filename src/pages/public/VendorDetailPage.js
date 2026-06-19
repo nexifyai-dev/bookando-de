@@ -24,7 +24,7 @@ function formatDate(isoStr) {
   return d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' });
 }
 
-function toISODate(date) {
+function toLocalISODate(date) {
   return date.toISOString().split('T')[0];
 }
 
@@ -65,13 +65,13 @@ function BookingWidget({ vendorId, services: allServices }) {
   const { t } = useTranslation();
   const [step, setStep] = useState(0);
   const [selectedService, setSelectedService] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(toISODate(new Date()));
+  const [selectedDate, setSelectedDate] = useState(toLocalISODate(new Date()));
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [slots, setSlots] = useState([]);
   const [slotsLoading, setSlotsLoading] = useState(false);
   const [slotsError, setSlotsError] = useState(null);
   const [slotsReloadKey, setSlotsReloadKey] = useState(0);
-  const [dateWindowStart, setDateWindowStart] = useState(toISODate(new Date()));
+  const [dateWindowStart, setDateWindowStart] = useState(toLocalISODate(new Date()));
   const [customer, setCustomer] = useState({ name: '', email: '', phone: '', notes: '' });
   const [booking, setBooking] = useState(null);
   const [bookingError, setBookingError] = useState(null);
@@ -94,8 +94,8 @@ function BookingWidget({ vendorId, services: allServices }) {
       .catch(err => {
         const status = err?.response?.status;
         const fallback = status >= 500
-          ? 'Der Terminservice ist vorübergehend nicht erreichbar.'
-          : 'Fehler beim Laden der Termine';
+          ? t('booking_unavailable', 'Der Terminservice ist vorübergehend nicht erreichbar.')
+          : t('booking_slot_error', 'Fehler beim Laden der Termine');
         setSlotsError(err?.response?.data?.detail || fallback);
         setSlots([]);
       })
@@ -124,7 +124,7 @@ function BookingWidget({ vendorId, services: allServices }) {
       setBooking(result?.data || result);
       setStep(3);
     } catch (err) {
-      setBookingError(err?.response?.data?.detail || 'Buchung fehlgeschlagen. Bitte versuche es erneut.');
+      setBookingError(err?.response?.data?.detail || t('booking_failed', 'Buchung fehlgeschlagen. Bitte versuche es erneut.'));
     } finally {
       setSubmitting(false);
     }
@@ -147,7 +147,7 @@ function BookingWidget({ vendorId, services: allServices }) {
               <button
                 key={s.id}
                 onClick={() => {
-                  const today = toISODate(new Date());
+                  const today = toLocalISODate(new Date());
                   setSelectedService(s);
                   setSelectedDate(today);
                   setDateWindowStart(today);
@@ -185,7 +185,7 @@ function BookingWidget({ vendorId, services: allServices }) {
 
   // Slot-Auswahl
   if (step === 1) {
-    const today = toISODate(new Date());
+    const today = toLocalISODate(new Date());
     const visibleDates = buildDateWindow(dateWindowStart, 14);
     const shiftWindow = (days) => {
       const nextStart = clampToToday(addDaysISO(dateWindowStart, days), today);
@@ -219,7 +219,7 @@ function BookingWidget({ vendorId, services: allServices }) {
             type="button"
             onClick={() => shiftWindow(-7)}
             disabled={dateWindowStart <= today}
-            aria-label="Vorherige sieben Tage"
+            aria-label={t('booking_date_previous', 'Vorherige sieben Tage')}
             className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-[var(--radius-md)] disabled:opacity-40"
             style={{ border: '1px solid var(--color-divider)', color: 'var(--color-text-primary)' }}
           >
@@ -231,19 +231,19 @@ function BookingWidget({ vendorId, services: allServices }) {
             className="min-h-11 rounded-[var(--radius-md)] px-4 text-sm font-medium"
             style={{ border: '1px solid var(--color-divider)', color: 'var(--color-text-primary)' }}
           >
-            Heute
+            {t('booking_date_today', 'Heute')}
           </button>
           <button
             type="button"
             onClick={() => shiftWindow(7)}
-            aria-label="Nächste sieben Tage"
+            aria-label={t('booking_date_next', 'Nächste sieben Tage')}
             className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-[var(--radius-md)]"
             style={{ border: '1px solid var(--color-divider)', color: 'var(--color-text-primary)' }}
           >
             <ChevronRight size={18} />
           </button>
         </div>
-        <div className="flex gap-2 overflow-x-auto pb-2" role="list" aria-label="Verfügbare Buchungstage">
+        <div className="flex gap-2 overflow-x-auto pb-2" role="list" aria-label={t('booking_available_days', 'Verfügbare Buchungstage')}>
           {visibleDates.map((dateStr) => {
             const d = new Date(`${dateStr}T12:00:00`);
             const dayName = d.toLocaleDateString('de-DE', { weekday: 'short' });
@@ -289,7 +289,7 @@ function BookingWidget({ vendorId, services: allServices }) {
               style={{ border: '1px solid var(--color-danger)', color: 'var(--color-danger)' }}
             >
               <RotateCcw size={16} />
-              Erneut versuchen
+              {t('booking_retry', 'Erneut versuchen')}
             </button>
           </div>
         ) : slots.length === 0 ? (

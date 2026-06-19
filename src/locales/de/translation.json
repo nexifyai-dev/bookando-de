@@ -487,5 +487,13 @@
     "review_visible": "Sichtbar",
     "review_hidden": "Ausgeblendet",
     "review_flagged": "Gemarkt"
-  }
+  },
+  "booking_date_previous": "Vorherige sieben Tage",
+  "booking_date_today": "Heute",
+  "booking_date_next": "Nächste sieben Tage",
+  "booking_retry": "Erneut versuchen",
+  "booking_unavailable": "Der Terminservice ist vorübergehend nicht erreichbar.",
+  "booking_slot_error": "Fehler beim Laden der Termine",
+  "booking_failed": "Buchung fehlgeschlagen. Bitte versuche es erneut.",
+  "booking_available_days": "Verfügbare Buchungstage"
 }
