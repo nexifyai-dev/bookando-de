@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import './i18n';
 import App from './App';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -10,3 +11,6 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+/* Register Service Worker for PWA offline support (production only) */
+serviceWorkerRegistration.register();
