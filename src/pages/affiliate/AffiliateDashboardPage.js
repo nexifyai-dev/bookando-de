@@ -1,9 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Loader2, ExternalLink, MousePointerClick, ShoppingCart, Wallet, Percent } from 'lucide-react';
+import { Loader2, ExternalLink, MousePointerClick, ShoppingCart, Wallet, Percent, TrendingUp, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import apiClient from '../../lib/apiClient';
 import { useAutoRefresh } from '../../hooks/useAutoRefresh';
-import { Card, CardContent } from '../../components/ui/card';
+import StatCard from '../../components/dashboard/StatCard';
+import { DashboardGrid, DashboardRow, DashboardSection } from '../../components/dashboard/DashboardGrid';
 
 export default function AffiliateDashboardPage() {
   const { t } = useTranslation();
@@ -29,36 +31,119 @@ export default function AffiliateDashboardPage() {
     conversions: affStats.conversions || affStats.total_conversions || 0,
   };
 
-  if (isLoading && !links.length && !commissions.length) return <div className="p-6 flex items-center justify-center min-h-[60vh]"><Loader2 size={32} className="animate-spin" style={{color:'var(--color-accent)'}} /></div>;
+  const conversionRate = stats.clicks > 0 ? ((stats.conversions / stats.clicks) * 100).toFixed(1) : '0.0';
 
-  const kpis = [
-    { label: t('affiliate.links', 'Trackinglinks'), value: stats?.linkCount || 0, icon: ExternalLink, color: '#3182CE' },
-    { label: t('affiliate.clicks', 'Klicks'), value: stats?.clicks || 0, icon: MousePointerClick, color: '#F59E0B' },
-    { label: t('affiliate.conversions', 'Buchungen'), value: stats?.conversions || 0, icon: ShoppingCart, color: '#38A169' },
-    { label: t('affiliate.pending_commission', 'Offene Provision'), value: `${(stats?.commissionPending || 0).toFixed(2)} €`, icon: Percent, color: '#F59E0B' },
-    { label: t('affiliate.approved_commission', 'Bestätigte Provision'), value: `${(stats?.commissionApproved || 0).toFixed(2)} €`, icon: Wallet, color: '#38A169' },
-    { label: t('affiliate.wallet_balance', 'Wallet'), value: `${(stats?.walletBalance || 0).toFixed(2)} €`, icon: Wallet, color: '#3182CE' },
-  ];
+  if (isLoading && !links.length && !commissions.length) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <Loader2 size={32} className="animate-spin text-brand" />
+      </div>
+    );
+  }
 
   return (
-    <div className="p-6 space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold" style={{color:'var(--color-text-primary)'}}>{t('affiliate.dashboard', 'Affiliate Dashboard')}</h1>
-        <p className="text-sm mt-1" style={{color:'var(--color-text-secondary)'}}>{t('affiliate.dashboard_desc', 'Deine Marketing-Performance auf einen Blick')}</p>
+    <div>
+      {/* Header */}
+      <div className="mb-6">
+        <h1 className="text-title-lg text-gray-900">{t('affiliate.dashboard', 'Affiliate Dashboard')}</h1>
+        <p className="text-sm text-gray-400 mt-1">{t('affiliate.dashboard_desc', 'Deine Marketing-Performance auf einen Blick')}</p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {kpis.map((kpi, i) => (
-          <Card key={i} className="transition-all duration-150 hover:shadow-md">
-            <CardContent className="p-5">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-medium" style={{color:'var(--color-text-secondary)'}}>{kpi.label}</p>
-                <kpi.icon size={20} style={{color: kpi.color}} />
-              </div>
-              <p className="text-2xl font-bold mt-2" style={{color:'var(--color-text-primary)'}}>{kpi.value}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+
+      {/* Stat Cards */}
+      <DashboardGrid cols={3} className="mb-6">
+        <StatCard
+          icon={ExternalLink}
+          label={t('affiliate.links', 'Trackinglinks')}
+          value={stats.linkCount}
+          color="brand"
+        />
+        <StatCard
+          icon={MousePointerClick}
+          label={t('affiliate.clicks', 'Klicks')}
+          value={stats.clicks}
+          trend trendUp
+          trendValue={`${conversionRate}% CVR`}
+          color="warning"
+        />
+        <StatCard
+          icon={ShoppingCart}
+          label={t('affiliate.conversions', 'Buchungen')}
+          value={stats.conversions}
+          trend trendUp
+          trendValue={`+${stats.conversions}`}
+          color="success"
+        />
+      </DashboardGrid>
+
+      <DashboardGrid cols={3} className="mb-6">
+        <StatCard
+          icon={Percent}
+          label={t('affiliate.pending_commission', 'Offene Provision')}
+          value={`${stats.commissionPending.toFixed(2)} €`}
+          color="warning"
+        />
+        <StatCard
+          icon={TrendingUp}
+          label={t('affiliate.approved_commission', 'Bestätigte Provision')}
+          value={`${stats.commissionApproved.toFixed(2)} €`}
+          trend trendUp
+          trendValue="Bestätigt"
+          color="success"
+        />
+        <StatCard
+          icon={Wallet}
+          label={t('affiliate.wallet_balance', 'Wallet-Guthaben')}
+          value={`${stats.walletBalance.toFixed(2)} €`}
+          color="brand"
+        />
+      </DashboardGrid>
+
+      {/* Links Table */}
+      <DashboardSection
+        title={t('affiliate.recent_links', 'Deine Trackinglinks')}
+        action={
+          <Link to="/affiliate/links" className="text-xs font-semibold text-brand hover:text-brand-hover flex items-center gap-1.5 transition-colors">
+            {t('common.view_all', 'Alle anzeigen')} <ArrowRight size={12} />
+          </Link>
+        }
+      >
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+          {links.length === 0 ? (
+            <p className="text-sm text-center py-10 text-gray-400">
+              {t('affiliate.no_links', 'Noch keine Trackinglinks vorhanden.')}
+            </p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="min-w-full">
+                <thead>
+                  <tr className="border-b border-gray-100 bg-gray-50/50">
+                    <th className="text-left px-5 py-3"><span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Link</span></th>
+                    <th className="text-left px-5 py-3"><span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Klicks</span></th>
+                    <th className="text-left px-5 py-3"><span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Conversions</span></th>
+                    <th className="text-left px-5 py-3"><span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</span></th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  {links.slice(0, 5).map((link, i) => (
+                    <tr key={link.id || i} className="hover:bg-gray-50/80 transition-colors">
+                      <td className="px-5 py-3 text-sm text-gray-700 font-medium truncate max-w-[200px]">
+                        {link.name || link.slug || link.url || '—'}
+                      </td>
+                      <td className="px-5 py-3 text-sm text-gray-500">{link.clicks || link.total_clicks || 0}</td>
+                      <td className="px-5 py-3 text-sm text-gray-500">{link.conversions || link.total_conversions || 0}</td>
+                      <td className="px-5 py-3">
+                        <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${link.active !== false ? 'bg-success-light text-success-dark' : 'bg-gray-100 text-gray-600'}`}>
+                          {link.active !== false ? 'Aktiv' : 'Inaktiv'}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      </DashboardSection>
     </div>
   );
 }

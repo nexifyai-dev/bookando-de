@@ -50,12 +50,36 @@ const VendorResourcesPage   = lazy(() => import('./pages/vendor/VendorResourcesP
 const VendorAffiliatesPage  = lazy(() => import('./pages/vendor/VendorAffiliatesPage'));
 const VendorBrandingPage    = lazy(() => import('./pages/vendor/VendorBrandingPage'));
 const VendorSettingsPage    = lazy(() => import('./pages/vendor/VendorSettingsPage'));
+const VendorLandingPageBuilder = lazy(() => import('./pages/vendor/VendorLandingPageBuilder'));
+const VendorCustomFieldsPage   = lazy(() => import('./pages/vendor/VendorCustomFieldsPage'));
+const VendorInvoicePage     = lazy(() => import('./pages/vendor/VendorInvoicePage'));
+const VendorPaymentSettingsPage = lazy(() => import('./pages/vendor/VendorPaymentSettingsPage'));
+const VendorNotificationSettingsPage = lazy(() => import('./pages/vendor/VendorNotificationSettingsPage'));
+const VendorSEOPage         = lazy(() => import('./pages/vendor/VendorSEOPage'));
+const VendorOnboardingPage  = lazy(() => import('./pages/vendor/VendorOnboardingPage'));
+const VendorPayoutRequestPage = lazy(() => import('./pages/vendor/VendorPayoutRequestPage'));
+const VendorBookingFormBuilder  = lazy(() => import('./pages/vendor/VendorBookingFormBuilder'));
+const VendorTimezoneSettings   = lazy(() => import('./pages/vendor/VendorTimezoneSettings'));
+const VendorSpecialDaysPage    = lazy(() => import('./pages/vendor/VendorSpecialDaysPage'));
+const VendorCompanyDaysOffPage = lazy(() => import('./pages/vendor/VendorCompanyDaysOffPage'));
+const VendorExtrasPage         = lazy(() => import('./pages/vendor/VendorExtrasPage'));
+const VendorCalendarSyncPage = lazy(() => import('./pages/vendor/VendorCalendarSyncPage'));
+const VendorVideoConferencingPage = lazy(() => import('./pages/vendor/VendorVideoConferencingPage'));
+const VendorSMSNotificationsPage = lazy(() => import('./pages/vendor/VendorSMSNotificationsPage'));
+const VendorDepositSettingsPage = lazy(() => import('./pages/vendor/VendorDepositSettingsPage'));
+const VendorTaxesPage = lazy(() => import('./pages/vendor/VendorTaxesPage'));
+const VendorEmployeeCommissionPage = lazy(() => import('./pages/vendor/VendorEmployeeCommissionPage'));
+const VendorGroupBookingPage = lazy(() => import('./pages/vendor/VendorGroupBookingPage'));
+const PricingSelectionPage  = lazy(() => import('./pages/PricingSelectionPage'));
 
 const CustomerDashboardPage = lazy(() => import('./pages/customer/CustomerDashboardPage'));
 const CustomerBookingsPage  = lazy(() => import('./pages/customer/CustomerBookingsPage'));
 const CustomerRecurringPage = lazy(() => import('./pages/customer/CustomerRecurringPage'));
 const CustomerVouchersPage  = lazy(() => import('./pages/customer/CustomerVouchersPage'));
 const CustomerProfilePage   = lazy(() => import('./pages/customer/CustomerProfilePage'));
+const CustomerFavoritesPage = lazy(() => import('./pages/customer/CustomerFavoritesPage'));
+const CustomerWalletPage    = lazy(() => import('./pages/customer/CustomerWalletPage'));
+const CustomerShareAppointmentPage = lazy(() => import('./pages/customer/CustomerShareAppointmentPage'));
 
 const FranchiserDashboardPage = lazy(() => import('./pages/franchiser/FranchiserDashboardPage'));
 const FranchiserVendorsPage   = lazy(() => import('./pages/franchiser/FranchiserVendorsPage'));
@@ -65,6 +89,8 @@ const AffiliateDashboardPage   = lazy(() => import('./pages/affiliate/AffiliateD
 const AffiliateLinksPage       = lazy(() => import('./pages/affiliate/AffiliateLinksPage'));
 const AffiliateCommissionsPage = lazy(() => import('./pages/affiliate/AffiliateCommissionsPage'));
 const AffiliateWalletPage      = lazy(() => import('./pages/affiliate/AffiliateWalletPage'));
+const AffiliateCampaignPage    = lazy(() => import('./pages/affiliate/AffiliateCampaignPage'));
+const AffiliateApprovalPage    = lazy(() => import('./pages/affiliate/AffiliateApprovalPage'));
 const FranchiserReportsPage   = lazy(() => import('./pages/franchiser/FranchiserReportsPage'));
 
 const AdminDashboardPage = lazy(() => import('./pages/admin/AdminDashboardPage'));
@@ -74,6 +100,9 @@ const AdminPlansPage     = lazy(() => import('./pages/admin/AdminPlansPage'));
 const AdminAuditPage     = lazy(() => import('./pages/admin/AdminAuditPage'));
 const AdminReviewsPage   = lazy(() => import('./pages/admin/AdminReviewsPage'));
 const AdminCommissionPage = lazy(() => import('./pages/admin/AdminCommissionPage'));
+const AdminFeeConfigPage  = lazy(() => import('./pages/admin/AdminFeeConfigPage'));
+const AdminInvoicePage    = lazy(() => import('./pages/admin/AdminInvoicePage'));
+const AdminPayoutPage     = lazy(() => import('./pages/admin/AdminPayoutPage'));
 
 /* Staff Portal */
 const StaffDashboardPage    = lazy(() => import('./pages/staff/StaffDashboardPage'));
@@ -83,6 +112,7 @@ const StaffAvailabilityPage = lazy(() => import('./pages/staff/StaffAvailability
 const StaffCustomersPage    = lazy(() => import('./pages/staff/StaffCustomersPage'));
 const StaffNotesPage        = lazy(() => import('./pages/staff/StaffNotesPage'));
 const StaffProfilePage      = lazy(() => import('./pages/staff/StaffProfilePage'));
+const HelpCenterPage        = lazy(() => import('./pages/help/HelpCenterPage'));
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 30_000, retry: 1, refetchOnWindowFocus: true, refetchOnReconnect: true } },
@@ -144,7 +174,7 @@ function CustomerPortal({ children }) {
   const { navItems } = usePortal();
 
   const mobileBottomNav = useMemo(
-    () => navItems.filter((i) => ['/portal', '/portal/bookings', '/portal/vouchers', '/portal/profile'].includes(i.path)),
+    () => navItems.filter((i) => ['/portal', '/portal/bookings', '/portal/favorites', '/portal/vouchers', '/portal/profile'].includes(i.path)),
     [navItems],
   );
 
@@ -288,6 +318,9 @@ function PortalLayout() {
     else if (path.startsWith('/portal/audit')) Child = AdminAuditPage;
     else if (path.startsWith('/portal/reviews')) Child = AdminReviewsPage;
     else if (path.startsWith('/portal/commissions')) Child = AdminCommissionPage;
+    else if (path.startsWith('/portal/invoices')) Child = AdminInvoicePage;
+    else if (path.startsWith('/portal/payouts')) Child = AdminPayoutPage;
+    else if (path.startsWith('/portal/fees')) Child = AdminFeeConfigPage;
     else if (path.startsWith('/portal/settings')) Child = VendorSettingsPage;
     else if (path.startsWith('/portal')) Child = AdminDashboardPage;
     else Child = NotFoundPage;
@@ -309,11 +342,32 @@ function PortalLayout() {
     else if (path.startsWith('/portal/locations')) Child = VendorLocationsPage;
     else if (path.startsWith('/portal/hours')) Child = VendorHoursPage;
     else if (path.startsWith('/portal/resources')) Child = VendorResourcesPage;
+else if (path.startsWith('/portal/booking-form')) Child = VendorBookingFormBuilder;
+else if (path.startsWith('/portal/timezone')) Child = VendorTimezoneSettings;
+else if (path.startsWith('/portal/special-days')) Child = VendorSpecialDaysPage;
+else if (path.startsWith('/portal/days-off')) Child = VendorCompanyDaysOffPage;
+else if (path.startsWith('/portal/extras')) Child = VendorExtrasPage;
     else if (path.startsWith('/portal/customers')) Child = VendorCustomersPage;
     else if (path.startsWith('/portal/reports')) Child = VendorReportsPage;
     else if (path.startsWith('/portal/wallet')) Child = VendorWalletPage;
     else if (path.startsWith('/portal/affiliates')) Child = VendorAffiliatesPage;
     else if (path.startsWith('/portal/branding')) Child = VendorBrandingPage;
+    else if (path.startsWith('/portal/invoices')) Child = VendorInvoicePage;
+    else if (path.startsWith('/portal/payment-settings')) Child = VendorPaymentSettingsPage;
+    else if (path.startsWith('/portal/notification-settings')) Child = VendorNotificationSettingsPage;
+    else if (path.startsWith('/portal/calendar-sync')) Child = VendorCalendarSyncPage;
+    else if (path.startsWith('/portal/video-integrations')) Child = VendorVideoConferencingPage;
+    else if (path.startsWith('/portal/sms-notifications')) Child = VendorSMSNotificationsPage;
+    else if (path.startsWith('/portal/seo')) Child = VendorSEOPage;
+    else if (path.startsWith('/portal/landing-pages')) Child = VendorLandingPageBuilder;
+    else if (path.startsWith('/portal/custom-fields')) Child = VendorCustomFieldsPage;
+    else if (path.startsWith('/portal/onboarding')) Child = VendorOnboardingPage;
+    else if (path.startsWith('/portal/payout-request')) Child = VendorPayoutRequestPage;
+    else if (path.startsWith('/portal/deposit-settings')) Child = VendorDepositSettingsPage;
+    else if (path.startsWith('/portal/taxes')) Child = VendorTaxesPage;
+    else if (path.startsWith('/portal/employee-commission')) Child = VendorEmployeeCommissionPage;
+    else if (path.startsWith('/portal/group-booking')) Child = VendorGroupBookingPage;
+    else if (path.startsWith('/portal/affiliate-approval')) Child = AffiliateApprovalPage;
     else if (path.startsWith('/portal/settings')) Child = VendorSettingsPage;
     else if (path.startsWith('/portal')) Child = VendorDashboardPage;
     else Child = NotFoundPage;
@@ -322,6 +376,7 @@ function PortalLayout() {
     if (path.startsWith('/portal/links')) Child = AffiliateLinksPage;
     else if (path.startsWith('/portal/commissions')) Child = AffiliateCommissionsPage;
     else if (path.startsWith('/portal/wallet')) Child = AffiliateWalletPage;
+    else if (path.startsWith('/portal/campaigns')) Child = AffiliateCampaignPage;
     else if (path.startsWith('/portal')) Child = AffiliateDashboardPage;
     else Child = NotFoundPage;
   } else if (activeRole === 'franchiser') {
@@ -335,6 +390,10 @@ function PortalLayout() {
     // customer (default)
     Shell = CustomerPortal;
     if (path.startsWith('/portal/bookings')) Child = CustomerBookingsPage;
+    else if (path.startsWith('/portal/favorites')) Child = CustomerFavoritesPage;
+    else if (path.startsWith('/portal/wallet')) Child = CustomerWalletPage;
+    else if (path.startsWith('/portal/share')) Child = CustomerShareAppointmentPage;
+    else if (path.startsWith('/portal/share/:id')) Child = CustomerShareAppointmentPage;
     else if (path.startsWith('/portal/recurring')) Child = CustomerRecurringPage;
     else if (path.startsWith('/portal/vouchers')) Child = CustomerVouchersPage;
     else if (path.startsWith('/portal/profile')) Child = CustomerProfilePage;
@@ -370,6 +429,8 @@ export default function App() {
             <Route path="/features" element={<FeaturesPage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/pricing-select" element={<PricingSelectionPage />} />
+            <Route path="/help" element={<HelpCenterPage />} />
 
             {/* LEGAL */}
             <Route path="/legal/imprint" element={<LegalPage type="imprint" />} />

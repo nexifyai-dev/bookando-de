@@ -12,7 +12,9 @@ import { useTranslation } from 'react-i18next';
 import {
   Home, Store, Briefcase, Users, CalendarDays, CalendarCheck, Contact,
   BarChart3, UserCheck, CalendarClock, TrendingUp, PieChart, Network,
-  Shield, UserCog, Coins, LayoutDashboard, Clock, StickyNote, User, Wrench,
+  Shield, UserCog, Coins, LayoutDashboard, Clock, StickyNote, User, Wrench, Heart, Wallet,
+  ArrowUpRight, Sparkles, FileText, CalendarOff, Globe,
+  RefreshCw, Video, MessageSquare, Share2,
 } from 'lucide-react';
 
 /**
@@ -23,7 +25,10 @@ import {
 const ICONS = {
   Home, Store, Briefcase, Users, CalendarDays, CalendarCheck, Contact,
   BarChart3, UserCheck, CalendarClock, TrendingUp, PieChart, Network,
-  Shield, UserCog, Coins, LayoutDashboard, Clock, StickyNote, User, Wrench,
+  Shield, UserCog, Coins, LayoutDashboard, Clock, StickyNote, User, Wrench, Heart, Wallet,
+  ArrowUpRight,
+  RefreshCw, Video, MessageSquare, Share2,
+  Sparkles, FileText, CalendarOff, Globe,
 };
 
 export function getIcon(name) {
@@ -130,6 +135,110 @@ export function PortalProvider({ children }) {
         requiresTenant: true,
         label: () => t('portal.nav.reports', 'Berichte'),
       },
+      {
+        key: 'vendor-extras',
+        path: '/portal/extras',
+        icon: 'Sparkles',
+        roles: ['vendor', 'admin', 'super_admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.extras', 'Zusatzleistungen'),
+      },
+      {
+        key: 'vendor-booking-form',
+        path: '/portal/booking-form',
+        icon: 'FileText',
+        roles: ['vendor', 'admin', 'super_admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.bookingForm', 'Buchungsformular'),
+      },
+      {
+        key: 'vendor-special-days',
+        path: '/portal/special-days',
+        icon: 'CalendarDays',
+        roles: ['vendor', 'admin', 'super_admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.specialDays', 'Sondertage'),
+      },
+      {
+        key: 'vendor-days-off',
+        path: '/portal/days-off',
+        icon: 'CalendarOff',
+        roles: ['vendor', 'admin', 'super_admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.daysOff', 'Betriebsruhe'),
+      },
+      {
+        key: 'vendor-timezone',
+        path: '/portal/timezone',
+        icon: 'Globe',
+        roles: ['vendor', 'admin', 'super_admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.timezone', 'Zeitzone'),
+      },
+      {
+        key: 'vendor-payout-request',
+        path: '/portal/payout-request',
+        icon: 'ArrowUpRight',
+        roles: ['vendor', 'admin', 'super_admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.payoutRequest', 'Auszahlungen'),
+      },
+      {
+        key: 'vendor-deposit-settings',
+        path: '/portal/deposit-settings',
+        icon: 'Wallet',
+        roles: ['vendor', 'admin', 'super_admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.depositSettings', 'Anzahlungen'),
+      },
+      {
+        key: 'vendor-taxes',
+        path: '/portal/taxes',
+        icon: 'Receipt',
+        roles: ['vendor', 'admin', 'super_admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.taxes', 'Steuern'),
+      },
+      {
+        key: 'vendor-employee-commission',
+        path: '/portal/employee-commission',
+        icon: 'DollarSign',
+        roles: ['vendor', 'admin', 'super_admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.commission', 'Provisionen'),
+      },
+      {
+        key: 'vendor-group-booking',
+        path: '/portal/group-booking',
+        icon: 'Users',
+        roles: ['vendor', 'admin', 'super_admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.groupBooking', 'Gruppenbuchungen'),
+      },
+        {
+        key: 'vendor-calendar-sync',
+        path: '/portal/calendar-sync',
+        icon: 'RefreshCw',
+        roles: ['vendor', 'admin', 'super_admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.calendarSync', 'Kalender-Sync'),
+        },
+        {
+        key: 'vendor-video',
+        path: '/portal/video-integrations',
+        icon: 'Video',
+        roles: ['vendor', 'admin', 'super_admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.videoIntegrations', 'Video-Integrationen'),
+        },
+        {
+        key: 'vendor-sms',
+        path: '/portal/sms-notifications',
+        icon: 'MessageSquare',
+        roles: ['vendor', 'admin', 'super_admin'],
+        requiresTenant: true,
+        label: () => t('portal.nav.smsNotifications', 'SMS-Benachrichtigungen'),
+        },
       // Staff-Bereich
       {
         key: 'staff-dashboard',
@@ -170,6 +279,27 @@ export function PortalProvider({ children }) {
         roles: ['customer', 'admin', 'super_admin'],
         label: () => t('portal.nav.myBookings', 'Meine Termine'),
       },
+      {
+        key: 'customer-favorites',
+        path: '/portal/favorites',
+        icon: 'Heart',
+        roles: ['customer', 'admin', 'super_admin'],
+        label: () => t('portal.nav.favorites', 'Favoriten'),
+      },
+      {
+        key: 'customer-wallet',
+        path: '/portal/wallet',
+        icon: 'Wallet',
+        roles: ['customer', 'admin', 'super_admin'],
+        label: () => t('portal.nav.wallet', 'Wallet'),
+        },
+        {
+        key: 'customer-share',
+        path: '/portal/share',
+        icon: 'Share2',
+        roles: ['customer', 'admin', 'super_admin'],
+        label: () => t('portal.nav.share', 'Termin teilen'),
+        },
       // Affiliate-Bereich
       {
         key: 'affiliate-dashboard',

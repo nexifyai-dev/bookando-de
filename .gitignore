@@ -1,5 +1,7 @@
 # Dependencies
 node_modules/
+gitleaks
+gitleaks*.json
 
 # Build
 build/
