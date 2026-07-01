@@ -16,8 +16,10 @@ import {
   Ban,
   ExternalLink,
   Filter,
+  CreditCard,
+  FileText,
 } from 'lucide-react';
-import { CustomerBookingsApi } from '../../lib/api';
+import { CustomerBookingsApi, InvoiceApi } from '../../lib/api';
 import { useAutoRefresh, usePortalMutation } from '../../hooks/useAutoRefresh';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card';
 import { Badge } from '../../components/ui/badge';
@@ -79,6 +81,35 @@ const STATUS_CONFIG = {
     variant: 'danger',
     icon: Ban,
     label: 'Storniert',
+  },
+};
+
+/* ─── Payment Status Badge Config ─── */
+const PAYMENT_STATUS_CONFIG = {
+  paid: {
+    variant: 'success',
+    icon: CheckCircle2,
+    label: 'Bezahlt',
+  },
+  pending: {
+    variant: 'warning',
+    icon: Clock,
+    label: 'Ausstehend',
+  },
+  cancelled: {
+    variant: 'danger',
+    icon: Ban,
+    label: 'Storniert',
+  },
+  refunded: {
+    variant: 'danger',
+    icon: Ban,
+    label: 'Erstattet',
+  },
+  failed: {
+    variant: 'danger',
+    icon: AlertTriangle,
+    label: 'Fehlgeschlagen',
   },
 };
 
@@ -562,6 +593,19 @@ export default function CustomerBookingsPage() {
                           <StatusIcon size={10} />
                           {statusCfg.label}
                         </Badge>
+                        {(() => {
+                          const payCfg = PAYMENT_STATUS_CONFIG[booking.payment_status];
+                          if (payCfg) {
+                            const PayIcon = payCfg.icon;
+                            return (
+                              <Badge variant={payCfg.variant} size="sm" className="shrink-0 w-fit">
+                                <PayIcon size={10} />
+                                {payCfg.label}
+                              </Badge>
+                            );
+                          }
+                          return null;
+                        })()}
                       </div>
                       <div className="flex flex-wrap gap-x-4 gap-y-1 text-[12px]" style={{ color: 'var(--color-text-tertiary)' }}>
                         <span className="flex items-center gap-1">
@@ -580,6 +624,25 @@ export default function CustomerBookingsPage() {
 
                     {/* Actions */}
                     <div className="flex items-center gap-2 shrink-0">
+                      {booking.payment_status === 'paid' && (
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            InvoiceApi.download(booking.id);
+                          }}
+                          className="px-3 py-2 text-[11px] font-semibold cursor-pointer transition-colors flex items-center gap-1.5"
+                          style={{
+                            border: '1px solid var(--color-divider)',
+                            borderRadius: 'var(--radius-sm)',
+                            color: 'var(--color-success)',
+                            background: 'var(--color-success-bg)',
+                          }}
+                          title="Rechnung herunterladen"
+                        >
+                          <FileText size={12} />
+                          <span className="hidden sm:inline">Rechnung (PDF)</span>
+                        </button>
+                      )}
                       {(booking.status === 'confirmed' || booking.status === 'pending') && (
                         <>
                           <button
